@@ -28,12 +28,11 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/register", async (req, res) => {
+router.post("/signup", async (req, res) => {
   try {
     const schema = joi.object().keys({
       name: joi.string().min(3).max(45).required(),
       surname: joi.string().min(3).max(45).required(),
-      typenatioNalIDcard: joi.string().min().max().required(),
       email: joi.string().email().required(),
       password: joi.string().min(6).max(20).required(),
     });

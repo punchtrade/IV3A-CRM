@@ -12,7 +12,7 @@ router.get("/", (req, res) => {
 
 router.get("/home", function (req, res) {
   if (req.session.user) {
-    return res.render("home.js", { name: req.session.user.name });
+    return res.render("home.html", { name: req.session.user.name });
   }
   res.redirect("/");
 });

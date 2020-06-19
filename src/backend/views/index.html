@@ -19,6 +19,7 @@
                 if ($(this).attr('value') === 'Register') {
                     $.post("/users/signup", {
                         name: $("#username").val(),
+                        surname: $("#surname").val(),
                         email: $("#useremail").val(),
                         password: $("#password").val()
                     }, function (data) {
@@ -64,6 +65,7 @@
     </nav>
     <div class="form-group" style="margin-top: 100px; width : 400px; margin-left : 50px;">
         <input type="text" id="username" placeholder="Name" class="form-control"><br>
+        <input type="text" id="surname" placeholder="Surname" class="form-control"><br>
         <input type="text" id="useremail" placeholder="Email" class="form-control"><br>
         <input type="password" id="password" placeholder="Password" class="form-control"><br>
         <input type="button" id="login-submit" value="Log In" class="btn btn-primary">&nbsp;<a href="" id="reg">Sign up

@@ -48,7 +48,7 @@ app.use(
 );
 
 // set static path
-app.set("views", path.join(__dirname, "/frontend/forms/register"));
+app.set("views", path.join(__dirname, "/views"));
 app.engine("html", require("ejs").renderFile);
 
 // routes
