@@ -8,6 +8,7 @@ const chalk = require("chalk");
 const path = require("path");
 const app = express();
 
+
 // load config file
 nconf
   .argv()
@@ -48,12 +49,17 @@ app.use(
 );
 
 // set static path
-app.set("views", path.join(__dirname, "/views"));
-app.engine("html", require("ejs").renderFile);
+// app.set("views", path.join(__dirname, "/views"));
+// app.engine("html", require("ejs").renderFile);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
+
 
 // routes
 app.use("/", require("./routes/static"));
 app.use("/users", require("./routes/users"));
+
 
 // start the app
 app.listen(nconf.get("port") || 3000);
