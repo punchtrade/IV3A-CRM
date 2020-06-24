@@ -8,12 +8,12 @@ router.get("/", (req, res) => {
   if (req.session.user) {
     return res.redirect("/home");
   }
-  res.render("home.jsx");
+  res.render("login.jsx");
 });
 
-router.get("/login", function (req, res) {
+router.get("/home", function (req, res) {
   if (req.session.user) {
-    return res.render("login.jsx", { name: req.session.user.name });
+    return res.render("home.jsx", { name: req.session.user.name });
   }
   res.redirect("/");
 });
