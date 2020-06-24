@@ -6,6 +6,7 @@ const nconf = require("nconf");
 const bodyParser = require("body-parser");
 const chalk = require("chalk");
 const path = require("path");
+const { request } = require("http");
 const app = express();
 
 
@@ -59,6 +60,7 @@ app.engine('jsx', require('express-react-views').createEngine());
 // routes
 app.use("/", require("./routes/static"));
 app.use("/users", require("./routes/users"));
+
 
 
 // start the app

@@ -1,8 +1,9 @@
 import React from "react";
-import {MDBContainer, MDBInputGroup, MDBInput } from "mdbreact";
+import { MDBContainer, MDBInputGroup, MDBInput } from "mdbreact";
 import ButtonSubmit from "../buttons/buttonSubmit";
 import { login } from '../functions/userFunctions';
 import '../../styles/formLogin.scss';
+
 
 class FormLogin extends React.Component {
   constructor () {
