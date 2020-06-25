@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <title>New Client</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+    />
+
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap-theme.min.css"
+    />
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $ ("#firstName").hide();
+        $("#login-submit").click(function (e) {
+          if ($(this.attr('value') === 'Register Client') {
+            $.post ("/clients/newClient", {
+              treatment: $("#treatment").val(),
+              firstName:$("#firstName").val(),
+              lastName:$("#lastName").val(),
+              email:$("#email").val(),
+              telephone:$("#telephone").val(),
+              address:$("#address").val(),
+              city:$("#city").val(),
+              province:$("#province").val(),
+              postalCode:$("#postalCode").val(),
+            }, function (data) {
+                        if (data.error) {
+                            alert(data.message);
+                        } else {
+                            $("#username").hide();
+                            $("#login-submit").prop('value', 'Log in');
+                        }
+                    });
+    </script>
+  </head>
+  <body>
+        <div class="form-group" style="margin-top: 100px; width : 400px; margin-left : 450px;">
+            <input type="text" id="id" placeholder="Id" class="form-control"><br>
+            <input type="text" id="treatment" placeholder="Traitment" class="form-control"><br>
+            <input type="text" id="firstName" placeholder="Nom" class="form-control"><br>
+            <input type="text" id="lastName" placeholder="Prénom" class="form-control"><br>
+            <input type="text" id="telephone" placeholder="Téléphone" class="form-control"><br>
+            <input type="text" id="email" placeholder="Email" class="form-control"><br>
+            <input type="text" id="address" placeholder="Allée/Rue/Avenue" class="form-control"><br>
+            <input type="text" id="city" placeholder="Ville" class="form-control"><br>
+            <input type="text" id="province" placeholder="Wilaya" class="form-control"><br>
+            <input type="text" id="postalCode" placeholder="Code Postal" class="form-control"><br>
+            <input type="button" id="login-submit" value="Soumettre" class="btn btn-primary">&nbsp;<a href="" id="reg">Soumettre</a>
+        </div>>
+
+        </div>
+  </body>
+</html>

@@ -24,7 +24,7 @@ class NewClient extends React.Component {
             <MDBInputGroup
                 containerClassName="mb-3 mt-3 right"
                 prepend="Nº"
-                value={this.state.first_name}  
+                
                 onChange={this.onChange}
                 inputs={
                 <>
@@ -35,7 +35,7 @@ class NewClient extends React.Component {
                 <MDBInputGroup
                 containerClassName="mb-3 mt-3 left"
                 prepend="Traitment"
-                value={this.state.first_name}  
+                
                 onChange={this.onChange}
                 inputs={
                 <>
@@ -46,7 +46,7 @@ class NewClient extends React.Component {
               <MDBInputGroup 
                 containerClassName="mb-3 mt-3 left"
                 prepend="Nom et Prénom"
-                value={this.state.first_name}  
+               
                 onChange={this.onChange}
                 inputs={
           <>
@@ -59,7 +59,7 @@ class NewClient extends React.Component {
               <MDBInputGroup 
                 containerClassName="mb-3 mt-3 left"
                 prepend="Téléphone et Email"
-                value={this.state.first_name}  
+                
                 onChange={this.onChange}
                 inputs={
           <>
@@ -72,7 +72,7 @@ class NewClient extends React.Component {
               <MDBInputGroup 
                 containerClassName="mb-3 mt-3 right"
                 prepend="Allée/Rue/Avenue/Ville"
-                value={this.state.first_name}  
+               
                 onChange={this.onChange}
                 inputs={
           <>

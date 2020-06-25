@@ -1,6 +1,6 @@
 <html>
   <head>
-    <title>Home</title>
+    <title>Accueil</title>
 
     <!-- Latest compiled and minified CSS -->
     <link
@@ -16,20 +16,32 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <script>
+      
+    
+    </script>
   </head>
-
   <body>
     <nav class="navbar navbar-default navbar-fixed-top">
-      <div class="navbar-header"style="background-color: #036435">
+      <div class="navbar-header">
       </div>
       <div class="container">
         <p class="navbar-text navbar-right">
-          <a href="/users/logout/">Logout</a>
+          <a href="/users/logout/">Se déconnecter</a>
         </p>
       </div>
     </nav>
-    <div style="margin-top: 100px; margin-left: 50px; width: 400px;">
+    <div class="text-center"style="margin-top: 100px; margin-left: 420px; width: 400px;">
       <h1>Bonjour, <%= name %></h1>
+        <input class="form-control" id="send" type="text" style="margin-top: 100px;" 
+          placeholder="Recherche de noms"
+          aria-label="Search">
+        <i class="fas fa-search" aria-hidden="true"></i>
+    </div>
+    <div class="button">
+      <a href="newClient.html" 
+        class="btn btn-primary btn-lg active" role="button" id="login-submit" type="button" value="Nouveau Client" id="reg"
+        aria-pressed="true" style="margin-top: 100px; margin-left: 420px; width: 400px;">Nouveau client</a>
     </div>
   </body>
 </html>

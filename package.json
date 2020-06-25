@@ -2,6 +2,9 @@
   "name": "iv3a",
   "version": "0.1.0",
   "private": true,
+  "description": "",
+  "main": "index.js",
+  "module": "main.js",
   "dependencies": {
     "@hapi/joi": "^17.1.1",
     "@testing-library/jest-dom": "^4.2.4",
@@ -33,7 +36,8 @@
     "redis-server": "^1.2.2",
     "sass": "^1.26.8",
     "scss": "^0.2.4",
-    "update": "^0.7.4"
+    "update": "^0.7.4",
+    "esm": "^3.2.25"
   },
   "scripts": {
     "start": "react-scripts start",

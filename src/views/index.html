@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Home</title>
+    <title>Accueil</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
@@ -18,8 +18,8 @@
             $('#login-submit').click(function (e) {
                 if ($(this).attr('value') === 'Register') {
                     $.post("/users/signup", {
-                        name: $("#username").val(),
-                        surname: $("#surname").val(),
+                        firstName: $("#username").val(),
+                        lastName: $("#lastName").val(),
                         email: $("#useremail").val(),
                         password: $("#password").val()
                     }, function (data) {
@@ -53,20 +53,18 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-default navbar-fixed-top" style="background-color: #036435">
+    <nav class="navbar navbar-default navbar-fixed-top">
         <div class="navbar-header">
         </div>
         <div class="container">
         </div>
     </nav>
     <div class="form-group" style="margin-top: 100px; width : 400px; margin-left : 450px;">
-        <input type="text" id="username" placeholder="Name" class="form-control"><br>
-        <input type="text" id="surname" placeholder="Surname" class="form-control"><br>
+        <input type="text" id="username" placeholder="Nom" class="form-control"><br>
+        <input type="text" id="lastName" placeholder="Prénom" class="form-control"><br>
         <input type="text" id="useremail" placeholder="Email" class="form-control"><br>
-        <input type="password" id="password" placeholder="Password" class="form-control"><br>
-        <input type="button" id="login-submit" value="Log In" class="btn btn-primary">&nbsp;<a href="" id="reg">Sign up
-            here </a>
+        <input type="password" id="password" placeholder="Mot de passe" class="form-control"><br>
+        <input type="button" id="login-submit" value="S'identifier" class="btn btn-primary">&nbsp;<a href="" id="reg">Inscrivez-vous ici </a>
     </div>
 </body>
-
 </html>

@@ -12,7 +12,7 @@ function addUser(userData) {
         // user already exists, send response
         return resolve({
           error: true,
-          message: "User already exists with this credentials. Please login",
+          message: "L'utilisateur existe déjà avec ces identifiants. Veuillez vous connecter",
           data: [],
         });
       }
