@@ -8,8 +8,8 @@ class FormRegister extends React.Component {
   constructor() {
     super()
     this.state = {
-      first_name: '',
-      last_name:'',
+      firstName: '',
+      lastName:'',
       email:'',
       password:'',
       errors: {}
@@ -26,8 +26,8 @@ class FormRegister extends React.Component {
     e.preventDefault()
 
     const newUser = {
-      first_name: this.state.first_name,
-      last_name: this.state.last_name,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
       email: this.state.email,
       password: this.state.password
     }
@@ -42,7 +42,7 @@ class FormRegister extends React.Component {
       <MDBInputGroup 
         containerClassName="mb-3 mt-3"
         prepend="Nom et Prénom"
-        value={this.state.first_name}  
+        value={this.state.firstName}  
         onChange={this.onChange}
         inputs={
           <>
@@ -86,7 +86,7 @@ class FormRegister extends React.Component {
           </>          
         }        
       />
-       <ButtonSubmit/>
+       <ButtonSubmit onCange={this.onSubmit}/>
     </MDBContainer> 
    
     );

@@ -49,18 +49,19 @@ app.use(
   })
 );
 
+
 // set static path
-app.set("views", path.join(__dirname, "/views"));
-app.engine("html", require("ejs").renderFile);
-// app.set('views', __dirname + '/views');
-// app.set('view engine', 'jsx');
-// app.engine('jsx', require('express-react-views').createEngine());
+// app.set("views", path.join(__dirname, "/views"));
+// app.engine("html", require("ejs").renderFile);
+app.set('pages', __dirname + '../pages');
+app.set('view engine', 'jsx');
+app.engine('jsx', require('express-react-views').createEngine());
 
 
 // routes
 app.use("/", require("../src/server/routes/static"));
 app.use("/users", require("../src/server/routes/users"));
-app.use("/newClient", require("../src/server/routes/clients"));
+app.use("/clients", require("../src/server/routes/clients"));
 
 
 

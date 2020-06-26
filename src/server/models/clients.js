@@ -70,7 +70,6 @@ reject(e);
 
 // checkIfUserExists
 
-
 function checkIfClientExists(userData) {
     return new Promise((resolve, reject) => {
       try {
@@ -93,5 +92,5 @@ function checkIfClientExists(userData) {
 
   module.exports = {
     addClient: addClient,
-    verifyUser: verifyClient,
+    verifyClient: verifyClient,
   };

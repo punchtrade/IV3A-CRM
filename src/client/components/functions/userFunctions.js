@@ -1,10 +1,10 @@
-import axios from 'axios';
+import redis from 'redis';
 
 export const register = newUser => {
-  return axios
-    .post('users/register', {
-      first_name: newUser.first_name,
-      last_name: newUser.last_name,
+  return redis
+    .post('/register', {
+      firstName: newUser.firstName,
+      lastName: newUser.lastName,
       email: newUser.email,
       password: newUser.password
     })
@@ -14,8 +14,8 @@ export const register = newUser => {
 }
 
 export const login = user => {
-  return axios
-    .post('users/login', {
+  return redis
+    .post('/login', {
       email: user.email,
       password: user.password
     })
@@ -29,9 +29,9 @@ export const login = user => {
 }
 
 export const getProfile = user => {
-  return axios
-    .get('users/profile', {
-      //headers: { Authorization: ` ${this.getToken()}` }
+  return redis
+    .get('/profile', {
+      // headers: { Authorization: ` ${this.getToken()}` }
     })
     .then(response => {
       console.log(response)
