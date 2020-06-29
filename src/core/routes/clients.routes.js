@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const joi = require("@hapi/joi");
-const models = require("../models/clients");
+const models = require("../../server/models/clients");
 
 router.post("/newClient", async (req, res) => {
     try { 
