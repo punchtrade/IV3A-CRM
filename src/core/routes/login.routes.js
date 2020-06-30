@@ -3,10 +3,10 @@ const router = express.Router();
 const bcrypt = require('bcrypt');
 const jwt= require('jsonwebtoken');
 
-const User = require('../../../server/models/users');
+const user = require('../../../server/models/users');
 
 router.post('/', (req, res, next) => {
-    User.find({ email: req.body.email })
+    user.find({ email: req.body.email })
         .exec()
         .then(user => {
             if (user.length < 1){

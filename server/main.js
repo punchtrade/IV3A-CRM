@@ -9,6 +9,7 @@ const { request } = require("http");
 const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
+const path = require('path');
 
 
 
@@ -36,16 +37,18 @@ redisSessionStore.on("connect", () => {
 });
 
 // //middlewares
-app.use(express.static(__dirname + '/public/'));
+app.use(express.static(path.resolve(__dirname + '/public/')));
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(express.json());
+app.use(require('./controllers/authController'));
 
 
 // routes
-app.use("/users", require("../src/core/routes/users.routes"));
-app.use("/signIn", require("../src/core/routes/signIn.routes"));
+app.use("/register", require("../src/core/routes/register.routes"));
+app.use("/login", require("../src/core/routes/login.routes"));
 module.exports = app;
 
 //initializations

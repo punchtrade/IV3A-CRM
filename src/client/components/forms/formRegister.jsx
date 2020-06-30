@@ -13,8 +13,7 @@ class FormRegister extends React.Component {
       idCard: '',
       email:'',
       password:'',
-      errors: {},
-      method: 'POST'
+      errors: {}
     }
 
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -29,9 +28,10 @@ class FormRegister extends React.Component {
     e.preventDefault();
     if (!(this.state.firstName === '' || this.state.lastName === '' || this.state.email === '' || this.state.password === '')
       && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email))) {
-      axios.post('/api/signUp', {
+      axios.post('http://localhost:3000/register', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
+        idCard: this.state.idCard,
         email: this.state.email,
         password: this.state.password
       }).then(res => {
@@ -78,7 +78,7 @@ class FormRegister extends React.Component {
   render() {
     // if (this.state.redirect) return <Redirect to='/' />
     return (
-    <MDBContainer className="form" onSubmit={this.onSubmitHandler.bind(this)}>
+    <MDBContainer className="form" onSubmit={this.onSubmitHandler.bind(this)} method="POST"  action="/post-feedback">
       <MDBInputGroup 
         containerClassName="mb-3 mt-3"
         prepend="Nom et Prénom"
