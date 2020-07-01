@@ -29,7 +29,7 @@ router.post('/', (req, res, next) => {
                     lastName: user[0].lastName,
                     email: user[0].email,
                 }, require('../../../server/configs/default').secret_key, {
-                    expiresIn:"1h"
+                    expiresIn:"24h"
                 });
                 return res.status(200).json ({
                     message: 'Auth Successful',

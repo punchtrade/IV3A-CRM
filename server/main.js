@@ -10,7 +10,7 @@ const app = express();
 const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
-
+const db = require('mongodb');
 
 
 // load config file
@@ -44,20 +44,28 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(require('./controllers/authController'));
+app.use(require("../api/app"));
 
 
 // routes
+app.use (function(req, res, next) {
+  req.db = db;
+  next();
+});
 app.use("/register", require("../src/core/routes/register.routes"));
 app.use("/login", require("../src/core/routes/login.routes"));
-module.exports = app;
+
 
 //initializations
 
 require('../src/core/database');
 
 //Settings
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 9000);
 
-app.listen('3000', function() {
-  console.log('Servidor web escuchando en el puerto 3000');
+app.listen('9000', function() {
+  console.log('Servidor web escuchando en el puerto 9000');
 });
+
+
+module.exports = app;

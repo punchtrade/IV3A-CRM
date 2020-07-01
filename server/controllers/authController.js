@@ -43,13 +43,13 @@ router.get('/home', verifyToken, async (req, res, next) => {
     res.status(200).json(user);
 });
 
-// router.get('/dashboard', verifyToken, (req, res) => {
-//     res.json ('dashboard');
-// })
+router.get('/dashboard', verifyToken, (req, res) => {
+    res.json ('dashboard');
+})
 
 router.post('/login', async(req, res, next) => {
-    // const { email, password } = req.body;
-    // console.log(email, password);
+    const { email, password } = req.body;
+    console.log(email, password);
     const user = await User.findOne({email: req.body.email});
     if (!user) {
         return res.status(404).send("The email doesn't exists");

@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../configs/default');
 
 async function verifyToken (req, res, next) {
-    const token = req.headers['Bearer Token'];
+    const token = req.headers.authorization;
     if (!token) {
         return res.status(401).send({
             auth: false,

@@ -14,7 +14,7 @@ class FormRegister extends React.Component {
       email:'',
       password:'',
       errors: {}
-    }
+    };
 
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
     this.firstNameInputChangeHandler = this.firstNameInputChangeHandler.bind(this);
@@ -24,11 +24,15 @@ class FormRegister extends React.Component {
     this.passwordInputChangeHandler = this.passwordInputChangeHandler.bind(this);
   }
 
+  componentDidMount() {
+    axios.post('http://localhost:9000/');
+  }
+
   onSubmitHandler (e) {
     e.preventDefault();
-    if (!(this.state.firstName === '' || this.state.lastName === '' || this.state.email === '' || this.state.password === '')
+    if (!(this.state.firstName === '' || this.state.lastName === '' || this.state.idCard === '' || this.state.email === '' || this.state.password === '')
       && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email))) {
-      axios.post('http://localhost:3000/register', {
+      axios.post('http://localhost:9000/testAPI', {
         firstName: this.state.firstName,
         lastName: this.state.lastName,
         idCard: this.state.idCard,
@@ -78,7 +82,7 @@ class FormRegister extends React.Component {
   render() {
     // if (this.state.redirect) return <Redirect to='/' />
     return (
-    <MDBContainer className="form" onSubmit={this.onSubmitHandler.bind(this)} method="POST"  action="/post-feedback">
+    <MDBContainer className="form" onSubmit={this.onSubmitHandler.bind(this)} method="post"  action="/post-feedback">
       <MDBInputGroup 
         containerClassName="mb-3 mt-3"
         prepend="Nom et Prénom"
@@ -128,7 +132,7 @@ class FormRegister extends React.Component {
           </>          
         }        
       />
-       <ButtonSubmit onChange={this.onSubmitHandler} type="submit" value="Submit"/>
+       <ButtonSubmit onClick={this.onSubmitHandler} type="submit"  value="Submit"/>
     </MDBContainer> 
    
     );

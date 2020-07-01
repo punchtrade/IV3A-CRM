@@ -12,7 +12,7 @@ class FormLogin extends React.Component {
       email: '',
       password: '',
       errors: {},
-      method: 'GET'
+      method: 'POST'
     }
     
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -24,7 +24,7 @@ class FormLogin extends React.Component {
   onSubmitHandler() {
     if (!(this.state.email === '' || this.state.password === '')
     && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-    axios.post('http://localhost:3000/login', {
+    axios.post('http://localhost:9000/login', {
         email: this.state.email,
         password: this.state.password
     }).then(res => {
