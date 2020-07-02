@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
-import { MDBContainer, MDBInputGroup, MDBInput } from "mdbreact";
-import ButtonSubmit from "../buttons/buttonSubmit";
+import { MDBContainer, MDBInputGroup, MDBInput , MDBBtn} from "mdbreact";
+// import ButtonSubmit from "../buttons/buttonSubmit";
 import '../../styles/formLogin.scss';
 
 
@@ -12,7 +12,6 @@ class FormLogin extends React.Component {
       email: '',
       password: '',
       errors: {},
-      method: 'POST'
     }
     
     this.onSubmitHandler = this.onSubmitHandler.bind(this);
@@ -22,9 +21,10 @@ class FormLogin extends React.Component {
 
   
   onSubmitHandler() {
+    console.log(this.state);
     if (!(this.state.email === '' || this.state.password === '')
     && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-    axios.post('http://localhost:9000/login', {
+    axios.post('http://localhost:9000/', {
         email: this.state.email,
         password: this.state.password
     }).then(res => {
@@ -84,7 +84,7 @@ passwordInputChangeHandler(event) {
           </>          
         }        
       />
-       <ButtonSubmit onClick={this.onSubmitHandler} type="button"/>
+       <MDBBtn onClick={this.onSubmitHandler} type="button"/>
     </MDBContainer> 
     );
   }

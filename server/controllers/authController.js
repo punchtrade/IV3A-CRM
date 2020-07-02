@@ -43,9 +43,9 @@ router.get('/home', verifyToken, async (req, res, next) => {
     res.status(200).json(user);
 });
 
-router.get('/dashboard', verifyToken, (req, res) => {
-    res.json ('dashboard');
-})
+// router.get('/dashboard', verifyToken, (req, res) => {
+//     res.json ('dashboard');
+// })
 
 router.post('/login', async(req, res, next) => {
     const { email, password } = req.body;

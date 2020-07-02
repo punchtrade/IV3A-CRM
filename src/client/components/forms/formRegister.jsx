@@ -1,12 +1,12 @@
 import React from "react";
 import axios from 'axios';
-import { MDBContainer, MDBInputGroup, MDBInput } from "mdbreact";
-import ButtonSubmit from "../buttons/buttonSubmit";
+import { MDBContainer, MDBInputGroup, MDBInput, MDBBtn } from "mdbreact";
+// import ButtonSubmit from "../buttons/buttonSubmit";
 import '../../styles/formRegister.scss';
 
 class FormRegister extends React.Component {
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       firstName: '',
       lastName:'',
@@ -16,127 +16,99 @@ class FormRegister extends React.Component {
       errors: {}
     };
 
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
-    this.firstNameInputChangeHandler = this.firstNameInputChangeHandler.bind(this);
-    this.lastNameInputChangeHandler = this.lastNameInputChangeHandler.bind(this);
-    this.idCardInputChangeHandler = this.idCardInputChangeHandler.bind(this);
-    this.emailInputChangeHandler = this.emailInputChangeHandler.bind(this);
-    this.passwordInputChangeHandler = this.passwordInputChangeHandler.bind(this);
   }
 
-  componentDidMount() {
-    axios.post('http://localhost:9000/');
+  changeHandler = e => {
+    this.setState({ [e.target.name] : e.target.value })
   }
 
-  onSubmitHandler (e) {
+  submitHandler = async (e) => {
     e.preventDefault();
-    if (!(this.state.firstName === '' || this.state.lastName === '' || this.state.idCard === '' || this.state.email === '' || this.state.password === '')
-      && (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(this.state.email))) {
-      axios.post('http://localhost:9000/testAPI', {
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        idCard: this.state.idCard,
-        email: this.state.email,
-        password: this.state.password
-      }).then(res => {
-        this.setState({
-          redirect: true
-        });
-      }).catch(err => {
-        console.log(err);
-      });
-    } else {
-      alert('Please enter valid details');
-    }
+    console.log(this.state)
+
+   await axios
+          .post('http://localhost:3000/register/', this.state)
+          .then(response => {
+            console.log(response)
+          })
+          .catch(error => {
+            console.log(error)
+          })
   }
 
-  firstNameInputChangeHandler(event) {
-    this.setState({
-      firstName: event.target.value
-    });
-  }
-
-  lastNameInputChangeHandler(event) {
-    this.setState({
-      lastName: event.target.value
-    });
-  }
-
-  idCardInputChangeHandler(event) {
-    this.setState({
-      idCard: event.target.value
-    });
-  }
-
-  emailInputChangeHandler(event) {
-    this.setState({
-      email: event.target.value
-    });
-  }
-
-  passwordInputChangeHandler(event) {
-    this.setState({
-      password: event.target.value
-    });
-  }
   render() {
-    // if (this.state.redirect) return <Redirect to='/' />
-    return (
-    <MDBContainer className="form" onSubmit={this.onSubmitHandler.bind(this)} method="post"  action="/post-feedback">
-      <MDBInputGroup 
-        containerClassName="mb-3 mt-3"
-        prepend="Nom et Prénom"
-        value={this.firstName && this.lastName}
-        onChange={this.firstNameInputChangeHandler &&  this.lastNameInputChangeHandler} required
-        inputs={
-          <>
-            <MDBInput noTag type="text" hint="Nom" />
-            <MDBInput noTag type="text" hint="Prénom" />
-          </> 
-                 
-        }        
-      />
+      const { firstName, lastName, idCard, email, password } = this.state
+        return (
+        <MDBContainer className="form" onSubmit={this.submitHandler}>
+          <MDBInputGroup 
+            containerClassName="mb-3 mt-3"
+            prepend="Nom"
+            type="text"
+            value={firstName}
+            onChange= {this.changeHandler} required
+            inputs={
+              <>
+                <MDBInput noTag type="text" hint="Nom" />
+              </> 
+                    
+            }        
+          />
+          <MDBInputGroup
+            containerClassName="mb-3 mt-3"
+            prepend="Prénom"
+            type="text"
+            value={lastName}
+            onChange={this.changeHandler} required
+            inputs={
+              <>
+                <MDBInput noTag type="text" hint="Prénom" />
+                </>
+            }
+          />
 
-<MDBInputGroup       
-        containerClassName="mb-3 mt-3"
-        prepend="Carte d'identité"
-        value={this.idCard}
-        onChange={this.idCardInputChangeHandler} required
-        inputs={
-          <>
-            <MDBInput noTag type="text" hint="Carte d'identité" />
-          </>          
-        }        
-      />
+    <MDBInputGroup       
+            containerClassName="mb-3 mt-3"
+            prepend="Carte d'identité"
+            type="text"
+            value= {idCard}
+            onChange={this.changeHandler} required
+            inputs={
+              <>
+                <MDBInput noTag type="text" hint="Carte d'identité" />
+              </>          
+            }        
+          />
 
-<MDBInputGroup       
-        containerClassName="mb-3 mt-3"
-        prepend="Email"
-        value={this.email}
-        onChange={this.emailInputChangeHandler} required
-        inputs={
-          <>
-            <MDBInput noTag type="text" hint="Email" />
-          </>          
-        }        
-      />
+    <MDBInputGroup       
+            containerClassName="mb-3 mt-3"
+            prepend="Email"
+            type="text"
+            value={email}
+            onChange={this.changeHandler} required
+            inputs={
+              <>
+                <MDBInput noTag type="text" hint="Email" />
+              </>          
+            }        
+          />
 
-<MDBInputGroup
-        containerClassName="mb-3 mt-3"
-        prepend="Mot de passe"
-        value={this.password}
-        onChange={this.passwordInputChangeHandler} required
-        inputs={
-          <>
-            <MDBInput noTag type="text" hint="Mot de passe" />
-          </>          
-        }        
-      />
-       <ButtonSubmit onClick={this.onSubmitHandler} type="submit"  value="Submit"/>
-    </MDBContainer> 
-   
-    );
-  }
-};
+    <MDBInputGroup
+            containerClassName="mb-3 mt-3"
+            prepend="Mot de passe"
+            type="text"
+            value={password}
+            onChange={this.changeHandler} required
+            inputs={
+              <>
+                <MDBInput noTag type="text" hint="Mot de passe" />
+              </>          
+            }        
+          />
+          <MDBBtn onClick={this.submitHandler} type="submit"/>
+        </MDBContainer> 
+      
+        );
+      }
+    };
 
 export default FormRegister;

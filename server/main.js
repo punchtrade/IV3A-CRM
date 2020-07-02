@@ -56,6 +56,11 @@ app.use("/register", require("../src/core/routes/register.routes"));
 app.use("/login", require("../src/core/routes/login.routes"));
 
 
+app.use((err, req, res, next) => {
+  console.error(err.stack)
+
+  res.status(500).send('Something broke!');
+});
 //initializations
 
 require('../src/core/database');
