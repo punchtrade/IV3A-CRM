@@ -18,28 +18,45 @@ class FormRegister extends React.Component {
 
   }
 
+  // async componentDidMount(){
+  //   const res = await axios.get('http://localhost:3000/register');
+  //   this.setState({ users: res.data });
+  //   console.log(this.state.users)
+  // }
+
   changeHandler = e => {
     this.setState({ [e.target.name] : e.target.value })
   }
 
-  submitHandler = async (e) => {
+  onSubmitHandler =  (e) => {
     e.preventDefault();
     console.log(this.state)
 
+  const sendData = async () => {
    await axios
-          .post('http://localhost:3000/register/', this.state)
+          .post("http://localhost:3000/api/register", {
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            idCard: this.state.idCard,
+            email: this.state.email,
+            password: this.state.password,
+          }, {
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
           .then(response => {
             console.log(response)
           })
           .catch(error => {
-            console.log(error)
+            console.log(error, error.response)
           })
+    }
   }
-
   render() {
       const { firstName, lastName, idCard, email, password } = this.state
         return (
-        <MDBContainer className="form" onSubmit={this.submitHandler}>
+        <MDBContainer className="form" onSubmit={this.onSubmitHandler}>
           <MDBInputGroup 
             containerClassName="mb-3 mt-3"
             prepend="Nom"
@@ -104,7 +121,7 @@ class FormRegister extends React.Component {
               </>          
             }        
           />
-          <MDBBtn onClick={this.submitHandler} type="submit"/>
+          <MDBBtn onClick={this.onSubmitHandler} type="button" color="green"/>
         </MDBContainer> 
       
         );

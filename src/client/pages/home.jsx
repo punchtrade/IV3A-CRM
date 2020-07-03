@@ -1,15 +1,29 @@
 import React from 'react';
-// import Header from  '../components/header/header';
-// import Footer from '../components/footer/footer';
+import axios from 'axios';
 
-const Home = props => {
+class Home extends React.Component{
+     
+// componentDidMount() {
+//     axios
+//         .get('http://localhost:3000/home')
+//         .then(response => {
+//             console.log(response)
+//             this.setState({ posts: response.data })
+//         })
+//         .catch(error => {
+//             console.log(error)
+//             this.setState({errorMsg: 'Error retrieving data'})
+//         })
+// }
+
+render() {
     return (
         <div>
-            {/* <Header />
-            <Footer /> */}
              <h1>Bonjour, </h1>
         </div>
-    )
+     )
+  }
 }
 
 export default Home;
+

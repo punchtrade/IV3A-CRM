@@ -42,13 +42,13 @@ class Header extends Component {
                     </MDBCollapse>
               </MDBNavbar>
               <Switch>
-                  <Route path="/register">
+                  <Route path="/api/register">
                       <Register />
                   </Route>
-                  <Route path="/login">
+                  <Route path="/api/login">
                       <Login />
                   </Route>
-                  <Route path="/logout">
+                  <Route path="/api/logout">
                       <Logout />
                   </Route>
               </Switch>
