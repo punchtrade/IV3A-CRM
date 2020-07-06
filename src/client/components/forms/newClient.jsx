@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 
 class NewClient extends React.Component {
     constructor() {
@@ -17,11 +18,28 @@ class NewClient extends React.Component {
             errors: ''
         }
     }
+
+    changeHandler = e => {
+      this.setState({ [e.target.name] : e.target.value })
+    }
+
+    onSubmitHandler = e => {
+      e.preventDefault()
+      console.log(this.state)
+      axios
+            .post('http://localhost:9000/newClient', this.state, {headers:{"Content-Type": "application/json"}})
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            })
+    }
     render() {
-      const { id, treatment, firstName, lastName, telephone, email, address, city, state, postalCode }
+      const { id, treatment, firstName, lastName, telephone, email, address, city, state, postalCode } = this.state
         return (
           <div>
-            <form className="form-client" onSubmit="" action="" method="">
+            <form className="form-client" onSubmit={this.onSubmitHandler} action="http://localhost:9000/newClient" method="post">
               <div>
                 <input
                   className="mb-3 mt-3"

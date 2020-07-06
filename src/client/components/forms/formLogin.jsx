@@ -1,7 +1,7 @@
 import React from "react";
 import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 import '../../styles/formLogin.scss';
-
 
 class FormLogin extends React.Component {
   constructor (props) {
@@ -10,6 +10,8 @@ class FormLogin extends React.Component {
       email: '',
       password: '',
       errors: {},
+      token: '',
+      redirect: localStorage.getItem('userTokenTime') ? true : false
     }
   }
 
@@ -58,13 +60,15 @@ passwordInputChangeHandler(event) {
     });
 }
   render() {   
-    const { email, password } = this.state 
+    if (this.state.redirect) return <Redirect to="/home" />;
+    const { id, email, password } = this.state 
     return ( 
       <div>  
         <form onSubmit={this.onSubmitHandler} action="http://localhost:9000/login" method="post">       
             <div>
               <input
                 className="mb-3 mt-3"
+                id={id}
                 type="text"
                 name="email"
                 placeholder="Email"
@@ -75,7 +79,8 @@ passwordInputChangeHandler(event) {
             <div>
               <input
                 className="mb-3 mt-3"
-                type="text"
+                id={id}
+                type="password"
                 name="password"
                 placeholder="Password"
                 value={password}

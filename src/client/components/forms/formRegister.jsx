@@ -21,7 +21,7 @@ class FormRegister extends React.Component {
   }
 
   onSubmitHandler = e => {
-	e.preventDefault()
+	e.preventDefault();
 	console.log(this.state)
 	axios
 		.post('http://localhost:9000/register', this.state, {headers:{"Content-Type": "application/json"}})

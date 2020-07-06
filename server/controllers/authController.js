@@ -62,17 +62,15 @@ router.post('/login', async(req, res, next) => {
 });
 
 router.get('/home',verifyToken, async(req, res, next) => {
-    const user = await User.find(req.userId, { password: 0 });
+    const user = await User.findById(req.userId, { password: 0 });
     if (!user) {
-        // return{};
+        // return {};
+        return res.status(200).send(user);
+        next();
+        console.log(user);
         return res.status(404).send('No user found');
-        console.log(verifyToken);
-    }
-
-
-    return res.status(200).json(user);
-    next();
-    console.log(user);
+        // console.log(verifyToken);
+    }   
 });
 
 router.get('/logout', (req, res) => {

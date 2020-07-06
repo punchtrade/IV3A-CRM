@@ -7,12 +7,14 @@ const userSchema = new mongoose.Schema({
         type: String, 
         required: true
      },
-    lastName: { type: String, 
+    lastName: { 
+        type: String, 
         required: true,
         max: 255,
         min: 6 
     },
-    idCard: { type: String, 
+    idCard: { 
+        type: String, 
         required: true,
         unique: true,
         max: 45,
@@ -24,7 +26,8 @@ const userSchema = new mongoose.Schema({
         unique: true,
         match: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     },
-    password: { type: String, 
+    password: { 
+        type: String, 
         required: true,
         max: 1024,
         min: 6
