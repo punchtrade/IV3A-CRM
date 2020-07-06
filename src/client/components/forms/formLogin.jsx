@@ -1,7 +1,5 @@
 import React from "react";
 import axios from 'axios';
-import { MDBContainer, MDBInputGroup, MDBInput , MDBBtn} from "mdbreact";
-// import ButtonSubmit from "../buttons/buttonSubmit";
 import '../../styles/formLogin.scss';
 
 
@@ -13,12 +11,11 @@ class FormLogin extends React.Component {
       password: '',
       errors: {},
     }
-    
-    this.onSubmitHandler = this.onSubmitHandler.bind(this);
-    this.emailInputChangeHandler = this.emailInputChangeHandler.bind(this);
-    this.passwordInputChangeHandler = this.passwordInputChangeHandler.bind(this);
   }
 
+  changeHandler = e => {
+    this.setState({ [e.target.name] : e.target.value })
+  }
   
   onSubmitHandler() {
     console.log(this.state);
@@ -60,33 +57,35 @@ passwordInputChangeHandler(event) {
         password: event.target.value
     });
 }
-  render() {    return (             
-    <MDBContainer className="form-login" onSubmit={this.onSubmitHandler.bind(this)}>
-      <MDBInputGroup 
-        containerClassName="mb-3 mt-3"
-        prepend="Email"
-        value={this.state.email}
-        onChange={this.emailInputChangeHandler} required 
-        inputs={
-          <>
-            <MDBInput noTag type="text" hint="Email" />
-          </>          
-        }        
-      />
-<MDBInputGroup
-        containerClassName="mb-3 mt-3"
-        prepend="Mot de passe"
-        value={this.state.password}
-        onChange={this.passwordInputChangeHandler} required
-        inputs={
-          <>
-            <MDBInput noTag type="text" hint="Mot de passe" />
-          </>          
-        }        
-      />
-       <MDBBtn onClick={this.onSubmitHandler} type="button"/>
-    </MDBContainer> 
-    );
+  render() {   
+    const { email, password } = this.state 
+    return ( 
+      <div>  
+        <form onSubmit={this.onSubmitHandler} action="http://localhost:9000/login" method="post">       
+            <div>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="email"
+                placeholder="Email"
+                value={email}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="password"
+                placeholder="Password"
+                value={password}
+                onChange={this.changeHandler}
+              />
+            </div>
+              <button type="submit">Submit</button>
+          </form>
+        </div>  
+    )
   }
 }
 
