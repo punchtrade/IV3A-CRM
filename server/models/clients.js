@@ -1,6 +1,4 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const { TRUE } = require('node-sass');
 
 const clientsSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
@@ -29,5 +27,27 @@ const clientsSchema = new mongoose.Schema({
         required: true,
         unique: true,
         match: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    },
+    address: {
+        type: String,
+        required: true
+    },
+    city: {
+        type: String,
+        required: true
+    },
+    state: {
+        type: String,
+        required: true,
+    },
+    postalCode: {
+        type: String,
+        required: true
+    },
+    date: {
+        type: Date,
+        default: Date.now
     }
-})
+});
+
+module.exports = mongoose.model('Clients', clientsSchema);
