@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import '../../styles/formClient.scss';
 
 class NewClient extends React.Component {
     constructor() {
@@ -64,7 +65,7 @@ class NewClient extends React.Component {
                     <input
                       className="mb-3 mt-3"
                       type="text"
-                      name="firstname"
+                      name="firstName"
                       placeholder="FirstName"
                       value={firstName}
                       onChange={this.changeHandler}
@@ -74,7 +75,7 @@ class NewClient extends React.Component {
                     <input
                       className="mb-3 mt-3"
                       type="text"
-                      name="lastname"
+                      name="lastName"
                       placeholder="LastName"
                       value={lastName}
                       onChange={this.changeHandler}

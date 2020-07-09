@@ -1,15 +1,17 @@
 import React from "react";
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/formLogin.scss';
+import { Redirect } from "react-router-dom";
+import Dashboard from '../../pages/dashboard';
+
 
 class FormLogin extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       email: '',
       password: '',
-      errors: {},
       token: '',
       redirect: localStorage.getItem('userTokenTime') ? true : false
     }
@@ -18,49 +20,22 @@ class FormLogin extends React.Component {
   changeHandler = e => {
     this.setState({ [e.target.name] : e.target.value })
   }
+
+  onSubmitHandler = e => {
+    e.preventDefault();
+    console.log(this.state)
+    axios
+    .post('http://localhost:9000/login', this.state, {headers:{"Content-Type": "application/json"}})
+    .then(res => {
+      console.log(res)
+    })
+    .catch(error => {
+      console.log(error)
+    })
+  // }
+}
   
-  onSubmitHandler() {
-    console.log(this.state);
-    if (!(this.state.email === '' || this.state.password === '')
-    && /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-    axios.post('http://localhost:9000/login', {
-        email: this.state.email,
-        password: this.state.password
-    }).then(res => {
-        this.setState({
-            token: res.data.token
-        });
-        const data = {
-            token: this.state.token,
-            time: new Date().getTime()
-        }
-        localStorage.setItem('userTokenTime', JSON.stringify(data));
-        this.setState({
-            redirect: true
-          });
-    }).catch(err => {
-        console.log(err);
-    });
-  else {
-    alert('Veuillez entrer des détails valides');
- }
- 
-}
-
-emailInputChangeHandler(event) {
-    this.setState({
-        email: event.target.value
-    });
-
-}
-
-passwordInputChangeHandler(event) {
-    this.setState({
-        password: event.target.value
-    });
-}
   render() {   
-    if (this.state.redirect) return <Redirect to="/home" />;
     const { id, email, password } = this.state 
     return ( 
       <div>  
@@ -87,7 +62,7 @@ passwordInputChangeHandler(event) {
                 onChange={this.changeHandler}
               />
             </div>
-              <button type="submit">Submit</button>
+              <button type="submit" onClick={<Redirect to={Dashboard}/>}>Submit</button>
           </form>
         </div>  
     )

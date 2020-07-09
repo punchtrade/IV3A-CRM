@@ -8,8 +8,8 @@ render() {
     return (
         <div>
              <h1>Bonjour, </h1>
-             <NewClient />
-             <Search />
+             {/* <NewClient />
+             <Search /> */}
         </div>
      )
   }
