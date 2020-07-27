@@ -1,6 +1,6 @@
 /* eslint-disable no-sequences */
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 function Search() {
@@ -12,7 +12,7 @@ function Search() {
   useEffect(() => {
     setLoading(true);
     axios
-      .get("mongodb://localhost:27017/iv3a")
+      .get("http://localhost:9000/newClient")
       .then(res => {
         setUsers(res.data);
         setLoading(false);
@@ -32,13 +32,13 @@ function Search() {
     );
   }, [search, users]);
 
-  if (loading) {
-    return <p>Loading users...</p>;
-  }
+  // if (loading) {
+  //   return <p>Loading users...</p>;
+  // }
 
   return (
     <div className="App">
-      <h2>Users Lists</h2>
+      {/* <h2>Users Lists</h2> */}
       <input
         className="container mt-5"        
         type="text"
