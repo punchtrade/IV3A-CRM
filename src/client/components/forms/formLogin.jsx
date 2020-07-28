@@ -2,8 +2,7 @@ import React from "react";
 import axios from 'axios';
 import 'react-toastify/dist/ReactToastify.css';
 import '../../styles/formLogin.scss';
-import { Redirect } from "react-router-dom";
-import Dashboard from '../../pages/dashboard';
+import { withRouter } from 'react-router-dom';
 
 
 class FormLogin extends React.Component {
@@ -23,6 +22,7 @@ class FormLogin extends React.Component {
 
   onSubmitHandler = e => {
     e.preventDefault();
+    this.props.history.push('/dashboard');
     console.log(this.state)
     axios
     .post('http://localhost:9000/login', this.state, {headers:{"Content-Type": "application/json"}})
@@ -32,21 +32,20 @@ class FormLogin extends React.Component {
     .catch(error => {
       console.log(error)
     })
-  // }
 }
   
   render() {   
     const { id, email, password } = this.state 
     return ( 
       <div>  
-        <form onSubmit={this.onSubmitHandler} action="http://localhost:9000/login" method="post">       
+        <form onSubmit={this.onSubmitHandler.bind(this)} action="http://localhost:9000/dashboard" value="submit" method="post">       
             <div>
               <input
                 className="mb-3 mt-3"
                 id={id}
                 type="text"
                 name="email"
-                placeholder="Email"
+                placeholder="Courrier électronique"
                 value={email}
                 onChange={this.changeHandler}
               />
@@ -57,16 +56,16 @@ class FormLogin extends React.Component {
                 id={id}
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder="Mot de passe"
                 value={password}
                 onChange={this.changeHandler}
               />
             </div>
-              <button type="submit" onClick={<Redirect to={Dashboard}/>}>Submit</button>
+              <button type="submit" value="Submit" onClick={this.onSubmitHandler.bind(this)}>Envoyer</button>
           </form>
         </div>  
     )
   }
 }
 
-export default FormLogin;
+export default withRouter(FormLogin);

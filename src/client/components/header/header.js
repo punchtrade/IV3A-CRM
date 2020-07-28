@@ -20,7 +20,7 @@ class Header extends Component {
 
         return (
             <Router>
-              <MDBNavbar color="#036435 light-green darken-4" dark expand="md">
+              <MDBNavbar color="#036435 green darken-4" dark expand="md">
                 <MDBNavbarBrand>
                   <strong className="white-text"></strong>
                 </MDBNavbarBrand> 
@@ -42,13 +42,13 @@ class Header extends Component {
                     </MDBCollapse>
               </MDBNavbar>
               <Switch>
-                  <Route path="/register">
+                  <Route exact path="/register">
                       <Register />
                   </Route>
-                  <Route path="/login">
+                  <Route exact path="/login">
                       <Login />
                   </Route>
-                  <Route path="/logout">
+                  <Route exact path="/logout">
                       <Logout />
                   </Route>
               </Switch>

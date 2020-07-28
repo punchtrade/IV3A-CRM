@@ -27,7 +27,7 @@ function Search() {
       users.filter(user =>
           user.username.toLowerCase().includes(search.toLowerCase()) 
         + user.email.toLowerCase().includes(search.toLowerCase()) 
-        + user.website.toLowerCase().includes(search.toLowerCase()) 
+        // + user.website.toLowerCase().includes(search.toLowerCase()) 
       )
     );
   }, [search, users]);
@@ -42,7 +42,7 @@ function Search() {
       <input
         className="container mt-5"        
         type="text"
-        placeholder="Buscar por nombre, email o website"
+        placeholder="Recherche par nom ou par courrier électronique "
         onChange={e => setSearch(e.target.value)}
       />
     <div className="container-fluid mt-5">    

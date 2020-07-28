@@ -1,10 +1,12 @@
 import React from 'react';
 import './App.css';
-import { Redirect, Switch, Route , BrowserRouter} from 'react-router-dom';
+import { Redirect, Switch, Route , BrowserRouter as Router} from 'react-router-dom';
 import Header from './client/components/header/header';
 import Footer from './client/components/footer/footer';
 import Home from '../src/client/pages/home';
 import Dashboard from './client/pages/dashboard';
+import Login from './client/pages/login';
+import Register from './client/pages/register';
 
 
 class App extends React.Component {
@@ -23,22 +25,23 @@ class App extends React.Component {
         this.callAPI();
     }
     render() {
-        if (this.state.redirectToReferrer || sessionStorage.getItem('token')) {
-            return (<Redirect to={'/login'} />)
-          }
+        // if (this.state.redirectToReferrer || sessionStorage.getItem('token')) {
+        //     return (<Redirect to={'/login'} />)
+        //   }
         return ( 
+            <Router>
             <div className="App">
                 <Header />
-                <Footer />
+                <Route exact path="/home" component={Home} />
                 <p>{this.state.apiResponse}</p>
-                <BrowserRouter>
-            <Switch>
-              <Route path='/dashboard' component={Dashboard} />
-              {localStorage.getItem('token')?<Route path='/home' component={Home}/>:<Redirect to={"/login"}/>}
-              {localStorage.getItem('token')?<Redirect to={"/home"} />:<Redirect to={"/login"}/>}
-            </Switch>
-          </BrowserRouter>
-            </div>
+                <div className="container">
+                    {/* <Route exact path="/login" component={Login} />
+                    <Route exact path="/register" component={Register} /> */}
+                    <Route exact path="/dashboard" component={Dashboard} />
+                </div>
+                <Footer />
+                </div>
+            </Router>
         );
     }
 }

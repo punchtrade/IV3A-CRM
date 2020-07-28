@@ -36,10 +36,6 @@ router.post('/register', async(req, res, next) => {
     }
 });
 
-// router.get('/dashboard', verifyToken, (req, res) => {
-//     res.json ('dashboard');
-// })
-
 router.post('/login', async(req, res, next) => {
     const { email, password } = req.body;
     console.log(email, password);
@@ -62,17 +58,21 @@ router.post('/login', async(req, res, next) => {
     res.status(200).json({ auth: true, token });
 });
 
-router.get('/home',verifyToken, async(req, res, next) => {
-    const user = await User.findById(req.userId, { password: 0 });
-    if (!user) {
-        // return {};
-        return res.status(200).send(user);
-        next();
-        console.log(user);
-        return res.status(404).send('No user found');
-        // console.log(verifyToken);
-    }   
+router.get('/dashboard',verifyToken,(req, res) => {
+    res.status(200).json ({message:'dashboard'});
 });
+
+// router.get('/home',verifyToken, async(req, res, next) => {
+//     const user = await User.findById(req.userId, { password: 0 });
+//     if (!user) {
+//         // return {};
+//         return res.status(200).send(user);
+//         next();
+//         console.log(user);
+//         return res.status(404).send('No user found');
+//         // console.log(verifyToken);
+//     }   
+// });
 router.post('/newClient',  (req, res, next) => {
     console.log(req.body);
 Clients.find({ email: req.body.email })
@@ -120,6 +120,10 @@ Clients.find({ email: req.body.email })
         });
     });
 });
+
+router.get('/newClient', (req, res, next) =>{
+    res.status(200).send;
+})
 
 
 router.get('/logout', (req, res) => {
