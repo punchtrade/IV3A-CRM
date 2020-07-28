@@ -38,7 +38,7 @@ class FormLogin extends React.Component {
     const { id, email, password } = this.state 
     return ( 
       <div>  
-        <form onSubmit={this.onSubmitHandler.bind(this)} action="http://localhost:9000/dashboard" value="submit" method="post">       
+        <form onSubmit={this.onSubmitHandler.bind(this)} action="http://localhost:9000/login" value="submit" method="post">       
             <div>
               <input
                 className="mb-3 mt-3"

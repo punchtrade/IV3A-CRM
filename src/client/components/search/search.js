@@ -1,36 +1,36 @@
 /* eslint-disable no-sequences */
 import React, { useState, useEffect } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 
 function Search() {
-  const [users, setUsers] = useState([]);
+  const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
-  const [filteredUsers, setFilteredUsers] = useState([]);
+  const [filteredClients, setFilteredClients] = useState([]);
 
   useEffect(() => {
     setLoading(true);
     axios
       .get("http://localhost:9000/newClient")
       .then(res => {
-        setUsers(res.data);
+        setClients(res.data);
         setLoading(false);
       })
       .catch(err => {
         console.log(err);
       });
-  }, []);
+  }, [search, clients]);
 
   useEffect(() => {
-    setFilteredUsers(
-      users.filter(user =>
-          user.username.toLowerCase().includes(search.toLowerCase()) 
+    setFilteredClients(
+     clients.filter(user =>
+          user.userName.toLowerCase().includes(search.toLowerCase()) 
         + user.email.toLowerCase().includes(search.toLowerCase()) 
         // + user.website.toLowerCase().includes(search.toLowerCase()) 
       )
     );
-  }, [search, users]);
+  }, [search, clients]);
 
   // if (loading) {
   //   return <p>Loading users...</p>;
@@ -59,14 +59,14 @@ function Search() {
             </thead>
        </table>
     </div>
-      {filteredUsers.map((user, idx) => (
-        <UsersDetail key={idx} {...user} />
+      {filteredClients.map((user, idx) => (
+        <ClientsDetail key={idx} {...user} />
       ))}
     </div>
   );
 }
-const UsersDetail = props => {
-  const { id, traitment, name, lastname, telephone, email } = props;
+const ClientsDetail = props => {
+  const { id, traitment, firstName, lastName, telephone, email } = props;
   return (
     <div className="container-fluid mt-5">   
         <table className="table table-striped table-borderless">
@@ -74,8 +74,8 @@ const UsersDetail = props => {
                 <tr> 
                     <td>{id}</td>
                     <td>{traitment}</td>
-                    <td>{name}</td>
-                    <td>{lastname}</td>
+                    <td>{firstName}</td>
+                    <td>{lastName}</td>
                     <td>{telephone}</td>
                     <td>{email}</td>
                 </tr>                            

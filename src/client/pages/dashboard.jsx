@@ -1,6 +1,5 @@
 import React from 'react';
 import Search from '../components/search/search';
-import ButtonClient from '../components/buttons/buttonClient';
 import '../styles/dashboard.scss';
 
 class Dashboard extends React.Component{

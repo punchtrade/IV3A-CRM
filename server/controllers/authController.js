@@ -7,6 +7,7 @@ const verifyToken = require('./verifyToken');
 const bcrypt = require('bcrypt');
 const User = require('../models/users');
 const Clients = require('../models/clients');
+const clients = require('../models/clients');
 
 router.post('/register', async(req, res, next) => {
     try {
@@ -121,9 +122,22 @@ Clients.find({ email: req.body.email })
     });
 });
 
-router.get('/newClient', (req, res, next) =>{
-    res.status(200).send;
-})
+// router.get('/newClient'), (req, res, next) =>{
+
+//     clients.find({ clients: req.clients.id}).then(clients => {
+//         if (!clients) {
+//             errors.firstName = "User not found";
+//             res.status(404).json({ errors });
+//             // stop further execution in this callback
+//             return;
+//         } else {
+//             res.json(clients);
+//         }
+//     }).catch(err => {
+//         console.log(err);
+//      })
+//    return res.send(200).json ({message:'user load'});
+// };
 
 
 router.get('/logout', (req, res) => {
