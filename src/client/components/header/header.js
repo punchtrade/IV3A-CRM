@@ -7,6 +7,7 @@ import Logout from '../../pages/logout';
 
 
 
+
 class Header extends Component {
   state = {
     isOpen: false
@@ -20,7 +21,7 @@ class Header extends Component {
 
         return (
             <Router>
-              <MDBNavbar color="#036435 green darken-4" dark expand="md">
+              <MDBNavbar className="navbar-green"color="#036435 green darken-4" dark expand="md">
                 <MDBNavbarBrand>
                   <strong className="white-text"></strong>
                 </MDBNavbarBrand> 

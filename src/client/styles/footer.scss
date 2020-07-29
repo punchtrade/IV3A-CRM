@@ -1,9 +1,8 @@
+
 footer.page-footer{
-    position: fixed;
-    bottom: 0em;
+    align-self: flex-end;
+    background-color: #D21134;
+    text-align: center;
+    width: 100%;
 }
 
-footer.footer-copyright text-center py-3{
-    position: fixed;
-    bottom: 0em;
-}

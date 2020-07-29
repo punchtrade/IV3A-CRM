@@ -6,6 +6,10 @@ const clientsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    card: {
+        type: String,
+        required: true
+    },
     treatment: {
         type: String,
         required: true
@@ -44,6 +48,47 @@ const clientsSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    nameOfBank: {
+        type: String,
+        required: true
+    },
+    numberOfBank: {
+        type: String,
+        required: true
+    },
+    accountName: {
+        type: String,
+        required: true
+    },
+    iban: {
+        type: String,
+        required: true
+    },
+    swiftCode: {
+        type: String,
+        required: true
+    },
+    branchOffice: {
+        type: String,
+        required: true
+    },
+    addressBank: {
+        type: String,
+        required: true
+    },
+    cityBank: {
+        type: String,
+        required: true
+    },
+    stateBank: {
+        type: String,
+        required: true
+    },
+    postalCodeBank: {
+        type: String,
+        required: true
+    },
+
     date: {
         type: Date,
         default: Date.now

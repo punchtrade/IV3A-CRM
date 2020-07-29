@@ -45,7 +45,7 @@ function Search() {
         placeholder="Recherche par nom ou par courrier électronique "
         onChange={e => setSearch(e.target.value)}
       />
-    <div className="container-fluid mt-5">    
+    {/* <div className="container-fluid mt-5">    
     <table className="table" border="1">
             <thead className="thead-dark">        
                     <tr>
@@ -58,7 +58,7 @@ function Search() {
                     </tr>               
             </thead>
        </table>
-    </div>
+    </div> */}
       {filteredClients.map((user, idx) => (
         <ClientsDetail key={idx} {...user} />
       ))}

@@ -5,6 +5,7 @@ import Header from './client/components/header/header';
 import Footer from './client/components/footer/footer';
 import Home from '../src/client/pages/home';
 import Dashboard from './client/pages/dashboard';
+import NewClient from './client/components/forms/newClient';
 
 
 class App extends React.Component {
@@ -36,6 +37,7 @@ class App extends React.Component {
                     {/* <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} /> */}
                     <Route exact path="/dashboard" component={Dashboard} />
+                    <Route exact path="/newclient" component={NewClient} />
                 </div>
                 <Footer />
                 </div>

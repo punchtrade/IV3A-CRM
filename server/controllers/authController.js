@@ -9,6 +9,7 @@ const User = require('../models/users');
 const Clients = require('../models/clients');
 const clients = require('../models/clients');
 
+
 router.post('/register', async(req, res, next) => {
     try {
 
@@ -87,6 +88,7 @@ Clients.find({ email: req.body.email })
             const client = new Clients({
                 _id: new mongoose.Types.ObjectId,
                 id: req.body.id,
+                card: req.body.card,
                 treatment: req.body.treatment,
                 firstName: req.body.firstName,
                 lastName:  req.body.lastName,
@@ -96,6 +98,16 @@ Clients.find({ email: req.body.email })
                 city: req.body.city,
                 state: req.body.state,
                 postalCode: req.body.postalCode,
+                nameOfBank: req.body.nameOfBank,
+                numberOfBank: req.body.numberOfBank,
+                accountName: req.body.accountName,
+                iban: req.body.iban,
+                swiftCode: req.body.swiftCode,
+                branchOffice: req.body.branchOffice,
+                addressBank: req.body.addressBank,
+                cityBank: req.body.cityBank,
+                stateBank: req.body.addressBank,
+                postalCodeBank: req.body.postalCodeBank,
                 date: req.body.date
             }); 
             client
@@ -122,9 +134,20 @@ Clients.find({ email: req.body.email })
     });
 });
 
-// router.get('/newClient'), (req, res, next) =>{
+router.get('/search'), (req, res) =>{
+    const resultArray = [];
+    const { value } = req.query;
+    if (value) {
+        for (let i = 0; i < clients.length; i += 1) {
+            const c = clients[i].firstName;
+            if (c.toLowerCase().startsWith(value.toLowerCase())) {
+                resultArray.push(c);
+            }
+        }
+        res.json(resultArray);
+    }
 
-//     clients.find({ clients: req.clients.id}).then(clients => {
+//     Clients.findOne({ clients: req.clients.id}).then(clients => {
 //         if (!clients) {
 //             errors.firstName = "User not found";
 //             res.status(404).json({ errors });
@@ -137,7 +160,7 @@ Clients.find({ email: req.body.email })
 //         console.log(err);
 //      })
 //    return res.send(200).json ({message:'user load'});
-// };
+};
 
 
 router.get('/logout', (req, res) => {
