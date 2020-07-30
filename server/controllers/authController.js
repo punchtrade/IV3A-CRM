@@ -8,6 +8,8 @@ const bcrypt = require('bcrypt');
 const User = require('../models/users');
 const Clients = require('../models/clients');
 const clients = require('../models/clients');
+const Uploads= require('../models/uploads');
+
 
 
 router.post('/register', async(req, res, next) => {
@@ -138,8 +140,8 @@ router.get('/search'), (req, res) =>{
     const resultArray = [];
     const { value } = req.query;
     if (value) {
-        for (let i = 0; i < clients.length; i += 1) {
-            const c = clients[i].firstName;
+        for (let i = 0; i < Clients.length; i += 1) {
+            const c = Clients[i].firstName;
             if (c.toLowerCase().startsWith(value.toLowerCase())) {
                 resultArray.push(c);
             }
@@ -162,6 +164,40 @@ router.get('/search'), (req, res) =>{
 //    return res.send(200).json ({message:'user load'});
 };
 
+router.post('/uploads',  (req, res, next) => {
+    if (req.files === null) {
+        return res.status(400).json({msg: 'No file uploaded'});
+    }
+    const file = new Uploads ({
+        name: req.body.name,
+        desc: req.body.desc,
+        img: {
+            data: req.body.data,
+            contentType: req.body.contentType
+        }
+    })
+    Uploads.create(file, (err, item) => {
+        if (err) {
+            console.log(err);
+            return res.status(500).send(err);
+        }
+        else {
+            item.save();
+            res.redirect('/uploads');
+        }
+    });
+});
+
+// router.get('/uploads',  (req, res) => {
+//     Uploads.find({}, (err, items) => {
+//         if (err) {
+//             console.log(err);
+//         }
+//         else {
+//             res.status({message:'images'}).json;
+//         }
+//     });
+// });
 
 router.get('/logout', (req, res) => {
     res.status(200).send({ auth: false, token: null });

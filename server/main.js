@@ -11,6 +11,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const path = require('path');
 const db = require('mongodb');
+const fileUpload = require('express-fileupload');
 
 
 // load config file
@@ -37,6 +38,7 @@ redisSessionStore.on("connect", () => {
 });
 
 // //middlewares
+app.use(fileUpload());
 app.use(express.static(path.resolve(__dirname + '/public/')));
 app.use(cors());
 app.use(morgan('dev'));

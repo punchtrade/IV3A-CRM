@@ -266,11 +266,10 @@ class NewClient extends React.Component {
                               onChange={this.changeHandler}
                           />   
                         </div>
-                    <button type="submit" value="submit" onClick={this.onSubmitHandler.bind(this)}>Envoyer</button>
-                    <button className="button-pre-order"type="submit" value="submit">Pre-commande</button>
-                    <button className="button-scans"type="submit" value="submit">Scans de la documentation</button>
-
+                    <button className="btn btn-primary-green" type="submit" value="submit" onClick={this.onSubmitHandler.bind(this)}>Envoyer</button>
             </form>
+                    <button className="btn btn-primary-green right"type="submit" value="submit">Pre-commande</button>
+                    <button className="btn btn-primary-green left"type="submit" value="submit">Scans de la documentation</button>
           </div>
         )
     }

@@ -6,6 +6,7 @@ import Footer from './client/components/footer/footer';
 import Home from '../src/client/pages/home';
 import Dashboard from './client/pages/dashboard';
 import NewClient from './client/components/forms/newClient';
+import UploadPage from './client/pages/uploadPage';
 
 
 class App extends React.Component {
@@ -38,6 +39,7 @@ class App extends React.Component {
                     <Route exact path="/register" component={Register} /> */}
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/newclient" component={NewClient} />
+                    <Route exact path="/upload" component={UploadPage} />
                 </div>
                 <Footer />
                 </div>
