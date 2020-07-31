@@ -5,11 +5,36 @@ const jwt = require('jsonwebtoken');
 const config = require('../configs/default');
 const verifyToken = require('./verifyToken');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 const User = require('../models/users');
 const Clients = require('../models/clients');
-const clients = require('../models/clients');
 const Uploads= require('../models/uploads');
 
+const storage = multer.diskStorage({
+    destination: function(req, file, cb) {
+      cb(null, '/public/uploads/');
+    },
+    filename: function(req, file, cb) {
+      cb(null, new Date().toISOString() + file.originalname);
+    }
+  });
+  
+  const fileFilter = (req, file, cb) => {
+    // reject a file
+    if (file.mimetype === 'image/jpeg' ||file.mimetype === 'image/jpg' || file.mimetype === 'image/png') {
+      cb(null, true);
+    } else {
+      cb(null, false);
+    }
+  };
+  
+  const upload = multer({
+    storage: storage,
+    limits: {
+      fileSize: 1024 * 1024 * 500
+    },
+    fileFilter: fileFilter
+  });
 
 
 router.post('/register', async(req, res, next) => {
@@ -66,17 +91,6 @@ router.get('/dashboard',verifyToken,(req, res) => {
     res.status(200).json ({message:'dashboard'});
 });
 
-// router.get('/home',verifyToken, async(req, res, next) => {
-//     const user = await User.findById(req.userId, { password: 0 });
-//     if (!user) {
-//         // return {};
-//         return res.status(200).send(user);
-//         next();
-//         console.log(user);
-//         return res.status(404).send('No user found');
-//         // console.log(verifyToken);
-//     }   
-// });
 router.post('/newClient',  (req, res, next) => {
     console.log(req.body);
 Clients.find({ email: req.body.email })
@@ -164,40 +178,92 @@ router.get('/search'), (req, res) =>{
 //    return res.send(200).json ({message:'user load'});
 };
 
-router.post('/uploads',  (req, res, next) => {
-    if (req.files === null) {
-        return res.status(400).json({msg: 'No file uploaded'});
-    }
-    const file = new Uploads ({
+// router.get('')
+
+router.post('/upload', (req, res, next) => {
+    console.log(req.file);
+    const images = new Uploads ({
+        _id: new mongoose.Types.ObjectId(),
         name: req.body.name,
         desc: req.body.desc,
-        img: {
-            data: req.body.data,
-            contentType: req.body.contentType
-        }
-    })
-    Uploads.create(file, (err, item) => {
-        if (err) {
-            console.log(err);
-            return res.status(500).send(err);
-        }
-        else {
-            item.save();
-            res.redirect('/uploads');
-        }
+        img: req.body.img,
+        path: req.body.path,
+        date: req.body.date
     });
+  images
+  .save()
+  .then(result => {
+      console.log(result);
+      res.status(201).json({
+          message: "Upload successfully",
+          createdImage: {
+              name: result.name,
+              desc: result.desc,
+              img: result.img,
+              path: result.path,
+              _id: result._id,
+              request: {
+                  type: 'POST',
+                  url: "http://localhost:9000/upload" + result._id
+              }
+
+          }
+      });
+  })
+  .catch(err => {
+      console.log(500).json({
+          error: err
+      });
+  });
 });
 
-// router.get('/uploads',  (req, res) => {
-//     Uploads.find({}, (err, items) => {
-//         if (err) {
-//             console.log(err);
-//         }
-//         else {
-//             res.status({message:'images'}).json;
-//         }
+// router.get("/upload", (req, res, next) => {
+//     Uploads.find().then(data => {
+//         res.status(200).json({
+//             message: "Uploads list retrieved successfully!",
+//             uploads: data
+//         });
 //     });
 // });
+
+router.get("/upload", (req, res, next) => {
+    Uploads.find()
+      .select("name desc _id path img")
+      .exec()
+      .then(uploads => {
+        const response = {
+          count: uploads.length,
+          uploads: uploads.map(uploads => {
+            return {
+              name: uploads.name,
+              desc: uploads.desc,
+              img: uploads.img,
+              path: uploads.path,
+              date: uploads.date,
+              _id: uploads._id,
+              request: {
+                type: "GET",
+                url: "http://localhost:9000/upload/" + doc._id
+              }
+            };
+          })
+        };
+          if (uploads.length >= 0) {
+        res.status(200).json(response);
+          } else {
+              res.status(404).json({
+                  message: 'No entries found'
+              });
+          }
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).json({
+          error: err
+        });
+      });
+  });
+
 
 router.get('/logout', (req, res) => {
     res.status(200).send({ auth: false, token: null });

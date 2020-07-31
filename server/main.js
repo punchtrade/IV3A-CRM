@@ -38,6 +38,8 @@ redisSessionStore.on("connect", () => {
 });
 
 // //middlewares
+// app.use('/uploads', express.static('uploads'));
+app.use(express.static('public'))
 app.use(fileUpload());
 app.use(express.static(path.resolve(__dirname + '/public/')));
 app.use(cors());

@@ -11,7 +11,7 @@ class UploadPage extends React.Component{
       this.props.history.push('/upload');
       console.log(this.state)
       axios
-            .post('http://localhost:9000/images', this.state, {headers:{"Content-Type": "application/json"}})
+            .post('http://localhost:9000/upload', this.state, {headers:{"Content-Type": "application/json"}})
             .then(response => {
               console.log(response)
             })
