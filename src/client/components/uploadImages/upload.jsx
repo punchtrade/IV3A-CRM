@@ -1,154 +1,162 @@
-// import React, { Fragment, useState } from 'react';
-// import Message from './message';
-// import Progress from './progress';
+// import React, { useRef, useState } from 'react';
 // import axios from 'axios';
 
-// const Upload = () => {
-// const [file, setFile] = useState('');
-// const [filename, setFilename] = useState('Choose File');
-// const [uploadedFile, setUploadedFile] = useState({});
-// const [message, setMessage] = useState('');
-// const [uploadPercentage, setUploadPercentage] = useState(0);
+// function Upload() {
 
-// const onChange = e => {
-// setFile(e.target.files[0]);
-// setFilename(e.target.files[0].name);
-// };
+//     const [file, setFile] = useState(''); // storing the uploaded file    
+//     // storing the recived file from backend
+//     const [data, getFile] = useState({ _id: "", path: "" });    
+//     const [progress, setProgess] = useState(0); // progess bar
+//     const el = useRef(); // accesing input element
 
-// const onSubmit = async e => {
-// e.preventDefault();
-// const formData = new FormData();
-// formData.append('file', file);
-
-// try {
-//   const res = await axios.post("http://localhost:9000/upload/" , formData, {
-//     headers: {
-//       'Content-Type': 'multipart/form-data'
-//     },
-//     onUploadProgress: progressEvent => {
-//       setUploadPercentage(
-//         parseInt(
-//           Math.round((progressEvent.loaded * 100) / progressEvent.total)
-//         )
-//       );
-
-//       // Clear percentage
-//       setTimeout(() => setUploadPercentage(0), 10000);
+//     const handleChange = (e) => {
+//         setProgess(0)
+//         const file = e.target.files[0]; // accessing file
+//         console.log(file);
+//         setFile(file); // storing file
 //     }
-//   });
 
-//   const { fileName, filePath } = res.data;
+//     const uploadFile = () => {
+//         const formData = new FormData();        
+//         formData.append('file', file); // appending file
+//         axios.post('http://localhost:9000/upload', formData, {
+//             onUploadProgress: (ProgressEvent) => {
+//                 let progress = Math.round(
+//                 ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
+//                 setProgess(progress);
+//             }
+//         })
+//         .then(res => {
+//             console.log(res);
+//             getFile({ _id: res.data._id,
+//                       path: 'http://localhost:9000/upload'
+//                     //   + res.data.path
+//                     })
+//         })
+//         .catch(err => console.log(err))
+//       };
 
-//   setUploadedFile({ fileName, filePath });
-
-//   setMessage('File Uploaded');
-// } 
-// catch (err) {
-//   if (err.response.status === 500) {
-//     setMessage('There was a problem with the server');
-//   } else {
-//     setMessage(err.response.data.msg);
-//   }
+//     return (
+//         <div>
+//             <div className="file-upload">
+//                 <input type="file" 
+//                        ref={el} 
+//                       onChange={handleChange} />                
+//                 <div className="progessBar" style={{ width: progress }}>
+//                    {progress}
+//                 </div>
+//                 <button onClick={uploadFile} className="upbutton">                   
+//                 Envoyer
+//                 </button>
+//             <hr />
+//             {/* displaying received image*/}
+//             <div className="container" style={{width: "600px"}}>
+//             {/* {data.path &&  */}
+//             <img src={data.path} alt={data._id} />
+//             {/* } */}
+//             </div>           
+//             </div>
+//         </div>
+//     );
 // }
-// };
 
-// return (
-// <Fragment>
-//   {message ? <Message msg={message} /> : null}
-//   <form onSubmit={onSubmit}>
-//     <div className='custom-file mb-4'>
-//       <input
-//         type='file'
-//         className='custom-file-input'
-//         id='customFile'
-//         onChange={onChange}
-//       />
-//       <label className='custom-file-label' htmlFor='customFile'>
-//         {filename}
-//       </label>
-//     </div>
-//     <div className="name-file mb-4">
-//       <input
-//       tipe='text'
-//       className="name-file-input"
-//       id="customFile"
-//       />
-//     </div>
-
-//     <Progress percentage={uploadPercentage} />
-
-//     <input
-//       type='submit'
-//       value='Upload'
-//       className='btn btn-block mt-4'
-//     />
-//   </form>
-//   {uploadedFile ? (
-//     <div className='row mt-5'>
-//       <div className='col-md-6 m-auto'>
-//         <h3 className='text-center'>{uploadedFile.fileName}</h3>
-//         <img style={{ width: '100%' }} src={uploadedFile.filePath} alt='scans' />
-//       </div>
-//     </div>
-//   ) : null}
-// </Fragment>
-// );
-// };
 // export default Upload;
 
-import React, { useRef, useState } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import UploadService from "../../../services/FileUploadService";
 
-function Upload() {
 
-    const [file, setFile] = useState(''); // storing the uploaded file    
-    // storing the recived file from backend
-    const [data, getFile] = useState({ name: "", path: "" });    
-    const [progress, setProgess] = useState(0); // progess bar
-    const el = useRef(); // accesing input element
+const Upload = () => {
 
-    const handleChange = (e) => {
-        setProgess(0)
-        const file = e.target.files[0]; // accessing file
-        console.log(file);
-        setFile(file); // storing file
-    }
-
-    const uploadFile = () => {
-        const formData = new FormData();        
-        formData.append('file', file); // appending file
-        axios.post('http://localhost:9000/upload', formData, {
-            onUploadProgress: (ProgressEvent) => {
-                let progress = Math.round(
-                ProgressEvent.loaded / ProgressEvent.total * 100) + '%';
-                setProgess(progress);
-            }
-        }).then(res => {
-            console.log(res);
-            getFile({ name: res.data.name,
-                      path: 'http://localhost:9000/' + res.data.path})
-        }).catch(err => console.log(err))
+    const [selectedFiles, setSelectedFiles] = useState(undefined);
+    const [currentFile, setCurrentFile] = useState(undefined);
+    const [progress, setProgress] = useState(0);
+    const [message, setMessage] = useState("");
+    const selectFile = (event) => {
+        setSelectedFiles(event.target.files);
       };
+  
+    const [fileInfos, setFileInfos] = useState([]);
+    const upload = () => {
+        let currentFile = selectedFiles[0];
+    
+        setProgress(0);
+        setCurrentFile(currentFile);
+    
+        UploadService.upload(currentFile, (event) => {
+          setProgress(Math.round((100 * event.loaded) / event.total));
+        })
+          .then((response) => {
+            setMessage(response.data.message);
+            return UploadService.getFiles();
+          })
+          .then((files) => {
+            setFileInfos(files.data);
+          })
+          .catch(() => {
+            setProgress(0);
+            setMessage("Could not upload the file!");
+            setCurrentFile(undefined);
+        });
 
+        setSelectedFiles(undefined);
+      };
+      useEffect(() => {
+        UploadService.getFiles().then((response) => {
+          setFileInfos(response.data);
+        });
+      }, []);
+  
     return (
         <div>
-            <div className="file-upload">
-                <input type="file" 
-                       ref={el} 
-                      onChange={handleChange} />                
-                <div className="progessBar" style={{ width: progress }}>
-                   {progress}
-                </div>
-                <button onClick={uploadFile} className="upbutton">                   
-                Upload
-                </button>
-            <hr />
-            {/* displaying received image*/}
-            {data.path && <img src={data.path} alt={data.name} />}
+        {currentFile && (
+          <div className="progress">
+            <div
+              className="progress-bar progress-bar-info progress-bar-striped"
+              role="progressbar"
+              aria-valuenow={progress}
+              aria-valuemin="0"
+              aria-valuemax="100"
+              style={{ width: progress + "%" }}
+            >
+              {progress}%
             </div>
-        </div>
-    );
-}
+          </div>
+        )}
+  
+        <label className="btn btn-default">
+          <input type="file" onChange={selectFile} />
+        </label>
+        <button
+        className="btn"
+        type="submit"
+        disabled={!selectedFiles}
+        onClick={upload}
+      >
+        Envoyer
+      </button>
 
-export default Upload;
+      <div className="alert alert-light" role="alert">
+        {message}
+      </div>
+
+      <div className="card">
+        <div className="card-header">Liste des fichiers</div>
+        <ul className="list-group list-group-flush">
+          {/* {fileInfos &&
+            fileInfos.map((file, index) => (
+              <li className="list-group-item" key={index}>
+                <a href={file.url}>{file.name}</a>
+              </li>
+            ))} */}
+        </ul>
+      </div>
+    </div>
+      
+    );
+  };
+  
+  export default Upload;
+
+
 

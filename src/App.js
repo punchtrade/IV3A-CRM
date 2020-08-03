@@ -24,6 +24,7 @@ class App extends React.Component {
     componentDidMount() {
         this.callAPI();
     }
+
     render() {
         // if (this.state.redirectToReferrer || sessionStorage.getItem('token')) {
         //     return (<Redirect to={'/login'} />)
@@ -39,7 +40,7 @@ class App extends React.Component {
                     <Route exact path="/register" component={Register} /> */}
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/newclient" component={NewClient} />
-                    <Route exact path="/upload" component={UploadPage} />
+                    <Route exact path="/upload" component={UploadPage}  />
                 </div>
                 <Footer />
                 </div>

@@ -1,7 +1,9 @@
 import React from 'react';
 import axios from 'axios';
-import '../../styles/formClient.scss';
-import { withRouter } from 'react-router-dom';
+// import '../../styles/formClient.scss';
+import { withRouter, Link, Route, Switch } from 'react-router-dom';
+import Upload from '../../pages/uploadPage';
+import UploadPage from '../../pages/uploadPage';
 
 class NewClient extends React.Component {
     constructor() {
@@ -28,8 +30,6 @@ class NewClient extends React.Component {
 
     onSubmitHandler = e => {
       e.preventDefault()
-      this.props.history.push('/newClient');
-      console.log(this.state)
       axios
             .post('http://localhost:9000/newClient', this.state, {headers:{"Content-Type": "application/json"}})
             .then(response => {
@@ -170,7 +170,7 @@ class NewClient extends React.Component {
                             <input
                               className="mb-3 mt-3"
                               type="text"
-                              name="nomdelaBanque"
+                              name="nameOfBank"
                               placeholder="Nom de la Banque"
                               value={nameOfBank}
                               onChange={this.changeHandler}
@@ -269,7 +269,7 @@ class NewClient extends React.Component {
                     <button className="btn btn-primary-green" type="submit" value="submit" onClick={this.onSubmitHandler.bind(this)}>Envoyer</button>
             </form>
                     <button className="btn btn-primary-green right"type="submit" value="submit">Pre-commande</button>
-                    <button className="btn btn-primary-green left"type="submit" value="submit">Scans de la documentation</button>
+          <button className="btn btn-primary-green left"type="submit" value="submit" onClick={() => {this.props.history.replace('/upload')}}>Scans de la documentation</button>         
           </div>
         )
     }

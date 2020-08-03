@@ -19,10 +19,10 @@ p {
   color: #D21134;
 }
 
-p::before {
-  display: inline;
-  content: "⚠ ";
-}
+// p::before {
+//   display: inline;
+//   content: "⚠ ";
+// }
 
 input {
   display: block;

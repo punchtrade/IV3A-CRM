@@ -9,7 +9,7 @@ class Dashboard extends React.Component{
 
    onSubmitHandler = e => {
       e.preventDefault()
-      this.props.history.push('/newClient');
+      this.props.history.replace('/newClient');
       console.log(this.state)
       axios
             .post('http://localhost:9000/newClient', this.state, {headers:{"Content-Type": "application/json"}})
@@ -25,7 +25,7 @@ render() {
     return (
         <div className="dashboard">
              <div className="button">
-                <button type="submit" value="submit" onClick={this.onSubmitHandler.bind(this)}>Nouveau Client</button>
+                <button type="submit" value="submit" onClick={() => {this.props.history.replace('/newClient')}}>Nouveau Client</button>
              </div>
              <div className="search">
                 <Search />

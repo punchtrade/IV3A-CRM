@@ -178,7 +178,6 @@ router.get('/search'), (req, res) =>{
 //    return res.send(200).json ({message:'user load'});
 };
 
-// router.get('')
 
 router.post('/upload', (req, res, next) => {
     console.log(req.file);
@@ -217,52 +216,15 @@ router.post('/upload', (req, res, next) => {
   });
 });
 
-// router.get("/upload", (req, res, next) => {
-//     Uploads.find().then(data => {
-//         res.status(200).json({
-//             message: "Uploads list retrieved successfully!",
-//             uploads: data
-//         });
-//     });
-// });
-
 router.get("/upload", (req, res, next) => {
-    Uploads.find()
-      .select("name desc _id path img")
-      .exec()
-      .then(uploads => {
-        const response = {
-          count: uploads.length,
-          uploads: uploads.map(uploads => {
-            return {
-              name: uploads.name,
-              desc: uploads.desc,
-              img: uploads.img,
-              path: uploads.path,
-              date: uploads.date,
-              _id: uploads._id,
-              request: {
-                type: "GET",
-                url: "http://localhost:9000/upload/" + doc._id
-              }
-            };
-          })
-        };
-          if (uploads.length >= 0) {
-        res.status(200).json(response);
-          } else {
-              res.status(404).json({
-                  message: 'No entries found'
-              });
-          }
-      })
-      .catch(err => {
-        console.log(err);
-        res.status(500).json({
-          error: err
+    Uploads.find().then(data => {
+        res.status(200).json({
+            message: "Uploads list retrieved successfully!",
+            uploads: data
         });
-      });
-  });
+    });
+});
+
 
 
 router.get('/logout', (req, res) => {
