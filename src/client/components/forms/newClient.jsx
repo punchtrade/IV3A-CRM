@@ -1,9 +1,8 @@
 import React from 'react';
 import axios from 'axios';
-// import '../../styles/formClient.scss';
-import { withRouter, Link, Route, Switch } from 'react-router-dom';
-import Upload from '../../pages/uploadPage';
-import UploadPage from '../../pages/uploadPage';
+import '../../styles/formClient.scss';
+import { withRouter } from 'react-router-dom';
+
 
 class NewClient extends React.Component {
     constructor() {
@@ -268,7 +267,7 @@ class NewClient extends React.Component {
                         </div>
                     <button className="btn btn-primary-green" type="submit" value="submit" onClick={this.onSubmitHandler.bind(this)}>Envoyer</button>
             </form>
-                    <button className="btn btn-primary-green right"type="submit" value="submit">Pre-commande</button>
+                    <button className="btn btn-primary-green right"type="submit" value="submit" onClick={() => {this.props.history.replace('/preorder')}}>Pre-commande</button>
           <button className="btn btn-primary-green left"type="submit" value="submit" onClick={() => {this.props.history.replace('/upload')}}>Scans de la documentation</button>         
           </div>
         )

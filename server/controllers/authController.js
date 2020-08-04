@@ -150,9 +150,9 @@ Clients.find({ email: req.body.email })
     });
 });
 
-router.get('/search'), (req, res) =>{
+router.get('/newClient'), (req, res, next) =>{
     const resultArray = [];
-    const { value } = req.query;
+    const { value } = req.data;
     if (value) {
         for (let i = 0; i < Clients.length; i += 1) {
             const c = Clients[i].firstName;
@@ -163,19 +163,19 @@ router.get('/search'), (req, res) =>{
         res.json(resultArray);
     }
 
-//     Clients.findOne({ clients: req.clients.id}).then(clients => {
-//         if (!clients) {
-//             errors.firstName = "User not found";
-//             res.status(404).json({ errors });
-//             // stop further execution in this callback
-//             return;
-//         } else {
-//             res.json(clients);
-//         }
-//     }).catch(err => {
-//         console.log(err);
-//      })
-//    return res.send(200).json ({message:'user load'});
+    Clients.findOne({ clients: req.body.firstName}).then(clients => {
+        if (!clients) {
+            errors.firstName = "Client not found";
+            res.status(404).json({ errors });
+            // stop further execution in this callback
+            return;
+        } else {
+            res.json(clients);
+        }
+    }).catch(err => {
+        console.log(err);
+     })
+   return res.send(200).json ({message:'client load'});
 };
 
 

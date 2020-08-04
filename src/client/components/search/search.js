@@ -24,9 +24,9 @@ function Search() {
 
   useEffect(() => {
     setFilteredClients(
-     clients.filter(user =>
-          user.userName.toLowerCase().includes(search.toLowerCase()) 
-        + user.email.toLowerCase().includes(search.toLowerCase()) 
+     clients.filter(clients =>
+          clients.userName.toLowerCase().includes(search.toLowerCase()) 
+        + clients.email.toLowerCase().includes(search.toLowerCase()) 
         // + user.website.toLowerCase().includes(search.toLowerCase()) 
       )
     );
@@ -45,7 +45,7 @@ function Search() {
         placeholder="Recherche par nom ou par courrier électronique "
         onChange={e => setSearch(e.target.value)}
       />
-    {/* <div className="container-fluid mt-5">    
+    <div className="container-fluid mt-5">    
     <table className="table" border="1">
             <thead className="thead-dark">        
                     <tr>
@@ -58,9 +58,9 @@ function Search() {
                     </tr>               
             </thead>
        </table>
-    </div> */}
-      {filteredClients.map((user, idx) => (
-        <ClientsDetail key={idx} {...user} />
+    </div>
+      {filteredClients.map((clients, idx) => (
+        <ClientsDetail key={idx} {...clients} />
       ))}
     </div>
   );

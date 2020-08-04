@@ -7,6 +7,7 @@ import Home from '../src/client/pages/home';
 import Dashboard from './client/pages/dashboard';
 import NewClient from './client/components/forms/newClient';
 import UploadPage from './client/pages/uploadPage';
+import PreOrder from './client/components/forms/pre-order';
 
 
 class App extends React.Component {
@@ -41,8 +42,10 @@ class App extends React.Component {
                     <Route exact path="/dashboard" component={Dashboard} />
                     <Route exact path="/newclient" component={NewClient} />
                     <Route exact path="/upload" component={UploadPage}  />
+                    <Route exact path="/preorder" component={PreOrder}  />
+
                 </div>
-                <Footer />
+                {/* <Footer /> */}
                 </div>
             </Router>
         );

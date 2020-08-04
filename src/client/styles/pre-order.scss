@@ -1,0 +1,58 @@
+#container {
+    width: 100%;
+    text-align: center;
+}
+
+#left {
+    float: left;
+    text-align: justify;
+    width: 500px;
+    height: 30px;
+    font-size: x-small;
+ 
+}
+
+#right {
+    float: right;
+    text-align: justify;
+    width: 500px;
+    height: 30px;
+    font-size: x-small;
+}
+
+#client-car-left {
+    float: left;
+    text-align: justify;
+    width: 500px;
+    height: 30px;
+    margin-top: 25%;
+    margin-left: 15px;
+    
+}
+
+#client-car-right {
+    float: right;
+    text-align: justify;
+    width: 500px;
+    height: 30px;
+    margin-top: 25%;
+    margin-right: 15px;
+}
+
+#details-bank {
+    float: center;
+    text-align: center;
+    width: 500px;
+    height: 30px;
+    margin-top: 45%;
+    
+}
+
+#details-car {
+    float: left;
+    text-align: center;
+    width: 500px;
+    height: 30px;
+    margin-top: 6%;
+}
+
