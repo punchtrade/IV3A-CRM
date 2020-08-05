@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../styles/pre-order.scss';
-
-
+import axios from 'axios';
+import { withRouter } from 'react-router-dom';
 
 class PreOrder extends Component {
     constructor() {
@@ -27,8 +27,34 @@ class PreOrder extends Component {
             brand: '',
             model: '',
             fuel: '',
-            errors: ''
+            errors: '',
+            i_agree: false
         }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange = e => {
+        this.setState({i_agree: !this.state.i_agree});
+    }
+    changeHandler = e => {
+        this.setState({ [e.target.name] : e.target.value })
+      }
+
+    handleSubmit = e => {
+        console.log(this.state);
+        e.preventDefault();
+    }
+    onSubmitHandler = e => {
+        e.preventDefault()
+        axios
+            .get('http://localhost:9000/preOrder', this.state, {headers:{"Content-Type": "application/json"}})
+            .then(response => {
+              console.log(response)
+            })
+            .catch(error => {
+              console.log(error)
+            })
     }
     render() {
         const { id, card, treatment, firstName, lastName, 
@@ -83,7 +109,12 @@ class PreOrder extends Component {
                     </div>
                 </div>
         <div className="container-form">
-            <form className="client-car-left" id="client-car-left">
+            <form   className="client-car-left" id="client-car-left"
+                    onSubmit={this.onSubmitHandler.bind(this)} 
+                    action='http://localhost:9000/preOrder'
+                    value="submit"
+                    method="get"
+            >
                 <div className="left-column">
                     <input
                     className="mb-3 mt-3"
@@ -202,7 +233,12 @@ class PreOrder extends Component {
                         </div>
                         
                 </form>
-                        <form className="client-car-right" id="client-car-right">
+                        <form className="client-car-right" id="client-car-right"
+                              onSubmit={this.onSubmitHandler.bind(this)} 
+                              action='http://localhost:9000/preOrder'
+                              value="submit"
+                              method="get"
+                        >
                             <div className="right-column">
                                 <input
                                     className="mb-3 mt-3"
@@ -300,13 +336,74 @@ class PreOrder extends Component {
                         </div>
                         </div>
                 </form>
-                {/* <button className="btn btn-primary-green" type="submit" value="submit" onClick="">Envoyer</button> */}
-            </div>       
+                <div className="container">
+                    <div id="left-2" type="text">
+                    IV3A vous remercie pour ces renseignements que nous maintiendrons totalement confidentiels tout au long de la durée de notre relation. 
+                    Toutes les données signalées par un * nous sont absolument indispensables pour lancer le processus d'acquisition.
+                    Ce processus sera inicié par la signature de votre part de la commande définitive et du contrat de services d'assitance d'IV3A à l'importation de ce véhicule, 
+                    que nous vous ferons parvenir sous 24 heures et nécessite également que vous nous fournissiez préalablement:
+                    • un scan de votre document national d'identité (DNI)
+                    • un scan de votre facture (datant de moins de 3 mois) de
+                    consommation de l'Electricité et du Gaz
+                    • un scan de votre relevé d'identité bancaire de votre compte en
+                    Euros.
+                    </div>
+
+                    <div id="right-2" type="text">
+                    IV3A vous remercie pour ces renseignements que nous maintiendrons totalement confidentiels tout au long de la durée de notre relation. 
+                    Toutes les données signalées par un * nous sont absolument indispensables pour lancer le processus d'acquisition.
+                    Ce processus sera inicié par la signature de votre part de la commande définitive et du contrat de services d'assitance d'IV3A à l'importation de ce véhicule, 
+                    que nous vous ferons parvenir sous 24 heures et nécessite également que vous nous fournissiez préalablement:
+                    • un scan de votre document national d'identité (DNI)
+                    • un scan de votre facture (datant de moins de 3 mois) de
+                    consommation de l'Electricité et du Gaz
+                    • un scan de votre relevé d'identité bancaire de votre compte en
+                    Euros.
+                    </div>
+                </div>
+           
+            </div>   
+        <div>
+            <label>
+                <input
+                className="checkbox"
+                type="checkbox"
+                defaultChecked={this.state.i_agree}
+                onChange={this.handleChange}
+                /> <h6>Je remets ma documentation dans les bureaux de IV3A.</h6>
+            </label>
+        </div>  
+        <div>
+            <label>
+                <input
+                className="checkbox"
+                type="checkbox"
+                defaultChecked={this.state.i_agree}
+                onChange={this.handleChange}
+                /> <h6>J'envoie ma documentation par la poste à IV3A.</h6>
+            </label>
+        </div>  
+        <div>
+            <label>
+                <input
+                className="checkbox"
+                type="checkbox"
+                defaultChecked={this.state.i_agree}
+                onChange={this.handleChange}
+                />  <h6>Je scane et inclue ma documentation à IV3A.</h6>                    
+            </label>
+        </div>  
+         <button 
+                className="btn btn-primary-green" 
+                type="submit" value="submit" 
+                onClick={this.onSubmitHandler.bind(this)}  
+                >Envoyer</button> 
         </div>
+            
         )
     }
 
 }
 
 
-export default PreOrder;
+export default withRouter (PreOrder);

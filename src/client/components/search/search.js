@@ -1,4 +1,4 @@
-/* eslint-disable no-sequences */
+// /* eslint-disable no-sequences */
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
@@ -45,7 +45,7 @@ function Search() {
         placeholder="Recherche par nom ou par courrier électronique "
         onChange={e => setSearch(e.target.value)}
       />
-    <div className="container-fluid mt-5">    
+    {/* <div className="container-fluid mt-5">    
     <table className="table" border="1">
             <thead className="thead-dark">        
                     <tr>
@@ -58,7 +58,7 @@ function Search() {
                     </tr>               
             </thead>
        </table>
-    </div>
+    </div> */}
       {filteredClients.map((clients, idx) => (
         <ClientsDetail key={idx} {...clients} />
       ))}
@@ -85,3 +85,75 @@ const ClientsDetail = props => {
   );
 };
 export default Search;
+
+
+// import React from "react";
+// import { alertService } from '../services/alert';
+// import Axios from "axios";
+// // import { API_HOST } from "../config"
+
+
+
+// class Search extends React.Component {
+
+//     constructor(props) {
+//         super(props)
+//         this.state={
+//             loading: true,
+//             clients: []
+//         }
+//     }
+
+//     componentDidMount() {
+//         Axios.get(`http://localhost:9000/newClient`).then(res => {
+//             this.setState({
+//                 clients: res.data
+//             })
+//         }).catch(e => {
+//             alertService.showError('Cannot get user data...')
+//         }).finally(() => {
+//             this.setState({
+//                 loading: false
+//             })
+//         })
+//     }
+
+//     render() {
+//         return (
+//             <div className="row mt-5 justify-content-center">
+//                 <div className="col-12 col-lg-8">
+//                     <table className="table table-hover table-striped">
+//                         <thead>
+//                             <tr>
+//                                 <th>No</th>
+//                                 <th>Name</th>
+//                                 <th>Email</th>
+//                             </tr>
+//                         </thead>
+//                         <tbody>
+//                         {this.state.loading ? (
+//                             <tr><td>Loading...</td></tr>
+//                         ) : (
+//                             <>
+//                                 {this.state.clients.map((user, index) => {
+//                                     return (
+//                                         <tr key={index}>
+//                                             <td>{index+1}</td>
+//                                             <td>{user.name}</td>
+//                                             <td>{user.email}</td>
+//                                         </tr>
+//                                     )
+//                                 })}
+//                                 {!this.state.clients.length && (
+//                                     <tr><td>Loading...</td></tr>
+//                                 )}
+//                             </>
+//                         )}
+//                         </tbody>
+//                     </table>
+//                 </div>
+//             </div>
+//         )
+//     }
+// }
+// export default Search;

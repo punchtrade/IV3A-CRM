@@ -38,7 +38,9 @@ class FormRegister extends React.Component {
       const { firstName, lastName, idCard, email, password } = this.state
 		return (
 			<div>
-				<form onSubmit={this.onSubmitHandler.bind(this)} action="http://localhost:9000/register" method="post">
+				<form onSubmit={this.onSubmitHandler.bind(this)} 
+				action="http://localhost:9000/register" 
+				method="post">
 					<div>
 						<input 
 							className="mb-3 mt-3"

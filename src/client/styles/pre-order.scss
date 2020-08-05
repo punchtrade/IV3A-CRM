@@ -1,58 +1,109 @@
-#container {
-    width: 100%;
-    text-align: center;
+@media all  and (min-width: 48em) {
+    #container {
+        width: 100%;
+        text-align: center;
+        max-width: 600px;
+        margin: 0 auto;
+        width: 100%;
+    }
 }
 
-#left {
+@media all  and (min-width: 48em) {
+    #right{
+    width: 50%;
+    float: right;
+    text-align: justify;
+    width: 500px;
+    height: 30px;
+    font-size: x-small;
+    }
+}
+@media all  and (min-width: 48em) {
+    #right-2{
+    width: 50%;
+    float: right;
+    text-align: justify;
+    width: 500px;
+    height: 30px;
+    margin-top: 75%;
+    font-size: x-small;
+    }
+}
+@media all and (min-width: 48em) {
+    #left{
+    width: 50%;
     float: left;
     text-align: justify;
     width: 500px;
     height: 30px;
     font-size: x-small;
  
+    }
 }
-
-#right {
-    float: right;
+@media all and (min-width: 48em) {
+    #left-2{
+    width: 50%;
+    float: left;
     text-align: justify;
     width: 500px;
     height: 30px;
+    margin-top: 75%;
+    font-size: x-small;
+ 
+    }
+}
+
+@media all and (min-width: 48em) {
+    #client-car-left {
+        float: left;
+        text-align: justify;
+        width: 500px;
+        height: 30px;
+        margin-top: 25%;
+        margin-left: 15px;
+        
+    }
+}
+
+@media all and (min-width: 48em) {
+    #client-car-right {
+        float: right;
+        text-align: justify;
+        width: 500px;
+        height: 30px;
+        margin-top: 25%;
+        margin-right: 15px;
+    }
+}
+@media all and (min-width: 48em) {
+    #details-bank {
+        float: center;
+        text-align: center;
+        width: 500px;
+        height: 30px;
+        margin-top: 45%;
+        
+    }
+}
+
+@media all and (min-width: 48em) {
+    #details-car {
+        float: left;
+        text-align: center;
+        width: 500px;
+        height: 30px;
+        margin-top: 6%;
+    }
+}
+@media all and (min-width: 48em) {
+    .checkbox {
+        float: center;
+        text-align: left;
+        width: 500px;
+        height: 30px;
+        margin-top: 140px;
+    }
+}
+h6 {
     font-size: x-small;
 }
-
-#client-car-left {
-    float: left;
-    text-align: justify;
-    width: 500px;
-    height: 30px;
-    margin-top: 25%;
-    margin-left: 15px;
-    
-}
-
-#client-car-right {
-    float: right;
-    text-align: justify;
-    width: 500px;
-    height: 30px;
-    margin-top: 25%;
-    margin-right: 15px;
-}
-
-#details-bank {
-    float: center;
-    text-align: center;
-    width: 500px;
-    height: 30px;
-    margin-top: 45%;
-    
-}
-
-#details-car {
-    float: left;
-    text-align: center;
-    width: 500px;
-    height: 30px;
-    margin-top: 6%;
-}
-

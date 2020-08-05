@@ -268,7 +268,9 @@ class NewClient extends React.Component {
                     <button className="btn btn-primary-green" type="submit" value="submit" onClick={this.onSubmitHandler.bind(this)}>Envoyer</button>
             </form>
                     <button className="btn btn-primary-green right"type="submit" value="submit" onClick={() => {this.props.history.replace('/preorder')}}>Pre-commande</button>
-          <button className="btn btn-primary-green left"type="submit" value="submit" onClick={() => {this.props.history.replace('/upload')}}>Scans de la documentation</button>         
+          <button className="btn btn-primary-green left"type="submit" value="submit" onClick={() => {this.props.history.replace('/upload')}}>Documentation</button>  
+          <button className="btn btn-primary-green left"type="submit" value="submit" onClick={() => {this.props.history.replace('/formCar')}}>Fiche Véhicule</button>         
+       
           </div>
         )
     }

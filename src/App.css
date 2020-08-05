@@ -5,13 +5,13 @@ html {
 }
 body {
   /* margin: 0;
-  padding: 0;
-  /* display: flex; */
+  padding: 0; */
+  /* display: flex;  */
   min-height: 100%;
-  display: grid;
+  /* display: grid;
   grid: auto ;
-  /* flex-wrap: wrap; */
-  /* position: absolute; */ 
+  flex-wrap: wrap;
+  /* position: absolute;  */ 
 }
 
 .App {
@@ -52,4 +52,3 @@ body {
     transform: rotate(360deg);
   }
 }
-
