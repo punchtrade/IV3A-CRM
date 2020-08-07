@@ -1,13 +1,9 @@
-import React from 'react';
+import React from "react";
 
-import '../styles/logout.scss';
+import "../styles/logout.scss";
 
-const Logout= props => {
-    return (
-        <div>
-           
-        </div>
-    )
-}
+const Logout = (props) => {
+  return <div></div>;
+};
 
 export default Logout;

@@ -3,8 +3,10 @@ import { MDBBtn } from "mdbreact";
 
 const ButtonSubmit = () => {
   return (
-    <MDBBtn color="light-white center" flat>Soumettre</MDBBtn>
+    <MDBBtn color="light-white center" flat>
+      Soumettre
+    </MDBBtn>
   );
-}
+};
 
 export default ButtonSubmit;

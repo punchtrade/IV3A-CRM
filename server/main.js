@@ -7,12 +7,11 @@ const bodyParser = require("body-parser");
 const chalk = require("chalk");
 const { request } = require("http");
 const app = express();
-const morgan = require('morgan');
-const cors = require('cors');
-const path = require('path');
-const db = require('mongodb');
-const fileUpload = require('express-fileupload');
-
+const morgan = require("morgan");
+const cors = require("cors");
+const path = require("path");
+const db = require("mongodb");
+const fileUpload = require("express-fileupload");
 
 // load config file
 nconf
@@ -38,21 +37,20 @@ redisSessionStore.on("connect", () => {
 });
 
 // //middlewares
-app.use('/uploads', express.static('uploads'));
-app.use(express.static('public'));
+app.use("/uploads", express.static("uploads"));
+app.use(express.static("public"));
 app.use(fileUpload());
-app.use(express.static(path.resolve(__dirname + '/public/')));
+app.use(express.static(path.resolve(__dirname + "/public/")));
 app.use(cors());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(require('./controllers/authController'));
+app.use(require("./controllers/authController"));
 app.use(require("../api/app"));
 
-
 // routes
-app.use (function(req, res, next) {
+app.use(function (req, res, next) {
   req.db = db;
   next();
 });
@@ -60,22 +58,20 @@ app.use (function(req, res, next) {
 // app.use("/login", require("../src/core/routes/login.routes"));
 // app.use("/newClient", require("../src/core/routes/clients.routes"));
 
-
 app.use((err, req, res, next) => {
-  console.error(err.stack)
+  console.error(err.stack);
 
-  res.status(500).send('Something broke!');
+  res.status(500).send("Something broke!");
 });
 //initializations
 
-require('../src/core/database');
+require("../src/core/database");
 
 //Settings
-app.set('port', process.env.PORT || 9000);
+app.set("port", process.env.PORT || 9000);
 
-app.listen('9000', function() {
-  console.log('Servidor web escuchando en el puerto 9000');
+app.listen("9000", function () {
+  console.log("Servidor web escuchando en el puerto 9000");
 });
-
 
 module.exports = app;

@@ -13,21 +13,22 @@ function Search() {
     setLoading(true);
     axios
       .get("http://localhost:9000/newClient")
-      .then(res => {
+      .then((res) => {
         setClients(res.data);
         setLoading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }, [search, clients]);
 
   useEffect(() => {
     setFilteredClients(
-     clients.filter(clients =>
-          clients.userName.toLowerCase().includes(search.toLowerCase()) 
-        + clients.email.toLowerCase().includes(search.toLowerCase()) 
-        // + user.website.toLowerCase().includes(search.toLowerCase()) 
+      clients.filter(
+        (clients) =>
+          clients.userName.toLowerCase().includes(search.toLowerCase()) +
+          clients.email.toLowerCase().includes(search.toLowerCase())
+        // + user.website.toLowerCase().includes(search.toLowerCase())
       )
     );
   }, [search, clients]);
@@ -40,12 +41,12 @@ function Search() {
     <div className="App">
       {/* <h2>Users Lists</h2> */}
       <input
-        className="container mt-5"        
+        className="container mt-5"
         type="text"
         placeholder="Recherche par nom ou par courrier électronique "
-        onChange={e => setSearch(e.target.value)}
+        onChange={(e) => setSearch(e.target.value)}
       />
-    {/* <div className="container-fluid mt-5">    
+      {/* <div className="container-fluid mt-5">    
     <table className="table" border="1">
             <thead className="thead-dark">        
                     <tr>
@@ -65,34 +66,31 @@ function Search() {
     </div>
   );
 }
-const ClientsDetail = props => {
+const ClientsDetail = (props) => {
   const { id, traitment, firstName, lastName, telephone, email } = props;
   return (
-    <div className="container-fluid mt-5">   
-        <table className="table table-striped table-borderless">
+    <div className="container-fluid mt-5">
+      <table className="table table-striped table-borderless">
         <tbody className="tbody-light">
-                <tr> 
-                    <td>{id}</td>
-                    <td>{traitment}</td>
-                    <td>{firstName}</td>
-                    <td>{lastName}</td>
-                    <td>{telephone}</td>
-                    <td>{email}</td>
-                </tr>                            
-            </tbody>             
-        </table>               
-    </div>       
+          <tr>
+            <td>{id}</td>
+            <td>{traitment}</td>
+            <td>{firstName}</td>
+            <td>{lastName}</td>
+            <td>{telephone}</td>
+            <td>{email}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 };
 export default Search;
-
 
 // import React from "react";
 // import { alertService } from '../services/alert';
 // import Axios from "axios";
 // // import { API_HOST } from "../config"
-
-
 
 // class Search extends React.Component {
 

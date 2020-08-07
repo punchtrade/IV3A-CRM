@@ -1,27 +1,22 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.scss';
-import { BrowserRouter } from 'react-router-dom';
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
-import 'mdbreact/dist/scss/_custom-styles.scss';
-import 'mdbreact/dist/scss/_custom-variables.scss';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-
-
-
-
+import React from "react";
+import ReactDOM from "react-dom";
+import "./index.scss";
+import { BrowserRouter } from "react-router-dom";
+import "@fortawesome/fontawesome-free/css/all.min.css";
+import "bootstrap-css-only/css/bootstrap.min.css";
+import "mdbreact/dist/css/mdb.css";
+import "mdbreact/dist/scss/_custom-styles.scss";
+import "mdbreact/dist/scss/_custom-variables.scss";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-    <App />
+      <App />
     </BrowserRouter>
-  </React.StrictMode>
-  , document.getElementById('root')
-  
+  </React.StrictMode>,
+  document.getElementById("root")
 );
 
 // If you want your app to work offline and load faster, you can change

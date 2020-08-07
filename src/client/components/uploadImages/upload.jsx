@@ -3,9 +3,9 @@
 
 // function Upload() {
 
-//     const [file, setFile] = useState(''); // storing the uploaded file    
+//     const [file, setFile] = useState(''); // storing the uploaded file
 //     // storing the recived file from backend
-//     const [data, getFile] = useState({ _id: "", path: "" });    
+//     const [data, getFile] = useState({ _id: "", path: "" });
 //     const [progress, setProgess] = useState(0); // progess bar
 //     const el = useRef(); // accesing input element
 
@@ -17,7 +17,7 @@
 //     }
 
 //     const uploadFile = () => {
-//         const formData = new FormData();        
+//         const formData = new FormData();
 //         formData.append('file', file); // appending file
 //         axios.post('http://localhost:9000/upload', formData, {
 //             onUploadProgress: (ProgressEvent) => {
@@ -39,13 +39,13 @@
 //     return (
 //         <div>
 //             <div className="file-upload">
-//                 <input type="file" 
-//                        ref={el} 
-//                       onChange={handleChange} />                
+//                 <input type="file"
+//                        ref={el}
+//                       onChange={handleChange} />
 //                 <div className="progessBar" style={{ width: progress }}>
 //                    {progress}
 //                 </div>
-//                 <button onClick={uploadFile} className="upbutton">                   
+//                 <button onClick={uploadFile} className="upbutton">
 //                 Envoyer
 //                 </button>
 //             <hr />
@@ -54,7 +54,7 @@
 //             {/* {data.path &&  */}
 //             <img src={data.path} alt={data._id} />
 //             {/* } */}
-//             </div>           
+//             </div>
 //             </div>
 //         </div>
 //     );
@@ -65,69 +65,67 @@
 import React, { useState, useEffect } from "react";
 import UploadService from "../../../services/FileUploadService";
 
-
 const Upload = () => {
+  const [selectedFiles, setSelectedFiles] = useState(undefined);
+  const [currentFile, setCurrentFile] = useState(undefined);
+  const [progress, setProgress] = useState(0);
+  const [message, setMessage] = useState("");
+  const selectFile = (event) => {
+    setSelectedFiles(event.target.files);
+  };
 
-    const [selectedFiles, setSelectedFiles] = useState(undefined);
-    const [currentFile, setCurrentFile] = useState(undefined);
-    const [progress, setProgress] = useState(0);
-    const [message, setMessage] = useState("");
-    const selectFile = (event) => {
-        setSelectedFiles(event.target.files);
-      };
-  
-    const [fileInfos, setFileInfos] = useState([]);
-    const upload = () => {
-        let currentFile = selectedFiles[0];
-    
+  const [fileInfos, setFileInfos] = useState([]);
+  const upload = () => {
+    let currentFile = selectedFiles[0];
+
+    setProgress(0);
+    setCurrentFile(currentFile);
+
+    UploadService.upload(currentFile, (event) => {
+      setProgress(Math.round((100 * event.loaded) / event.total));
+    })
+      .then((response) => {
+        setMessage(response.data.message);
+        return UploadService.getFiles();
+      })
+      .then((files) => {
+        setFileInfos(files.data);
+      })
+      .catch(() => {
         setProgress(0);
-        setCurrentFile(currentFile);
-    
-        UploadService.upload(currentFile, (event) => {
-          setProgress(Math.round((100 * event.loaded) / event.total));
-        })
-          .then((response) => {
-            setMessage(response.data.message);
-            return UploadService.getFiles();
-          })
-          .then((files) => {
-            setFileInfos(files.data);
-          })
-          .catch(() => {
-            setProgress(0);
-            setMessage("Could not upload the file!");
-            setCurrentFile(undefined);
-        });
+        setMessage("Could not upload the file!");
+        setCurrentFile(undefined);
+      });
 
-        setSelectedFiles(undefined);
-      };
-      useEffect(() => {
-        UploadService.getFiles().then((response) => {
-          setFileInfos(response.data);
-        });
-      }, []);
-  
-    return (
-        <div>
-        {currentFile && (
-          <div className="progress">
-            <div
-              className="progress-bar progress-bar-info progress-bar-striped"
-              role="progressbar"
-              aria-valuenow={progress}
-              aria-valuemin="0"
-              aria-valuemax="100"
-              style={{ width: progress + "%" }}
-            >
-              {progress}%
-            </div>
+    setSelectedFiles(undefined);
+  };
+  useEffect(() => {
+    UploadService.getFiles().then((response) => {
+      setFileInfos(response.data);
+    });
+  }, []);
+
+  return (
+    <div>
+      {currentFile && (
+        <div className="progress">
+          <div
+            className="progress-bar progress-bar-info progress-bar-striped"
+            role="progressbar"
+            aria-valuenow={progress}
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{ width: progress + "%" }}
+          >
+            {progress}%
           </div>
-        )}
-  
-        <label className="btn btn-default">
-          <input type="file" onChange={selectFile} />
-        </label>
-        <button
+        </div>
+      )}
+
+      <label className="btn btn-default">
+        <input type="file" onChange={selectFile} />
+      </label>
+      <button
         className="btn"
         type="submit"
         disabled={!selectedFiles}
@@ -152,11 +150,7 @@ const Upload = () => {
         </ul>
       </div>
     </div>
-      
-    );
-  };
-  
-  export default Upload;
+  );
+};
 
-
-
+export default Upload;
