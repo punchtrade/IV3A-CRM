@@ -1,31 +1,33 @@
 import React from "react";
 import Search from "../components/search/search";
-import axios from "axios";
-import "../styles/dashboard.scss";
+// import axios from "axios";
 import { withRouter } from "react-router-dom";
 
 class Dashboard extends React.Component {
   onSubmitHandler = (e) => {
     e.preventDefault();
-    this.props.history.replace("/newClient");
+    // this.props.history.replace("/newClient");
     console.log(this.state);
-    axios
-      .post("http://localhost:9000/newClient", this.state, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  //   axios
+  //     .post("http://localhost:9000/newClient", this.state, {
+  //       headers: { "Content-Type": "application/json" },
+  //     })
+  //     .then((response) => {
+  //       console.log(response);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
   };
 
   render() {
     return (
       <div className="dashboard">
-        <div className="button">
+        <br></br>
+        <br></br>
+        <div>
           <button
+            className="btn btn-primary-green btn-lg btn-block"
             type="submit"
             value="submit"
             onClick={() => {
@@ -35,9 +37,25 @@ class Dashboard extends React.Component {
             Nouveau Client
           </button>
         </div>
+        <br></br>
+        <br></br>
+        <div>
+          <button
+            className="btn btn-primary-green btn-lg btn-block"
+            type="submit"
+            value="submit"
+            onClick={() => {
+              this.props.history.replace("/leads");
+            }}
+          >
+            Leads
+          </button>
+        </div>
         <div className="search">
           <Search />
         </div>
+        <br></br>
+        <br></br>
       </div>
     );
   }

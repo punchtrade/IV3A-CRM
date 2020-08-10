@@ -54,9 +54,6 @@ app.use(function (req, res, next) {
   req.db = db;
   next();
 });
-// app.use("/register", require("../src/core/routes/register.routes"));
-// app.use("/login", require("../src/core/routes/login.routes"));
-// app.use("/newClient", require("../src/core/routes/clients.routes"));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -65,7 +62,7 @@ app.use((err, req, res, next) => {
 });
 //initializations
 
-require("../src/core/database");
+require("../src/database/database");
 
 //Settings
 app.set("port", process.env.PORT || 9000);

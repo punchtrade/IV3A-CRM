@@ -63,9 +63,9 @@ class FormCar extends Component {
               value="submit"
               method="post"
             >
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Voiture choisie dans le catalogue IV3A
+                  Voiture choisie dans le catalogue IV3A:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -76,7 +76,7 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
                   Nº de serie (de fiche technique):
                 </label>
@@ -89,9 +89,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" className="text-left" name="first Registration">
-                  Genre
+                  Genre:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -102,9 +102,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Marque
+                  Marque:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -115,9 +115,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Type
+                  Type:
                 </label>
 
                 <input
@@ -129,9 +129,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Nº dans la serie du type
+                  Nº dans la serie du type:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -142,9 +142,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Modèle
+                  Modèle:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -155,9 +155,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Carrosserie
+                  Carrosserie:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -168,9 +168,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Energie
+                  Energie:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -181,9 +181,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Puissance
+                  Puissance:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -194,9 +194,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Places assises
+                  Places assises:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -207,9 +207,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Poids total en charge
+                  Poids total en charge:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -220,9 +220,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  MMA
+                  MMA:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -233,9 +233,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Charge utile
+                  Charge utile:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -246,9 +246,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left"> 
                 <label type="text" name="first Registration">
-                  Tara
+                  Tara:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -259,9 +259,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Precedent numero
+                  Precedent numero:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -272,9 +272,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Premiere mise en circulation
+                  Premiere mise en circulation:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -285,9 +285,9 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
                 <label type="text" name="first Registration">
-                  Date de fabrication
+                  Date de fabrication:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -298,6 +298,14 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
+              <button
+            className="btn btn-primary-green"
+            type="submit"
+            value="submit"
+            // onClick={this.onSubmitHandler.bind(this)}
+          >
+            Envoyer
+          </button>
             </form>
           </div>
         </div>

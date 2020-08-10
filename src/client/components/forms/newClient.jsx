@@ -74,7 +74,10 @@ class NewClient extends React.Component {
           value="submit"
           method="post"
         >
-          <div>
+          <div align="left">
+            <label type="text" name="id">
+              Nº:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -84,7 +87,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="card">
+              Document National d’Idenité - DNI No: IDDZA:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -94,7 +100,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="treatment">
+              Traitment:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -104,7 +113,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="firstName">
+              Nom:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -114,7 +126,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="lastName">
+              Prénom:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -124,7 +139,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="telephone">
+              Téléphone:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -134,7 +152,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="email">
+              Courrier électronique:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -144,7 +165,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="address">
+              Allée/Rue/Avenue:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -154,7 +178,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="city">
+              Ville:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -164,7 +191,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="state">
+              Wilaya:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -174,7 +204,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="postalCode">
+              Code Postal:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -190,7 +223,10 @@ class NewClient extends React.Component {
               (Détails du compte)
             </h6>
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="nameOfBank">
+              Nom de la Banque:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -200,7 +236,10 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="numberOfBank">
+              Nº de compte:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
@@ -210,82 +249,106 @@ class NewClient extends React.Component {
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="accountName">
+              Intitulé du compte:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="accountName"
-              placeholder="Intitulé du compte:"
+              placeholder="Intitulé du compte"
               value={accountName}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="IBAN">
+              IBAN:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="iban"
-              placeholder="IBAN:"
+              placeholder="IBAN"
               value={iban}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="swiftCode">
+              Swift BIC Code:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="swiftCode"
-              placeholder="Swift BIC Code:"
+              placeholder="Swift BIC Code"
               value={swiftCode}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="branchOffice">
+              Sucursale:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="branchOffice"
-              placeholder="Sucursale:"
+              placeholder="Sucursale"
               value={branchOffice}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="addressBank">
+              Allée/Rue/Av:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="addressBank"
-              placeholder="Allée/Rue/Av:"
+              placeholder="Allée/Rue/Av"
               value={addressBank}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="cityBank">
+              Ville:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="cityBank"
-              placeholder="Ville:"
+              placeholder="Ville"
               value={cityBank}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="stateBank">
+              Wilaya:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="stateBank"
-              placeholder="Wilaya:"
+              placeholder="Wilaya"
               value={stateBank}
               onChange={this.changeHandler}
             />
           </div>
-          <div>
+          <div align="left">
+            <label type="text" name="postalCodeBank">
+              Code Postal:
+                </label>
             <input
               className="mb-3 mt-3"
               type="text"
               name="postalCodeBank"
-              placeholder="Code Postal:"
+              placeholder="Code Postal"
               value={postalCodeBank}
               onChange={this.changeHandler}
             />

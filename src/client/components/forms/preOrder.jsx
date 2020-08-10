@@ -128,7 +128,10 @@ class PreOrder extends Component {
             value="submit"
             method="get"
           >
-            <div>
+            <div align="left">
+            <label type="text" name="id">
+              Nº:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -138,7 +141,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="card">
+            Document National d’Idenité - DNI No: IDDZA:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -148,7 +154,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="treatment">
+            Traitment:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -158,7 +167,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="firstName">
+              Nom:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -168,7 +180,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left"> 
+            <label type="text" name="lastName">
+            Prénom:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -178,7 +193,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="telephone">
+            Téléphone:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -188,7 +206,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="email">
+            Courrier électronique:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -198,7 +219,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="address">
+            Allée/Rue/Avenue:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -208,7 +232,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="city">
+            Ville:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -218,7 +245,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="state">
+            Wilaya:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -228,7 +258,10 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div>
+            <div align="left">
+            <label type="text" name="postalCode">
+            Code Postal:
+                </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
@@ -244,7 +277,10 @@ class PreOrder extends Component {
                 <br></br>
                 <br></br>
               </h6>
-              <div>
+              <div align="left">
+              <label type="text" name="nameOfBank">
+              Nom de la Banque:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
@@ -254,7 +290,10 @@ class PreOrder extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="numberOfBank">
+              Nº de compte:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
@@ -264,32 +303,41 @@ class PreOrder extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="accountName">
+              Intitulé du compte:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="accountName"
-                  placeholder="Intitulé du compte:"
+                  placeholder="Intitulé du compte"
                   value={accountName}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="iban">
+              IBAN:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="iban"
-                  placeholder="IBAN:"
+                  placeholder="IBAN"
                   value={iban}
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="swiftCode">
+              Swift BIC Code:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="swiftCode"
-                  placeholder="Swift BIC Code:"
+                  placeholder="Swift BIC Code"
                   value={swiftCode}
                   onChange={this.changeHandler}
                 />
@@ -301,7 +349,10 @@ class PreOrder extends Component {
                 <br></br>
                 <br></br>
               </h6>
-              <div>
+              <div align="left">
+              <label type="text" name="registrationCar">
+              Matricule:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
@@ -311,7 +362,10 @@ class PreOrder extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="brand">
+              Marque:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
@@ -321,7 +375,10 @@ class PreOrder extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="model">
+              Modèle:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
@@ -331,7 +388,10 @@ class PreOrder extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div>
+              <div align="left">
+              <label type="text" name="fuel">
+              Combustible:
+                </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"

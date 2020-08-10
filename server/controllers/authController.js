@@ -1,4 +1,4 @@
-const { Router } = require("express");
+const { Router, response } = require("express");
 const router = Router();
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
@@ -150,36 +150,46 @@ router.post("/newClient", (req, res, next) => {
     });
 });
 
-router.get("/newClient"),
-  (req, res, next) => {
-    const resultArray = [];
-    const { value } = req.data;
-    if (value) {
-      for (let i = 0; i < Clients.length; i += 1) {
-        const c = Clients[i].firstName;
-        if (c.toLowerCase().startsWith(value.toLowerCase())) {
-          resultArray.push(c);
-        }
-      }
-      res.json(resultArray);
-    }
-
-    Clients.findOne({ clients: req.body.firstName })
-      .then((clients) => {
-        if (!clients) {
-          errors.firstName = "Client not found";
-          res.status(404).json({ errors });
-          // stop further execution in this callback
-          return;
-        } else {
-          res.json(clients);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    return res.send(200).json({ message: "client load" });
+router.get('/newClient', function(req, res) {
+  response = {
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    email: req.body.email
   };
+  console.log(response);
+  res.status(200).json;
+});
+
+// router.get("/newClient"),
+//   (req, res, next) => {
+//     const resultArray = [];
+//     const { value } = req.data;
+//     if (value) {
+//       for (let i = 0; i < Clients.length; i += 1) {
+//         const c = Clients[i].firstName;
+//         if (c.toLowerCase().startsWith(value.toLowerCase())) {
+//           resultArray.push(c);
+//         }
+//       }
+//       res.json(resultArray);
+//     }
+
+//     Clients.findOne({ client: req.body.firstName })
+//       .then((client) => {
+//         if (!client) {
+//           errors.firstName = "Client not found";
+//           res.status(404).json({ errors });
+//           // stop further execution in this callback
+//           return;
+//         } else {
+//           res.json(client);
+//         }
+//       })
+//       .catch((err) => {
+//         console.log(err);
+//       });
+//     return res.send(200).json({ message: "client load" });
+//   };
 
 router.post("/upload", (req, res, next) => {
   console.log(req.file);

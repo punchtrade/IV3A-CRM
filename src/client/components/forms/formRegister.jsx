@@ -37,66 +37,83 @@ class FormRegister extends React.Component {
   render() {
     const { firstName, lastName, idCard, email, password } = this.state;
     return (
-      <div>
-        <form
-          onSubmit={this.onSubmitHandler.bind(this)}
-          action="http://localhost:9000/register"
-          method="post"
-        >
-          <div>
-            <input
-              className="mb-3 mt-3"
-              type="text"
-              name="firstName"
-              placeholder="Nom"
-              value={firstName}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              className="mb-3 mt-3"
-              type="text"
-              name="lastName"
-              placeholder="Prénom"
-              value={lastName}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              className="mb-3 mt-3"
-              type="text"
-              name="idCard"
-              placeholder="Carte d'identité"
-              value={idCard}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              className="mb-3 mt-3"
-              type="text"
-              name="email"
-              placeholder="Courrier électronique"
-              value={email}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              className="mb-3 mt-3"
-              type="text"
-              name="password"
-              placeholder="Mot de passe"
-              value={password}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <button type="submit" onClick={this.onSubmitHandler.bind(this)}>
-            Envoyer
+      <div className="container">
+        <div className="container-form">
+          <form
+            onSubmit={this.onSubmitHandler.bind(this)}
+            action="http://localhost:9000/register"
+            method="post"
+          >
+            <div align="left">
+              <label type="text" name="firstName">
+                Nom:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="firstName"
+                placeholder="Nom"
+                value={firstName}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div align="left">
+              <label type="text" name="lastName">
+                Prénom:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="lastName"
+                placeholder="Prénom"
+                value={lastName}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div align="left">
+              <label type="text" name="idCard">
+                Carte d'identité:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="idCard"
+                placeholder="Carte d'identité"
+                value={idCard}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div align="left">
+              <label type="text" name="email">
+                Courrier électronique:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="email"
+                placeholder="Courrier électronique"
+                value={email}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div align="left">
+              <label type="text" name="password">
+                Mot de passe:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                type="text"
+                name="password"
+                placeholder="Mot de passe"
+                value={password}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <button className="btn btn-primary-green" type="submit" onClick={this.onSubmitHandler.bind(this)}>
+              Envoyer
           </button>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }

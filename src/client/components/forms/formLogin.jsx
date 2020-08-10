@@ -10,7 +10,7 @@ class FormLogin extends React.Component {
       email: "",
       password: "",
       token: "",
-      redirect: localStorage.getItem("userTokenTime") ? true : false,
+      // redirect: localStorage.getItem("userTokenTime") ? true : false,
     };
   }
 
@@ -20,7 +20,7 @@ class FormLogin extends React.Component {
 
   onSubmitHandler = (e) => {
     e.preventDefault();
-    this.props.history.push("/dashboard");
+    this.props.history.replace("/dashboard");
     console.log(this.state);
     axios
       .post("http://localhost:9000/login", this.state, {
@@ -37,43 +37,52 @@ class FormLogin extends React.Component {
   render() {
     const { id, email, password } = this.state;
     return (
-      <div>
-        <form
-          onSubmit={this.onSubmitHandler.bind(this)}
-          action="http://localhost:9000/login"
-          value="submit"
-          method="post"
-        >
-          <div>
-            <input
-              className="mb-3 mt-3"
-              id={id}
-              type="text"
-              name="email"
-              placeholder="Courrier électronique"
-              value={email}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <div>
-            <input
-              className="mb-3 mt-3"
-              id={id}
-              type="password"
-              name="password"
-              placeholder="Mot de passe"
-              value={password}
-              onChange={this.changeHandler}
-            />
-          </div>
-          <button
-            type="submit"
-            value="Submit"
-            onClick={this.onSubmitHandler.bind(this)}
+      <div className="container">
+        <div className="container-form">
+          <form
+            onSubmit={this.onSubmitHandler.bind(this)}
+            action="http://localhost:9000/login"
+            value="submit"
+            method="post"
           >
-            Envoyer
+            <div align="left">
+              <label type="text" name="email">
+                Courrier électronique:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                id={id}
+                type="text"
+                name="email"
+                placeholder="Courrier électronique"
+                value={email}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <div align="left">
+              <label type="text" name="password">
+                Mot de passe:
+                </label>
+              <input
+                className="mb-3 mt-3"
+                id={id}
+                type="text"
+                name="password"
+                placeholder="Mot de passe"
+                value={password}
+                onChange={this.changeHandler}
+              />
+            </div>
+            <button
+              className="btn btn-primary-green"
+              type="submit"
+              value="Submit"
+              onClick={this.onSubmitHandler.bind(this)}
+            >
+              Envoyer
           </button>
-        </form>
+          </form>
+        </div>
       </div>
     );
   }
