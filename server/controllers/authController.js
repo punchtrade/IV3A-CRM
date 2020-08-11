@@ -9,6 +9,8 @@ const multer = require("multer");
 const User = require("../models/users");
 const Clients = require("../models/clients");
 const Uploads = require("../models/uploads");
+const clients = require("../models/clients");
+const { data } = require("jquery");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -150,46 +152,29 @@ router.post("/newClient", (req, res, next) => {
     });
 });
 
-router.get('/newClient', function(req, res) {
-  response = {
+router.get('/newClient', (req, res, next) => {
+  Clients.findOne({
+    card: req.body.card,
     firstName: req.body.firstName,
-    lastName: req.body.lastName,
-    email: req.body.email
-  };
-  console.log(response);
-  res.status(200).json;
+    lastName: req.body.lastName
+  })
+    .then((data) => {
+      res.status(200).json({
+        message: "Clients list load",
+        clients: data,
+      });
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({
+        message: "client don't exixt",
+        error: err,
+      });
+      console.log({message: "client don't exixt"});
+    });
 });
 
-// router.get("/newClient"),
-//   (req, res, next) => {
-//     const resultArray = [];
-//     const { value } = req.data;
-//     if (value) {
-//       for (let i = 0; i < Clients.length; i += 1) {
-//         const c = Clients[i].firstName;
-//         if (c.toLowerCase().startsWith(value.toLowerCase())) {
-//           resultArray.push(c);
-//         }
-//       }
-//       res.json(resultArray);
-//     }
-
-//     Clients.findOne({ client: req.body.firstName })
-//       .then((client) => {
-//         if (!client) {
-//           errors.firstName = "Client not found";
-//           res.status(404).json({ errors });
-//           // stop further execution in this callback
-//           return;
-//         } else {
-//           res.json(client);
-//         }
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//     return res.send(200).json({ message: "client load" });
-//   };
 
 router.post("/upload", (req, res, next) => {
   console.log(req.file);

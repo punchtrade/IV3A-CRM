@@ -19,16 +19,18 @@ function Search() {
       })
       .catch((err) => {
         console.log(err);
-      });
+      }).finally((res) =>{
+        
+      })
   }, [search, clients]);
 
-  useEffect(() => {
+  useState(() => {
     setFilteredClients(
       clients.filter(
         (clients) =>
-          clients.userName.toLowerCase().includes(search.toLowerCase()) +
-          clients.email.toLowerCase().includes(search.toLowerCase())
-        // + user.website.toLowerCase().includes(search.toLowerCase())
+          clients.firstName.toLowerCase().includes(search.toLowerCase()) +
+          clients.lastName.toLowerCase().includes(search.toLowerCase())
+        + clients.card.toLowerCase().includes(search.toLowerCase())
       )
     );
   }, [search, clients]);
@@ -38,28 +40,27 @@ function Search() {
   // }
 
   return (
-    <div className="App">
-      {/* <h2>Users Lists</h2> */}
+    <div className="Search">
       <input
         className="container mt-5"
         type="text"
         placeholder="Recherche par nom ou par courrier électronique "
         onChange={(e) => setSearch(e.target.value)}
       />
-      {/* <div className="container-fluid mt-5">    
-    <table className="table" border="1">
-            <thead className="thead-dark">        
+      <div className="container-fluid mt-5">    
+    <table className="table">
+            <thead className="thead-clear">        
                     <tr>
                         <th scope="col">Id</th>
                         <th scope="col">Traitment</th>
                         <th scope="col">Nom</th>
                         <th scope="col">Prénom</th>
                         <th scope="col">Teléphone</th>
-                        <th scope="col">E-mail</th>
+                        <th scope="col">Courrier Éléctronique</th>
                     </tr>               
             </thead>
        </table>
-    </div> */}
+    </div>
       {filteredClients.map((clients, idx) => (
         <ClientsDetail key={idx} {...clients} />
       ))}
@@ -86,4 +87,3 @@ const ClientsDetail = (props) => {
   );
 };
 export default Search;
-

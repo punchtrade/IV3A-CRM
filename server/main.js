@@ -55,11 +55,11 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use((err, req, res, next) => {
-  console.error(err.stack);
+// app.use((err, req, res, next) => {
+//   console.error(err.stack);
 
-  res.status(500).send("Something broke!");
-});
+//   res.status(500).send("Something broke!");
+// });
 //initializations
 
 require("../src/database/database");
