@@ -152,11 +152,11 @@ router.post("/newClient", (req, res, next) => {
     });
 });
 
-router.get('/newClient', (req, res, next) => {
+router.get('/search', (req, res, next) => {
   Clients.findOne({
-    card: req.body.card,
-    firstName: req.body.firstName,
-    lastName: req.body.lastName
+    // card: req.body.card,
+    // firstName: req.body.firstName,
+    // lastName: req.body.lastName
   })
     .then((data) => {
       res.status(200).json({
@@ -171,7 +171,7 @@ router.get('/newClient', (req, res, next) => {
         message: "client don't exixt",
         error: err,
       });
-      console.log({message: "client don't exixt"});
+      console.log({ message: "client don't exixt" });
     });
 });
 
