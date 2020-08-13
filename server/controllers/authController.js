@@ -152,28 +152,41 @@ router.post("/newClient", (req, res, next) => {
     });
 });
 
-router.get('/search', (req, res, next) => {
-  Clients.findOne({
-    // card: req.body.card,
-    // firstName: req.body.firstName,
-    // lastName: req.body.lastName
-  })
-    .then((data) => {
-      res.status(200).json({
-        message: "Clients list load",
-        clients: data,
-      });
-      console.log(data);
-    })
-    .catch((err) => {
-      console.log(err);
-      res.status(500).json({
-        message: "client don't exixt",
-        error: err,
-      });
-      console.log({ message: "client don't exixt" });
-    });
+router.get('/search', (req, res) => {
+  console.info('obtener datos clientes');
+  Clients.find()
+  .populate('Clients', 'clientsSchema')
+  .exec((err, clients) => {
+    if(err) {
+      console.error(err.message);
+      return res.status(500).json({error: err.message});
+    }
+    return res.status(200).json(clients);
+  });
 });
+
+// router.get('/search', (req, res, next) => {
+//   Clients.findOne({
+//     // card: req.body.card,
+//     // firstName: req.body.firstName,
+//     // lastName: req.body.lastName
+//   })
+//     .then((data) => {
+//       res.status(200).json({
+//         message: "Clients list load",
+//         clients: data,
+//       });
+//       console.log(data);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//       res.status(500).json({
+//         message: "client don't exixt",
+//         error: err,
+//       });
+//       console.log({ message: "client don't exixt" });
+//     });
+// });
 
 
 router.post("/upload", (req, res, next) => {

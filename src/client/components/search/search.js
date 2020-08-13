@@ -1,6 +1,5 @@
 // // /* eslint-disable no-sequences */
 // import React, { useState, useEffect } from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
 // import axios from "axios";
 
 // // const setClients = async () => {
@@ -62,100 +61,12 @@
 //               <th scope="col">Traitment</th>
 //               <th scope="col">Nom</th>
 //               <th scope="col">Prénom</th>
-//               <th scope="col">Teléphone</th>
-//               <th scope="col">Courrier Éléctronique</th>
-//             </tr>
-//           </thead>
-//         </table>
-//       </div>
-//       {filteredClients.map((clients, idx) => (
-//         <ClientsDetail key={idx} {...clients} />
-//       ))}
-//     </div>
-//   );
-// }
-// const ClientsDetail = (props) => {
-//   const { id, traitment, firstName, lastName, telephone, email } = props;
-//   return (
-//     <div className="container-fluid mt-5">
-//       <table className="table table-striped table-borderless">
-//         <tbody className="tbody-light">
-//           <tr>
-//             <td>{id}</td>
-//             <td>{traitment}</td>
-//             <td>{firstName}</td>
-//             <td>{lastName}</td>
-//             <td>{telephone}</td>
-//             <td>{email}</td>
-//           </tr>
-//         </tbody>
-//       </table>
-//     </div>
-//   );
-// };
-// export default Search;
-
-// // import { clientColumns } from './columns';
-// // import { useTableSearch } from './useTableSearch';
-
-// // const { Search } = Input;
-
-// // const fetchClients = async () => {
-// //   const { data } = await axios.get(
-// //     "http://localhost:9000/newClient"
-// //   );
-// //   return { data };
-// // };
-
-// // export default function Search() {
-// //   const [searchVal, setSearchVal] = useState(null);
-// //   const { filteredData, loading } = useTableSearch({
-// //     searchVal,
-// //     retrieve: fetchClients
-// //   });
-
-// //   return (
-
-// //     <div className="Search">
-// //       <input className="container mt-5"
-// //         onChange={e => setSearchVal(e.target.value)}
-// //         type="text"
-// //         placeholder="Echerche par nom ou par courrier électronique"
-// //         enterButton
-// //       />
-// //       <br /> <br />
-// //       <table className="table"
-// //         rowKey="name"
-// //         dataSource={filteredData}
-// //         columns={clientColumns}
-// //         loading={loading}
-// //         pagination={false}
-// //       />
 
 
-// //            <table className="table table-striped table-borderless">
-// //              <tbody className="tbody-light">
-// //                <tr>
-// //                  <td></td>
-// //                  <td></td>
-// //                  <td></td>
-// //                  <td></td>
-// //                  <td></td>
-// //                  <td></td>
-// //                </tr>
-// //              </tbody>
-// //            </table>
-// //          </div>
-// //   );
-// // }
 
 import React, { useState, useEffect } from 'react';
 import "bootstrap/dist/css/bootstrap.min.css";
-import Datatable from "./datatable";
 
-
-// require("es6-promise").polyfill();
-// require("isomorphic-fetch");
 
 export default function Search() {
   const [data, setData] = useState([]);
@@ -169,14 +80,13 @@ export default function Search() {
   }, []);
 
   function search(rows) {
-    function newFunction() {
-      return rows.filter((row) => searchColumns.some(
-        (column) => row[column].toString().toLowerCase().indexOf(q.toLowerCase) > -1
-      )
-      );
-    }
-  }
 
+    return rows.filter((row) => searchColumns.some(
+      (column) => row[column].toString().toLowerCase().indexOf(q.toLowerCase) > -1
+    )
+    );
+
+  }
   const columns = data[0] && Object.keys(data[0]);
   return (
     <div>
@@ -193,8 +103,23 @@ export default function Search() {
           }}
         />
       </label>)}
-      <div>
-        <Datatable data={search(data)} />
+      <div className="container-fluid mt-5">
+        <table className="table" cellPadding={0} cellSpacing={0}>
+          <thead  classname="thead-dark">
+
+            <tr>{data[0] && columns.map((heading) => <th scope="col">{heading}</th>)}</tr>
+          </thead>
+          <tbody className="container-fluid mt-5">
+            {data.map((row) => {
+              return (<tr>
+                {
+                  columns.map(column =>
+                    <td>{row[column]}</td>)
+                }
+              </tr>)
+            })}
+          </tbody>
+        </table>
       </div>
     </div>
   );
