@@ -277,7 +277,7 @@ class NewClient extends React.Component {
           </div>
           <div align="left">
             <label type="text" name="swiftCode">
-              Swift BIC Code:
+              Code BIC rapide:
                 </label>
             <input
               className="mb-3 mt-3"

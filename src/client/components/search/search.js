@@ -1,144 +1,16 @@
-// // /* eslint-disable no-sequences */
-// import React, { useState, useEffect } from "react";
-// import axios from "axios";
-
-// // const setClients = async () => {
-// //   const { data } = await axios.get(
-// //     "http://localhost:9000/newClient"
-// //   );
-// //   return { data };
-// // };
-
-// function Search() {
-//   const [clients, setClients] = useState([]);
-//   const [loading, setLoading] = useState(false);
-//   const [search, setSearch] = useState("");
-//   const [filteredClients, setFilteredClients] = useState([]);
-
-//   useEffect(() => {
-//     setLoading(true);
-//     axios
-//       .get("http://localhost:9000/newClient", {
-//         headers: { "Content-Type": "application/json" },
-//       })
-//       .then((res) => {
-//         setClients(res.json());
-//         setLoading(false);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       })
-//   }, [search, clients]);
-
-//   useState(() => {
-//     setFilteredClients(
-//       clients.filter(
-//         (clients) =>
-//           clients.firstName.toLowerCase().includes(search.toLowerCase()) +
-//           clients.lastName.toLowerCase().includes(search.toLowerCase())
-//           + clients.card.toLowerCase().includes(search.toLowerCase())
-//       )
-//     );
-//   }, [search, clients]);
-
-//   // if (loading) {
-//   //   return <p>Loading users...</p>;
-//   // }
-
-//   return (
-//     <div className="Search">
-//       <input
-//         className="container mt-5"
-//         type="text"
-//         placeholder="Recherche par nom ou par courrier électronique "
-//         onChange={(e) => setSearch(e.target.value)}
-//       />
-//       <div className="container-fluid mt-5">
-//         <table className="table">
-//           <thead className="thead-clear">
-//             <tr>
-//               <th scope="col">Id</th>
-//               <th scope="col">Traitment</th>
-//               <th scope="col">Nom</th>
-//               <th scope="col">Prénom</th>
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-
-// export default function Search() {
-//   const [data, setData] = useState([]);
-//   const [q, setQ] = useState("");
-//   const [searchColumns, setSearchColumns] = useState(["firstName", "lastName", "card"]);
-
-//   useEffect(() => {
-//     fetch("http://localhost:9000/search")
-//       .then((response) => response.json())
-//       .then((json) => setData(json));
-//   }, []);
-
-//   function search(rows) {
-
-//     return rows.filter((row) => searchColumns.some(
-//       (column) => row[column].toString().toLowerCase().indexOf(q.toLowerCase) > -1
-//     )
-//     );
-
-//   }
-//   const columns = data[0] && Object.keys(data[0]);
-//   return (
-//     <div>
-//       <input type="text" value={q} onChange={(e) => setQ(e.target.value)} />
-//       {columns && columns.map((column) => <label>
-//         <input type="checkbox" checked={searchColumns.includes(column)}
-//           onChange={(e) => {
-//             const checked = searchColumns.includes(column)
-//             setSearchColumns(prev =>
-//               checked
-//                 ? prev.filter(sc => sc !== column)
-//                 : [...prev, column]
-//             );
-//           }}
-//         />
-//         {column}
-//       </label>)}
-//       <div className="container-fluid mt-5">
-//         <table className="table" cellPadding={0} cellSpacing={0}>
-//           <thead  classname="thead-dark">
-
-//             <tr>{data[0] && columns.map((heading) => <th scope="col">{heading}</th>)}</tr>
-//           </thead>
-//           <tbody className="container-fluid mt-5">
-//             {data.map((row) => {
-//               return (<tr>
-//                 {
-//                   columns.map(column =>
-//                     <td>{row[column]}</td>)
-//                 }
-//               </tr>)
-//             })}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// }
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
-import {Modal, TextField, Button} from '@material-ui/core';
-import {makeStyles} from '@material-ui/core/styles';
+import { Modal, TextField, Button } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 const columns = [
-  {title: "Nº", field: "id"},
-  {title: "Nom", field: "firstName"},
-  {title: "Prénom", field: "lastName"},
-  {title: "DNI No: IDDZA", field: "card"}
+  { title: "Nº", field: "id" },
+  { title: "Nom", field: "firstName" },
+  { title: "Prénom", field: "lastName" },
+  { title: "DNI No: IDDZA", field: "card" }
 ];
 const baseUrl = "http://localhost:9000/search";
 const useStyles = makeStyles((theme) => ({
@@ -153,151 +25,221 @@ const useStyles = makeStyles((theme) => ({
     left: '50%',
     transform: 'translate(-50%, -50%)'
   },
-  iconos:{
-    cursor: 'pointer'
-  }, 
-  inputMaterial:{
+  iconos: {
+    cursor: 'pointer',
+  },
+  inputMaterial: {
     width: '100%'
   }
 }));
 
 function Search() {
-  const styles= useStyles();
-  const [data, setData]= useState([]);
-  const [modalInsertar, setModalInsertar]= useState(false);
-  const [modalEditar, setModalEditar]= useState(false);
-  const [modalEliminar, setModalEliminar]= useState(false);
-  const [artistaSeleccionado, setClientSelected]=useState({
-    firstName: "",
-    lastName: "",
+  const styles = useStyles();
+  const [data, setData] = useState([]);
+  const [insertModal, setInsertModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [selectedClient, setClientSelected] = useState({
     id: "",
     card: "",
-    sales: ""
+    treatment: "",
+    firstName: "",
+    lastName: "",
+    telephone: "",
+    email: "",
+    address: "",
+    city: "",
+    state: "",
+    postalCode: "",
+    nameOfBank: "",
+    numberOfBank: "",
+    accountName: "",
+    iban: "",
+    swiftCode: "",
+    branchOffice: "",
+    addressBank: "",
+    cityBank: "",
+    stateBank: "",
+    postalCodeBank: "",
   })
 
-  const handleChange=e=>{
-    const {name, value}=e.target;
-    setClientSelected(prevState=>({
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setClientSelected(prevState => ({
       ...prevState,
       [name]: value
     }));
   }
 
 
-  const getRequest = async() => {
+  const getRequest = async () => {
     await axios.get(baseUrl)
-    .then(response=>{
-      setData(response.data);
-    }).catch(error=>{
-      console.log(error);
-    })
+      .then(response => {
+        setData(response.data);
+      }).catch(error => {
+        console.log(error);
+      })
   }
 
-  const postRequest=async() => {
-    await axios.post(baseUrl, artistaSeleccionado)
-    .then(response=>{
-      setData(data.concat(response.data));
-      abrirCerrarModalInsertar();
-    }).catch(error=>{
-      console.log(error);
-    })
+  const readRequest = async () => {
+    await axios.get(baseUrl + "/" + selectedClient.id)
+      .then(response => {
+        setData(data.concat(response.data));
+        openCloseInsertModal();
+      }).catch(error => {
+        console.log(error);
+      })
   }
 
 
-  const putRequest=async()=>{
-    await axios.put(baseUrl+"/"+artistaSeleccionado.id, artistaSeleccionado)
-    .then(response=>{
-      var dataNueva= data;
-      dataNueva.map(artista=>{
-        if(artista.id===artistaSeleccionado.id){
-          artista.artista=artistaSeleccionado.artista;
-          artista.genero=artistaSeleccionado.genero;
-          artista.ventas=artistaSeleccionado.ventas;
-          artista.pais=artistaSeleccionado.pais;
-        }
-      });
-      setData(dataNueva);
-      abrirCerrarModalEditar();
-    }).catch(error=>{
-      console.log(error);
-    })
+  const putRequest = async () => {
+    await axios.put(baseUrl + "/" + selectedClient.id, selectedClient)
+      .then(response => {
+        var newData = data;
+        newData.map(client => {
+          if (client.id === selectedClient.id) {
+            client.card = selectedClient.card;
+            client.firstName = selectedClient.firstName;
+            client.lastName = selectedClient.lastName;
+            client.telephone = selectedClient.telephone;
+            client.email = selectedClient.email;
+            client.address = selectedClient.address;
+            client.city = selectedClient.city;
+            client.state = selectedClient.state;
+            client.postalCode = selectedClient.postalCode;
+            client.nameOfBank = selectedClient.nameOfBank;
+            client.numberOfBank = selectedClient.numberOfBank;
+            client.accountName = selectedClient.accountName;
+            client.iban = selectedClient.iban;
+            client.swiftCode = selectedClient.swiftCode;
+            client.branchOffice = selectedClient.branchOffice;
+            client.addressBank = selectedClient.addressBank;
+            client.cityBank = selectedClient.cityBank;
+            client.stateBank = selectedClient.stateBank;
+            client.postalCodeBank = selectedClient.postalCodeBank;
+          }
+        });
+        setData(newData);
+        openCloseEditModal();
+      }).catch(error => {
+        console.log(error);
+      })
   }
 
-  const deleteRequest=async()=>{
-    await axios.delete(baseUrl+"/"+artistaSeleccionado.id)
-    .then(response=>{
-      setData(data.filter(artista=>artista.id!==artistaSeleccionado.id));
-      abrirCerrarModalEliminar();
-    }).catch(error=>{
-      console.log(error);
-    })
+  const deleteRequest = async () => {
+    await axios.delete(baseUrl + "/" + selectedClient.id)
+      .then(response => {
+        setData(data.filter(client => client.id !== selectedClient.id));
+        openCloseDeleteModal();
+      }).catch(error => {
+        console.log(error);
+      })
   }
 
-  const seleccionarArtista=(artista, caso)=>{
-    setClientSelected(artista);
-    (caso==="Editar")?abrirCerrarModalEditar()
-    :
-    abrirCerrarModalEliminar()
+  const clientSelected = (client, caso) => {
+    setClientSelected(client);
+    (caso === "Edit") ? openCloseEditModal()
+      :
+      openCloseDeleteModal()
   }
 
-  const abrirCerrarModalInsertar=()=>{
-    setModalInsertar(!modalInsertar);
+  const openCloseInsertModal = () => {
+    setInsertModal(!insertModal);
   }
 
-  
-  const abrirCerrarModalEditar=()=>{
-    setModalEditar(!modalEditar);
+
+  const openCloseEditModal = () => {
+    setEditModal(!editModal);
   }
 
-  const abrirCerrarModalEliminar=()=>{
-    setModalEliminar(!modalEliminar);
+  const openCloseDeleteModal = () => {
+    setDeleteModal(!deleteModal);
   }
 
   useEffect(() => {
     getRequest();
   }, [])
-  const bodyInsertar=(
+  const insertBody = (
     <div className={styles.modal}>
-      <h3>Agregar Nuevo Artista</h3>
-      <TextField className={styles.inputMaterial} label="Artista" name="artista" onChange={handleChange}/>
+      <h3>Ajouter un nouvel client</h3>
+      <TextField className={styles.inputMaterial} label="Nº" name="id" onChange={handleChange} />
       <br />
-      <TextField className={styles.inputMaterial} label="País" name="pais" onChange={handleChange}/>          
-<br />
-<TextField className={styles.inputMaterial} label="Ventas" name="ventas" onChange={handleChange}/>
+      <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} />
       <br />
-<TextField className={styles.inputMaterial} label="Género" name="genero" onChange={handleChange}/>
+      <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} />
+      <br />
+      <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} />
       <br /><br />
       <div align="right">
-        <Button color="primary" onClick={()=>postRequest()}>Insérer</Button>
-        <Button onClick={()=>abrirCerrarModalInsertar()}>Annuler</Button>
+        <Button color="primary" onClick={() => readRequest()}>Insérer</Button>
+        <Button onClick={() => openCloseInsertModal()}>Annuler</Button>
       </div>
     </div>
   )
 
-  const bodyEditar=(
+  const editBody = (
     <div className={styles.modal}>
       <h3>Modifier le client</h3>
-      <TextField className={styles.inputMaterial} label="Artista" name="artista" onChange={handleChange} value={artistaSeleccionado&&artistaSeleccionado.artista}/>
+      <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} value={selectedClient && selectedClient.card} />
       <br />
-      <TextField className={styles.inputMaterial} label="País" name="pais" onChange={handleChange} value={artistaSeleccionado&&artistaSeleccionado.pais}/>          
-<br />
-<TextField className={styles.inputMaterial} label="Ventas" name="ventas" onChange={handleChange} value={artistaSeleccionado&&artistaSeleccionado.ventas}/>
+      <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} value={selectedClient && selectedClient.firstName} />
       <br />
-<TextField className={styles.inputMaterial} label="Género" name="genero" onChange={handleChange} value={artistaSeleccionado&&artistaSeleccionado.genero}/>
+      <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} value={selectedClient && selectedClient.lastName} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Téléphone" name="telephone" onChange={handleChange} value={selectedClient && selectedClient.telephone} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Courrier Électronique" name="email" onChange={handleChange} value={selectedClient && selectedClient.email} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Allée/Rue/Avenue" name="address" onChange={handleChange} value={selectedClient && selectedClient.address} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Ville" name="city" onChange={handleChange} value={selectedClient && selectedClient.city} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Wilaya" name="state" onChange={handleChange} value={selectedClient && selectedClient.state} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Code Postal" name="postalCode" onChange={handleChange} value={selectedClient && selectedClient.postalCode} />
       <br /><br />
       <div align="right">
-        <Button color="primary" onClick={()=>putRequest()}>Modifier</Button>
-        <Button onClick={()=>abrirCerrarModalEditar()}>Annuler</Button>
+        <Button color="primary" onClick={() => putRequest()}>Modifier</Button>
+        <Button onClick={() => openCloseEditModal()}>Annuler</Button>
+      </div>
+    </div>
+  )
+  const editBank = (
+    <div className={styles.modal}>
+      <h3>Modifier le Coordonnées Bancaires</h3>
+      <TextField className={styles.inputMaterial} label="Nom de la Banque" name="nameOfBank" onChange={handleChange} value={selectedClient && selectedClient.nameOfBank} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Nº de compte" name="numberOfBank" onChange={handleChange} value={selectedClient && selectedClient.numberOfBank} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Intitulé du compte" name="accountName" onChange={handleChange} value={selectedClient && selectedClient.accountName} />
+      <br />
+      <TextField className={styles.inputMaterial} label="IBAN" name="iban" onChange={handleChange} value={selectedClient && selectedClient.iban} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Code BIC rapide" name="swiftCode" onChange={handleChange} value={selectedClient && selectedClient.swiftCode} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Sucursale" name="branchOffice" onChange={handleChange} value={selectedClient && selectedClient.branchOffice} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Allée/Rue/Av" name="addressBank" onChange={handleChange} value={selectedClient && selectedClient.addressBank} />
+      <br />
+      {/* <TextField className={styles.inputMaterial} label="Ville" name="cityBank" onChange={handleChange} value={selectedClient && selectedClient.cityBank} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Wilaya" name="stateBank" onChange={handleChange} value={selectedClient && selectedClient.stateBank} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Code Postal" name="postalCodeBank" onChange={handleChange} value={selectedClient && selectedClient.postalCodeBank} /> */}
+      <br />
+      <div align="right">
+        <Button color="primary" onClick={() => putRequest()}>Modifier</Button>
+        <Button onClick={() => openCloseEditModal()}>Annuler</Button>
       </div>
     </div>
   )
 
-  const bodyEliminar=(
+  const deleteBody = (
     <div className={styles.modal}>
-      <p>Êtes-vous sûr de vouloir supprimer le client <b>{artistaSeleccionado && artistaSeleccionado.artista}</b>? </p>
+      <p>Êtes-vous sûr de vouloir supprimer le client <b>{selectedClient && selectedClient.id}</b>? </p>
       <div align="right">
-        <Button color="secondary" onClick={()=>deleteRequest()}>Oui</Button>
-        <Button onClick={()=>abrirCerrarModalEliminar()}>Non</Button>
+        <Button color="secondary" onClick={() => deleteRequest()}>Oui</Button>
+        <Button onClick={() => openCloseDeleteModal()}>Non</Button>
 
       </div>
 
@@ -306,55 +248,77 @@ function Search() {
 
   return (
     <div className="Search">
-            <br />
-      <Button onClick={()=>abrirCerrarModalInsertar()}>Inseré le client</Button>
+      <br />
+      <Button onClick={() => openCloseInsertModal()}>Inseré le client</Button>
       <br /><br />
       <MaterialTable
-      columns={columns}
-      data={data}
-      title="Les clients"
-      actions={[
-        {
-          icon: 'edit',
-          tooltip: 'Editar Artista',
-          onClick: (event, rowData) => seleccionarArtista(rowData, "Editar")
-        },
-        {
-          icon: 'delete',
-          tooltip: 'Eliminar Artista',
-          onClick: (event, rowData) => seleccionarArtista(rowData, "Eliminar")
-        }
-      ]}
-      options={{
-        actionsColumnIndex: -1,
-      }}
-      localization={{
-        header:{
-          actions: "Actions"
-        }
-      }}
-    />
-     <Modal
-        open={modalInsertar}
-        onClose={abrirCerrarModalInsertar}>
-          {bodyInsertar}
-        </Modal>
+        columns={columns}
+        data={data}
+        title="Les clients"
+        actions={[
+          {
+            icon: 'read favorite_border',
+            tooltip: 'Data Client',
+            onClick: (event, rowData) => clientSelected(rowData, "Read")
+          },
+          {
+            icon: 'edit',
+            tooltip: 'Client Edit',
+            onClick: (event, rowData) => clientSelected(rowData, "Edit")
+          },
+          {
+            icon: 'modificate',
+            tooltip: 'Bank Edit',
+            onClick: (event, rowData) => clientSelected(rowData, "Edit")
+          },
+          {
+            icon: 'delete',
+            tooltip: 'Client Delete',
+            onClick: (event, rowData) => clientSelected(rowData, "Delete")
+          }
+        ]}
+        options={{
+          actionsColumnIndex: -1,
+        }}
+        localization={{
+          header: {
+            actions: "Actions"
+          }
+        }}
+        style={{
+          color: 'white',
+          backgroundColor: '#036435'
+        }}
+      />
+      <Modal
+        open={insertModal}
+        onClose={openCloseInsertModal}>
+        {insertBody}
+      </Modal>
 
-        
-        <Modal
-        open={modalEditar}
-        onClose={abrirCerrarModalEditar}>
-          {bodyEditar}
-        </Modal>
 
-        <Modal
-        open={modalEliminar}
-        onClose={abrirCerrarModalEliminar}>
-          {bodyEliminar}
-        </Modal>
+      <Modal
+        open={editModal}
+        onClose={openCloseEditModal}>
+        {editBody}
+      </Modal>
+
+      <Modal
+        open={editModal}
+        onClose={openCloseEditModal}>
+        {editBank}
+      </Modal>
+
+      <Modal
+        open={deleteModal}
+        onClose={openCloseDeleteModal}>
+        {deleteBody}
+      </Modal>
     </div>
   )
 
 }
 
 export default Search;
+
+
