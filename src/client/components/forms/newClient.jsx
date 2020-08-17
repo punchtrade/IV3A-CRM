@@ -21,13 +21,13 @@ class NewClient extends React.Component {
     };
   }
 
-  changeHandler = (e) => {
+  changeHandler =  (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmitHandler = (e) => {
+  onSubmitHandler = async (e) => {
     e.preventDefault();
-    axios
+  await  axios
       .post("http://localhost:9000/newClient", this.state, {
         headers: { "Content-Type": "application/json" },
       })

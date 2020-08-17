@@ -9,8 +9,7 @@ const multer = require("multer");
 const User = require("../models/users");
 const Clients = require("../models/clients");
 const Uploads = require("../models/uploads");
-const clients = require("../models/clients");
-const { data } = require("jquery");
+const Car = require("../models/car");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -152,6 +151,65 @@ router.post("/newClient", (req, res, next) => {
     });
 });
 
+router.post("/car", (req, res, next) => {
+  console.log(req.body);
+  Car.find({ brand: req.body.brand })
+    .exec()
+    .then((car) => {
+      if (car.length >= 1) {
+        return res.status(409).json({
+          message: "Car already exist",
+        });
+      } else {
+        const car = new Car({
+          _id: new mongoose.Types.ObjectId(),
+          // id: req.body.id,
+          carCatalogue: req.body.carCatalogue,
+          carOrder: req.body.carOrder,
+          brand: req.body.brand,
+          model: req.body.model,
+          fuel: req.body.fuel,
+          serialNumber: req.body.serialNumber,
+          description: req.body.description,
+          type: req.body.type,
+          typeSeries: req.body.typeSeries,
+          body: req.body.body,
+          energy: req.body.energy,
+          power: req.body.power,
+          places: req.body.places,
+          grossWeight: req.body.grossWeight,
+          mma: req.body.mma,
+          payload: req.body.payload,
+          tara: req.body.tara,
+          previousNumber: req.body.previousNumber,
+          firstRegistration: req.body.firstRegistration,
+          dateManufacture: req.body.dateManufacture,
+          date: req.body.date,
+        });
+        car
+          .save()
+          .then((result) => {
+            console.log(result);
+            res.status(201).json({
+              message: "Car created",
+            });
+          })
+          .catch((err) => {
+            console.log(err);
+            res.status(500).json({
+              error: err,
+            });
+          });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(422).json({
+        error: err,
+      });
+    });
+});
+
 router.get('/search', (req, res) => {
   console.info('obtener datos clientes');
   Clients.find()
@@ -165,29 +223,20 @@ router.get('/search', (req, res) => {
   });
 });
 
-// router.get('/search', (req, res, next) => {
-//   Clients.findOne({
-//     // card: req.body.card,
-//     // firstName: req.body.firstName,
-//     // lastName: req.body.lastName
-//   })
-//     .then((data) => {
-//       res.status(200).json({
-//         message: "Clients list load",
-//         clients: data,
-//       });
-//       console.log(data);
-//     })
-//     .catch((err) => {
-//       console.log(err);
-//       res.status(500).json({
-//         message: "client don't exixt",
-//         error: err,
-//       });
-//       console.log({ message: "client don't exixt" });
-//     });
-// });
+router.put('/search', (req, res, next) => {
+  Clients.updateOne(req.params.id, req.body, function (err, result) {
+   if (err) return next(err);
+   res.status(200).json(result);
+   console.log(req.body);
+  });
+ });
 
+router.delete('/search', (req, res, next) => {
+  Clients.findOneAndDelete(req.params.id, req.body, function (err, post) {
+    if(err) return next(err);
+    res.json(post);
+  });
+});
 
 router.post("/upload", (req, res, next) => {
   console.log(req.file);

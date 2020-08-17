@@ -18,11 +18,11 @@ class FormLogin extends React.Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  onSubmitHandler = (e) => {
+  onSubmitHandler = async (e) => {
     e.preventDefault();
     this.props.history.replace("/dashboard");
     console.log(this.state);
-    axios
+   await axios
       .post("http://localhost:9000/login", this.state, {
         headers: { "Content-Type": "application/json" },
       })

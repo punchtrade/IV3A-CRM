@@ -6,24 +6,28 @@ import { Modal, TextField, Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 
+
 const columns = [
   { title: "Nº", field: "id" },
   { title: "Nom", field: "firstName" },
   { title: "Prénom", field: "lastName" },
-  { title: "DNI No: IDDZA", field: "card" }
+  { title: "DNI Nº/IDDZA", field: "card" }
 ];
-const baseUrl = "http://localhost:9000/search";
+// const baseUrl = "http://localhost:9000/search";
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
     width: 400,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: '2px solid #036435',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
     top: '50%',
     left: '50%',
-    transform: 'translate(-50%, -50%)'
+    transform: 'translate(-50%, -50%)',
+    overflow: 'scroll',
+    height: '100%',
+    display: 'block'
   },
   iconos: {
     cursor: 'pointer',
@@ -73,7 +77,7 @@ function Search() {
 
 
   const getRequest = async () => {
-    await axios.get(baseUrl)
+    await axios.get("http://localhost:9000/search")
       .then(response => {
         setData(response.data);
       }).catch(error => {
@@ -81,19 +85,23 @@ function Search() {
       })
   }
 
-  const readRequest = async () => {
-    await axios.get(baseUrl + "/" + selectedClient.id)
-      .then(response => {
-        setData(data.concat(response.data));
-        openCloseInsertModal();
-      }).catch(error => {
-        console.log(error);
-      })
-  }
+  // const readRequest = async () => {
+  //   await axios.get("http://localhost:9000/search")
+  //     .then(response => {
+  //       setData(data.concat(response.data));
+  //       openCloseInsertModal();
+  //     }).catch(error => {
+  //       console.log(error);
+  //     })
+  // }
 
 
   const putRequest = async () => {
-    await axios.put(baseUrl + "/" + selectedClient.id, selectedClient)
+    // await axios.put("http://localhost:9000/search")
+    // .then(res => {
+    //   console.log(res.data);
+    // })
+    await axios.put("http://localhost:9000/search")
       .then(response => {
         var newData = data;
         newData.map(client => {
@@ -127,7 +135,7 @@ function Search() {
   }
 
   const deleteRequest = async () => {
-    await axios.delete(baseUrl + "/" + selectedClient.id)
+    await axios.delete("http://localhost:9000/search")
       .then(response => {
         setData(data.filter(client => client.id !== selectedClient.id));
         openCloseDeleteModal();
@@ -159,23 +167,23 @@ function Search() {
   useEffect(() => {
     getRequest();
   }, [])
-  const insertBody = (
-    <div className={styles.modal}>
-      <h3>Ajouter un nouvel client</h3>
-      <TextField className={styles.inputMaterial} label="Nº" name="id" onChange={handleChange} />
-      <br />
-      <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} />
-      <br />
-      <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} />
-      <br />
-      <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} />
-      <br /><br />
-      <div align="right">
-        <Button color="primary" onClick={() => readRequest()}>Insérer</Button>
-        <Button onClick={() => openCloseInsertModal()}>Annuler</Button>
-      </div>
-    </div>
-  )
+  // const insertBody = (
+  //   <div className={styles.modal}>
+  //     <h3>Ajouter un nouvel client</h3>
+  //     <TextField className={styles.inputMaterial} label="Nº" name="id" onChange={handleChange} />
+  //     <br />
+  //     <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} />
+  //     <br />
+  //     <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} />
+  //     <br />
+  //     <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} />
+  //     <br /><br />
+  //     <div align="right">
+  //       <Button color="primary" onClick={() => readRequest()}>Insérer</Button>
+  //       <Button onClick={() => openCloseInsertModal()}>Annuler</Button>
+  //     </div>
+  //   </div>
+  // )
 
   const editBody = (
     <div className={styles.modal}>
@@ -198,14 +206,6 @@ function Search() {
       <br />
       <TextField className={styles.inputMaterial} label="Code Postal" name="postalCode" onChange={handleChange} value={selectedClient && selectedClient.postalCode} />
       <br /><br />
-      <div align="right">
-        <Button color="primary" onClick={() => putRequest()}>Modifier</Button>
-        <Button onClick={() => openCloseEditModal()}>Annuler</Button>
-      </div>
-    </div>
-  )
-  const editBank = (
-    <div className={styles.modal}>
       <h3>Modifier le Coordonnées Bancaires</h3>
       <TextField className={styles.inputMaterial} label="Nom de la Banque" name="nameOfBank" onChange={handleChange} value={selectedClient && selectedClient.nameOfBank} />
       <br />
@@ -221,11 +221,11 @@ function Search() {
       <br />
       <TextField className={styles.inputMaterial} label="Allée/Rue/Av" name="addressBank" onChange={handleChange} value={selectedClient && selectedClient.addressBank} />
       <br />
-      {/* <TextField className={styles.inputMaterial} label="Ville" name="cityBank" onChange={handleChange} value={selectedClient && selectedClient.cityBank} />
+      <TextField className={styles.inputMaterial} label="Ville" name="cityBank" onChange={handleChange} value={selectedClient && selectedClient.cityBank} />
       <br />
       <TextField className={styles.inputMaterial} label="Wilaya" name="stateBank" onChange={handleChange} value={selectedClient && selectedClient.stateBank} />
       <br />
-      <TextField className={styles.inputMaterial} label="Code Postal" name="postalCodeBank" onChange={handleChange} value={selectedClient && selectedClient.postalCodeBank} /> */}
+      <TextField className={styles.inputMaterial} label="Code Postal" name="postalCodeBank" onChange={handleChange} value={selectedClient && selectedClient.postalCodeBank} />
       <br />
       <div align="right">
         <Button color="primary" onClick={() => putRequest()}>Modifier</Button>
@@ -233,7 +233,6 @@ function Search() {
       </div>
     </div>
   )
-
   const deleteBody = (
     <div className={styles.modal}>
       <p>Êtes-vous sûr de vouloir supprimer le client <b>{selectedClient && selectedClient.id}</b>? </p>
@@ -257,23 +256,14 @@ function Search() {
         title="Les clients"
         actions={[
           {
-            icon: 'read favorite_border',
-            tooltip: 'Data Client',
-            onClick: (event, rowData) => clientSelected(rowData, "Read")
-          },
-          {
             icon: 'edit',
-            tooltip: 'Client Edit',
-            onClick: (event, rowData) => clientSelected(rowData, "Edit")
-          },
-          {
-            icon: 'modificate',
-            tooltip: 'Bank Edit',
+            backgroundColor: '#d21134',
+            tooltip: 'Client Modifier',
             onClick: (event, rowData) => clientSelected(rowData, "Edit")
           },
           {
             icon: 'delete',
-            tooltip: 'Client Delete',
+            tooltip: 'Supprimer la base de données client',
             onClick: (event, rowData) => clientSelected(rowData, "Delete")
           }
         ]}
@@ -290,23 +280,17 @@ function Search() {
           backgroundColor: '#036435'
         }}
       />
-      <Modal
+
+      {/* <Modal
         open={insertModal}
         onClose={openCloseInsertModal}>
         {insertBody}
-      </Modal>
-
+      </Modal> */}
 
       <Modal
         open={editModal}
         onClose={openCloseEditModal}>
         {editBody}
-      </Modal>
-
-      <Modal
-        open={editModal}
-        onClose={openCloseEditModal}>
-        {editBank}
       </Modal>
 
       <Modal

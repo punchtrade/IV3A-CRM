@@ -28,6 +28,23 @@ class FormCar extends Component {
       errors: "",
     };
   }
+
+  changeHandler = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  onSubmitHandler = async (e) => {
+    e.preventDefault();
+    await axios.post("http://localhost:9000/car", this.state, {
+      headers: { "Content-Type": "application/json" },
+    })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   render() {
     const {
       carCatalogue,
@@ -58,13 +75,13 @@ class FormCar extends Component {
           <div className="container-form">
             <form
               className="car-left"
-              // onSubmit={this.onSubmitHandler.bind(this)}
-              // action='http://localhost:9000/formCar'
+              onSubmit={this.onSubmitHandler.bind(this)}
+              action='http://localhost:9000/car'
               value="submit"
               method="post"
             >
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="carCatalogue">
                   Voiture choisie dans le catalogue IV3A:
                 </label>
                 <input
@@ -77,7 +94,20 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="carOrder">
+                  Voiture object de la commande:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="carOrder"
+                  placeholder="Voiture object de la commande"
+                  value={carOrder}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
+                <label type="text" name="serialNumber">
                   Nº de serie (de fiche technique):
                 </label>
                 <input
@@ -90,7 +120,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" className="text-left" name="first Registration">
+                <label type="text" className="text-left" name="description">
                   Genre:
                 </label>
                 <input
@@ -103,7 +133,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="brand">
                   Marque:
                 </label>
                 <input
@@ -116,10 +146,22 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="fuel">
+                  De l'essence:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="fuel"
+                  placeholder="De l'essence"
+                  value={fuel}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
+                <label type="text" name="type">
                   Type:
                 </label>
-
                 <input
                   className="mb-3 mt-3"
                   type="text"
@@ -130,7 +172,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="typeSeries">
                   Nº dans la serie du type:
                 </label>
                 <input
@@ -143,7 +185,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="model">
                   Modèle:
                 </label>
                 <input
@@ -156,7 +198,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="body">
                   Carrosserie:
                 </label>
                 <input
@@ -164,12 +206,12 @@ class FormCar extends Component {
                   type="text"
                   name="body"
                   placeholder="Carrosserie"
-                  value={model}
+                  value={body}
                   onChange={this.changeHandler}
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="energy">
                   Energie:
                 </label>
                 <input
@@ -182,7 +224,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="power">
                   Puissance:
                 </label>
                 <input
@@ -195,7 +237,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="places">
                   Places assises:
                 </label>
                 <input
@@ -208,7 +250,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="grossWeight">
                   Poids total en charge:
                 </label>
                 <input
@@ -221,7 +263,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="fmma">
                   MMA:
                 </label>
                 <input
@@ -234,7 +276,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="payload">
                   Charge utile:
                 </label>
                 <input
@@ -246,8 +288,8 @@ class FormCar extends Component {
                   onChange={this.changeHandler}
                 />
               </div>
-              <div align="left"> 
-                <label type="text" name="first Registration">
+              <div align="left">
+                <label type="text" name="tara">
                   Tara:
                 </label>
                 <input
@@ -260,7 +302,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="previousNumber">
                   Precedent numero:
                 </label>
                 <input
@@ -273,7 +315,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="firstRegistration">
                   Premiere mise en circulation:
                 </label>
                 <input
@@ -286,7 +328,7 @@ class FormCar extends Component {
                 />
               </div>
               <div align="left">
-                <label type="text" name="first Registration">
+                <label type="text" name="dateManufacture">
                   Date de fabrication:
                 </label>
                 <input
@@ -299,12 +341,12 @@ class FormCar extends Component {
                 />
               </div>
               <button
-            className="btn btn-primary-green"
-            type="submit"
-            value="submit"
-            // onClick={this.onSubmitHandler.bind(this)}
-          >
-            Envoyer
+                className="btn btn-primary-green"
+                type="submit"
+                value="submit"
+                onClick={this.onSubmitHandler.bind(this)}
+              >
+                Envoyer
           </button>
             </form>
           </div>

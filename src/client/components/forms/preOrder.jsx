@@ -44,9 +44,9 @@ class PreOrder extends Component {
     console.log(this.state);
     e.preventDefault();
   };
-  onSubmitHandler = (e) => {
+  onSubmitHandler = async (e) => {
     e.preventDefault();
-    axios
+  await  axios
       .get("http://localhost:9000/preOrder", this.state, {
         headers: { "Content-Type": "application/json" },
       })
