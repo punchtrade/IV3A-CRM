@@ -8,6 +8,8 @@ import NewClient from "./client/components/forms/newClient";
 import UploadPage from "./client/pages/uploadPage";
 import PreOrder from "./client/components/forms/preOrder";
 import formCar from "./client/components/forms/formCar";
+import NavbarDashboard from './client/components/header/navbarDashboard';
+import Leads from './client/pages/leads';
 
 class App extends React.Component {
   constructor(props) {
@@ -39,10 +41,12 @@ class App extends React.Component {
             {/* <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} /> */}
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/navbarDashboard" component={NavbarDashboard} />
             <Route exact path="/newclient" component={NewClient} />
             <Route exact path="/upload" component={UploadPage} />
             <Route exact path="/preorder" component={PreOrder} />
             <Route exact path="/formCar" component={formCar} />
+            <Route exact path="/leads" component={Leads} />
           </div>
           {/* <Footer /> */}
         </div>

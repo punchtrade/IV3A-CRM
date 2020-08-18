@@ -10,7 +10,15 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
+      price1: {
+        type: String,
+        required: true,
+      },
     carOrder: {
+        type: String,
+        required: true,
+      },
+      price2: {
         type: String,
         required: true,
       },

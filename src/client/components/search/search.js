@@ -17,7 +17,7 @@ const columns = [
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
-    width: 400,
+    width: 600,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #036435',
     boxShadow: theme.shadows[5],
@@ -85,15 +85,15 @@ function Search() {
       })
   }
 
-  // const readRequest = async () => {
-  //   await axios.get("http://localhost:9000/search")
-  //     .then(response => {
-  //       setData(data.concat(response.data));
-  //       openCloseInsertModal();
-  //     }).catch(error => {
-  //       console.log(error);
-  //     })
-  // }
+  const readRequest = async () => {
+    await axios.post("http://localhost:9000/search")
+      .then(response => {
+        setData(data.concat(response.data));
+        openCloseInsertModal();
+      }).catch(error => {
+        console.log(error);
+      })
+  }
 
 
   const putRequest = async () => {
@@ -167,23 +167,23 @@ function Search() {
   useEffect(() => {
     getRequest();
   }, [])
-  // const insertBody = (
-  //   <div className={styles.modal}>
-  //     <h3>Ajouter un nouvel client</h3>
-  //     <TextField className={styles.inputMaterial} label="Nº" name="id" onChange={handleChange} />
-  //     <br />
-  //     <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} />
-  //     <br />
-  //     <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} />
-  //     <br />
-  //     <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} />
-  //     <br /><br />
-  //     <div align="right">
-  //       <Button color="primary" onClick={() => readRequest()}>Insérer</Button>
-  //       <Button onClick={() => openCloseInsertModal()}>Annuler</Button>
-  //     </div>
-  //   </div>
-  // )
+  const insertBody = (
+    <div className={styles.modal}>
+      <h3>Ajouter un nouvel client</h3>
+      <TextField className={styles.inputMaterial} label="Nº" name="id" onChange={handleChange} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} />
+      <br />
+      <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} />
+      <br />
+      <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} />
+      <br /><br />
+      <div align="right">
+        <Button color="primary" onClick={() => readRequest()}>Insérer</Button>
+        <Button onClick={() => openCloseInsertModal()}>Annuler</Button>
+      </div>
+    </div>
+  )
 
   const editBody = (
     <div className={styles.modal}>
@@ -206,7 +206,7 @@ function Search() {
       <br />
       <TextField className={styles.inputMaterial} label="Code Postal" name="postalCode" onChange={handleChange} value={selectedClient && selectedClient.postalCode} />
       <br /><br />
-      <h3>Modifier le Coordonnées Bancaires</h3>
+      <h3>Modifier les Coordonnées Bancaires</h3>
       <TextField className={styles.inputMaterial} label="Nom de la Banque" name="nameOfBank" onChange={handleChange} value={selectedClient && selectedClient.nameOfBank} />
       <br />
       <TextField className={styles.inputMaterial} label="Nº de compte" name="numberOfBank" onChange={handleChange} value={selectedClient && selectedClient.numberOfBank} />
@@ -248,7 +248,7 @@ function Search() {
   return (
     <div className="Search">
       <br />
-      <Button onClick={() => openCloseInsertModal()}>Inseré le client</Button>
+      <Button onClick={() => openCloseInsertModal()}>Insérer le client</Button>
       <br /><br />
       <MaterialTable
         columns={columns}
@@ -257,7 +257,11 @@ function Search() {
         actions={[
           {
             icon: 'edit',
-            backgroundColor: '#d21134',
+            tooltip: 'Insérer le client',
+            onClick: (event, rowData) => clientSelected(rowData, "Edit")
+          },
+          {
+            icon: 'edit',
             tooltip: 'Client Modifier',
             onClick: (event, rowData) => clientSelected(rowData, "Edit")
           },
@@ -281,11 +285,11 @@ function Search() {
         }}
       />
 
-      {/* <Modal
+      <Modal
         open={insertModal}
         onClose={openCloseInsertModal}>
         {insertBody}
-      </Modal> */}
+      </Modal>
 
       <Modal
         open={editModal}

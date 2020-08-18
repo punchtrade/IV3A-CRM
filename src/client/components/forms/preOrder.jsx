@@ -26,6 +26,7 @@ class PreOrder extends Component {
       brand: "",
       model: "",
       fuel: "",
+      price: "",
       errors: "",
       i_agree: false,
     };
@@ -46,7 +47,7 @@ class PreOrder extends Component {
   };
   onSubmitHandler = async (e) => {
     e.preventDefault();
-  await  axios
+    await axios
       .get("http://localhost:9000/preOrder", this.state, {
         headers: { "Content-Type": "application/json" },
       })
@@ -79,6 +80,7 @@ class PreOrder extends Component {
       brand,
       model,
       fuel,
+      price,
     } = this.state;
     return (
       <div>
@@ -128,9 +130,16 @@ class PreOrder extends Component {
             value="submit"
             method="get"
           >
+            <div className="details-client">
+              <h6>
+                Données client:
+                <br></br>
+                <br></br>
+              </h6>
+            </div>
             <div align="left">
-            <label type="text" name="id">
-              Nº:
+              <label type="text" name="id">
+                Nº:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -142,8 +151,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="card">
-            Document National d’Idenité - DNI No: IDDZA:
+              <label type="text" name="card">
+                Document National d’Idenité - DNI No: IDDZA:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -155,8 +164,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="treatment">
-            Traitment:
+              <label type="text" name="treatment">
+                Traitment:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -168,8 +177,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="firstName">
-              Nom:
+              <label type="text" name="firstName">
+                Nom:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -180,9 +189,9 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
-            <div align="left"> 
-            <label type="text" name="lastName">
-            Prénom:
+            <div align="left">
+              <label type="text" name="lastName">
+                Prénom:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -194,8 +203,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="telephone">
-            Téléphone:
+              <label type="text" name="telephone">
+                Téléphone:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -207,8 +216,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="email">
-            Courrier électronique:
+              <label type="text" name="email">
+                Courrier électronique:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -220,8 +229,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="address">
-            Allée/Rue/Avenue:
+              <label type="text" name="address">
+                Allée/Rue/Avenue:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -233,8 +242,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="city">
-            Ville:
+              <label type="text" name="city">
+                Ville:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -246,8 +255,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="state">
-            Wilaya:
+              <label type="text" name="state">
+                Wilaya:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -259,8 +268,8 @@ class PreOrder extends Component {
               />
             </div>
             <div align="left">
-            <label type="text" name="postalCode">
-            Code Postal:
+              <label type="text" name="postalCode">
+                Code Postal:
                 </label>
               <input
                 className="mb-3 mt-3"
@@ -271,15 +280,17 @@ class PreOrder extends Component {
                 onChange={this.changeHandler}
               />
             </div>
+            <br></br>
+            <br></br>
             <div className="details-bank">
               <h6>
-                Vos Coordonnées Bancaires
+                Vos Coordonnées Bancaires:
                 <br></br>
                 <br></br>
               </h6>
               <div align="left">
-              <label type="text" name="nameOfBank">
-              Nom de la Banque:
+                <label type="text" name="nameOfBank">
+                  Nom de la Banque:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -291,8 +302,8 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="numberOfBank">
-              Nº de compte:
+                <label type="text" name="numberOfBank">
+                  Nº de compte:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -304,8 +315,8 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="accountName">
-              Intitulé du compte:
+                <label type="text" name="accountName">
+                  Intitulé du compte:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -317,8 +328,8 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="iban">
-              IBAN:
+                <label type="text" name="iban">
+                  IBAN:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -330,8 +341,8 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="swiftCode">
-              Swift BIC Code:
+                <label type="text" name="swiftCode">
+                  Swift BIC Code:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -343,6 +354,8 @@ class PreOrder extends Component {
                 />
               </div>
             </div>
+            <br></br>
+            <br></br>
             <div className="details-car">
               <h6>
                 Référence du véhicule choisi sur www.iv3a.com
@@ -350,8 +363,8 @@ class PreOrder extends Component {
                 <br></br>
               </h6>
               <div align="left">
-              <label type="text" name="registrationCar">
-              Matricule:
+                <label type="text" name="registrationCar">
+                  Matricule:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -363,8 +376,43 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="brand">
-              Marque:
+                <div className="text-info" type="text">
+                  <br></br>
+                Valeur catalogue IV3A = prix d'achat net
+                (de tous frais de transferts bancaires à votre charge)
+                non négociable, du véhicule, paiment 100% à la commande,
+                à notre partenaire européen, par virement bancairedepuis
+                votre compte en Euros:
+                <br></br>
+                  <br></br>
+                Vous devez prévoir les coûts additionnels de transport,
+                douanes (15%), TVA (19%),
+                immatriculation et coût du dossier d'accompagnement en Algérie.
+                </div>
+                <label type="text" name="price">
+                  Prix:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="price"
+                  placeholder="Prix"
+                  value={price}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <br></br>
+              <br></br>
+              <div className="details-car">
+                <h6>
+                  Description du véhicule choisi:
+                <br></br>
+                  <br></br>
+                </h6>
+              </div>
+              <div align="left">
+                <label type="text" name="brand">
+                  Marque:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -376,8 +424,8 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="model">
-              Modèle:
+                <label type="text" name="model">
+                  Modèle:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -389,8 +437,8 @@ class PreOrder extends Component {
                 />
               </div>
               <div align="left">
-              <label type="text" name="fuel">
-              Combustible:
+                <label type="text" name="fuel">
+                  Combustible:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -469,6 +517,16 @@ class PreOrder extends Component {
         >
           Envoyer
         </button>
+        <button
+          className="btn btn-primary-green left"
+            type="submit"
+            value="submit"
+            onClick={() => {
+              this.props.history.replace("/dashboard");
+            }}
+            >
+              Panel
+          </button>
       </div>
     );
   }

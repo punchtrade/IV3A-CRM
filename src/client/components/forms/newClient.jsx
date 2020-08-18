@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+// import NavbarDashboard from '../header/navbarDashboard';
 
 class NewClient extends React.Component {
   constructor() {
@@ -392,7 +393,18 @@ class NewClient extends React.Component {
         >
           Fiche Véhicule
         </button>
+        <button
+          className="btn btn-primary-green left"
+            type="submit"
+            value="submit"
+            onClick={() => {
+              this.props.history.replace("/dashboard");
+            }}
+            >
+              Panel
+          </button>
       </div>
+      
     );
   }
 }

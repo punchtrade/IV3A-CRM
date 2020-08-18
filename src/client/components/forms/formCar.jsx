@@ -47,8 +47,15 @@ class FormCar extends Component {
   };
   render() {
     const {
+      id,
+      card,
+      brandId,
+      modelId,
+      fuelId,
       carCatalogue,
+      price1,
       carOrder,
+      price2,
       brand,
       model,
       fuel,
@@ -81,40 +88,135 @@ class FormCar extends Component {
               method="post"
             >
               <div align="left">
+                <label type="text" name="id">
+                  Client:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="id"
+                  placeholder="Client"
+                  value={id}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
+                <label type="text" name="card">
+              Document National d'Identité:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="card"
+                  placeholder="Document National d'Identité"
+                  value={card}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
+                <label type="text" name="brandId">
+                Marque:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="brandId"
+                  placeholder="Marque"
+                  value={brandId}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
+                <label type="text" name="modelId">
+                Modèle:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="modelId"
+                  placeholder="Modèle"
+                  value={modelId}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
+                <label type="text" name="fuelId">
+                Combustible:
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="fuelId"
+                  placeholder="Combustible"
+                  value={fuelId}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div align="left">
                 <label type="text" name="carCatalogue">
-                  Voiture choisie dans le catalogue IV3A:
+                  Voiture choisie dans le catalogue IV3A
+                  (Immatriculation de la voiture):
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="carCatalogue"
-                  placeholder="Voiture choisie dans le catalogue IV3A"
+                  placeholder="Immatriculation de la voiture"
                   value={carCatalogue}
                   onChange={this.changeHandler}
                 />
               </div>
               <div align="left">
+                <label type="text" name="carCatalogue">
+                  Prix (voiture choisie dans le catalogue IV3A):
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="price1"
+                  placeholder="Voiture choisie dans le catalogue IV3A"
+                  value={price1}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div  className="line"></div>
+              <div align="left">
                 <label type="text" name="carOrder">
-                  Voiture object de la commande:
+                  Voiture object de la commande (Immatriculation de la voiture):
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="carOrder"
-                  placeholder="Voiture object de la commande"
+                  placeholder="Immatriculation de la voiture"
                   value={carOrder}
                   onChange={this.changeHandler}
                 />
               </div>
               <div align="left">
+                <label type="text" name="carOrder">
+                  Prix (Voiture object de la commande):
+                </label>
+                <input
+                  className="mb-3 mt-3"
+                  type="text"
+                  name="price2"
+                  placeholder="Voiture object de la commande"
+                  value={price2}
+                  onChange={this.changeHandler}
+                />
+              </div>
+              <div  className="line">
+              </div>
+              <div align="left">
                 <label type="text" name="serialNumber">
-                  Nº de serie (de fiche technique):
+                  Nº de chassis:
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="serialNumber"
-                  placeholder="Nº de serie (de fiche technique)"
+                  placeholder=" Nº de chassis"
                   value={serialNumber}
                   onChange={this.changeHandler}
                 />
@@ -147,20 +249,20 @@ class FormCar extends Component {
               </div>
               <div align="left">
                 <label type="text" name="fuel">
-                  De l'essence:
+                  Combustible (diesel ou essence):
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="fuel"
-                  placeholder="De l'essence"
+                  placeholder="Combustible"
                   value={fuel}
                   onChange={this.changeHandler}
                 />
               </div>
               <div align="left">
                 <label type="text" name="type">
-                  Type:
+                  ¿TYPE?:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -173,7 +275,7 @@ class FormCar extends Component {
               </div>
               <div align="left">
                 <label type="text" name="typeSeries">
-                  Nº dans la serie du type:
+                  ¿Nº DANS LA SERIE DU TYPE?:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -212,7 +314,7 @@ class FormCar extends Component {
               </div>
               <div align="left">
                 <label type="text" name="energy">
-                  Energie:
+                  ¿Energie?:
                 </label>
                 <input
                   className="mb-3 mt-3"
@@ -350,6 +452,16 @@ class FormCar extends Component {
           </button>
             </form>
           </div>
+          <button
+            className="btn btn-primary-green left"
+            type="submit"
+            value="submit"
+            onClick={() => {
+              this.props.history.replace("/dashboard");
+            }}
+          >
+            Panel
+          </button>
         </div>
       </div>
     );

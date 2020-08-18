@@ -79,7 +79,7 @@ class FormLogin extends React.Component {
               value="Submit"
               onClick={this.onSubmitHandler.bind(this)}
             >
-              Envoyer
+              Connecter
           </button>
           </form>
         </div>

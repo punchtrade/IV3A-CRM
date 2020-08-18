@@ -89,7 +89,7 @@ router.post("/login", async (req, res, next) => {
 });
 
 router.get("/dashboard", verifyToken, (req, res) => {
-  res.status(200).json({ message: "dashboard" });
+  res.status(200).json({ message: "dashboard"});
 });
 
 router.post("/newClient", (req, res, next) => {
@@ -165,7 +165,9 @@ router.post("/car", (req, res, next) => {
           _id: new mongoose.Types.ObjectId(),
           // id: req.body.id,
           carCatalogue: req.body.carCatalogue,
+          price1: req.body.price1,
           carOrder: req.body.carOrder,
+          price2: req.body.price2,
           brand: req.body.brand,
           model: req.body.model,
           fuel: req.body.fuel,
