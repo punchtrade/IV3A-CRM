@@ -84,25 +84,26 @@ class PreOrder extends Component {
     } = this.state;
     return (
       <div>
-        <h5>Pré-Commande de Véhicule</h5>
+        <h5>Commande ferme de Véhicule</h5>
         <div className="container">
           <div className="text-info" type="text">
+            CONFIRMATION DÉFINITIVE de la commande réalisée par l'intermédiaire de IV3A.com le:
             <br></br>
-            Vous souhaitez profiter des nouvelles dispositions de l'Article 110
-            de la Loi de Finances pour 2020 qui vous autorise à acheter, une
-            fois tous les 3 ans, à l'Étranger, depuis votre compte en Devises, à
-            Titre Personnel, un Véhicule Particulier de moins de 3 ans.
+            Vous souhaitez profiter des nouvelles dispositions de l'Article 110 de
+            la Loi de Finances pour 2020 qui vous autorise à acheter,
+            une fois tous les 3 ans, à l'Étranger, depuis votre compte en Devises,
+            à Titre Personnel, un Véhicule Particulier de moins de 3 ans.
             <br></br>
-            1. Vous avez identifié le véhicule que vous souhaiteriez acheter sur
-            notre site web www.iv3a.com.
+            1. Vous avez identifié le véhicule que vous souhaitez acheter sur notre site web www.iv3a.com.
             <br></br>
-            2. Vous devez maintenant renseigner intégralement le formulaire
-            ci-dessous en y indiquant la totalité des données personnelles
-            requises pour une pré-commande.
+            2. Le présent document incluant les données de votre pré-commande est destiné à:
+            a. vous confirmer que le véhicule que vous avez choisi est bien disponible.
+            b. éventuellement vous proposer un véhicule équivalent, si celui que vous avez choisi n'est plus disponible.
             <br></br>
-            3. Merci d'y reporter également les références, soit
-            l'immatriculation, la valeur catalogue (1), la marque, le modèle et
-            le combustible du véhicule que vous avez choisi.
+            3. Merci de vérifier toutes les données de cette commande FERME ci-dessous
+            et de bien vouloir la valider en datant et signant le document.
+            (1) Rapp4. Ne pas oublier de  reporter également la mention manuscrite
+            "Bon pour Commande".
             <br></br>
             (1) Valeur catalogue IV3A = prix d'achat non négociable net (de tous
             frais de transferts bancaires à votre charge) du véhicule, paiment
@@ -113,13 +114,13 @@ class PreOrder extends Component {
             (15%), TVA (19%), immatriculation et coût de nos services
             d'accompagnement en Algérie.
             <br></br>
-            Si le véhicule choisi est toujours disponible, IV3A vous confirmera
+            {/* Si le véhicule choisi est toujours disponible, IV3A vous confirmera
             alors votre commande.
             <br></br>
             Au cas où le véhicule choisi aurait déjà été vendu (la demande est
             importante et nous actualisons notre catalogue chaques 24 heures),
             IV3A lancera alors la recherche d'un véhicule similaire à celui que
-            vous souhaitez acquérir, et vous fera une offre dans les 24 heures.
+            vous souhaitez acquérir, et vous fera une offre dans les 24 heures. */}
           </div>
         </div>
         <div className="container-form">
@@ -139,39 +140,39 @@ class PreOrder extends Component {
             </div>
             <div align="left">
               <label type="text" name="id">
-                Nº:
+                Id:
                 </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
                 name="id"
-                placeholder="Nº"
+                placeholder="Id"
                 value={id}
                 onChange={this.changeHandler}
               />
             </div>
             <div align="left">
               <label type="text" name="card">
-                Document National d’Idenité - DNI No: IDDZA:
+                Document National d'Identité:
                 </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
                 name="card"
-                placeholder="Document National d’Idenité - DNI No: IDDZA"
+                placeholder="Document National d'Identité"
                 value={card}
                 onChange={this.changeHandler}
               />
             </div>
             <div align="left">
               <label type="text" name="treatment">
-                Traitment:
+                Traitement:
                 </label>
               <input
                 className="mb-3 mt-3"
                 type="text"
                 name="treatment"
-                placeholder="Traitment"
+                placeholder="Traitement"
                 value={treatment}
                 onChange={this.changeHandler}
               />
@@ -364,13 +365,13 @@ class PreOrder extends Component {
               </h6>
               <div align="left">
                 <label type="text" name="registrationCar">
-                  Matricule:
+                  Immatriculation:
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="registrationCar"
-                  placeholder="Matricule"
+                  placeholder=" Immatriculation"
                   value={registrationCar}
                   onChange={this.changeHandler}
                 />
@@ -381,7 +382,7 @@ class PreOrder extends Component {
                 Valeur catalogue IV3A = prix d'achat net
                 (de tous frais de transferts bancaires à votre charge)
                 non négociable, du véhicule, paiment 100% à la commande,
-                à notre partenaire européen, par virement bancairedepuis
+                à notre partenaire européen, par virement bancaire depuis
                 votre compte en Euros:
                 <br></br>
                   <br></br>
@@ -390,13 +391,13 @@ class PreOrder extends Component {
                 immatriculation et coût du dossier d'accompagnement en Algérie.
                 </div>
                 <label type="text" name="price">
-                  Prix:
+                  Prix (voiture choisie dans le catalogue IV3A):
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="price"
-                  placeholder="Prix"
+                  placeholder="Voiture choisie dans le catalogue IV3A"
                   value={price}
                   onChange={this.changeHandler}
                 />
@@ -476,7 +477,7 @@ class PreOrder extends Component {
             </div>
           </div>
         </div>
-        <div>
+        {/* <div>
           <label>
             <input
               className="checkbox"
@@ -508,7 +509,7 @@ class PreOrder extends Component {
             />{" "}
             <h6>Je scane et inclue ma documentation à IV3A.</h6>
           </label>
-        </div>
+        </div> */}
         <button
           className="btn btn-primary-green"
           type="submit"
@@ -519,13 +520,13 @@ class PreOrder extends Component {
         </button>
         <button
           className="btn btn-primary-green left"
-            type="submit"
-            value="submit"
-            onClick={() => {
-              this.props.history.replace("/dashboard");
-            }}
-            >
-              Panel
+          type="submit"
+          value="submit"
+          onClick={() => {
+            this.props.history.replace("/dashboard");
+          }}
+        >
+          Panel
           </button>
       </div>
     );

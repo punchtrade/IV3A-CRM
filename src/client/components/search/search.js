@@ -2,32 +2,30 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
-import { Modal, TextField, Button } from '@material-ui/core';
+import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-
-
 const columns = [
-  { title: "Nº", field: "id" },
+  { title: "ID", field: "id" },
   { title: "Nom", field: "firstName" },
   { title: "Prénom", field: "lastName" },
-  { title: "DNI Nº/IDDZA", field: "card" }
+  { title: "Doc. Identité", field: "card" }
 ];
-// const baseUrl = "http://localhost:9000/search";
 const useStyles = makeStyles((theme) => ({
   modal: {
     position: 'absolute',
-    width: 600,
+    width: 700,
     backgroundColor: theme.palette.background.paper,
     border: '2px solid #036435',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
+    boxShadow: theme.shadows[7],
+    padding: theme.spacing(3, 5, 3),
+    margin: theme.spacing(1),
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     overflow: 'scroll',
-    height: '100%',
-    display: 'block'
+    height: '93%',
+    display: 'block',
   },
   iconos: {
     cursor: 'pointer',
@@ -167,88 +165,362 @@ function Search() {
   useEffect(() => {
     getRequest();
   }, [])
-  const insertBody = (
-    <div className={styles.modal}>
-      <h3>Ajouter un nouvel client</h3>
-      <TextField className={styles.inputMaterial} label="Nº" name="id" onChange={handleChange} />
-      <br />
-      <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} />
-      <br />
-      <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} />
-      <br />
-      <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} />
-      <br /><br />
-      <div align="right">
-        <Button color="primary" onClick={() => readRequest()}>Insérer</Button>
-        <Button onClick={() => openCloseInsertModal()}>Annuler</Button>
-      </div>
-    </div>
-  )
-
   const editBody = (
     <div className={styles.modal}>
-      <h3>Modifier le client</h3>
-      <TextField className={styles.inputMaterial} label="DNI" name="card" onChange={handleChange} value={selectedClient && selectedClient.card} />
+      <h3>Modifier le Client</h3>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        ID
+      </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        placeholder="ID"
+        className={styles.inputMaterial}
+        name="id"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.id}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Nom" name="firstName" onChange={handleChange} value={selectedClient && selectedClient.firstName} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Document National d'Identité
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Document National d'Identité"
+        name="card"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.card}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Prénom" name="lastName" onChange={handleChange} value={selectedClient && selectedClient.lastName} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Traitement
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Traitement"
+        name="treatment"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.treatment}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Téléphone" name="telephone" onChange={handleChange} value={selectedClient && selectedClient.telephone} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Nom
+      </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Nom"
+        name="firstName"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.firstName}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Courrier Électronique" name="email" onChange={handleChange} value={selectedClient && selectedClient.email} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Prénom
+      </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Prénom"
+        name="lastName"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.lastName}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Allée/Rue/Avenue" name="address" onChange={handleChange} value={selectedClient && selectedClient.address} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Téléphone
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Téléphone"
+        name="telephone"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.telephone}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Ville" name="city" onChange={handleChange} value={selectedClient && selectedClient.city} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Courrier Électronique
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Courrier Électronique"
+        name="email"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.email}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Wilaya" name="state" onChange={handleChange} value={selectedClient && selectedClient.state} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Allée/Rue/Avenue
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Allée/Rue/Avenue"
+        name="address"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.address}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Code Postal" name="postalCode" onChange={handleChange} value={selectedClient && selectedClient.postalCode} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Ville
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Ville"
+        name="city"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.city}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Wilaya
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Wilaya"
+        name="state"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.state}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Code Postal
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Code Postal"
+        name="postalCode"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.postalCode}
+      />
       <br /><br />
-      <h3>Modifier les Coordonnées Bancaires</h3>
-      <TextField className={styles.inputMaterial} label="Nom de la Banque" name="nameOfBank" onChange={handleChange} value={selectedClient && selectedClient.nameOfBank} />
+      <h3>Insérer les Coordonnées Bancaires</h3>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Nom de la Banque
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Nom de la Banque"
+        name="nameOfBank"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.nameOfBank}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Nº de compte" name="numberOfBank" onChange={handleChange} value={selectedClient && selectedClient.numberOfBank} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Nº de compte
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Nº de compte"
+        name="numberOfBank"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.numberOfBank}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Intitulé du compte" name="accountName" onChange={handleChange} value={selectedClient && selectedClient.accountName} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Intitulé du compte
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Intitulé du compte"
+        name="accountName"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.accountName}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="IBAN" name="iban" onChange={handleChange} value={selectedClient && selectedClient.iban} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        IBAN
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="IBAN"
+        name="iban"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.iban}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Code BIC rapide" name="swiftCode" onChange={handleChange} value={selectedClient && selectedClient.swiftCode} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Code BIC rapide
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Code BIC rapide"
+        name="swiftCode"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.swiftCode}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Sucursale" name="branchOffice" onChange={handleChange} value={selectedClient && selectedClient.branchOffice} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Sucursale
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Sucursale"
+        name="branchOffice"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.branchOffice}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Allée/Rue/Av" name="addressBank" onChange={handleChange} value={selectedClient && selectedClient.addressBank} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Allée/Rue/Av
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Allée/Rue/Av"
+        name="addressBank"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.addressBank}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Ville" name="cityBank" onChange={handleChange} value={selectedClient && selectedClient.cityBank} />
+      <InputLabel htmlFor="filled-adornment-amount"
+      >
+        Ville
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Ville"
+        name="cityBank"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.cityBank}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Wilaya" name="stateBank" onChange={handleChange} value={selectedClient && selectedClient.stateBank} />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Wilaya
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Wilaya"
+        name="stateBank"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.stateBank}
+      />
       <br />
-      <TextField className={styles.inputMaterial} label="Code Postal" name="postalCodeBank" onChange={handleChange} value={selectedClient && selectedClient.postalCodeBank} />
-      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Code Postal
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Code Postal"
+        name="postalCodeBank"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.postalCodeBank}
+      />
+      <br /><br />
       <div align="right">
-        <Button color="primary" onClick={() => putRequest()}>Modifier</Button>
-        <Button onClick={() => openCloseEditModal()}>Annuler</Button>
+        <Button
+          variant="contained"
+          size="small"
+          color="link"
+          onClick={() =>
+            putRequest()}
+        >
+          Modifier
+          </Button>
+        <br />
+        <Button
+          variant="contained"
+          size="small"
+          color="link"
+          onClick={() =>
+            openCloseInsertModal()}
+        >
+          Annuler
+          </Button>
+        <br />
       </div>
     </div>
   )
   const deleteBody = (
     <div className={styles.modal}>
-      <p>Êtes-vous sûr de vouloir supprimer le client <b>{selectedClient && selectedClient.id}</b>? </p>
+      <p>
+        Êtes-vous sûr de vouloir supprimer le client
+        <b>
+          {selectedClient && selectedClient.id}
+        </b>
+        ?
+        </p>
       <div align="right">
-        <Button color="secondary" onClick={() => deleteRequest()}>Oui</Button>
-        <Button onClick={() => openCloseDeleteModal()}>Non</Button>
-
+        <Button
+          variant="contained"
+          size="small"
+          color="link"
+          Ripple onClick={() =>
+            deleteRequest()}
+        >
+          Oui
+          </Button>
+        <br />
+        <Button
+          variant="contained"
+          size="small"
+          color="secondary"
+          onClick={() =>
+            openCloseDeleteModal()}
+        >
+          Non
+          </Button>
       </div>
-
     </div>
   )
 
   return (
     <div className="Search">
-      <br />
-      <Button onClick={() => openCloseInsertModal()}>Insérer le client</Button>
       <br /><br />
       <MaterialTable
         columns={columns}
@@ -257,18 +529,15 @@ function Search() {
         actions={[
           {
             icon: 'edit',
-            tooltip: 'Insérer le client',
-            onClick: (event, rowData) => clientSelected(rowData, "Edit")
-          },
-          {
-            icon: 'edit',
             tooltip: 'Client Modifier',
-            onClick: (event, rowData) => clientSelected(rowData, "Edit")
+            onClick: (event, rowData) =>
+              clientSelected(rowData, "Edit")
           },
           {
             icon: 'delete',
             tooltip: 'Supprimer la base de données client',
-            onClick: (event, rowData) => clientSelected(rowData, "Delete")
+            onClick: (event, rowData) =>
+              clientSelected(rowData, "Delete")
           }
         ]}
         options={{
@@ -284,19 +553,11 @@ function Search() {
           backgroundColor: '#036435'
         }}
       />
-
-      <Modal
-        open={insertModal}
-        onClose={openCloseInsertModal}>
-        {insertBody}
-      </Modal>
-
       <Modal
         open={editModal}
         onClose={openCloseEditModal}>
         {editBody}
       </Modal>
-
       <Modal
         open={deleteModal}
         onClose={openCloseDeleteModal}>
@@ -304,9 +565,7 @@ function Search() {
       </Modal>
     </div>
   )
-
 }
-
 export default Search;
 
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router , Redirect} from "react-router-dom";
 import Header from "./client/components/header/header";
 // import Footer from "./client/components/footer/footer";
 import Home from "../src/client/pages/home";
@@ -9,7 +9,7 @@ import UploadPage from "./client/pages/uploadPage";
 import PreOrder from "./client/components/forms/preOrder";
 import formCar from "./client/components/forms/formCar";
 import NavbarDashboard from './client/components/header/navbarDashboard';
-import Leads from './client/pages/leads';
+import Leads from './client/components/leads/leads';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,9 +28,9 @@ class App extends React.Component {
   }
 
   render() {
-    // if (this.state.redirectToReferrer || sessionStorage.getItem('token')) {
-    //     return (<Redirect to={'/login'} />)
-    //   }
+    if (this.state.redirectToReferrer || sessionStorage.getItem('token')) {
+        return (<Redirect to={'/login'} />)
+      }
     return (
       <Router>
         <div className="App">

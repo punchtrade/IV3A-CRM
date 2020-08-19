@@ -405,26 +405,26 @@ class FormCar extends Component {
               </div>
               <div align="left">
                 <label type="text" name="previousNumber">
-                  Precedent numero:
+                  Précédent numéro:
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="previousNumber"
-                  placeholder="Precedent numero"
+                  placeholder="Précédent numéro"
                   value={previousNumber}
                   onChange={this.changeHandler}
                 />
               </div>
               <div align="left">
                 <label type="text" name="firstRegistration">
-                  Premiere mise en circulation:
+                  Première mise en circulation:
                 </label>
                 <input
                   className="mb-3 mt-3"
                   type="text"
                   name="firstRegistration"
-                  placeholder="Premiere mise en circulation"
+                  placeholder="Première mise en circulation"
                   value={firstRegistration}
                   onChange={this.changeHandler}
                 />

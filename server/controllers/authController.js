@@ -11,6 +11,7 @@ const Clients = require("../models/clients");
 const Uploads = require("../models/uploads");
 const Car = require("../models/car");
 
+//const uploads
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "/public/uploads/");
@@ -41,6 +42,7 @@ const upload = multer({
   fileFilter: fileFilter,
 });
 
+//register
 router.post("/register", async (req, res, next) => {
   try {
     const { firstName, lastName, idCard, email, password } = req.body;
@@ -67,6 +69,7 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+//login
 router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
   console.log(email, password);
@@ -74,7 +77,6 @@ router.post("/login", async (req, res, next) => {
   if (!user) {
     return res.status(404).send("The email doesn't exists");
   }
-
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) {
     return res.status(401).json({ auth: false, token: null });
@@ -88,10 +90,12 @@ router.post("/login", async (req, res, next) => {
   res.status(200).json({ auth: true, token });
 });
 
+//dashboard
 router.get("/dashboard", verifyToken, (req, res) => {
   res.status(200).json({ message: "dashboard"});
 });
 
+//created Client
 router.post("/newClient", (req, res, next) => {
   console.log(req.body);
   Clients.find({ email: req.body.email })
@@ -151,6 +155,7 @@ router.post("/newClient", (req, res, next) => {
     });
 });
 
+//created car
 router.post("/car", (req, res, next) => {
   console.log(req.body);
   Car.find({ brand: req.body.brand })
@@ -212,6 +217,7 @@ router.post("/car", (req, res, next) => {
     });
 });
 
+//search client
 router.get('/search', (req, res) => {
   console.info('obtener datos clientes');
   Clients.find()
@@ -240,6 +246,34 @@ router.delete('/search', (req, res, next) => {
   });
 });
 
+//leads
+router.get('/leads', (req, res) => {
+  console.info('obtener datos clientes');
+  Clients.find()
+  .populate('Clients', 'clientsSchema')
+  .exec((err, clients) => {
+    if(err) {
+      console.error(err.message);
+      return res.status(500).json({error: err.message});
+    }
+    return res.status(200).json(clients);
+  });
+});
+router.post('/leads', (req, res, next) => {
+  Clients.updateOne(req.params.id, req.body, function (err, result) {
+   if (err) return next(err);
+   res.status(200).json(result);
+   console.log(req.body);
+  });
+ });
+ router.delete('/leads', (req, res, next) => {
+  Clients.findOneAndDelete(req.params.id, req.body, function (err, post) {
+    if(err) return next(err);
+    res.json(post);
+  });
+});
+
+//upload documents
 router.post("/upload", (req, res, next) => {
   console.log(req.file);
   const images = new Uploads({
@@ -285,6 +319,7 @@ router.get("/upload", (req, res, next) => {
   });
 });
 
+//logout
 router.get("/logout", (req, res) => {
   res.status(200).send({ auth: false, token: null });
 });
