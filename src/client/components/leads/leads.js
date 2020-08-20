@@ -5,6 +5,7 @@ import MaterialTable from 'material-table';
 import { Modal, TextField, FilledInput, Button, InputLabel } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { green, purple } from '@material-ui/core/colors';
+import { dark } from '@material-ui/core/styles/createPalette';
 
 
 const columns = [
@@ -38,41 +39,6 @@ const useStyles = makeStyles((theme) => ({
   inputMaterial: {
     width: '100%',
   },
-  root: {
-    boxShadow: 'none',
-    textTransform: 'none',
-    fontSize: 16,
-    padding: '6px 12px',
-    border: '1px solid',
-    lineHeight: 1.5,
-    backgroundColor: '#0063cc',
-    borderColor: '#0063cc',
-    fontFamily: [
-      '-apple-system',
-      'BlinkMacSystemFont',
-      '"Segoe UI"',
-      'Roboto',
-      '"Helvetica Neue"',
-      'Arial',
-      'sans-serif',
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
-    ].join(','),
-  },
-  '&:hover': {
-    backgroundColor: '#0069d9',
-    borderColor: '#0062cc',
-    boxShadow: 'none',
-  },
-  '&:active': {
-    boxShadow: 'none',
-    backgroundColor: '#0062cc',
-    borderColor: '#005cbf',
-  },
-  '&:focus': {
-    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-  }
 }));
 
 const ColorButton = withStyles((theme) => ({
@@ -772,7 +738,10 @@ function Leads() {
       />
       <br />
       <InputLabel
-        htmlFor="filled-adornment-amount">MMA</InputLabel>
+        htmlFor="filled-adornment-amount"
+      >
+        MMA
+          </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
@@ -897,7 +866,7 @@ function Leads() {
         >
           Oui
           </Button>
-          <br/>
+        <br />
         <Button
           variant="contained"
           size="small"
@@ -942,7 +911,7 @@ function Leads() {
         }}
         style={{
           color: 'white',
-          backgroundColor: '#036435'
+          backgroundColor: '#d21134'
         }}
       />
       <Modal

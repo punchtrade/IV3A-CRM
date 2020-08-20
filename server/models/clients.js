@@ -88,7 +88,16 @@ const clientsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
+  image: {
+    path: {
+      type: String,
+      trim: true,
+    },
+    img: {
+      data: Buffer,
+      contentType: String,
+    },
+  },
   date: {
     type: Date,
     default: Date.now,

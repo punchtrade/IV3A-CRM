@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
 import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { DropzoneDialog } from 'material-ui-dropzone'
 
 const columns = [
   { title: "ID", field: "id" },
@@ -41,6 +42,7 @@ function Search() {
   const [insertModal, setInsertModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
+  const [uploadModal, setUploadModal] = useState(false);
   const [selectedClient, setClientSelected] = useState({
     id: "",
     card: "",
@@ -63,6 +65,7 @@ function Search() {
     cityBank: "",
     stateBank: "",
     postalCodeBank: "",
+    image: "",
   })
 
   const handleChange = e => {
@@ -72,7 +75,6 @@ function Search() {
       [name]: value
     }));
   }
-
 
   const getRequest = async () => {
     await axios.get("http://localhost:9000/search")
@@ -93,12 +95,7 @@ function Search() {
       })
   }
 
-
   const putRequest = async () => {
-    // await axios.put("http://localhost:9000/search")
-    // .then(res => {
-    //   console.log(res.data);
-    // })
     await axios.put("http://localhost:9000/search")
       .then(response => {
         var newData = data;
@@ -142,11 +139,21 @@ function Search() {
       })
   }
 
+  const uploadRequest = async () => {
+    await axios.post("http://localhost:9000/newClient")
+    .then(response => {
+      setData(data.concat(response.data));
+      openCloseUploadModal();
+    }).catch(error => {
+      console.log(error);
+    })
+  }
+
   const clientSelected = (client, caso) => {
     setClientSelected(client);
     (caso === "Edit") ? openCloseEditModal()
       :
-      openCloseDeleteModal()
+      openCloseDeleteModal() || openCloseUploadModal()
   }
 
   const openCloseInsertModal = () => {
@@ -160,6 +167,10 @@ function Search() {
 
   const openCloseDeleteModal = () => {
     setDeleteModal(!deleteModal);
+  }
+
+  const openCloseUploadModal = () => {
+    setUploadModal(!uploadModal);
   }
 
   useEffect(() => {
@@ -466,7 +477,7 @@ function Search() {
         <Button
           variant="contained"
           size="small"
-          color="link"
+          color="primary"
           onClick={() =>
             putRequest()}
         >
@@ -476,9 +487,9 @@ function Search() {
         <Button
           variant="contained"
           size="small"
-          color="link"
+          color="primary"
           onClick={() =>
-            openCloseInsertModal()}
+            openCloseEditModal()}
         >
           Annuler
           </Button>
@@ -499,7 +510,7 @@ function Search() {
         <Button
           variant="contained"
           size="small"
-          color="link"
+          color="secondary"
           Ripple onClick={() =>
             deleteRequest()}
         >
@@ -518,6 +529,26 @@ function Search() {
       </div>
     </div>
   )
+  const uploadBody = (
+    <div className={styles.modal}>
+      <p>Veuillez sélectionner une image pour l'aperçu
+      <b>
+          {selectedClient && selectedClient.id}
+        </b>
+        ?
+      </p>
+      <Button 
+      variant="contained"
+      size="small"
+      color="secondary"
+      onClick={() =>
+        uploadRequest()}
+      >
+        Ajouter une image
+    </Button>
+      
+    </div>
+  )
 
   return (
     <div className="Search">
@@ -527,6 +558,14 @@ function Search() {
         data={data}
         title="Les clients"
         actions={[
+          {
+            icon: 'publish',
+            tooltip: 'Télécharger',
+            type: 'file',
+            onClick: (event, rowData) =>
+              clientSelected(rowData, "Publish"),
+
+          },
           {
             icon: 'edit',
             tooltip: 'Client Modifier',
@@ -553,6 +592,14 @@ function Search() {
           backgroundColor: '#036435'
         }}
       />
+      <DropzoneDialog        
+        acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+        showPreviews={true}
+        maxFileSize={5000000}
+        open={uploadModal}
+        onClose={openCloseUploadModal}>
+          {uploadBody}
+        </DropzoneDialog>
       <Modal
         open={editModal}
         onClose={openCloseEditModal}>

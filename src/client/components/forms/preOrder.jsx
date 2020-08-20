@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const styles = makeStyles((theme) => ({
+  iconos: {
+    cursor: 'pointer',
+  },
+  inputMaterial: {
+    width: '100%'
+  }
+}));
 
 class PreOrder extends Component {
   constructor() {
@@ -83,8 +94,10 @@ class PreOrder extends Component {
       price,
     } = this.state;
     return (
-      <div>
+      <div className={styles.inputMaterial}>
+        <br /><br />
         <h5>Commande ferme de Véhicule</h5>
+        <br /><br />
         <div className="container">
           <div className="text-info" type="text">
             CONFIRMATION DÉFINITIVE de la commande réalisée par l'intermédiaire de IV3A.com le:
@@ -133,249 +146,285 @@ class PreOrder extends Component {
           >
             <div className="details-client">
               <h6>
-                Données client:
+                Données client
                 <br></br>
                 <br></br>
               </h6>
             </div>
-            <div align="left">
-              <label type="text" name="id">
-                Id:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="id"
-                placeholder="Id"
-                value={id}
-                onChange={this.changeHandler}
-              />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              ID
+            </InputLabel>
+            <FilledInput
+              variant="filled"
+              fullWidth
+              margin="normal"
+              placeholder="ID"
+              className={styles.inputMaterial}
+              name="id"
+              placeholder="ID"
+              value={id}
+              onChange={this.changeHandler}
+            />
+
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Document National d'Identité
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="card"
+              placeholder="Document National d'Identité"
+              value={card}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Traitement
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="treatment"
+              placeholder="Traitement"
+              value={treatment}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Nom
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="firstName"
+              placeholder="Nom"
+              value={firstName}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Prénom
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="lastName"
+              placeholder="Prénom"
+              value={lastName}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Téléphone
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="telephone"
+              placeholder="Téléphone"
+              value={telephone}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Courrier électronique
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="email"
+              placeholder="Courrier électronique"
+              value={email}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Allée/Rue/Avenue
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="address"
+              placeholder="Allée/Rue/Avenue"
+              value={address}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Ville
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="city"
+              placeholder="Ville"
+              value={city}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Wilaya
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="state"
+              placeholder="Wilaya"
+              value={state}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Code Postal
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="postalCode"
+              placeholder="Code Postal"
+              value={postalCode}
+              onChange={this.changeHandler}
+            />
+            <div className="line">
             </div>
-            <div align="left">
-              <label type="text" name="card">
-                Document National d'Identité:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="card"
-                placeholder="Document National d'Identité"
-                value={card}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="treatment">
-                Traitement:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="treatment"
-                placeholder="Traitement"
-                value={treatment}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="firstName">
-                Nom:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="firstName"
-                placeholder="Nom"
-                value={firstName}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="lastName">
-                Prénom:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="lastName"
-                placeholder="Prénom"
-                value={lastName}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="telephone">
-                Téléphone:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="telephone"
-                placeholder="Téléphone"
-                value={telephone}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="email">
-                Courrier électronique:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="email"
-                placeholder="Courrier électronique"
-                value={email}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="address">
-                Allée/Rue/Avenue:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="address"
-                placeholder="Allée/Rue/Avenue"
-                value={address}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="city">
-                Ville:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="city"
-                placeholder="Ville"
-                value={city}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="state">
-                Wilaya:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="state"
-                placeholder="Wilaya"
-                value={state}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="postalCode">
-                Code Postal:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="postalCode"
-                placeholder="Code Postal"
-                value={postalCode}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <br></br>
-            <br></br>
-            <div className="details-bank">
+            <div className={styles.inputMaterial}>
               <h6>
-                Vos Coordonnées Bancaires:
+                Vos Coordonnées Bancaires
                 <br></br>
                 <br></br>
               </h6>
-              <div align="left">
-                <label type="text" name="nameOfBank">
-                  Nom de la Banque:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="nameOfBank"
-                  placeholder="Nom de la Banque"
-                  value={nameOfBank}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="numberOfBank">
-                  Nº de compte:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="numberOfBank"
-                  placeholder="Nº de compte"
-                  value={numberOfBank}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="accountName">
-                  Intitulé du compte:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="accountName"
-                  placeholder="Intitulé du compte"
-                  value={accountName}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="iban">
-                  IBAN:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="iban"
-                  placeholder="IBAN"
-                  value={iban}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="swiftCode">
-                  Swift BIC Code:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="swiftCode"
-                  placeholder="Swift BIC Code"
-                  value={swiftCode}
-                  onChange={this.changeHandler}
-                />
-              </div>
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Nom de la Banque
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="nameOfBank"
+                placeholder="Nom de la Banque"
+                value={nameOfBank}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Nº de compte
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="numberOfBank"
+                placeholder="Nº de compte"
+                value={numberOfBank}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Intitulé du compte
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="accountName"
+                placeholder="Intitulé du compte"
+                value={accountName}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                IBAN
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="iban"
+                placeholder="IBAN"
+                value={iban}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Swift BIC Code
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="swiftCode"
+                placeholder="Swift BIC Code"
+                value={swiftCode}
+                onChange={this.changeHandler}
+              />
             </div>
-            <br></br>
-            <br></br>
+            <div className="line">
+            </div>
             <div className="details-car">
               <h6>
                 Référence du véhicule choisi sur www.iv3a.com
                 <br></br>
                 <br></br>
               </h6>
-              <div align="left">
-                <label type="text" name="registrationCar">
-                  Immatriculation:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="registrationCar"
-                  placeholder=" Immatriculation"
-                  value={registrationCar}
-                  onChange={this.changeHandler}
-                />
-              </div>
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Immatriculation
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="registrationCar"
+                placeholder=" Immatriculation"
+                value={registrationCar}
+                onChange={this.changeHandler}
+              />
               <div align="left">
                 <div className="text-info" type="text">
                   <br></br>
@@ -390,66 +439,77 @@ class PreOrder extends Component {
                 douanes (15%), TVA (19%),
                 immatriculation et coût du dossier d'accompagnement en Algérie.
                 </div>
-                <label type="text" name="price">
-                  Prix (voiture choisie dans le catalogue IV3A):
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
+
+                <InputLabel
+                  htmlFor="filled-adornment-amount"
+                >
+                  Prix (voiture choisie dans le catalogue IV3A)
+            </InputLabel>
+                <TextField
+                  variant="outlined"
+                  fullWidth
+                  margin="normal"
+                  className={styles.inputMaterial}
                   name="price"
                   placeholder="Voiture choisie dans le catalogue IV3A"
                   value={price}
                   onChange={this.changeHandler}
                 />
               </div>
-              <br></br>
-              <br></br>
+              <div className="line">
+              </div>
               <div className="details-car">
                 <h6>
-                  Description du véhicule choisi:
+                  Description du véhicule choisi
                 <br></br>
                   <br></br>
                 </h6>
               </div>
-              <div align="left">
-                <label type="text" name="brand">
-                  Marque:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="brand"
-                  placeholder="Marque"
-                  value={brand}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="model">
-                  Modèle:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="model"
-                  placeholder="Modèle"
-                  value={model}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="fuel">
-                  Combustible:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="fuel"
-                  placeholder="Combustible"
-                  value={fuel}
-                  onChange={this.changeHandler}
-                />
-              </div>
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Marque
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="brand"
+                placeholder="Marque"
+                value={brand}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Modèle
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="model"
+                placeholder="Modèle"
+                value={model}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Combustible
+            </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="fuel"
+                placeholder="Combustible"
+                value={fuel}
+                onChange={this.changeHandler}
+              />
             </div>
           </form>
 
@@ -528,7 +588,7 @@ class PreOrder extends Component {
         >
           Panel
           </button>
-      </div>
+      </div >
     );
   }
 }

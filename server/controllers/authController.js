@@ -129,6 +129,7 @@ router.post("/newClient", (req, res, next) => {
           cityBank: req.body.cityBank,
           stateBank: req.body.addressBank,
           postalCodeBank: req.body.postalCodeBank,
+          images: req.body.images,
           date: req.body.date,
         });
         client

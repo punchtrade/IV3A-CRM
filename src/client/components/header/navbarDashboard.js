@@ -13,7 +13,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SearchPage from '../../pages/search';
 import FormCar from '../forms/formCar';
 import PreOrder from '../forms/preOrder';
-import Upload from '../uploadImages/upload';
+// import Upload from '../uploadImages/upload';
 import Leads from '../../pages/leads';
 
 class Navbar extends Component {
@@ -52,9 +52,9 @@ class Navbar extends Component {
                             <MDBNavItem>
                                 <MDBNavLink to="preOrder">Commande</MDBNavLink>
                             </MDBNavItem>
-                            <MDBNavItem>
+                            {/* <MDBNavItem>
                                 <MDBNavLink to="upload">Importer des images</MDBNavLink>
-                            </MDBNavItem>
+                            </MDBNavItem> */}
                             <MDBNavItem>
                                 <MDBNavLink to="leads">Prospect</MDBNavLink>
                             </MDBNavItem>
@@ -75,9 +75,9 @@ class Navbar extends Component {
                     <Route exact path="/preOrder">
                         <PreOrder />
                     </Route>
-                    <Route exact path="/upload">
+                    {/* <Route exact path="/upload">
                         <Upload />
-                    </Route>
+                    </Route> */}
                     <Route exact path="/leads">
                         <Leads />
                     </Route>

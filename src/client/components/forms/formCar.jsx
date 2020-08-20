@@ -1,7 +1,18 @@
 import React, { Component } from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
+
+const styles = makeStyles((theme) => ({
+  iconos: {
+    cursor: 'pointer',
+  },
+  inputMaterial: {
+    width: '100%'
+  }
+}));
 class FormCar extends Component {
   constructor() {
     super();
@@ -76,383 +87,440 @@ class FormCar extends Component {
       dateManufacture,
     } = this.state;
     return (
-      <div>
+      <div className={styles.inputMaterial}>
+        <br/><br/>
         <h5 className="">Fiche Véhicule</h5>
         <div className="container">
-          <div className="container-form">
+          <div
+          // className="container-form"
+          >
             <form
-              className="car-left"
+              // className="car-left"
               onSubmit={this.onSubmitHandler.bind(this)}
               action='http://localhost:9000/car'
               value="submit"
               method="post"
             >
-              <div align="left">
-                <label type="text" name="id">
-                  Client:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="id"
-                  placeholder="Client"
-                  value={id}
-                  onChange={this.changeHandler}
-                />
+              <InputLabel 
+                htmlFor="filled-adornment-amount"
+              >
+                Client
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="id"
+                placeholder="Client"
+                value={id}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Document National d'Identité
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="card"
+                placeholder="Document National d'Identité"
+                value={card}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Marque
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="brandId"
+                placeholder="Marque"
+                value={brandId}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Modèle
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="modelId"
+                placeholder="Modèle"
+                value={modelId}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Combustible
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="fuelId"
+                placeholder="Combustible"
+                value={fuelId}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Voiture choisie dans le catalogue IV3A
+                (Immatriculation de la voiture)
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="carCatalogue"
+                placeholder="Immatriculation de la voiture"
+                value={carCatalogue}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Prix (voiture choisie dans le catalogue IV3A)
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="price1"
+                placeholder="Voiture choisie dans le catalogue IV3A"
+                value={price1}
+                onChange={this.changeHandler}
+              />
+              <div className="line"></div>
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Voiture object de la commande (Immatriculation de la voiture)
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="carOrder"
+                placeholder="Immatriculation de la voiture"
+                value={carOrder}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Prix (Voiture object de la commande)
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="price2"
+                placeholder="Voiture object de la commande"
+                value={price2}
+                onChange={this.changeHandler}
+              />
+              <div className="line">
               </div>
-              <div align="left">
-                <label type="text" name="card">
-              Document National d'Identité:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="card"
-                  placeholder="Document National d'Identité"
-                  value={card}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="brandId">
-                Marque:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="brandId"
-                  placeholder="Marque"
-                  value={brandId}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="modelId">
-                Modèle:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="modelId"
-                  placeholder="Modèle"
-                  value={modelId}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="fuelId">
-                Combustible:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="fuelId"
-                  placeholder="Combustible"
-                  value={fuelId}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="carCatalogue">
-                  Voiture choisie dans le catalogue IV3A
-                  (Immatriculation de la voiture):
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="carCatalogue"
-                  placeholder="Immatriculation de la voiture"
-                  value={carCatalogue}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="carCatalogue">
-                  Prix (voiture choisie dans le catalogue IV3A):
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="price1"
-                  placeholder="Voiture choisie dans le catalogue IV3A"
-                  value={price1}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div  className="line"></div>
-              <div align="left">
-                <label type="text" name="carOrder">
-                  Voiture object de la commande (Immatriculation de la voiture):
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="carOrder"
-                  placeholder="Immatriculation de la voiture"
-                  value={carOrder}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="carOrder">
-                  Prix (Voiture object de la commande):
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="price2"
-                  placeholder="Voiture object de la commande"
-                  value={price2}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div  className="line">
-              </div>
-              <div align="left">
-                <label type="text" name="serialNumber">
-                  Nº de chassis:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="serialNumber"
-                  placeholder=" Nº de chassis"
-                  value={serialNumber}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" className="text-left" name="description">
-                  Genre:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="description"
-                  placeholder="Genre"
-                  value={description}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="brand">
-                  Marque:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="brand"
-                  placeholder="Marque"
-                  value={brand}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="fuel">
-                  Combustible (diesel ou essence):
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="fuel"
-                  placeholder="Combustible"
-                  value={fuel}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="type">
-                  ¿TYPE?:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="type"
-                  placeholder="Type"
-                  value={type}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="typeSeries">
-                  ¿Nº DANS LA SERIE DU TYPE?:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="typeSeries"
-                  placeholder="Nº dans la serie du type"
-                  value={typeSeries}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="model">
-                  Modèle:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="model"
-                  placeholder="Modèle"
-                  value={model}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="body">
-                  Carrosserie:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="body"
-                  placeholder="Carrosserie"
-                  value={body}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="energy">
-                  ¿Energie?:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="energy"
-                  placeholder="Energie"
-                  value={energy}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="power">
-                  Puissance:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="power"
-                  placeholder="Puissance"
-                  value={power}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="places">
-                  Places assises:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="places"
-                  placeholder="Places assises"
-                  value={places}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="grossWeight">
-                  Poids total en charge:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="grossWeight"
-                  placeholder="Poids total en charge"
-                  value={grossWeight}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="fmma">
-                  MMA:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="mma"
-                  placeholder="MMA"
-                  value={mma}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="payload">
-                  Charge utile:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="payload"
-                  placeholder="Charge utile"
-                  value={payload}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="tara">
-                  Tara:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="tara"
-                  placeholder="Tara"
-                  value={tara}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="previousNumber">
-                  Précédent numéro:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="previousNumber"
-                  placeholder="Précédent numéro"
-                  value={previousNumber}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="firstRegistration">
-                  Première mise en circulation:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="firstRegistration"
-                  placeholder="Première mise en circulation"
-                  value={firstRegistration}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <div align="left">
-                <label type="text" name="dateManufacture">
-                  Date de fabrication:
-                </label>
-                <input
-                  className="mb-3 mt-3"
-                  type="text"
-                  name="dateManufacture"
-                  placeholder="Date de fabrication"
-                  value={dateManufacture}
-                  onChange={this.changeHandler}
-                />
-              </div>
-              <button
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Nº de chassis
+              </InputLabel>
+              <FilledInput
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="serialNumber"
+                placeholder=" Nº de chassis"
+                value={serialNumber}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Genre
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="description"
+                placeholder="Genre"
+                value={description}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Marque
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="brand"
+                placeholder="Marque"
+                value={brand}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Combustible (diesel ou essence)
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="fuel"
+                placeholder="Combustible"
+                value={fuel}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                ¿TYPE?
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="type"
+                placeholder="Type"
+                value={type}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                ¿Nº DANS LA SERIE DU TYPE?
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="typeSeries"
+                placeholder="Nº dans la serie du type"
+                value={typeSeries}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Modèle
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="model"
+                placeholder="Modèle"
+                value={model}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Carrosserie
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="body"
+                placeholder="Carrosserie"
+                value={body}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                ¿Energie?
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="energy"
+                placeholder="Energie"
+                value={energy}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Puissance
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="power"
+                placeholder="Puissance"
+                value={power}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Places assises
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="places"
+                placeholder="Places assises"
+                value={places}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Poids total en charge
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="grossWeight"
+                placeholder="Poids total en charge"
+                value={grossWeight}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                MMA
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="mma"
+                placeholder="MMA"
+                value={mma}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Charge utile
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="payload"
+                placeholder="Charge utile"
+                value={payload}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                 Tara
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="tara"
+                placeholder="Tara"
+                value={tara}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Précédent numéro
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="previousNumber"
+                placeholder="Précédent numéro"
+                value={previousNumber}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Première mise en circulation
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="firstRegistration"
+                placeholder="Première mise en circulation"
+                value={firstRegistration}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Date de fabrication
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="dateManufacture"
+                placeholder="Date de fabrication"
+                value={dateManufacture}
+                onChange={this.changeHandler}
+              />
+              <Button
                 className="btn btn-primary-green"
                 type="submit"
                 value="submit"
                 onClick={this.onSubmitHandler.bind(this)}
               >
                 Envoyer
-          </button>
+          </Button>
             </form>
           </div>
-          <button
+          <Button
             className="btn btn-primary-green left"
             type="submit"
             value="submit"
@@ -461,7 +529,7 @@ class FormCar extends Component {
             }}
           >
             Panel
-          </button>
+          </Button>
         </div>
       </div>
     );
