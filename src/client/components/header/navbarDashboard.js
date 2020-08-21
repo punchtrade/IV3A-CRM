@@ -15,6 +15,8 @@ import FormCar from '../forms/formCar';
 import PreOrder from '../forms/preOrder';
 // import Upload from '../uploadImages/upload';
 import Leads from '../../pages/leads';
+import Status from '../../pages/status';
+import StatusPage from "../../pages/status";
 
 class Navbar extends Component {
     state = {
@@ -47,7 +49,7 @@ class Navbar extends Component {
                                 <MDBNavLink to="search">Clients</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                                <MDBNavLink to="formCar">Fiche véhicule</MDBNavLink>
+                                <MDBNavLink to="formCar">Véhicule</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
                                 <MDBNavLink to="preOrder">Commande</MDBNavLink>
@@ -56,9 +58,11 @@ class Navbar extends Component {
                                 <MDBNavLink to="upload">Importer des images</MDBNavLink>
                             </MDBNavItem> */}
                             <MDBNavItem>
-                                <MDBNavLink to="leads">Prospect</MDBNavLink>
+                                <MDBNavLink to="leads">Prospects</MDBNavLink>
                             </MDBNavItem>
-                            <MDBNavItem></MDBNavItem>
+                            <MDBNavItem>
+                                <MDBNavLink to="status">Status</MDBNavLink>
+                            </MDBNavItem>
                         </MDBNavbarNav>
                     </MDBCollapse>
                 </MDBNavbar>
@@ -80,6 +84,9 @@ class Navbar extends Component {
                     </Route> */}
                     <Route exact path="/leads">
                         <Leads />
+                    </Route>
+                    <Route exact path="/status">
+                        <StatusPage />
                     </Route>
                 </Switch>
             </Router>

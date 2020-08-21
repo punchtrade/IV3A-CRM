@@ -4,8 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
 import { Modal, TextField, FilledInput, Button, InputLabel } from '@material-ui/core';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { green, purple } from '@material-ui/core/colors';
-import { dark } from '@material-ui/core/styles/createPalette';
+
 
 
 const columns = [
@@ -41,15 +40,6 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ColorButton = withStyles((theme) => ({
-  root: {
-    color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: purple[500],
-    '&:hover': {
-      backgroundColor: purple[700],
-    },
-  },
-}))
 
 function Leads() {
   const styles = useStyles();
@@ -683,8 +673,8 @@ function Leads() {
         Energie??
       </InputLabel>
       <TextField
-        multiline variant="outlined" c
-        lassName={styles.inputMaterial}
+        multiline variant="outlined" 
+        className={styles.inputMaterial}
         placeholder="Energie??"
         name="energy"
         onChange={handleChange}
@@ -886,7 +876,7 @@ function Leads() {
       <MaterialTable
         columns={columns}
         data={data}
-        title="Les prospect"
+        title="Prospects"
         actions={[
           {
             icon: 'add',

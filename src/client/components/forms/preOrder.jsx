@@ -71,6 +71,7 @@ class PreOrder extends Component {
   };
   render() {
     const {
+      date,
       id,
       card,
       treatment,
@@ -151,6 +152,22 @@ class PreOrder extends Component {
                 <br></br>
               </h6>
             </div>
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Date de confirmation
+      </InputLabel>
+            <FilledInput
+               variant="outlined"
+              margin="normal"
+              placeholder="Date de confirmation"
+              className={styles.inputMaterial}
+              name="date"
+              placeholder="Date de confirmation"
+              value={date}
+              onChange={this.changeHandler}
+            />
+            <br />
             <InputLabel
               htmlFor="filled-adornment-amount"
             >

@@ -1,6 +1,18 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { Button, InputLabel, FilledInput } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
+
+const styles = makeStyles((theme) => ({
+  iconos: {
+    cursor: 'pointer',
+  },
+  inputMaterial: {
+    width: '100%'
+  }
+}));
+
 
 class FormRegister extends React.Component {
   constructor(props) {
@@ -37,78 +49,88 @@ class FormRegister extends React.Component {
   render() {
     const { firstName, lastName, idCard, email, password } = this.state;
     return (
-      <div className="container">
+      <div className={styles.inputMaterial}>
         <div className="container-form">
           <form
             onSubmit={this.onSubmitHandler.bind(this)}
             action="http://localhost:9000/register"
             method="post"
           >
-            <div align="left">
-              <label type="text" name="firstName">
-                Nom:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="firstName"
-                placeholder="Nom"
-                value={firstName}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="lastName">
-                Prénom:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="lastName"
-                placeholder="Prénom"
-                value={lastName}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="idCard">
-                Carte d'identité:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="idCard"
-                placeholder="Carte d'identité"
-                value={idCard}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="email">
-                Courrier électronique:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="email"
-                placeholder="Courrier électronique"
-                value={email}
-                onChange={this.changeHandler}
-              />
-            </div>
-            <div align="left">
-              <label type="text" name="password">
-                Mot de passe:
-                </label>
-              <input
-                className="mb-3 mt-3"
-                type="text"
-                name="password"
-                placeholder="Mot de passe"
-                value={password}
-                onChange={this.changeHandler}
-              />
-            </div>
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Nom
+              </InputLabel>
+            <FilledInput
+              variant="filled"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="firstName"
+              placeholder="Nom"
+              value={firstName}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Prénom
+              </InputLabel>
+            <FilledInput
+              variant="filled"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="lastName"
+              placeholder="Prénom"
+              value={lastName}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Carte d'identité
+              </InputLabel>
+            <FilledInput
+              variant="filled"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="idCard"
+              placeholder="Carte d'identité"
+              value={idCard}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Courrier électronique
+              </InputLabel>
+            <FilledInput
+              variant="filled"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="email"
+              placeholder="Courrier électronique"
+              value={email}
+              onChange={this.changeHandler}
+            />
+            <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Mot de passe
+              </InputLabel>
+            <FilledInput
+              variant="filled"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="password"
+              placeholder="Mot de passe"
+              value={password}
+              onChange={this.changeHandler}
+            />
             <button className="btn btn-primary-green" type="submit" onClick={this.onSubmitHandler.bind(this)}>
               Envoyer
           </button>

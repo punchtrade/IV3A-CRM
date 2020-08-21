@@ -5,6 +5,7 @@ import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/
 import { makeStyles } from '@material-ui/core/styles';
 
 
+
 const styles = makeStyles((theme) => ({
   iconos: {
     cursor: 'pointer',
@@ -26,7 +27,6 @@ class FormCar extends Component {
       type: "",
       typeSeries: "",
       body: "",
-      energy: "",
       power: "",
       places: "",
       grossWeight: "",
@@ -75,7 +75,6 @@ class FormCar extends Component {
       type,
       typeSeries,
       body,
-      energy,
       power,
       places,
       grossWeight,
@@ -211,6 +210,36 @@ class FormCar extends Component {
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
+                Marque
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="brand"
+                placeholder="Marque"
+                value={brand}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Modèle
+              </InputLabel>
+              <TextField
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="model"
+                placeholder="Modèle"
+                value={model}
+                onChange={this.changeHandler}
+              />
+              <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
                 Voiture object de la commande (Immatriculation de la voiture)
               </InputLabel>
               <TextField
@@ -245,7 +274,7 @@ class FormCar extends Component {
               >
                 Nº de chassis
               </InputLabel>
-              <FilledInput
+              <TextField
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -255,7 +284,7 @@ class FormCar extends Component {
                 value={serialNumber}
                 onChange={this.changeHandler}
               />
-              <InputLabel
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Genre
@@ -269,22 +298,7 @@ class FormCar extends Component {
                 placeholder="Genre"
                 value={description}
                 onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Marque
-              </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="brand"
-                placeholder="Marque"
-                value={brand}
-                onChange={this.changeHandler}
-              />
+              /> */}
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
@@ -300,7 +314,7 @@ class FormCar extends Component {
                 value={fuel}
                 onChange={this.changeHandler}
               />
-              <InputLabel
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 ¿TYPE?
@@ -329,23 +343,8 @@ class FormCar extends Component {
                 placeholder="Nº dans la serie du type"
                 value={typeSeries}
                 onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Modèle
-              </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="model"
-                placeholder="Modèle"
-                value={model}
-                onChange={this.changeHandler}
-              />
-              <InputLabel
+              /> */}
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Carrosserie
@@ -359,23 +358,8 @@ class FormCar extends Component {
                 placeholder="Carrosserie"
                 value={body}
                 onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                ¿Energie?
-              </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="energy"
-                placeholder="Energie"
-                value={energy}
-                onChange={this.changeHandler}
-              />
-              <InputLabel
+              /> */}
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Puissance
@@ -389,8 +373,8 @@ class FormCar extends Component {
                 placeholder="Puissance"
                 value={power}
                 onChange={this.changeHandler}
-              />
-              <InputLabel
+              /> */}
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Places assises
@@ -404,8 +388,8 @@ class FormCar extends Component {
                 placeholder="Places assises"
                 value={places}
                 onChange={this.changeHandler}
-              />
-              <InputLabel
+              /> */}
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Poids total en charge
@@ -419,8 +403,8 @@ class FormCar extends Component {
                 placeholder="Poids total en charge"
                 value={grossWeight}
                 onChange={this.changeHandler}
-              />
-              <InputLabel
+              /> */}
+              {/* <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 MMA
@@ -509,18 +493,16 @@ class FormCar extends Component {
                 placeholder="Date de fabrication"
                 value={dateManufacture}
                 onChange={this.changeHandler}
-              />
-              <Button
+              /> */}
+              <button
                 className="btn btn-primary-green"
                 type="submit"
                 value="submit"
                 onClick={this.onSubmitHandler.bind(this)}
               >
                 Envoyer
-          </Button>
-            </form>
-          </div>
-          <Button
+          </button>
+          <button
             className="btn btn-primary-green left"
             type="submit"
             value="submit"
@@ -529,7 +511,10 @@ class FormCar extends Component {
             }}
           >
             Panel
-          </Button>
+          </button>
+            </form>
+          </div>
+
         </div>
       </div>
     );

@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
-import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
+import { Modal, TextField, Button, InputLabel, FilledInput, Icon } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { DropzoneDialog } from 'material-ui-dropzone'
+import { DropzoneDialog } from 'material-ui-dropzone';
+
 
 const columns = [
   { title: "ID", field: "id" },
@@ -556,15 +557,21 @@ function Search() {
       <MaterialTable
         columns={columns}
         data={data}
-        title="Les clients"
+        title="Clients"
         actions={[
+          {
+            icon: 'contacts',
+            tooltip: 'Situation',
+            onClick: (event, rowData) =>
+              clientSelected(rowData, "Edit")
+          },
+
           {
             icon: 'publish',
             tooltip: 'Télécharger',
             type: 'file',
             onClick: (event, rowData) =>
               clientSelected(rowData, "Publish"),
-
           },
           {
             icon: 'edit',
@@ -573,11 +580,17 @@ function Search() {
               clientSelected(rowData, "Edit")
           },
           {
+            icon: 'C',
+            tooltip: 'Voiture livrée',
+            onClick: (event, rowData) =>
+              clientSelected(rowData, "Edit")
+          },
+          {
             icon: 'delete',
             tooltip: 'Supprimer la base de données client',
             onClick: (event, rowData) =>
               clientSelected(rowData, "Delete")
-          }
+          },
         ]}
         options={{
           actionsColumnIndex: -1,
