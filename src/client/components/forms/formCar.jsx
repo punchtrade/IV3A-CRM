@@ -18,24 +18,29 @@ class FormCar extends Component {
   constructor() {
     super();
     this.state = {
+      brandId: "",
+      modelId: "",
+      fuelId: "",
       carCatalogue: "",
+      price1: "",
       carOrder: "",
+      price2: "",
       brand: "",
       model: "",
       fuel: "",
       serialNumber: "",
-      type: "",
-      typeSeries: "",
-      body: "",
-      power: "",
-      places: "",
-      grossWeight: "",
-      mma: "",
-      payload: "",
-      tara: "",
-      previousNumber: "",
-      firtsRegistration: "",
-      dateManufacture: "",
+      // type: "",
+      // typeSeries: "",
+      // body: "",
+      // power: "",
+      // places: "",
+      // grossWeight: "",
+      // mma: "",
+      // payload: "",
+      // tara: "",
+      // previousNumber: "",
+      // firtsRegistration: "",
+      // dateManufacture: "",
       errors: "",
     };
   }
@@ -71,19 +76,19 @@ class FormCar extends Component {
       model,
       fuel,
       serialNumber,
-      description,
-      type,
-      typeSeries,
-      body,
-      power,
-      places,
-      grossWeight,
-      mma,
-      payload,
-      tara,
-      previousNumber,
-      firstRegistration,
-      dateManufacture,
+      // description,
+      // type,
+      // typeSeries,
+      // body,
+      // power,
+      // places,
+      // grossWeight,
+      // mma,
+      // payload,
+      // tara,
+      // previousNumber,
+      // firstRegistration,
+      // dateManufacture,
     } = this.state;
     return (
       <div className={styles.inputMaterial}>
@@ -175,14 +180,14 @@ class FormCar extends Component {
                 value={fuelId}
                 onChange={this.changeHandler}
               />
-              <InputLabel
+             <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Voiture choisie dans le catalogue IV3A
                 (Immatriculation de la voiture)
               </InputLabel>
               <FilledInput
-                variant="filled"
+                variant="filled "
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}

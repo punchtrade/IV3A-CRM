@@ -7,10 +7,15 @@ import {
     MDBNavLink,
     MDBNavbarToggler,
     MDBCollapse,
+
+    MDBDropdown,
+    MDBDropdownToggle,
+    MDBDropdownMenu,
+    MDBDropdownItem
 } from "mdbreact";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-// import NewClient from '../forms/newClient';
-import SearchPage from '../../pages/search';
+import NewClient from '../forms/newClient';
+import Search from '../../pages/search';
 import FormCar from '../forms/formCar';
 import PreOrder from '../forms/preOrder';
 // import Upload from '../uploadImages/upload';
@@ -42,12 +47,22 @@ class Navbar extends Component {
                     <MDBNavbarToggler onClick={this.toggleCollapse} />
                     <MDBCollapse id="navbarCollapse3" isOpen={this.state.isOpen} navbar>
                         <MDBNavbarNav center>
-                            {/* <MDBNavItem>
-                                <MDBNavLink to="newClient">Nouvelle cliente</MDBNavLink>
-                            </MDBNavItem> */}
                             <MDBNavItem>
-                                <MDBNavLink to="search">Clients</MDBNavLink>
+                                <MDBDropdown>
+                                    <MDBDropdownToggle nav caret>
+                                        <span className="mr-2">Clients</span>
+                                    </MDBDropdownToggle>
+                                    <MDBDropdownMenu>
+                                        <MDBDropdownItem href="newClient">Nouveau Client</MDBDropdownItem>
+                                        <MDBDropdownItem href="search">Search</MDBDropdownItem>
+                                        <MDBDropdownItem href="leads">Prospects</MDBDropdownItem>
+                                    </MDBDropdownMenu>
+                                </MDBDropdown>
+                                {/* <MDBNavLink to="newClient">Nouveau Client</MDBNavLink> */}
                             </MDBNavItem>
+                            {/* <MDBNavItem>
+                                <MDBNavLink to="search">Clients</MDBNavLink>
+                            </MDBNavItem> */}
                             <MDBNavItem>
                                 <MDBNavLink to="formCar">Véhicule</MDBNavLink>
                             </MDBNavItem>
@@ -57,9 +72,9 @@ class Navbar extends Component {
                             {/* <MDBNavItem>
                                 <MDBNavLink to="upload">Importer des images</MDBNavLink>
                             </MDBNavItem> */}
-                            <MDBNavItem>
+                            {/* <MDBNavItem>
                                 <MDBNavLink to="leads">Prospects</MDBNavLink>
-                            </MDBNavItem>
+                            </MDBNavItem> */}
                             <MDBNavItem>
                                 <MDBNavLink to="status">Status</MDBNavLink>
                             </MDBNavItem>
@@ -67,11 +82,11 @@ class Navbar extends Component {
                     </MDBCollapse>
                 </MDBNavbar>
                 <Switch>
-                    {/* <Route exact path="/newClient">
+                    <Route exact path="/newClient">
                         <NewClient />
-                    </Route> */}
+                    </Route>
                     <Route exact path="/search">
-                        <SearchPage />
+                        <Search />
                     </Route>
                     <Route exact path="/formCar">
                         <FormCar />

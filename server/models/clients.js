@@ -6,10 +6,6 @@ const clientsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  card: {
-    type: String,
-    required: true,
-  },
   treatment: {
     type: String,
     required: true,
@@ -19,6 +15,10 @@ const clientsSchema = new mongoose.Schema({
     required: true,
   },
   lastName: {
+    type: String,
+    required: true,
+  },
+  card: {
     type: String,
     required: true,
   },
@@ -40,23 +40,23 @@ const clientsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  state: {
-    type: String,
-    required: true,
-  },
   postalCode: {
     type: String,
     required: true,
   },
+  bankAccount: {
+    type: String,
+    required: true,
+  },
+  bankAccount2: {
+    type: String,
+    required: true,
+  },
+  bankAccount3: {
+    type: String,
+    required: true,
+  },
   nameOfBank: {
-    type: String,
-    required: true,
-  },
-  numberOfBank: {
-    type: String,
-    required: true,
-  },
-  accountName: {
     type: String,
     required: true,
   },
@@ -68,23 +68,27 @@ const clientsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  branchOffice: {
+  carCatalogue: {
     type: String,
     required: true,
   },
-  addressBank: {
+  price1: {
     type: String,
     required: true,
   },
-  cityBank: {
+  brand: {
     type: String,
-    required: true,
+    required: false,
   },
-  stateBank: {
+  model: {
     type: String,
-    required: true,
+    required:  false,
   },
-  postalCodeBank: {
+  fuel: {
+    type: String,
+    required:  false,
+  },
+  comment: {
     type: String,
     required: true,
   },
@@ -92,8 +96,6 @@ const clientsSchema = new mongoose.Schema({
     path: {
       type: String,
       trim: true,
-    },
-    img: {
       data: Buffer,
       contentType: String,
     },
