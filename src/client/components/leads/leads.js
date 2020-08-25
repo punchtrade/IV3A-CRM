@@ -3,12 +3,12 @@ import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
 import { Modal, TextField, FilledInput, Button, InputLabel } from '@material-ui/core';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 
 const columns = [
-  { title: "ID", field: "id" },
+  { title: "ID", field: "_id" },
   { title: "Nom", field: "firstName" },
   { title: "Prénom", field: "lastName" },
   { title: "Téléphone", field: "telephone" }
@@ -48,7 +48,7 @@ function Leads() {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [selectedClient, setClientSelected] = useState({
-    id: "",
+    _id: "",
     card: "",
     treatment: "",
     firstName: "",
@@ -57,18 +57,10 @@ function Leads() {
     email: "",
     address: "",
     city: "",
-    state: "",
     postalCode: "",
     nameOfBank: "",
-    numberOfBank: "",
-    accountName: "",
     iban: "",
     swiftCode: "",
-    branchOffice: "",
-    addressBank: "",
-    cityBank: "",
-    stateBank: "",
-    postalCodeBank: "",
     brandId: "",
     modelId: "",
     fuelId: "",
@@ -164,23 +156,9 @@ function Leads() {
         multiline variant="outlined"
         placeholder="ID"
         className={styles.inputMaterial}
-        name="id"
+        name="_id"
         onChange={handleChange}
-        value={selectedClient && selectedClient.id}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Document National d'Identité
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Document National d'Identité"
-        name="card"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.card}
+        value={selectedClient && selectedClient._id}
       />
       <br />
       <InputLabel
@@ -228,6 +206,20 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
+        Document National d'Identité
+        </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Document National d'Identité"
+        name="card"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.card}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
         Téléphone
         </InputLabel>
       <TextField
@@ -256,12 +248,12 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Allée/Rue/Avenue
+        Adresse complète
         </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
-        placeholder="Allée/Rue/Avenue"
+        placeholder="Adresse complète"
         name="address"
         onChange={handleChange}
         value={selectedClient && selectedClient.address}
@@ -270,29 +262,15 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Ville
+        Ville/Wilaya
         </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
-        placeholder="Ville"
+        placeholder="Ville/Wilaya"
         name="city"
         onChange={handleChange}
         value={selectedClient && selectedClient.city}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Wilaya
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Wilaya"
-        name="state"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.state}
       />
       <br />
       <InputLabel
@@ -310,7 +288,7 @@ function Leads() {
       />
       <br /><br />
 
-      <h3>Insérer les Coordonnées Bancaires</h3>
+      <h3>Coordonnées Bancaires</h3>
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
@@ -328,40 +306,12 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Nº de compte
+        IBAN de votre compte
         </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
-        placeholder="Nº de compte"
-        name="numberOfBank"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.numberOfBank}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Intitulé du compte
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Intitulé du compte"
-        name="accountName"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.accountName}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        IBAN
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="IBAN"
+        placeholder="IBAN de votre compte"
         name="iban"
         onChange={handleChange}
         value={selectedClient && selectedClient.iban}
@@ -370,87 +320,47 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Code BIC rapide
+        Swift BIC Code
         </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
-        placeholder="Code BIC rapide"
+        placeholder="Swift BIC Code"
         name="swiftCode"
         onChange={handleChange}
         value={selectedClient && selectedClient.swiftCode}
       />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Sucursale
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Sucursale"
-        name="branchOffice"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.branchOffice}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Allée/Rue/Av
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Allée/Rue/Av"
-        name="addressBank"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.addressBank}
-      />
-      <br />
-      <InputLabel htmlFor="filled-adornment-amount"
-      >
-        Ville
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Ville"
-        name="cityBank"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.cityBank}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Wilaya
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Wilaya"
-        name="stateBank"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.stateBank}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Code Postal
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Code Postal"
-        name="postalCodeBank"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.postalCodeBank}
-      />
       <br /><br />
-      <h3>Insérer le Véhicule</h3>
+      <h3>Informations sur le véhicule</h3>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Voiture choisie dans le catalogue IV3A 
+        (Immatriculation de la voiture)
+      </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Immatriculation de la voiture"
+        name="carCatalogue"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.carCatalogue}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Prix (Voiture choisie dans le catalogue IV3A)
+      </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Voiture choisie dans le catalogue IV3A"
+        name="price1"
+        onChange={handleChange}
+        value={selectedClient && selectedClient.price1}
+      />
+      <br />
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
@@ -491,34 +401,6 @@ function Leads() {
         name="fuel"
         onChange={handleChange}
         value={selectedClient && selectedClient.fuel}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Voiture choisie dans le catalogue IV3A (Immatriculation de la voiture)
-      </InputLabel>
-      <FilledInput
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Voiture choisie dans le catalogue IV3A (Immatriculation de la voiture)"
-        name="carCatalogue"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.carCatalogue}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Prix (Voiture choisie dans le catalogue IV3A)
-      </InputLabel>
-      <FilledInput
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Prix(Voiture choisie dans le catalogue IV3A)"
-        name="price1"
-        onChange={handleChange}
-        value={selectedClient && selectedClient.price1}
       />
       <br />
       <InputLabel htmlFor="filled-adornment-amount"
@@ -620,201 +502,6 @@ function Leads() {
         onChange={handleChange}
         value={selectedClient &&
           selectedClient.fuel}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Type??
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Type??"
-        name="type"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.type}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Nº dans la serie du type??
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Nº dans la serie du type??"
-        name="typeSeries"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.typeSeries}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Carrosserie
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Carrosserie"
-        name="body"
-        onChange={handleChange}
-        alue={selectedClient &&
-          selectedClient.body}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Energie??
-      </InputLabel>
-      <TextField
-        multiline variant="outlined" 
-        className={styles.inputMaterial}
-        placeholder="Energie??"
-        name="energy"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.energy}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Puissance
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Puissance"
-        name="power"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.power}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Places assises
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Places assises"
-        name="places"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.places}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Poids total en charge
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Poids total en charge"
-        name="grossWeight"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.grossWeight}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        MMA
-          </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="MMA"
-        name="mma"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.mma}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Charge utile
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Charge utile"
-        name="payload"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.payload}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Tara
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Tara"
-        name="tara"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.tara}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Précédent numéro
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Précédent numéro"
-        name="previousNumber"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.previousNumber}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Première mise en circulation
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Première mise en circulation"
-        name="firstRegistration"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.firstRegistration}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Date de fabrication
-        </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Date de fabrication"
-        name="dateManufacture"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.dateManufacture}
       />
       <br /><br />
       <div align="right">

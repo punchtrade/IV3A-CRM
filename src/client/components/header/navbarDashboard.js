@@ -7,7 +7,6 @@ import {
     MDBNavLink,
     MDBNavbarToggler,
     MDBCollapse,
-
     MDBDropdown,
     MDBDropdownToggle,
     MDBDropdownMenu,
@@ -15,13 +14,14 @@ import {
 } from "mdbreact";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NewClient from '../forms/newClient';
-import Search from '../../pages/search';
+import SearchPage from '../../pages/search';
 import FormCar from '../forms/formCar';
 import PreOrder from '../forms/preOrder';
 // import Upload from '../uploadImages/upload';
 import Leads from '../../pages/leads';
 import Status from '../../pages/status';
 import StatusPage from "../../pages/status";
+
 
 class Navbar extends Component {
     state = {
@@ -61,8 +61,8 @@ class Navbar extends Component {
                                 {/* <MDBNavLink to="newClient">Nouveau Client</MDBNavLink> */}
                             </MDBNavItem>
                             {/* <MDBNavItem>
-                                <MDBNavLink to="search">Clients</MDBNavLink>
-                            </MDBNavItem> */}
+                                {/* <MDBNavLink to="search">Clients</MDBNavLink> */}
+                            {/* </MDBNavItem> */} 
                             <MDBNavItem>
                                 <MDBNavLink to="formCar">Véhicule</MDBNavLink>
                             </MDBNavItem>
@@ -86,7 +86,7 @@ class Navbar extends Component {
                         <NewClient />
                     </Route>
                     <Route exact path="/search">
-                        <Search />
+                        <SearchPage />
                     </Route>
                     <Route exact path="/formCar">
                         <FormCar />

@@ -4,7 +4,7 @@ const clientsSchema = new mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,
   id: {
     type: String,
-    required: true,
+    required: false,
   },
   treatment: {
     type: String,

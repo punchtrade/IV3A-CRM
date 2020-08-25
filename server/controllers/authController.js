@@ -10,6 +10,7 @@ const User = require("../models/users");
 const Clients = require("../models/clients");
 const Uploads = require("../models/uploads");
 const Car = require("../models/car");
+const clients = require("../models/clients");
 
 //const uploads
 const storage = multer.diskStorage({
@@ -129,7 +130,7 @@ router.post("/newClient", (req, res, next) => {
           brand: req.body.brand,
           model: req.body.model,
           fuel: req.body.fuel,
-          comment: req.body.commet,
+          comment: req.body.comment,
           images: req.body.images,
           date: req.body.date,
         });
@@ -231,14 +232,43 @@ router.get('/search', (req, res) => {
     return res.status(200).json(clients);
   });
 });
+router.put('/search',(req,res,next) =>{
+  const newclient = {_id:req.params.id };
+Clients.updateOne(newclient,
+  {firstName: req.body.firstName,email: req.body.email})
+.then(document => 
+  {if(!document){return res.status(404).end();}return res.status(200)
+  .json(document);}).catch(err => next(err));})
+// router.put("/search", (req, res) => {
+//   Clients.updateOne({ id: req.params.id, "Clients.id": req.params.id }).exec(function(err,result){
+// if(err)throw err;
+// if(result){
+// // result.body.id="new value";
+// result.save()
+// console.log("new value")
+// }
+// else{console.log("not found")}
+// })
+// });
 
-router.put('/search', (req, res, next) => {
-  Clients.updateOne(req.params.id, req.body, function (err, result) {
-   if (err) return next(err);
-   res.status(200).json(result);
-   console.log(req.body);
-  });
- });
+// router.put('/newClient', (req, res, next) => {
+//   Clients.updateOne(req.params.id, req.body, function (err, result) {
+//    if (err) return next(err);
+//    res.status(200).json(result);
+//    console.log(req.body);
+//   });
+//  });
+//  router.put('/search', function(req, res, next) {
+//   Clients.updateOne(req.body, {
+//    $unset: {id: req.params.id}
+//   }).then(function() {
+//    res.send({'success': true});
+//   }, function() {
+//    res.send({'success': false});
+//   });
+//  });
+
+
 
 router.delete('/search', (req, res, next) => {
   Clients.findOneAndDelete(req.params.id, req.body, function (err, post) {

@@ -8,7 +8,7 @@ import { DropzoneDialog } from 'material-ui-dropzone';
 
 
 const columns = [
-  { title: "ID", field: "id" },
+  { title: "ID", field: "_id" },
   { title: "Nom", field: "firstName" },
   { title: "Prénom", field: "lastName" },
   { title: "Doc. Identité", field: "card" }
@@ -45,7 +45,7 @@ function Search() {
   const [deleteModal, setDeleteModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
   const [selectedClient, setClientSelected] = useState({
-    id: "",
+    _id: "",
     card: "",
     treatment: "",
     firstName: "",
@@ -59,6 +59,11 @@ function Search() {
     iban: "",
     swiftCode: "",
     image: "",
+    carCatalogue: "",
+    price1: "",
+    brand: "",
+    model: "",
+    fuel: "",
   })
 
   const handleChange = e => {
@@ -93,7 +98,7 @@ function Search() {
       .then(response => {
         var newData = data;
         newData.map(client => {
-          if (client.id === selectedClient.id) {
+          if (client._id === selectedClient._id) {
             client.card = selectedClient.card;
             client.firstName = selectedClient.firstName;
             client.lastName = selectedClient.lastName;
@@ -105,6 +110,11 @@ function Search() {
             client.nameOfBank = selectedClient.nameOfBank;
             client.iban = selectedClient.iban;
             client.swiftCode = selectedClient.swiftCode;
+            client.carCatalogue = selectedClient.carCatalogue;
+            client.price1 = selectedClient.price1;
+            client.brand = selectedClient.brand;
+            client.model = selectedClient.model;
+            client.fuel = selectedClient.fuel;
             client.image = selectedClient.image;
           }
         });
@@ -192,9 +202,9 @@ function Search() {
         multiline variant="outlined"
         placeholder="ID"
         className={styles.inputMaterial}
-        name="id"
+        name="_id"
         onChange={handleChange}
-        value={selectedClient && selectedClient.id}
+        value={selectedClient && selectedClient._id}
       />
       <br />
       <InputLabel
@@ -341,12 +351,12 @@ function Search() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        IBAN
+        IBAN de votre compte
         </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
-        placeholder="IBAN"
+        placeholder="IBAN de votre compte"
         name="iban"
         onChange={handleChange}
         value={selectedClient && selectedClient.iban}
@@ -355,18 +365,98 @@ function Search() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Code BIC rapide
+        Swift BIC Code
         </InputLabel>
       <TextField
         multiline variant="outlined"
         className={styles.inputMaterial}
-        placeholder="Code BIC rapide"
+        placeholder=" Swift BIC Code"
         name="swiftCode"
         onChange={handleChange}
         value={selectedClient && selectedClient.swiftCode}
       />
       <br />
       <br />
+      <h6>
+        Modifier les informations sur le véhicule <br></br>
+      </h6>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Voiture choisie dans le catalogue IV3A
+        (Immatriculation de la voiture)
+              </InputLabel>
+      <FilledInput
+        variant="filled "
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="carCatalogue"
+        placeholder="Immatriculation de la voiture"
+        value={selectedClient && selectedClient.carCatalogue}
+        onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Prix (voiture choisie dans le catalogue IV3A)
+              </InputLabel>
+      <FilledInput
+        variant="filled"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="price1"
+        placeholder="Voiture choisie dans le catalogue IV3A"
+        value={selectedClient && selectedClient.price1}
+        onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Marque
+              </InputLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="brand"
+        placeholder="Marque"
+        value={selectedClient && selectedClient.brand}
+        onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Modèle
+              </InputLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="model"
+        placeholder="Modèle"
+        value={selectedClient && selectedClient.model}
+        onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Combustible
+              </InputLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="fuel"
+        placeholder="Combustible"
+        value={selectedClient && selectedClient.fuel}
+        onChange={handleChange}
+      />
+      <br /> <br />
       <div align="right">
         <Button
           variant="contained"
@@ -443,21 +533,8 @@ function Search() {
 
     </div>
   )
-
   return (
     <div className="Search">
-      <br />
-      <button
-          className="btn btn-primary-green btn-block"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/newClient");
-          }}
-        >
-          Inserér Client
-        </button>
-      {/* <Button onClick={() => this.props.history.replace("/newClient")}>Inserér Client</Button> */}
       <br /><br />
       <MaterialTable
         columns={columns}

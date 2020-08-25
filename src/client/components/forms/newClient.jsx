@@ -5,6 +5,8 @@ import { withRouter } from "react-router-dom";
 import { TextField, FilledInput, Button, InputLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+
+
 const styles = makeStyles((theme) => ({
 
   modal: {
@@ -39,7 +41,7 @@ class NewClient extends React.Component {
   constructor() {
     super();
     this.state = {
-      id: "",
+      _id: "",
       card: "",
       treatment: "",
       firstName: "",
@@ -56,7 +58,11 @@ class NewClient extends React.Component {
       price1: "",
       brand: "",
       model: "",
-      comment:"",
+      fuel: "",
+      comment: "",
+      bankAccount: "",
+      bankAccount2: "",
+      bankAccount3: "",
       errors: "",
     };
   }
@@ -102,7 +108,7 @@ class NewClient extends React.Component {
   };
   render() {
     const {
-      id,
+      _id,
       card,
       treatment,
       firstName,
@@ -119,7 +125,11 @@ class NewClient extends React.Component {
       price1,
       brand,
       model,
+      fuel,
       comment,
+      bankAccount,
+      bankAccount2,
+      bankAccount3,
     } = this.state;
     return (
       <div>
@@ -137,7 +147,7 @@ class NewClient extends React.Component {
           value="submit"
           method="post"
         >
-          <InputLabel
+          {/* <InputLabel
             htmlFor="filled-adornment-amount"
           >
             ID
@@ -147,11 +157,11 @@ class NewClient extends React.Component {
             fullWidth
             margin="normal"
             className={styles.inputMaterial}
-            name="id"
+            name="_id"
             placeholder="Client"
-            value={id}
+            value={_id}
             onChange={this.changeHandler}
-          />
+          /> */}
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
@@ -366,74 +376,74 @@ class NewClient extends React.Component {
             value={swiftCode}
             onChange={this.changeHandler}
           />
-           <div>
+          <div>
             <br />
             <h6>
-            Informations sur le véhicule <br></br>
+              Informations sur le véhicule <br></br>
             </h6>
           </div>
           <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Voiture choisie dans le catalogue IV3A
-                (Immatriculation de la voiture)
+            htmlFor="filled-adornment-amount"
+          >
+            Voiture choisie dans le catalogue IV3A
+            (Immatriculation de la voiture)
               </InputLabel>
-              <FilledInput
-                variant="filled "
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="carCatalogue"
-                placeholder="Immatriculation de la voiture"
-                value={carCatalogue}
-                onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Prix (voiture choisie dans le catalogue IV3A)
+          <FilledInput
+            variant="filled "
+            fullWidth
+            margin="normal"
+            className={styles.inputMaterial}
+            name="carCatalogue"
+            placeholder="Immatriculation de la voiture"
+            value={carCatalogue}
+            onChange={this.changeHandler}
+          />
+          <InputLabel
+            htmlFor="filled-adornment-amount"
+          >
+            Prix (voiture choisie dans le catalogue IV3A)
               </InputLabel>
-              <FilledInput
-                variant="filled"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="price1"
-                placeholder="Voiture choisie dans le catalogue IV3A"
-                value={price1}
-                onChange={this.changeHandler}
-              />
-                         <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Marque
+          <FilledInput
+            variant="filled"
+            fullWidth
+            margin="normal"
+            className={styles.inputMaterial}
+            name="price1"
+            placeholder="Voiture choisie dans le catalogue IV3A"
+            value={price1}
+            onChange={this.changeHandler}
+          />
+          <InputLabel
+            htmlFor="filled-adornment-amount"
+          >
+            Marque
               </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="brand"
-                placeholder="Marque"
-                value={brand}
-                onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Modèle
+          <TextField
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            className={styles.inputMaterial}
+            name="brand"
+            placeholder="Marque"
+            value={brand}
+            onChange={this.changeHandler}
+          />
+          <InputLabel
+            htmlFor="filled-adornment-amount"
+          >
+            Modèle
               </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="model"
-                placeholder="Modèle"
-                value={model}
-                onChange={this.changeHandler}
-              />
-                        <InputLabel
+          <TextField
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            className={styles.inputMaterial}
+            name="model"
+            placeholder="Modèle"
+            value={model}
+            onChange={this.changeHandler}
+          />
+          <InputLabel
             id="demo-simple-select-outlined-label"
           >
             Combustible
@@ -447,20 +457,20 @@ class NewClient extends React.Component {
           >
             Entrez un commentaire ici
             </InputLabel>
-          <TextField 
-          aria-label="empty textarea" 
-          variant="outlined"
-          multiline
-          rows={10}
-          rowsMax={10}
-          margin="normal"
-          className={styles.inputMaterial}
-          name="comment"
-          value={comment}
-          onChange={this.changeHandler}
-          placeholder="Entrez un commentaire ici" 
+          <TextField
+            aria-label="empty textarea"
+            variant="outlined"
+            multiline
+            rows={10}
+            rowsMax={10}
+            margin="normal"
+            className={styles.inputMaterial}
+            name="comment"
+            value={comment}
+            onChange={this.changeHandler}
+            placeholder="Entrez un commentaire ici"
           />
-          <br/>
+          <br />
           <button
             className="btn btn-primary-green"
             type="submit"

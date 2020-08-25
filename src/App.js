@@ -10,6 +10,7 @@ import PreOrder from "./client/components/forms/preOrder";
 import formCar from "./client/components/forms/formCar";
 import NavbarDashboard from './client/components/header/navbarDashboard';
 import Leads from './client/components/leads/leads';
+import Search from './client/components/search/search';
 
 class App extends React.Component {
   constructor(props) {
@@ -47,6 +48,7 @@ class App extends React.Component {
             <Route exact path="/preorder" component={PreOrder} />
             <Route exact path="/formCar" component={formCar} />
             <Route exact path="/leads" component={Leads} />
+            <Route exact path="/search" component={Search} />
           </div>
           {/* <Footer /> */}
         </div>
