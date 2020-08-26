@@ -299,6 +299,8 @@ class NewClient extends React.Component {
           />
           <div>
             <br />
+            <div className="line">
+            </div>
             <h6>
               Coordonnées Bancaires <br></br>
               (Détails du compte)
@@ -378,6 +380,8 @@ class NewClient extends React.Component {
           />
           <div>
             <br />
+            <div className="line">
+            </div>
             <h6>
               Informations sur le véhicule <br></br>
             </h6>
@@ -452,6 +456,8 @@ class NewClient extends React.Component {
             <FormControlLabel value="diesel" checked={this.state.fuel === "diesel"} control={<Radio />} onChange={this.handleChange4} label="Diesel" />
             <FormControlLabel value="essence" checked={this.state.fuel === "essence"} control={<Radio />} onChange={this.handleChange4} label="Essence" />
           </RadioGroup>
+          <div className="line">
+            </div>
           <InputLabel
             id="demo-simple-select-outlined-label"
           >
@@ -479,38 +485,7 @@ class NewClient extends React.Component {
           >
             Envoyer
           </button>
-        </form>
-        <button
-          className="btn btn-primary-green right"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/preorder");
-          }}
-        >
-          Pre-commande
-        </button>
-        <button
-          className="btn btn-primary-green left"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/upload");
-          }}
-        >
-          Documentation
-        </button>
-        <button
-          className="btn btn-primary-green left"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/formCar");
-          }}
-        >
-          Fiche Véhicule
-        </button>
-        <button
+          <button
           className="btn btn-primary-green left"
           type="submit"
           value="submit"
@@ -520,6 +495,38 @@ class NewClient extends React.Component {
         >
           Panel
           </button>
+        </form>
+        {/* <button
+          className="btn btn-primary-green right"
+          type="submit"
+          value="submit"
+          onClick={() => {
+            this.props.history.replace("/preorder");
+          }}
+        >
+          Commande
+        </button> */}
+        {/* <button
+          className="btn btn-primary-green left"
+          type="submit"
+          value="submit"
+          onClick={() => {
+            this.props.history.replace("/upload");
+          }}
+        >
+          Documentation
+        </button> */}
+        {/* <button
+          className="btn btn-primary-green left"
+          type="submit"
+          value="submit"
+          onClick={() => {
+            this.props.history.replace("/formCar");
+          }}
+        >
+          Fiche Véhicule
+        </button> */}
+
       </div>
 
     );

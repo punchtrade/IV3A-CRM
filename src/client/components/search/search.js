@@ -83,6 +83,9 @@ function Search() {
       })
   }
 
+  const handleSearch = function() {
+    window.location.assign('/dashboard');
+  }
   // const postRequest = async () => {
   //   await axios.post("http://localhost:9000/newClient")
   //     .then(response => {
@@ -610,7 +613,9 @@ function Search() {
         onClose={openCloseDeleteModal}>
         {deleteBody}
       </Modal>
+      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
     </div>
+        
   )
 }
 export default Search;

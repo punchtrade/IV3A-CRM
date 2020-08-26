@@ -184,22 +184,6 @@ class PreOrder extends Component {
               value={id}
               onChange={this.changeHandler}
             />
-
-            <InputLabel
-              htmlFor="filled-adornment-amount"
-            >
-              Document National d'Identité
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              className={styles.inputMaterial}
-              name="card"
-              placeholder="Document National d'Identité"
-              value={card}
-              onChange={this.changeHandler}
-            />
             <InputLabel
               htmlFor="filled-adornment-amount"
             >
@@ -245,6 +229,21 @@ class PreOrder extends Component {
               value={lastName}
               onChange={this.changeHandler}
             />
+                        <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Document National d'Identité
+            </InputLabel>
+            <TextField
+              variant="outlined"
+              fullWidth
+              margin="normal"
+              className={styles.inputMaterial}
+              name="card"
+              placeholder="Document National d'Identité"
+              value={card}
+              onChange={this.changeHandler}
+            />
             <InputLabel
               htmlFor="filled-adornment-amount"
             >
@@ -278,7 +277,7 @@ class PreOrder extends Component {
             <InputLabel
               htmlFor="filled-adornment-amount"
             >
-              Allée/Rue/Avenue
+              Adresse complète
             </InputLabel>
             <TextField
               variant="outlined"
@@ -286,14 +285,14 @@ class PreOrder extends Component {
               margin="normal"
               className={styles.inputMaterial}
               name="address"
-              placeholder="Allée/Rue/Avenue"
+              placeholder="Adresse complète"
               value={address}
               onChange={this.changeHandler}
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
             >
-              Ville
+              Ville/Wilaya
             </InputLabel>
             <TextField
               variant="outlined"
@@ -301,23 +300,8 @@ class PreOrder extends Component {
               margin="normal"
               className={styles.inputMaterial}
               name="city"
-              placeholder="Ville"
+              placeholder="Ville/Wilaya"
               value={city}
-              onChange={this.changeHandler}
-            />
-            <InputLabel
-              htmlFor="filled-adornment-amount"
-            >
-              Wilaya
-            </InputLabel>
-            <TextField
-              variant="outlined"
-              fullWidth
-              margin="normal"
-              className={styles.inputMaterial}
-              name="state"
-              placeholder="Wilaya"
-              value={state}
               onChange={this.changeHandler}
             />
             <InputLabel
@@ -361,37 +345,7 @@ class PreOrder extends Component {
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
-                Nº de compte
-            </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="numberOfBank"
-                placeholder="Nº de compte"
-                value={numberOfBank}
-                onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Intitulé du compte
-            </InputLabel>
-              <TextField
-                variant="outlined"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="accountName"
-                placeholder="Intitulé du compte"
-                value={accountName}
-                onChange={this.changeHandler}
-              />
-              <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                IBAN
+                IBAN de votre compte
             </InputLabel>
               <TextField
                 variant="outlined"
@@ -399,7 +353,7 @@ class PreOrder extends Component {
                 margin="normal"
                 className={styles.inputMaterial}
                 name="iban"
-                placeholder="IBAN"
+                placeholder="IBAN de votre compte"
                 value={iban}
                 onChange={this.changeHandler}
               />
@@ -554,39 +508,6 @@ class PreOrder extends Component {
             </div>
           </div>
         </div>
-        {/* <div>
-          <label>
-            <input
-              className="checkbox"
-              type="checkbox"
-              defaultChecked={this.state.i_agree}
-              onChange={this.handleChange}
-            />{" "}
-            <h6>Je remets ma documentation dans les bureaux de IV3A.</h6>
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              className="checkbox"
-              type="checkbox"
-              defaultChecked={this.state.i_agree}
-              onChange={this.handleChange}
-            />{" "}
-            <h6>J'envoie ma documentation par la poste à IV3A.</h6>
-          </label>
-        </div>
-        <div>
-          <label>
-            <input
-              className="checkbox"
-              type="checkbox"
-              defaultChecked={this.state.i_agree}
-              onChange={this.handleChange}
-            />{" "}
-            <h6>Je scane et inclue ma documentation à IV3A.</h6>
-          </label>
-        </div> */}
         <button
           className="btn btn-primary-green"
           type="submit"

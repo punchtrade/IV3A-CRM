@@ -602,6 +602,7 @@ function Leads() {
         onClose={openCloseDeleteModal}>
         {deleteBody}
       </Modal>
+      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
     </div>
   )
 }

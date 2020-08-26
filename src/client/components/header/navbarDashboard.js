@@ -19,7 +19,7 @@ import FormCar from '../forms/formCar';
 import PreOrder from '../forms/preOrder';
 // import Upload from '../uploadImages/upload';
 import Leads from '../../pages/leads';
-import Status from '../../pages/status';
+import Crm from '../crm/crm';
 import StatusPage from "../../pages/status";
 
 
@@ -56,27 +56,24 @@ class Navbar extends Component {
                                         <MDBDropdownItem href="newClient">Nouveau Client</MDBDropdownItem>
                                         <MDBDropdownItem href="search">Search</MDBDropdownItem>
                                         <MDBDropdownItem href="leads">Prospects</MDBDropdownItem>
+                                        <MDBDropdownItem href="crm">CRM</MDBDropdownItem>
                                     </MDBDropdownMenu>
                                 </MDBDropdown>
-                                {/* <MDBNavLink to="newClient">Nouveau Client</MDBNavLink> */}
-                            </MDBNavItem>
-                            {/* <MDBNavItem>
-                                {/* <MDBNavLink to="search">Clients</MDBNavLink> */}
-                            {/* </MDBNavItem> */} 
+                            </MDBNavItem> 
                             <MDBNavItem>
                                 <MDBNavLink to="formCar">Véhicule</MDBNavLink>
                             </MDBNavItem>
                             <MDBNavItem>
-                                <MDBNavLink to="preOrder">Commande</MDBNavLink>
-                            </MDBNavItem>
-                            {/* <MDBNavItem>
-                                <MDBNavLink to="upload">Importer des images</MDBNavLink>
-                            </MDBNavItem> */}
-                            {/* <MDBNavItem>
-                                <MDBNavLink to="leads">Prospects</MDBNavLink>
-                            </MDBNavItem> */}
-                            <MDBNavItem>
-                                <MDBNavLink to="status">Status</MDBNavLink>
+                            <MDBDropdown>
+                                    <MDBDropdownToggle nav caret>
+                                        <span className="mr-2">Contracts</span>
+                                    </MDBDropdownToggle>
+                                    <MDBDropdownMenu>
+                                    <MDBDropdownItem href="preOrder">Commande</MDBDropdownItem>
+                                        <MDBDropdownItem href="facture">Facture</MDBDropdownItem>
+                                        <MDBDropdownItem href="contract">Contract de Services</MDBDropdownItem>
+                                    </MDBDropdownMenu>
+                                </MDBDropdown>
                             </MDBNavItem>
                         </MDBNavbarNav>
                     </MDBCollapse>
@@ -94,14 +91,11 @@ class Navbar extends Component {
                     <Route exact path="/preOrder">
                         <PreOrder />
                     </Route>
-                    {/* <Route exact path="/upload">
-                        <Upload />
-                    </Route> */}
                     <Route exact path="/leads">
                         <Leads />
                     </Route>
-                    <Route exact path="/status">
-                        <StatusPage />
+                    <Route exact path="/crm">
+                        <Crm />
                     </Route>
                 </Switch>
             </Router>

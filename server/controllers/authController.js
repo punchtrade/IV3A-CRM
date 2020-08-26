@@ -11,6 +11,7 @@ const Clients = require("../models/clients");
 const Uploads = require("../models/uploads");
 const Car = require("../models/car");
 const clients = require("../models/clients");
+const Leads = require("../models/leads");
 
 //const uploads
 const storage = multer.diskStorage({
@@ -280,25 +281,25 @@ router.delete('/search', (req, res, next) => {
 //leads
 router.get('/leads', (req, res) => {
   console.info('obtener datos clientes');
-  Clients.find()
-  .populate('Clients', 'clientsSchema')
-  .exec((err, clients) => {
+  Leads.find()
+  .populate('Leads', 'leadsSchema')
+  .exec((err, leads) => {
     if(err) {
       console.error(err.message);
       return res.status(500).json({error: err.message});
     }
-    return res.status(200).json(clients);
+    return res.status(200).json(leads);
   });
 });
 router.post('/leads', (req, res, next) => {
-  Clients.updateOne(req.params.id, req.body, function (err, result) {
+  Leads.updateOne(req.params.id, req.body, function (err, result) {
    if (err) return next(err);
    res.status(200).json(result);
    console.log(req.body);
   });
  });
  router.delete('/leads', (req, res, next) => {
-  Clients.findOneAndDelete(req.params.id, req.body, function (err, post) {
+  Leads.findOneAndDelete(req.params.id, req.body, function (err, post) {
     if(err) return next(err);
     res.json(post);
   });
