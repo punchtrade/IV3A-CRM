@@ -27,7 +27,7 @@ class UploadPage extends React.Component {
   render() {
     return (
 
-      <div className="container" style={{ width: "1300px" }}>
+      <div className="container" style={{ width: "700px" }}>
         <div style={{ margin: "20px" }}>
 
           {/* <Upload /> */}

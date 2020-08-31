@@ -115,6 +115,16 @@ function Leads() {
       })
   }
 
+    // const postRequest = async () => {
+  //   await axios.post("http://localhost:9000/newClient")
+  //     .then(response => {
+  //       setData(data.concat(response.data));
+  //       openCloseInsertModal();
+  //     }).catch(error => {
+  //       console.log(error);
+  //     })
+  // }
+
   const deleteRequest = async () => {
     await axios.delete("http://localhost:9000/leads")
       .then(response => {
@@ -131,7 +141,9 @@ function Leads() {
       :
       openCloseDeleteModal()
   }
-
+  // const openCloseInsertModal = () => {
+  //   setInsertModal(!insertModal);
+  // }
   const openCloseInsertModal = () => {
     setInsertModal(!insertModal);
   }
@@ -144,6 +156,24 @@ function Leads() {
     getRequest();
   }, [])
 
+
+    // const insertBody = (
+  //   <div className={styles.modal}>
+  //     <h3>Inserér Client</h3>
+  //     <TextField className={styles.inputMaterial} label="Artista" name="artista" onChange={handleChange} />
+  //     <br />
+  //     <TextField className={styles.inputMaterial} label="País" name="pais" onChange={handleChange} />
+  //     <br />
+  //     <TextField className={styles.inputMaterial} label="Ventas" name="ventas" onChange={handleChange} />
+  //     <br />
+  //     <TextField className={styles.inputMaterial} label="Género" name="genero" onChange={handleChange} />
+  //     <br /><br />
+  //     <div align="right">
+  //       <Button color="primary" onClick={() => postRequest()}>Insertar</Button>
+  //       <Button onClick={() => openCloseInsertModal()}>Cancelar</Button>
+  //     </div>
+  //   </div>
+  // )
   const insertBody = (
     <div className={styles.modal}>
       <h3>Insérer le client</h3>

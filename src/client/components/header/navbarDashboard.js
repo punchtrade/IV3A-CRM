@@ -54,7 +54,7 @@ class Navbar extends Component {
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu>
                                         <MDBDropdownItem href="newClient">Nouveau Client</MDBDropdownItem>
-                                        <MDBDropdownItem href="search">Search</MDBDropdownItem>
+                                        <MDBDropdownItem href="search">Clients</MDBDropdownItem>
                                         <MDBDropdownItem href="leads">Prospects</MDBDropdownItem>
                                         <MDBDropdownItem href="crm">CRM</MDBDropdownItem>
                                     </MDBDropdownMenu>

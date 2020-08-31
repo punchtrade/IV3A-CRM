@@ -4,8 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
 import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { DropzoneDialog } from 'material-ui-dropzone';
-
 
 const columns = [
   { title: "ID", field: "_id" },
@@ -29,6 +27,12 @@ const useStyles = makeStyles((theme) => ({
     height: '93%',
     display: 'block',
   },
+  modalUpload: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+
+  },
   iconos: {
     cursor: 'pointer',
   },
@@ -41,6 +45,7 @@ function Search() {
   const styles = useStyles();
   const [data, setData] = useState([]);
   const [insertModal, setInsertModal] = useState(false);
+  const [readModal, setReadModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
@@ -58,12 +63,12 @@ function Search() {
     nameOfBank: "",
     iban: "",
     swiftCode: "",
-    image: "",
     carCatalogue: "",
     price1: "",
     brand: "",
     model: "",
     fuel: "",
+    comment: "",
   })
 
   const handleChange = e => {
@@ -83,18 +88,14 @@ function Search() {
       })
   }
 
-  const handleSearch = function() {
-    window.location.assign('/dashboard');
+  const readRequest = async () => {
+    await axios.get("http://localhost:9000/search")
+      .then(response => {
+        setData(response.data);
+      }).catch(error => {
+        console.log(error);
+      })
   }
-  // const postRequest = async () => {
-  //   await axios.post("http://localhost:9000/newClient")
-  //     .then(response => {
-  //       setData(data.concat(response.data));
-  //       openCloseInsertModal();
-  //     }).catch(error => {
-  //       console.log(error);
-  //     })
-  // }
 
   const putRequest = async () => {
     await axios.put("http://localhost:9000/search")
@@ -139,26 +140,34 @@ function Search() {
   }
 
   const uploadRequest = async () => {
-    await axios.post("http://localhost:9000/newClient")
-      .then(response => {
-        setData(data.concat(response.data));
-        openCloseUploadModal();
-      }).catch(error => {
-        console.log(error);
+    await axios
+      .post("http://localhost:9000/upload", {
+        headers: { "Content-Type": "application/json" },
       })
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
   const clientSelected = (client, caso) => {
     setClientSelected(client);
     (caso === "Edit") ? openCloseEditModal()
       :
-      openCloseDeleteModal() || openCloseUploadModal()
+      openCloseDeleteModal()
   }
 
-  const openCloseInsertModal = () => {
-    setInsertModal(!insertModal);
+  const uploadClientSelected = (client, caso) => {
+    setClientSelected(client);
+    (caso === "isFreeAction") ? openCloseReadModal()
+      : openCloseUploadModal()
   }
 
+  const openCloseReadModal = () => {
+    setReadModal(!readModal);
+  }
 
   const openCloseEditModal = () => {
     setEditModal(!editModal);
@@ -175,24 +184,315 @@ function Search() {
   useEffect(() => {
     getRequest();
   }, [])
-  // const insertBody = (
-  //   <div className={styles.modal}>
-  //     <h3>Inserér Client</h3>
-  //     <TextField className={styles.inputMaterial} label="Artista" name="artista" onChange={handleChange} />
-  //     <br />
-  //     <TextField className={styles.inputMaterial} label="País" name="pais" onChange={handleChange} />
-  //     <br />
-  //     <TextField className={styles.inputMaterial} label="Ventas" name="ventas" onChange={handleChange} />
-  //     <br />
-  //     <TextField className={styles.inputMaterial} label="Género" name="genero" onChange={handleChange} />
-  //     <br /><br />
-  //     <div align="right">
-  //       <Button color="primary" onClick={() => postRequest()}>Insertar</Button>
-  //       <Button onClick={() => openCloseInsertModal()}>Cancelar</Button>
-  //     </div>
-  //   </div>
-  // )
 
+  const readBody = (
+    <div className={styles.modal}>
+      <h3>Information personnel du client</h3>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        ID
+    </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        placeholder="ID"
+        className={styles.inputMaterial}
+        name="_id"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient._id}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Traitement
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Traitement"
+        name="treatment"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.treatment}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Nom
+    </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Nom"
+        name="firstName"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.firstName}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Prénom
+    </InputLabel>
+      <FilledInput
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Prénom"
+        name="lastName"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.lastName}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Document National d'Identité
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Document National d'Identité"
+        name="card"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.card}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Téléphone
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Téléphone"
+        name="telephone"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.telephone}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Courrier Électronique
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Courrier Électronique"
+        name="email"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.email}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Adresse compléte
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Adresse compléte"
+        name="address"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.address}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Ville/Wilaya
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Ville/Wilaya"
+        name="city"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.city}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Code Postal
+    </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Code Postal"
+        name="postalCode"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.postalCode}
+      />
+      <br /><br />
+      <h3>Les Coordonnées Bancaires</h3>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Nom de la Banque
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="Nom de la Banque"
+        name="nameOfBank"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.nameOfBank}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        IBAN de votre compte
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder="IBAN de votre compte"
+        name="iban"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.iban}
+      />
+      <br />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Swift BIC Code
+      </InputLabel>
+      <TextField
+        multiline variant="outlined"
+        className={styles.inputMaterial}
+        placeholder=" Swift BIC Code"
+        name="swiftCode"
+        // onChange={handleChange}
+        value={selectedClient && selectedClient.swiftCode}
+      />
+      <br />
+      <br />
+      <h3>
+        Les informations sur le véhicule <br></br>
+      </h3>
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Voiture choisie dans le catalogue IV3A
+        (Immatriculation de la voiture)
+            </InputLabel>
+      <FilledInput
+        variant="filled "
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="carCatalogue"
+        placeholder="Immatriculation de la voiture"
+        value={selectedClient && selectedClient.carCatalogue}
+      // onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Prix (voiture choisie dans le catalogue IV3A)
+            </InputLabel>
+      <FilledInput
+        variant="filled"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="price1"
+        placeholder="Voiture choisie dans le catalogue IV3A"
+        value={selectedClient && selectedClient.price1}
+      // onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Marque
+            </InputLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="brand"
+        placeholder="Marque"
+        value={selectedClient && selectedClient.brand}
+      // onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Modèle
+            </InputLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="model"
+        placeholder="Modèle"
+        value={selectedClient && selectedClient.model}
+      // onChange={handleChange}
+      />
+      <InputLabel
+        htmlFor="filled-adornment-amount"
+      >
+        Combustible
+            </InputLabel>
+      <TextField
+        variant="outlined"
+        fullWidth
+        margin="normal"
+        className={styles.inputMaterial}
+        name="fuel"
+        placeholder="Combustible"
+        value={selectedClient && selectedClient.fuel}
+      // onChange={handleChange}
+      />
+                <InputLabel
+            id="demo-simple-select-outlined-label"
+          >
+            Entrez un commentaire ici
+            </InputLabel>
+          <TextField
+            aria-label="empty textarea"
+            variant="outlined"
+            multiline
+            rows={10}
+            rowsMax={10}
+            margin="normal"
+            className={styles.inputMaterial}
+            name="comment"
+            value={selectedClient && selectedClient.comment}
+            placeholder="Entrez un commentaire ici"
+          />
+          <br />
+      <div align="right">
+        {/* <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={() =>
+            readRequest()}
+        >
+          Status
+        </Button> */}
+        <br />
+        <Button
+          variant="contained"
+          size="small"
+          color="primary"
+          onClick={() =>
+            openCloseReadModal()}
+        >
+          Fermer
+        </Button>
+        <br />
+      </div>
+    </div>
+  )
   const editBody = (
     <div className={styles.modal}>
       <h3>Modifier le Client</h3>
@@ -206,7 +506,7 @@ function Search() {
         placeholder="ID"
         className={styles.inputMaterial}
         name="_id"
-        onChange={handleChange}
+        // onChange={handleChange}
         value={selectedClient && selectedClient._id}
       />
       <br />
@@ -478,7 +778,7 @@ function Search() {
           onClick={() =>
             openCloseEditModal()}
         >
-          Annuler
+          Fermer
           </Button>
         <br />
       </div>
@@ -516,15 +816,16 @@ function Search() {
       </div>
     </div>
   )
+
   const uploadBody = (
     <div className={styles.modal}>
-      <p>Veuillez sélectionner une image pour l'aperçu
+      <b></b>
+      <input type="file" width="50" name="avatar" onChange={handleChange}/>
       <b>
-          {selectedClient && selectedClient.id}
-        </b>
-        ?
-      </p>
+      </b>
+      <br />
       <Button
+        value="submit"
         variant="contained"
         size="small"
         color="secondary"
@@ -533,7 +834,16 @@ function Search() {
       >
         Ajouter une image
     </Button>
-
+      <br />
+      <Button
+        variant="contained"
+        size="small"
+        color="secondary"
+        onClick={() =>
+          openCloseUploadModal()}
+      >
+        Fermer
+          </Button>
     </div>
   )
   return (
@@ -548,25 +858,18 @@ function Search() {
             icon: 'contacts',
             tooltip: 'Situation',
             onClick: (event, rowData) =>
-              clientSelected(rowData, "Edit")
+              uploadClientSelected(rowData, "isFreeAction")
           },
-
           {
             icon: 'publish',
             tooltip: 'Télécharger',
             type: 'file',
             onClick: (event, rowData) =>
-              clientSelected(rowData, "Publish"),
+              uploadClientSelected(rowData, "Submit"),
           },
           {
             icon: 'edit',
             tooltip: 'Client Modifier',
-            onClick: (event, rowData) =>
-              clientSelected(rowData, "Edit")
-          },
-          {
-            icon: 'C',
-            tooltip: 'Voiture livrée',
             onClick: (event, rowData) =>
               clientSelected(rowData, "Edit")
           },
@@ -590,19 +893,17 @@ function Search() {
           backgroundColor: '#036435'
         }}
       />
-      {/* <Modal
-        open={insertModal}
-        onClose={openCloseInsertModal}>
-        {insertBody}
-      </Modal> */}
-      <DropzoneDialog
-        acceptedFiles={['image/jpeg', 'image/png', 'image/bmp']}
+      <Modal
         showPreviews={true}
-        maxFileSize={5000000}
         open={uploadModal}
         onClose={openCloseUploadModal}>
         {uploadBody}
-      </DropzoneDialog>
+      </Modal>
+      <Modal
+        open={readModal}
+        onClose={openCloseReadModal}>
+        {readBody}
+      </Modal>
       <Modal
         open={editModal}
         onClose={openCloseEditModal}>
@@ -615,7 +916,7 @@ function Search() {
       </Modal>
       <a href="/dashboard"><input type="submit" value='Panel'></input></a>
     </div>
-        
+
   )
 }
 export default Search;

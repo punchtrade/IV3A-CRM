@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const { findAllByDisplayValue } = require("@testing-library/react");
 
 const carSchema = new mongoose.Schema({
   id: mongoose.Schema.Types.ObjectId,

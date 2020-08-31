@@ -53,11 +53,11 @@ class Upload extends Component {
     }
  
     return (
-      <div className="Upload">
+      <div className="Upload" width="200px" position="center">
          <br></br>
          <br></br>
          <br></br>
-         <input type="file" name="avatar" onChange={this.fileChangedHandler} />
+         <input type="file" width="50" name="avatar" onChange={this.fileChangedHandler} />
          <br></br>
          <button type="submit" className="btn btn-primary-green" onClick={this.submit} > Envoyer </button>
          <br></br>

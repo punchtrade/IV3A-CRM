@@ -499,12 +499,14 @@ class PreOrder extends Component {
               l'importation de ce véhicule, que nous vous ferons parvenir sous
               24 heures et nécessite également que vous nous fournissiez
               préalablement:
-              <br></br>• un scan de votre document national d'identité (DNI).
-              <br></br>• un scan de votre facture (datant de moins de 3 mois) de
-              consommation de l'Electricité et du Gaz.
-              <br></br>• un scan de votre relevé d'identité bancaire de votre
-              compte en Euros.
               <br></br>
+              • un scan de votre document national d'identité (DNI).
+              <br></br>
+              • un scan de votre facture (datant de moins de 3 mois) de
+              consommation de l'Electricité et du Gaz.
+              <br></br>
+              • un scan de votre relevé d'identité bancaire de votre
+              compte en Euros.              
             </div>
           </div>
         </div>
