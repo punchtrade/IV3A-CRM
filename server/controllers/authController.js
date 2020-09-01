@@ -234,17 +234,18 @@ router.get('/search', (req, res) => {
   });
 });
 router.put('/search',(req,res,next) =>{
-  const newclient = {_id:req.params.id };
+  const newclient = {_id:req.params._id };
 Clients.updateOne(newclient,
   {firstName: req.body.firstName,email: req.body.email})
 .then(document => 
   {if(!document){return res.status(404).end();}return res.status(200)
   .json(document);}).catch(err => next(err));})
+
 // router.put("/search", (req, res) => {
 //   Clients.updateOne({ id: req.params.id, "Clients.id": req.params.id }).exec(function(err,result){
 // if(err)throw err;
 // if(result){
-// // result.body.id="new value";
+// result.body="new value";
 // result.save()
 // console.log("new value")
 // }
@@ -252,14 +253,15 @@ Clients.updateOne(newclient,
 // })
 // });
 
-// router.put('/newClient', (req, res, next) => {
+// router.put('/search', (req, res, next) => {
 //   Clients.updateOne(req.params.id, req.body, function (err, result) {
 //    if (err) return next(err);
 //    res.status(200).json(result);
 //    console.log(req.body);
 //   });
 //  });
-//  router.put('/search', function(req, res, next) {
+
+//   router.put('/search', function(req, res, next) {
 //   Clients.updateOne(req.body, {
 //    $unset: {id: req.params.id}
 //   }).then(function() {
@@ -268,8 +270,6 @@ Clients.updateOne(newclient,
 //    res.send({'success': false});
 //   });
 //  });
-
-
 
 router.delete('/search', (req, res, next) => {
   Clients.findOneAndDelete(req.params.id, req.body, function (err, post) {
@@ -291,7 +291,7 @@ router.get('/leads', (req, res) => {
     return res.status(200).json(leads);
   });
 });
-router.post('/leads', (req, res, next) => {
+router.post('/newClient', (req, res, next) => {
   Leads.updateOne(req.params.id, req.body, function (err, result) {
    if (err) return next(err);
    res.status(200).json(result);

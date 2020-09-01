@@ -1,68 +1,31 @@
 import React from "react";
-import Search from "../components/search/search";
-import axios from "axios";
-import { withRouter } from "react-router-dom";
 import NavbarDashboard from '../components/header/navbarDashboard';
+import  Paper  from '@material-ui/core/Paper';
+import  CardHeader  from '@material-ui/core/CardHeader';
+import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
+import { makeStyles } from '@material-ui/core/styles';
 
-class Dashboard extends React.Component {
-  // onSubmitHandler = (e) => {
-  //   e.preventDefault();
-  //   // this.props.history.replace("/newClient");
-  //   console.log(this.state);
-  //   axios
-  //     .post("http://localhost:9000/dashboard", this.state, {
-  //       headers: { "Content-Type": "application/json" },
-  //     })
-  //     .then((response) => {
-  //       console.log(response);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
-  render() {
-    return (
-      <div className="dashboard">
-        <NavbarDashboard />
-        <br></br>
-        <br></br>
-        {/* <div>
-          <button
-            className="btn btn-primary-green btn-lg btn-block"
-            type="submit"
-            value="submit"
-            onClick={() => {
-              this.props.history.replace("/newClient");
-            }}
-          >
-            Nouveau Client
-          </button>
-        </div> */}
-        <br></br>
-        <br></br>
-        {/* <div>
-          <button
-            className="btn btn-primary-green btn-lg btn-block"
-            type="submit"
-            value="submit"
-            onClick={() => {
-              this.props.history.replace("/leads");
-            }}
-          >
-            Leads
-          </button>
-          <br></br>
-          <br></br>
-        </div> */}
-        {/* <div className="search">
-          <Search />
-        </div> */}
-        <br></br>
-        <br></br>
-      </div>
-    );
+const useStyles = makeStyles(theme => ({
+  pageContent: {
+    margin: theme.spacing(5),
+    padding: theme.spacing(3)
   }
-}
+}))
 
-export default withRouter(Dashboard);
+export default function Register() {
+
+  const classes = useStyles();
+
+  return (
+    <>
+      <CardHeader
+        // title={firstName}
+        subtitle="Entrez le profil"
+        icon={<PeopleOutlineTwoTone fontSize="large" />}
+      />
+      <Paper className={classes.pageContent}>
+      <NavbarDashboard />
+      </Paper>
+    </>
+  );
+};

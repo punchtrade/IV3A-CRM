@@ -14,7 +14,6 @@ const styles = makeStyles((theme) => ({
   }
 }));
 
-
 class FormLogin extends React.Component {
   constructor(props) {
     super(props);
@@ -27,12 +26,18 @@ class FormLogin extends React.Component {
   }
 
   changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    const isCheckbox = e.target.type === "checkbox";
+    this.setState({ 
+      [e.target.name] : isCheckbox
+      ? e.target.checked
+      : e.target.value
+      // [e.target.name]: e.target.value 
+    });
   };
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
-    this.props.history.replace("/dashboard");
+    this.props.history.push("/dashboard");
     console.log(this.state);
     await axios
       .post("http://localhost:9000/login", this.state, {
@@ -51,11 +56,12 @@ class FormLogin extends React.Component {
     return (
       <div className={styles.inputMaterial}>
         <div>
-          <form
+          <form     
             onSubmit={this.onSubmitHandler.bind(this)}
             action="http://localhost:9000/login"
             value="submit"
             method="post"
+            required
           >
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -68,9 +74,14 @@ class FormLogin extends React.Component {
               margin="normal"
               className={styles.inputMaterial}
               name="email"
+              type="email"
               placeholder="Courrier électronique"
               value={email}
               onChange={this.changeHandler}
+              error
+              autoComplete=""
+              helperText="some validation error"
+              required
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -82,10 +93,15 @@ class FormLogin extends React.Component {
               fullWidth
               margin="normal"
               className={styles.inputMaterial}
+              type="password"
               name="password"
               placeholder="Mot de passe"
               value={password}
               onChange={this.changeHandler}
+              error
+              autoComplete=""
+              helperText="some validation error"
+              required
             />
             <button
               className="btn btn-primary-green"

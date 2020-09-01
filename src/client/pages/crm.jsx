@@ -1,5 +1,5 @@
 import React from "react";
-import Leads from '../components/leads/leads';
+import Crm from '../components/crm/crm';
 import  Paper  from '@material-ui/core/Paper';
 import  CardHeader  from '@material-ui/core/CardHeader';
 import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function LeadsPage() {
+export default function CrmPage() {
 
   const classes = useStyles();
 
@@ -24,7 +24,7 @@ export default function LeadsPage() {
         icon={<PeopleOutlineTwoTone fontSize="large" />}
       />
       <Paper className={classes.pageContent}>
-      <Leads />
+      <Crm />
       </Paper>
     </>
   );

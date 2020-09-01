@@ -70,6 +70,7 @@ class FormRegister extends React.Component {
               placeholder="Nom"
               value={firstName}
               onChange={this.changeHandler}
+              autoComplete=""
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -85,6 +86,7 @@ class FormRegister extends React.Component {
               placeholder="Prénom"
               value={lastName}
               onChange={this.changeHandler}
+              autoComplete=""
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -100,6 +102,7 @@ class FormRegister extends React.Component {
               placeholder="Carte d'identité"
               value={idCard}
               onChange={this.changeHandler}
+              autoComplete=""
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -115,6 +118,7 @@ class FormRegister extends React.Component {
               placeholder="Courrier électronique"
               value={email}
               onChange={this.changeHandler}
+              autoComplete=""
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -127,9 +131,11 @@ class FormRegister extends React.Component {
               margin="normal"
               className={styles.inputMaterial}
               name="password"
+              type="password"
               placeholder="Mot de passe"
               value={password}
               onChange={this.changeHandler}
+              autoComplete=""
             />
             <button className="btn btn-primary-green" type="submit" onClick={this.onSubmitHandler.bind(this)}>
               Envoyer

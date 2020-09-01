@@ -1,13 +1,12 @@
-import React from "react";
-import Crm from '../components/crm/crm';
+// import React from "react";
+// import Crm from '../components/crm/crm';
 
+// const StatusPage = (props) => {
+//   return (
+//   <div>
+//     <Crm />
+//   </div>
+//   );
+// };
 
-const StatusPage = (props) => {
-  return (
-  <div>
-    <Crm />
-  </div>
-  );
-};
-
-export default StatusPage;
+// export default StatusPage;

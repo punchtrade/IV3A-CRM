@@ -92,7 +92,7 @@ class FormCar extends Component {
     } = this.state;
     return (
       <div className={styles.inputMaterial}>
-        <br/><br/>
+        <br /><br />
         <h5 className="">Fiche Véhicule</h5>
         <div className="container">
           <div
@@ -105,7 +105,7 @@ class FormCar extends Component {
               value="submit"
               method="post"
             >
-              <InputLabel 
+              <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Client
@@ -180,7 +180,7 @@ class FormCar extends Component {
                 value={fuelId}
                 onChange={this.changeHandler}
               />
-             <InputLabel
+              <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Voiture choisie dans le catalogue IV3A
@@ -507,15 +507,15 @@ class FormCar extends Component {
               >
                 Envoyer
           </button>
-          <button
-            className="btn btn-primary-green left"
-            type="submit"
-            value="submit"
-            onClick={() => {
-              this.props.history.replace("/dashboard");
-            }}
-          >
-            Panel
+              <button
+                className="btn btn-primary-green left"
+                type="submit"
+                value="submit"
+                onClick={() => {
+                  this.props.history.replace("/dashboard");
+                }}
+              >
+                Panel
           </button>
             </form>
           </div>

@@ -4,14 +4,14 @@ import Header from "./client/components/header/header";
 // import Footer from "./client/components/footer/footer";
 import Home from "../src/client/pages/home";
 import Dashboard from "./client/pages/dashboard";
-import NewClient from "./client/components/forms/newClient";
+import NewClient from "./client/pages/newClient";
 import UploadPage from "./client/pages/uploadPage";
-import PreOrder from "./client/components/forms/preOrder";
+import PreOrderPage from "./client/pages/preOrder";
 import formCar from "./client/components/forms/formCar";
-import NavbarDashboard from './client/components/header/navbarDashboard';
-import Leads from './client/components/leads/leads';
-import Search from './client/components/search/search';
-import Crm from './client/components/crm/crm';
+// import NavbarDashboard from './client/components/header/navbarDashboard';
+import Leads from './client/pages/leads';
+import Search from './client/pages/search';
+import CrmPage from './client/pages/crm';
 
 class App extends React.Component {
   constructor(props) {
@@ -43,14 +43,14 @@ class App extends React.Component {
             {/* <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} /> */}
             <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/navbarDashboard" component={NavbarDashboard} />
+            {/* <Route exact path="/navbarDashboard" component={NavbarDashboard} /> */}
             <Route exact path="/newclient" component={NewClient} />
             <Route exact path="/upload" component={UploadPage} />
-            <Route exact path="/preorder" component={PreOrder} />
+            <Route exact path="/preorder" component={PreOrderPage} />
             <Route exact path="/formCar" component={formCar} />
             <Route exact path="/leads" component={Leads} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/crm" component={Crm} />
+            <Route exact path="/crm" component={CrmPage} />
           </div>
           {/* <Footer /> */}
         </div>

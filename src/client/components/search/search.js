@@ -102,7 +102,7 @@ function Search() {
       .then(response => {
         var newData = data;
         newData.map(client => {
-          if (client._id === selectedClient._id) {
+          if (client.id === selectedClient.id) {
             client.card = selectedClient.card;
             client.firstName = selectedClient.firstName;
             client.lastName = selectedClient.lastName;

@@ -3,7 +3,6 @@ import axios from "axios";
 // import Upload from "../components/uploadImages/upload";
 import { withRouter } from "react-router-dom";
 
-
 class UploadPage extends React.Component {
   constructor() {
     super();
