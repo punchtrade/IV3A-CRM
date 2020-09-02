@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
-
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,9 +14,6 @@ const useStyles = makeStyles((theme) => ({
         padding: theme.spacing(2),
         textAlign: 'center',
         color: theme.palette.text.secondary,
-        placeholder: {
-        }
-
     },
     InputLabel: {
         padding: theme.spacing(3),
@@ -35,7 +31,6 @@ export default function Crm() {
 
     return (
         <div className={classes.root}>
-
 
             <br /><br />
             <h6>Fiche Suivi Client A ce Jour</h6>

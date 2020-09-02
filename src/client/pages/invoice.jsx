@@ -1,6 +1,5 @@
 import React from "react";
-import FormRegister from "../components/forms/formRegister";
-
+import Invoice from '../components/invoice/invoice';
 import  Paper  from '@material-ui/core/Paper';
 import  CardHeader  from '@material-ui/core/CardHeader';
 import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
@@ -13,19 +12,19 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Register() {
+export default function InvoicePage() {
 
   const classes = useStyles();
 
   return (
     <>
       <CardHeader
-        title="S'inscrire"
+        // title={firstName}
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
       />
       <Paper className={classes.pageContent} elevation={6}>
-      <FormRegister />
+      <Invoice/>
       </Paper>
     </>
   );

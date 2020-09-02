@@ -12,6 +12,7 @@ const cors = require("cors");
 const path = require("path");
 const db = require("mongodb");
 const fileUpload = require("express-fileupload");
+const pdf = require('html-pdf');
 
 // load config file
 nconf

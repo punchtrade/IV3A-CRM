@@ -23,7 +23,7 @@ export default function Login() {
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
       />
-      <Paper className={classes.pageContent}>
+      <Paper className={classes.pageContent} elevation={6}>
         <FormLogin />
       </Paper>
     </>

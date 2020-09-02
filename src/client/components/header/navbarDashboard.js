@@ -21,6 +21,7 @@ import PreOrder from '../forms/preOrder';
 import Leads from '../../pages/leads';
 import Crm from '../crm/crm';
 import StatusPage from "../../pages/status";
+import InvoicePage from "../../pages/invoice";
 
 
 class Navbar extends Component {
@@ -66,12 +67,12 @@ class Navbar extends Component {
                             <MDBNavItem>
                             <MDBDropdown>
                                     <MDBDropdownToggle nav caret>
-                                        <span className="mr-2">Contracts</span>
+                                        <span className="mr-2">Contrats</span>
                                     </MDBDropdownToggle>
                                     <MDBDropdownMenu>
                                     <MDBDropdownItem href="preOrder">Commande</MDBDropdownItem>
-                                        <MDBDropdownItem href="facture">Facture</MDBDropdownItem>
-                                        <MDBDropdownItem href="contract">Contract de Services</MDBDropdownItem>
+                                        <MDBDropdownItem href="invoice">Facture</MDBDropdownItem>
+                                        <MDBDropdownItem href="contract">Contrat de Services</MDBDropdownItem>
                                     </MDBDropdownMenu>
                                 </MDBDropdown>
                             </MDBNavItem>
@@ -96,6 +97,9 @@ class Navbar extends Component {
                     </Route>
                     <Route exact path="/crm">
                         <Crm />
+                    </Route>
+                    <Route exact path="/invoice">
+                        <InvoicePage />
                     </Route>
                 </Switch>
             </Router>

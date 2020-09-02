@@ -12,6 +12,9 @@ const Uploads = require("../models/uploads");
 const Car = require("../models/car");
 const clients = require("../models/clients");
 const Leads = require("../models/leads");
+const pdfTemplate = require('../documents');
+// const Pdf = require('../models/pdf');
+const pdf = require('html-pdf');
 
 //const uploads
 const storage = multer.diskStorage({
@@ -350,6 +353,21 @@ router.get("/upload", (req, res, next) => {
     });
   });
 });
+
+//invoice
+router.post('/create-pdf', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {
+      if(err) {
+          res.send(Promise.reject());
+      }
+
+      res.send(Promise.resolve());
+  });
+});
+
+router.get('/fetch-pdf', (req, res) => {
+  res.sendFile(`${__dirname}/result.pdf`)
+})
 
 //logout
 router.get("/logout", (req, res) => {
