@@ -242,7 +242,7 @@ export default class Invoice extends Component {
                         direction="row"
                         justify="flex-end"
                         alignItems="flex-end">
-                        <Button onClick={this.createAndDownloadPdf}>Download PDF</Button>
+                        <Button onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
                     </Grid>
                 </Grid>
 

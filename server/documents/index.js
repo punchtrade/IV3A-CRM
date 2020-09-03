@@ -96,7 +96,7 @@ module.exports = ({
                             <td class="title"><img  src="https://i2.wp.com/cleverlogos.co/wp-content/uploads/2018/05/reciepthound_1.jpg?fit=800%2C600&ssl=1"
                                style="width:100%; max-width:156px;"></td>
                             <td>
-                               Datum: ${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
+                               Date:${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
                             </td>
                          </tr>
                       </table>
@@ -110,14 +110,14 @@ module.exports = ({
                             <td>
                             Nº Facture: ${receiptId}
                             </td>
+                            </td>
                                Nom: ${firstName}
                             </td>
                             <td>
                                Prénom: ${lastName}
                             </td>
                             <td>
-                            Identification: ${idCard}
-                         </td>
+                            Identification: ${idCard}                        
                          <td>
                          Adresse: ${address}
                       </td>

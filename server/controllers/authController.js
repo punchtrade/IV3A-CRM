@@ -13,7 +13,6 @@ const Car = require("../models/car");
 const clients = require("../models/clients");
 const Leads = require("../models/leads");
 const pdfTemplate = require('../documents');
-// const Pdf = require('../models/pdf');
 const pdf = require('html-pdf');
 
 //const uploads

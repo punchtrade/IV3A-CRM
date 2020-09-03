@@ -13,6 +13,7 @@ import Leads from './client/pages/leads';
 import Search from './client/pages/search';
 import CrmPage from './client/pages/crm';
 import InvoicePage from './client/pages/invoice';
+import ContractPage from './client/pages/contract';
 
 class App extends React.Component {
   constructor(props) {
@@ -53,6 +54,7 @@ class App extends React.Component {
             <Route exact path="/search" component={Search} />
             <Route exact path="/crm" component={CrmPage} />
             <Route exact path="/invoice" component={InvoicePage} />
+            <Route exact path="/contract" component={ContractPage} />
           </div>
           {/* <Footer /> */}
         </div>

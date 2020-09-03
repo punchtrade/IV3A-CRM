@@ -22,6 +22,7 @@ import Leads from '../../pages/leads';
 import Crm from '../crm/crm';
 import StatusPage from "../../pages/status";
 import InvoicePage from "../../pages/invoice";
+import ContractPage from "../../pages/contract";
 
 
 class Navbar extends Component {
@@ -100,6 +101,9 @@ class Navbar extends Component {
                     </Route>
                     <Route exact path="/invoice">
                         <InvoicePage />
+                    </Route>
+                    <Route exact path="/contract">
+                        <ContractPage />
                     </Route>
                 </Switch>
             </Router>
