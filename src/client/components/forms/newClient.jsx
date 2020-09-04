@@ -30,7 +30,17 @@ const styles = makeStyles((theme) => ({
   inputMaterial: {
     width: '100%',
   },
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 200,
+    },
+  },
 }));
+
+const errors = {
+ cardError: "",  
+}
 
 const value = ["oui", "non"];
 const value2 = ["oui", "non"];
@@ -66,6 +76,26 @@ class NewClient extends React.Component {
       errors: "",
     };
   }
+
+  validate = () => {
+    let isError = false;
+    const errors = {};
+
+    if (this.state.card.contains ('1, 2, 3,4,5,6,7,8,9,0')) {
+      isError = true;
+      errors.cardError = "It must contain numbers";
+    }
+
+    if (isError) {
+      this.setState({
+        ...this.state,
+        ...errors
+      });
+    }
+
+    return isError;
+  }
+
   handleChange = (event) => {
     this.setState({
       bankAccount: event.target.value,
@@ -141,7 +171,7 @@ class NewClient extends React.Component {
           Données Client <br />
         </h6>
         <form
-          className="form-client"
+          className={styles.root} validate autoComplete="on"
           onSubmit={this.onSubmitHandler.bind(this)}
           action="http://localhost:9000/newClient"
           value="submit"
@@ -176,6 +206,8 @@ class NewClient extends React.Component {
             placeholder="Traitement"
             value={treatment}
             onChange={this.changeHandler}
+            error
+            // helperText="Incorrect entry."
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
@@ -221,6 +253,8 @@ class NewClient extends React.Component {
             placeholder="Document National d'Identité"
             value={card}
             onChange={this.changeHandler}
+            // error
+            // helperText="Incorrect entry."
           />
           <InputLabel
             htmlFor="filled-adornment-amount"

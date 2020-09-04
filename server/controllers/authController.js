@@ -368,6 +368,21 @@ router.get('/fetch-pdf', (req, res) => {
   res.sendFile(`${__dirname}/result.pdf`)
 })
 
+//contract
+router.post('/create-pdf2', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf2', (err) => {
+      if(err) {
+          res.send(Promise.reject());
+      }
+
+      res.send(Promise.resolve());
+  });
+});
+
+router.get('/fetch-pdf2', (req, res) => {
+  res.sendFile(`${__dirname}/result.pdf2`)
+})
+
 //logout
 router.get("/logout", (req, res) => {
   res.status(200).send({ auth: false, token: null });

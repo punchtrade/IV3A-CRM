@@ -62,9 +62,9 @@ export default class Invoice extends Component {
             <div className="Invoice">
                 <Grid container spacing={1}>
                     <Grid item xs={3}>
-                        <Typography className={useStyles.title} color="textSecondary" gutterBottom>
+                        <Typography className={useStyles.title} color="textSecondary" variant="h6" component="h2" gutterBottom>
                             <br></br>
-                            Facture
+                            FACTURE
                             <br></br>
                         </Typography>
                     </Grid>
@@ -87,7 +87,6 @@ export default class Invoice extends Component {
                         Date de facture:
                         <br></br>
                     </Typography>
-                    <Card></Card>
                     <Grid container spacing={1}
                         direction="row"
                         justify="space-between"

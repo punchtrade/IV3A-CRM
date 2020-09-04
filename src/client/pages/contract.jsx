@@ -4,6 +4,8 @@ import  Paper  from '@material-ui/core/Paper';
 import  CardHeader  from '@material-ui/core/CardHeader';
 import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
 import { makeStyles } from '@material-ui/core/styles';
+import NavbarDashboard from '../components/header/navbarDashboard';
+
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -24,6 +26,7 @@ export default function ContractPage() {
         icon={<PeopleOutlineTwoTone fontSize="large" />}
       />
       <Paper className={classes.pageContent} elevation={6}>
+      {/* <NavbarDashboard /> */}
       <Contract/>
       </Paper>
     </>

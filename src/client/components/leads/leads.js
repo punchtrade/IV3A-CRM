@@ -61,32 +61,40 @@ function Leads() {
     nameOfBank: "",
     iban: "",
     swiftCode: "",
-    brandId: "",
-    modelId: "",
-    fuelId: "",
     carCatalogue: "",
     price1: "",
-    carOrder: "",
-    price2: "",
     brand: "",
     model: "",
     fuel: "",
-    serialNumber: "",
-    description: "",
-    type: "",
-    typeSeries: "",
-    body: "",
-    energy: "",
-    power: "",
-    places: "",
-    grossWeight: "",
-    mma: "",
-    payload: "",
-    tara: "",
-    previousNumber: "",
-    firstRegistration: "",
-    dateManufacture: "",
+    comment: "",
+    bankAccount: "",
+    bankAccount2: "",
+    bankAccount3: "",
+    errors: "",
   })
+
+  // handleChange = (event) => {
+  //   this.setState({
+  //     bankAccount: event.target.value,
+  //   });
+  // }
+
+  // handleChange2 = (event) => {
+  //   this.setState({
+  //     bankAccount2: event.target.value
+  //   });
+  // }
+  // handleChange3 = (event) => {
+  //   this.setState({
+  //     bankAccount3: event.target.value
+  //   });
+  // }
+
+  // handleChange4 = (event) => {
+  //   this.setState({
+  //     fuel: event.target.value
+  //   })
+  // }
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -463,35 +471,6 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Nº de chassis
-      </InputLabel>
-      <TextField multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Nº de chassis"
-        name="serialNumber"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.serialNumber}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
-        Genre
-      </InputLabel>
-      <TextField
-        multiline variant="outlined"
-        className={styles.inputMaterial}
-        placeholder="Genre"
-        name="description"
-        onChange={handleChange}
-        value={selectedClient &&
-          selectedClient.description}
-      />
-      <br />
-      <InputLabel
-        htmlFor="filled-adornment-amount"
-      >
         Marque
       </InputLabel>
       <TextField
@@ -534,6 +513,25 @@ function Leads() {
           selectedClient.fuel}
       />
       <br /><br />
+      <InputLabel
+            id="demo-simple-select-outlined-label"
+          >
+            Entrez un commentaire ici
+            </InputLabel>
+          <TextField
+            aria-label="empty textarea"
+            variant="outlined"
+            multiline
+            rows={10}
+            rowsMax={10}
+            margin="normal"
+            className={styles.inputMaterial}
+            name="comment"
+            value={selectedClient &&
+              selectedClient.comment}
+            onChange={handleChange}
+            placeholder="Entrez un commentaire ici"
+          />
       <div align="right">
         <Button
           variant="contained"

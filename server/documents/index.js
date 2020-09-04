@@ -1,5 +1,5 @@
 module.exports = ({
-    idCard, receiptId, firstName, lastName,
+    firstName, lastName, receiptId, idCard,
     address, carCatalogue, description,
     quantity, price, subtotal, porcent,
     vat, totalPrice, price2, porcent2,
@@ -12,7 +12,7 @@ module.exports = ({
     <html>
        <head>
           <meta charset="utf-8">
-          <title>PDF Result Template</title>
+          <title>Facture</title>
           <style>
              .invoice-box {
              max-width: 800px;
@@ -93,10 +93,10 @@ module.exports = ({
                    <td colspan="2">
                       <table>
                          <tr>
-                            <td class="title"><img  src="https://i2.wp.com/cleverlogos.co/wp-content/uploads/2018/05/reciepthound_1.jpg?fit=800%2C600&ssl=1"
+                            <td class="title"><img  src=""
                                style="width:100%; max-width:156px;"></td>
                             <td>
-                               Date:${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
+                               Date de Facture:${`${today.getDate()}. ${today.getMonth() + 1}. ${today.getFullYear()}.`}
                             </td>
                          </tr>
                       </table>
@@ -104,24 +104,32 @@ module.exports = ({
                 </tr>
                 <tr class="information">
                    <td colspan="2">
+                   <table>
+                   <td>
+                   Nº Facture: ${receiptId}
+                   </td>
+                   </tr>
+                   </table>
+                   <table>
+                   <td>
+                   Identification: ${idCard}                        
+                <td>
+                Adresse: ${address}
+                </td>
+                   </table>
                       <table>
+                      <tr>
                          <tr>
                             <td>
+                            </td>                           
                             <td>
-                            Nº Facture: ${receiptId}
-                            </td>
-                            </td>
+                            <td>
                                Nom: ${firstName}
                             </td>
                             <td>
                                Prénom: ${lastName}
                             </td>
-                            <td>
-                            Identification: ${idCard}                        
-                         <td>
-                         Adresse: ${address}
-                      </td>
-                      <td>
+
                       Immatriculation: ${carCatalogue}
                    </td>
                    <td>
@@ -139,16 +147,16 @@ module.exports = ({
                    <td>Price</td>
                 </tr>
                 <tr class="item">
-                   <td>First item:</td>
-                   <td>${price}$</td>
+                   <td>Sub Total:</td>
+                   <td>${price2}$</td>
                 </tr>
                 <tr class="item">
-                   <td>Second item:</td>
-                   <td>${price2}$</td>
+                   <td>Total:</td>
+                   <td>${price}$</td>
                 </tr>
              </table>
              <br />
-             <h1 class="justify-center">Total price: ${parseInt(price) + parseInt(price2)}$</h1>
+             <h1 class="justify-center">Total: ${parseInt(price) + parseInt(price2)}$</h1>
           </div>
        </body>
     </html>
