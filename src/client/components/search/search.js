@@ -5,6 +5,8 @@ import MaterialTable from 'material-table';
 import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+
+
 const columns = [
   { title: "ID", field: "_id" },
   { title: "Nom", field: "firstName" },
@@ -916,9 +918,9 @@ function Search() {
       </Modal>
       <a href="/dashboard"><input type="submit" value='Panel'></input></a>
     </div>
-
   )
 }
+
 export default Search;
 
 

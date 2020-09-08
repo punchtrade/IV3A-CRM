@@ -7,6 +7,7 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
     TextField: {
@@ -244,7 +245,6 @@ export default class Invoice extends Component {
                         <Button onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
                     </Grid>
                 </Grid>
-
             </div>
         );
     }

@@ -5,6 +5,7 @@ import  CardHeader  from '@material-ui/core/CardHeader';
 import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
 import { makeStyles } from '@material-ui/core/styles';
 
+
 const useStyles = makeStyles(theme => ({
   pageContent: {
     margin: theme.spacing(5),
@@ -18,11 +19,11 @@ export default function SearchPage() {
 
   return (
     <>
-      <CardHeader
+      {/* <CardHeader
         // title={firstName}
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
-      />
+      /> */}
       <Paper className={classes.pageContent} elevation={6}>
       <Search />
       </Paper>

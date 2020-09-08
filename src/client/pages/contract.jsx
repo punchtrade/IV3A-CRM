@@ -29,6 +29,7 @@ export default function ContractPage() {
       {/* <NavbarDashboard /> */}
       <Contract/>
       </Paper>
+      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
     </>
   );
 };

@@ -26,6 +26,7 @@ export default function InvoicePage() {
       <Paper className={classes.pageContent} elevation={6}>
       <Invoice/>
       </Paper>
+      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
     </>
   );
 };
