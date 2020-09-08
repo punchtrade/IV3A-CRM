@@ -19,9 +19,9 @@ export default function PreOrderPage() {
   return (
     <>
       <CardHeader
-        // title={firstName}
-        subtitle="Entrez le profil"
-        icon={<PeopleOutlineTwoTone fontSize="large" />}
+        title="Commande ferme de Véhicule"
+        // subtitle="Entrez le profil"
+        // icon={<PeopleOutlineTwoTone fontSize="large" />}
       />
       <Paper className={classes.pageContent} elevation={6}>
       <PreOrder />

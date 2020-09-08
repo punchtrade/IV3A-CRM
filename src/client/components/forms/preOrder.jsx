@@ -97,7 +97,7 @@ class PreOrder extends Component {
     return (
       <div className={styles.inputMaterial}>
         <br /><br />
-        <h5>Commande ferme de Véhicule</h5>
+        {/* <h5>Commande ferme de Véhicule</h5> */}
         <br /><br />
         <div className="container">
           <div className="text-info" type="text">

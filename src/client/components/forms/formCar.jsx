@@ -3,6 +3,8 @@ import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
 
 
 
@@ -43,6 +45,10 @@ class FormCar extends Component {
       // dateManufacture: "",
       errors: "",
     };
+  }
+
+  componentDidMount() {
+    ValidatorForm.addValidationRule("isValidName", (string) => /[a-zA-Z \u00E0-\u00FC]{1,20}/g.test(string));
   }
 
   changeHandler = (e) => {
@@ -98,7 +104,7 @@ class FormCar extends Component {
           <div
           // className="container-form"
           >
-            <form
+            <ValidatorForm
               // className="car-left"
               onSubmit={this.onSubmitHandler.bind(this)}
               action='http://localhost:9000/car'
@@ -119,13 +125,15 @@ class FormCar extends Component {
                 placeholder="Client"
                 value={id}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Document National d'Identité
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -134,6 +142,8 @@ class FormCar extends Component {
                 placeholder="Document National d'Identité"
                 value={card}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -149,6 +159,8 @@ class FormCar extends Component {
                 placeholder="Marque"
                 value={brandId}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -164,6 +176,8 @@ class FormCar extends Component {
                 placeholder="Modèle"
                 value={modelId}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -179,6 +193,8 @@ class FormCar extends Component {
                 placeholder="Combustible"
                 value={fuelId}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -195,6 +211,8 @@ class FormCar extends Component {
                 placeholder="Immatriculation de la voiture"
                 value={carCatalogue}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -210,6 +228,8 @@ class FormCar extends Component {
                 placeholder="Voiture choisie dans le catalogue IV3A"
                 value={price1}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <div className="line"></div>
               <InputLabel
@@ -217,7 +237,7 @@ class FormCar extends Component {
               >
                 Marque
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -226,13 +246,15 @@ class FormCar extends Component {
                 placeholder="Marque"
                 value={brand}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Modèle
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -241,13 +263,15 @@ class FormCar extends Component {
                 placeholder="Modèle"
                 value={model}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Voiture object de la commande (Immatriculation de la voiture)
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -256,13 +280,15 @@ class FormCar extends Component {
                 placeholder="Immatriculation de la voiture"
                 value={carOrder}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Prix (Voiture object de la commande)
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -271,6 +297,8 @@ class FormCar extends Component {
                 placeholder="Voiture object de la commande"
                 value={price2}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               <div className="line">
               </div>
@@ -279,7 +307,7 @@ class FormCar extends Component {
               >
                 Nº de chassis
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -288,6 +316,8 @@ class FormCar extends Component {
                 placeholder=" Nº de chassis"
                 value={serialNumber}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               {/* <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -309,7 +339,7 @@ class FormCar extends Component {
               >
                 Combustible (diesel ou essence)
               </InputLabel>
-              <TextField
+              <TextValidator
                 variant="outlined"
                 fullWidth
                 margin="normal"
@@ -318,6 +348,8 @@ class FormCar extends Component {
                 placeholder="Combustible"
                 value={fuel}
                 onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
               />
               {/* <InputLabel
                 htmlFor="filled-adornment-amount"
@@ -517,7 +549,7 @@ class FormCar extends Component {
               >
                 Panel
           </button>
-            </form>
+            </ValidatorForm>
           </div>
 
         </div>

@@ -73,14 +73,48 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
+
+
 //login
 router.post("/login", async (req, res, next) => {
+  // if(validUser(req.body)) {
+  //   User
+  //     .getOneByEmail(req.body.email)
+  //     .then(user => {
+  //       if(user) {
+  //         bcrypt
+  //         .compare(req.body.password_digest, user.password_digest)
+  //         .then((result) => {
+  //           if(result) {
+  //             const isSecure = process.env.NODE_ENV != 'development';
+
+  //             res.cookie('user_id', user.id, {
+  //               httpOnly: true,
+  //               secure: isSecure,
+  //               signed: true
+  //             })
+  //             res.json({
+  //               message: 'Logged in'
+  //             });
+  //           } else {
+  //             next(new Error ('Invalid Login' ))
+  //           }
+  //         });
+  //       } else {
+  //         next(new Error('Invalid Login'))
+  //       }
+  //     });
+  // } else {
+  //   next(new Error('Invalid Login'))
+  // }
   const { email, password } = req.body;
   console.log(email, password);
   const user = await User.findOne({ email: req.body.email });
   if (!user) {
     return res.status(404).send("The email doesn't exists");
   }
+  console.log(user);
+
   const validPassword = await bcrypt.compare(req.body.password, user.password);
   if (!validPassword) {
     return res.status(401).json({ auth: false, token: null });
@@ -93,6 +127,8 @@ router.post("/login", async (req, res, next) => {
 
   res.status(200).json({ auth: true, token });
 });
+
+
 
 //dashboard
 router.get("/dashboard", verifyToken, (req, res) => {

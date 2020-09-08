@@ -42,7 +42,10 @@ app.use("/uploads", express.static("uploads"));
 app.use(express.static("public"));
 app.use(fileUpload());
 app.use(express.static(path.resolve(__dirname + "/public/")));
-app.use(cors());
+app.use(cors({
+  origin:"http://localhost:3000",
+  credentials: true
+}));
 app.use(morgan("dev"));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());

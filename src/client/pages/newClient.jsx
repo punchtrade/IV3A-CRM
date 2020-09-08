@@ -19,7 +19,7 @@ export default function Client() {
   return (
     <>
       <CardHeader
-        // title={firstName}
+        title="Fiche Client"
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
       />

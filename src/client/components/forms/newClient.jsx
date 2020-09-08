@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 // import NavbarDashboard from '../header/navbarDashboard';
 import { TextField, FilledInput, Button, InputLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+
 
 
 
@@ -37,10 +39,6 @@ const styles = makeStyles((theme) => ({
     },
   },
 }));
-
-const errors = {
- cardError: "",  
-}
 
 const value = ["oui", "non"];
 const value2 = ["oui", "non"];
@@ -77,23 +75,8 @@ class NewClient extends React.Component {
     };
   }
 
-  validate = () => {
-    let isError = false;
-    const errors = {};
-
-    if (this.state.card.contains ('1, 2, 3,4,5,6,7,8,9,0')) {
-      isError = true;
-      errors.cardError = "It must contain numbers";
-    }
-
-    if (isError) {
-      this.setState({
-        ...this.state,
-        ...errors
-      });
-    }
-
-    return isError;
+  componentDidMount() {
+    ValidatorForm.addValidationRule("isValidName", (string) => /[a-zA-Z \u00E0-\u00FC]{1,20}/g.test(string));
   }
 
   handleChange = (event) => {
@@ -164,13 +147,13 @@ class NewClient extends React.Component {
     return (
       <div>
         <div>
-          <h5>Fiche Client</h5>
+          {/* <h5>Fiche Client</h5> */}
         </div>
         <br />
         <h6>
           Données Client <br />
         </h6>
-        <form
+        <ValidatorForm
           className={styles.root} validate autoComplete="on"
           onSubmit={this.onSubmitHandler.bind(this)}
           action="http://localhost:9000/newClient"
@@ -197,7 +180,7 @@ class NewClient extends React.Component {
           >
             Traitement
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -206,15 +189,15 @@ class NewClient extends React.Component {
             placeholder="Traitement"
             value={treatment}
             onChange={this.changeHandler}
-            error
-            // helperText="Incorrect entry."
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Nom
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -223,13 +206,15 @@ class NewClient extends React.Component {
             placeholder="Nom"
             value={firstName}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Prénom
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -238,13 +223,15 @@ class NewClient extends React.Component {
             placeholder="Prénom"
             value={lastName}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Document National d'Identité
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -253,15 +240,15 @@ class NewClient extends React.Component {
             placeholder="Document National d'Identité"
             value={card}
             onChange={this.changeHandler}
-            // error
-            // helperText="Incorrect entry."
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Téléphone
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -270,13 +257,15 @@ class NewClient extends React.Component {
             placeholder="Téléphone"
             value={telephone}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Courrier électronique
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -285,13 +274,15 @@ class NewClient extends React.Component {
             placeholder="Courrier électronique"
             value={email}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Adresse complète
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -300,13 +291,15 @@ class NewClient extends React.Component {
             placeholder="Adresse complète"
             value={address}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Ville/Wilaya
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -315,13 +308,15 @@ class NewClient extends React.Component {
             placeholder="Ville/Wilaya"
             value={city}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Code Postal
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -330,6 +325,8 @@ class NewClient extends React.Component {
             placeholder="Code Postal"
             value={postalCode}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <div>
             <br />
@@ -372,7 +369,7 @@ class NewClient extends React.Component {
           >
             Nom de la Banque
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -381,6 +378,8 @@ class NewClient extends React.Component {
             placeholder="Nom de la Banque"
             value={nameOfBank}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
@@ -396,6 +395,8 @@ class NewClient extends React.Component {
             placeholder="IBAN de votre compte"
             value={iban}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
@@ -411,6 +412,8 @@ class NewClient extends React.Component {
             placeholder="Swift BIC Code"
             value={swiftCode}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <div>
             <br />
@@ -435,6 +438,8 @@ class NewClient extends React.Component {
             placeholder="Immatriculation de la voiture"
             value={carCatalogue}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
@@ -450,13 +455,15 @@ class NewClient extends React.Component {
             placeholder="Voiture choisie dans le catalogue IV3A"
             value={price1}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             htmlFor="filled-adornment-amount"
           >
             Marque
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -471,7 +478,7 @@ class NewClient extends React.Component {
           >
             Modèle
               </InputLabel>
-          <TextField
+          <TextValidator
             variant="outlined"
             fullWidth
             margin="normal"
@@ -480,6 +487,8 @@ class NewClient extends React.Component {
             placeholder="Modèle"
             value={model}
             onChange={this.changeHandler}
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
             id="demo-simple-select-outlined-label"
@@ -491,13 +500,13 @@ class NewClient extends React.Component {
             <FormControlLabel value="essence" checked={this.state.fuel === "essence"} control={<Radio />} onChange={this.handleChange4} label="Essence" />
           </RadioGroup>
           <div className="line">
-            </div>
+          </div>
           <InputLabel
             id="demo-simple-select-outlined-label"
           >
             Entrez un commentaire ici
             </InputLabel>
-          <TextField
+          <TextValidator
             aria-label="empty textarea"
             variant="outlined"
             multiline
@@ -509,6 +518,8 @@ class NewClient extends React.Component {
             value={comment}
             onChange={this.changeHandler}
             placeholder="Entrez un commentaire ici"
+            validators={["required", "isValidName"]}
+            errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <br />
           <button
@@ -520,16 +531,16 @@ class NewClient extends React.Component {
             Envoyer
           </button>
           <button
-          className="btn btn-primary-green left"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/dashboard");
-          }}
-        >
-          Panel
+            className="btn btn-primary-green left"
+            type="submit"
+            value="submit"
+            onClick={() => {
+              this.props.history.replace("/dashboard");
+            }}
+          >
+            Panel
           </button>
-        </form>
+        </ValidatorForm>
         {/* <button
           className="btn btn-primary-green right"
           type="submit"

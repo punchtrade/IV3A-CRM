@@ -14,6 +14,9 @@ import Search from './client/pages/search';
 import CrmPage from './client/pages/crm';
 import InvoicePage from './client/pages/invoice';
 import ContractPage from './client/pages/contract';
+// import Login from './client/pages/login';
+// import Register from './client/pages/register';
+
 
 class App extends React.Component {
   constructor(props) {
@@ -42,8 +45,8 @@ class App extends React.Component {
           <Route exact path="/home" component={Home} />
           <p>{this.state.apiResponse}</p>
           <div className="container">
-            {/* <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} /> */}
+             {/* <Route exact path="/login" component={Login} /> 
+                    <Route exact path="/register" component={Register} />  */}
             <Route exact path="/dashboard" component={Dashboard} />
             {/* <Route exact path="/navbarDashboard" component={NavbarDashboard} /> */}
             <Route exact path="/newclient" component={NewClient} />

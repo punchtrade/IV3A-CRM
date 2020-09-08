@@ -1,9 +1,16 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router-dom";
 import { Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import Dialog from "@material-ui/core/Dialog";
+import TextField from "@material-ui/core/TextField";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const styles = makeStyles((theme) => ({
   iconos: {
@@ -21,30 +28,59 @@ class FormLogin extends React.Component {
       email: "",
       password: "",
       token: "",
-      redirect: localStorage.getItem("userTokenTime") ? true : false,
+      message: "",
+      open: false,
+      // redirect: localStorage.getItem("userTokenTime") ? true : false,
     };
   }
 
-  changeHandler = (e) => {
-    const isCheckbox = e.target.type === "checkbox";
-    this.setState({ 
-      [e.target.name] : isCheckbox
-      ? e.target.checked
-      : e.target.value
-      // [e.target.name]: e.target.value 
+  setEmail = event => {
+    this.setState({
+      email: event.target.value
+    });
+  };
+  setPassword = event => {
+    this.setState({
+      password: event.target.value
     });
   };
 
-  onSubmitHandler = async (e) => {
-    e.preventDefault();
-    this.props.history.push("/dashboard");
-    console.log(this.state);
+  signIn = () => {
+    if (this.state.email === "react" && this.state.password === "password") {
+      this.setState({
+        open: true,
+        message: "Vous vous êtes connecté avec succès!"
+      });
+    } else {
+      this.setState({
+        open: true,
+        message: "Identifiant ou mot de passe incorrect!"
+      });
+    }
+  };
+
+  handleClose = () => {
+    this.setState({
+      open: false
+    });
+  };
+
+  initSession = async () => {
     await axios
       .post("http://localhost:9000/login", this.state, {
-        headers: { "Content-Type": "application/json" },
       })
-      .then((res) => {
-        console.log(res);
+      .then((response) => {
+        return response.data;
+      })
+      .then(response => {
+        if(response.length>0){
+          var respuesta=response[0];
+          localStorage.getItem('email', respuesta.email, {path: "/login"});
+          alert('Bienvenido ${respuesta.firstName}');
+          window.location.href="/dashboard";
+        // }else{
+        //   alert('El usuario o la contraseña no son correctos');
+         }
       })
       .catch((error) => {
         console.log(error);
@@ -56,8 +92,8 @@ class FormLogin extends React.Component {
     return (
       <div className={styles.inputMaterial}>
         <div>
-          <form     
-            onSubmit={this.onSubmitHandler.bind(this)}
+          <ValidatorForm
+            onSubmit={this.initSession.bind(this)}
             action="http://localhost:9000/login"
             value="submit"
             method="post"
@@ -76,19 +112,17 @@ class FormLogin extends React.Component {
               name="email"
               type="email"
               placeholder="Courrier électronique"
-              value={email}
-              onChange={this.changeHandler}
-              error
-              autoComplete=""
-              helperText="some validation error"
-              required
+              value={this.state.email}
+              onChange={this.setEmail}
+              validators={["required"]}
+              errorMessages={["Ce champ est requis"]}
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
             >
               Mot de passe
               </InputLabel>
-            <FilledInput
+            <TextValidator
               variant="filled"
               fullWidth
               margin="normal"
@@ -96,22 +130,40 @@ class FormLogin extends React.Component {
               type="password"
               name="password"
               placeholder="Mot de passe"
-              value={password}
-              onChange={this.changeHandler}
-              error
-              autoComplete=""
-              helperText="some validation error"
-              required
+              value={this.state.password}
+              onChange={this.setPassword}
+              validators={["required"]}
+              errorMessages={["Ce champ est requis"]}
             />
-            <button
+            <Button
               className="btn btn-primary-green"
               type="submit"
               value="Submit"
-              onClick={this.onSubmitHandler.bind(this)}
+              onClick={() => {
+                this.signIn();
+              }}
             >
               Connecter
-          </button>
-          </form>
+          </Button>
+            <Dialog
+              open={this.state.open}
+              onClose={this.handleClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">S'inscrire</DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  {this.state.message}
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleClose} color="primary">
+                  D'accord
+              </Button>
+              </DialogActions>
+            </Dialog>
+          </ValidatorForm>
         </div>
       </div>
     );

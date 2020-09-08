@@ -20,11 +20,11 @@ export default function ContractPage() {
 
   return (
     <>
-      <CardHeader
+      {/* <CardHeader
         // title={firstName}
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
-      />
+      /> */}
       <Paper className={classes.pageContent} elevation={6}>
       {/* <NavbarDashboard /> */}
       <Contract/>
