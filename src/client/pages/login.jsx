@@ -9,7 +9,21 @@ const useStyles = makeStyles(theme => ({
   pageContent: {
     margin: theme.spacing(5),
     padding: theme.spacing(3)
-  }
+  },
+  paper: {
+    padding: 20,
+    overflow: 'auto',
+  },
+  loginContainer: {
+    minWidth: 320,
+    maxWidth: 850,
+    height: 400,
+    position: 'absolute',
+    top: '20%',
+    left: 0,
+    right: 0,
+    margin: 'auto',
+  },
 }))
 
 export default function Login() {
@@ -18,12 +32,12 @@ export default function Login() {
 
   return (
     <>
-      <CardHeader
+      {/* <CardHeader
         title="S'identifier"
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
-      />
-      <Paper className={classes.pageContent} elevation={6}>
+      /> */}
+      <Paper className={classes.loginContainer} elevation={6}>
         <FormLogin />
       </Paper>
     </>

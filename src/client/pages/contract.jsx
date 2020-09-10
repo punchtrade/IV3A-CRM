@@ -1,10 +1,8 @@
 import React from "react";
 import Contract from '../components/contract/contract';
 import  Paper  from '@material-ui/core/Paper';
-import  CardHeader  from '@material-ui/core/CardHeader';
-import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
 import { makeStyles } from '@material-ui/core/styles';
-import NavbarDashboard from '../components/header/navbarDashboard';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -20,13 +18,7 @@ export default function ContractPage() {
 
   return (
     <>
-      {/* <CardHeader
-        // title={firstName}
-        subtitle="Entrez le profil"
-        icon={<PeopleOutlineTwoTone fontSize="large" />}
-      /> */}
       <Paper className={classes.pageContent} elevation={6}>
-      {/* <NavbarDashboard /> */}
       <Contract/>
       </Paper>
       <a href="/dashboard"><input type="submit" value='Panel'></input></a>

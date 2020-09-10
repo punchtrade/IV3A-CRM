@@ -76,7 +76,81 @@ router.post("/register", async (req, res, next) => {
 
 
 //login
-router.post("/login", async (req, res, next) => {
+
+router.get("/login",  async (req, res) => {
+  try {
+    // request.user is getting fetched from Middleware after token authentication
+    const user = await User.findById(req.user.id);
+    res.json(user);
+  } catch (e) {
+    res.send({ message: "Error in Fetching user" });
+  }
+});
+
+// router.post(
+//   "/login",
+//   // [
+//   //   check("email", "Please enter a valid email").isEmail(),
+//   //   check("password", "Please enter a valid password").isLength({
+//   //     min: 6
+//   //   })
+//   // ],
+//   // async (req, res) => {
+//   //   const errors = validationResult(req);
+
+//   //   if (!errors.isEmpty()) {
+//   //     return res.status(400).json({
+//   //       errors: errors.array()
+//   //     });
+//   //   }
+
+//   //   const { email, password } = req.body;
+//   //   try {
+//   //     let user = await User.findOne({
+//   //       email
+//   //     });
+//   //     if (!user)
+//   //       return res.status(400).json({
+//   //         message: "User Not Exist"
+//   //       });
+
+//   //     // const isMatch = await bcrypt.compare(password, user.password);
+//   //     // if (!isMatch)
+//   //     //   return res.status(400).json({
+//   //     //     message: "Incorrect Password !"
+//   //     //   });
+
+//   //     // const payload = {
+//   //     //   user: {
+//   //     //     id: user.id
+//   //     //   }
+//   //     // };
+
+//   //     // jwt.sign(
+//   //     //   payload,
+//   //     //   "randomString",
+//   //     //   {
+//   //     //     expiresIn: 3600
+//   //     //   },
+//   //     //   (err, token) => {
+//   //     //     if (err) throw err;
+//   //     //     res.status(200).json({
+//   //     //       token
+//   //     //     });
+//   //     //   }
+//   //     // );
+//   //   // } catch (e) {
+//   //   //   console.error(e);
+//   //   //   res.status(500).json({
+//   //   //     message: "Server Error"
+//   //   //   });
+//     // }
+//   // }
+// );
+
+
+
+// router.post("/login", async (req, res, next) => {
   // if(validUser(req.body)) {
   //   User
   //     .getOneByEmail(req.body.email)
@@ -107,26 +181,26 @@ router.post("/login", async (req, res, next) => {
   // } else {
   //   next(new Error('Invalid Login'))
   // }
-  const { email, password } = req.body;
-  console.log(email, password);
-  const user = await User.findOne({ email: req.body.email });
-  if (!user) {
-    return res.status(404).send("The email doesn't exists");
-  }
-  console.log(user);
+//   const { email, password } = req.body;
+//   console.log(email, password);
+//   const user = await User.findOne({ email: req.body.email });
+//   if (!user) {
+//     return res.status(404).send("The email doesn't exists");
+//   }
+//   console.log(user);
 
-  const validPassword = await bcrypt.compare(req.body.password, user.password);
-  if (!validPassword) {
-    return res.status(401).json({ auth: false, token: null });
-  }
-  // console.log(validPassword);
+//   const validPassword = await bcrypt.compare(req.body.password, user.password);
+//   if (!validPassword) {
+//     return res.status(401).json({ auth: false, token: null });
+//   }
+//   // console.log(validPassword);
 
-  const token = jwt.sign({ id: user._id }, config.secret, {
-    expiresIn: 86400, //24 hours
-  });
+//   const token = jwt.sign({ id: user._id }, config.secret, {
+//     expiresIn: 86400, //24 hours
+//   });
 
-  res.status(200).json({ auth: true, token });
-});
+//   res.status(200).json({ auth: true, token });
+// });
 
 
 
