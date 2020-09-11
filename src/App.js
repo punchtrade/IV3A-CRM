@@ -6,7 +6,7 @@ import Dashboard from "./client/pages/dashboard";
 import NewClient from "./client/pages/newClient";
 import UploadPage from "./client/pages/uploadPage";
 import PreOrderPage from "./client/pages/preOrder";
-import formCar from "./client/components/forms/formCar";
+// import formCar from "./client/components/forms/formCar";
 import Leads from './client/pages/leads';
 import Search from './client/pages/search';
 import CrmPage from './client/pages/crm';
@@ -14,6 +14,8 @@ import InvoicePage from './client/pages/invoice';
 import ContractPage from './client/pages/contract';
 import Login from './client/pages/login';
 import Register from './client/pages/register';
+import FormCarPage from './client/pages/orderCar';
+
 
 
 class App extends React.Component {
@@ -49,12 +51,14 @@ class App extends React.Component {
             <Route exact path="/newclient" component={NewClient} />
             <Route exact path="/upload" component={UploadPage} />
             <Route exact path="/preorder" component={PreOrderPage} />
-            <Route exact path="/formCar" component={formCar} />
+            {/* <Route exact path="/formCar" component={formCar} /> */}
             <Route exact path="/leads" component={Leads} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/crm" component={CrmPage} />
             <Route exact path="/invoice" component={InvoicePage} />
             <Route exact path="/contract" component={ContractPage} />
+            <Route exact path="/formCar" component={FormCarPage} />
+
           </div>
         </div>
       </Router>

@@ -1,9 +1,8 @@
 import React, { useState, useEffect, Component } from "react";
 import axios from "axios";
 import "react-toastify/dist/ReactToastify.css";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Button, InputLabel, FilledInput } from '@material-ui/core';
-import { ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
 import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 import Dialog from "@material-ui/core/Dialog";
@@ -11,91 +10,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { LinearProgress } from '@material-ui/core';
-import { TextField } from 'formik-material-ui';
-import {
-  Field,
-  FieldProps,
-  Form,
-  Formik,
-  FormikErrors,
-  FormikProps
-} from 'formik';
-
-// interface Values {
-//   email: string;
-//   password: string;
-// }
-
-// class FormLogin extends Component {
-  
-
-//   handleButtonClick = () => {
-//         axios.get("http://localhost:9000/login").then(response => {
-//           console.log(response.data.users);
-//           // console.log(response);
-//         })
-//   }
-// render() {
-//   return (
-//     <Formik
-//       initialValues={{
-//         email: '',
-//         password: '',
-//       }}
-//       validate={values => {
-//         const errors: Partial<Values> = {};
-//         if (!values.email) {
-//           errors.email = 'Required';
-//         } else if (
-//           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
-//         ) {
-//           errors.email = 'Invalid email address';
-//         }
-//         return errors;
-//       }}
-
-//       onSubmit={(values, { setSubmitting }) => {
-//         setTimeout(() => {
-//           setSubmitting(false);
-//           alert(JSON.stringify(values, null, 2));
-//         }, 500);
-//       }}
-//     >
-
-//       {({ submitForm, isSubmitting }) => (
-//         <Form>
-//           <Field
-//             component={TextField}
-//             name="email"
-//             type="email"
-//             label="Email"
-//           />
-//           <br />
-//           <Field
-//             component={TextField}
-//             type="password"
-//             label="Password"
-//             name="password"
-//           />
-//           {isSubmitting && <LinearProgress />}
-//           <br />
-//           <Button
-//             variant="contained"
-//             color="primary"
-//             disabled={isSubmitting}
-//             onClick={this.handleButtonClick.submitForm}
-//           >
-//             Submit
-//           </Button>
-//         </Form>
-//       )}
-//     </Formik>
-//   );
-//       }
-// }
-// export default withRouter(FormLogin);
-
+import {  Formik } from 'formik';
 
 const styles = makeStyles((theme) => ({
   iconos: {
@@ -122,6 +37,7 @@ class FormLogin extends React.Component {
       token: "" ,
       message: "",
       open: false,
+      accessToken: "",
       redirect: localStorage.getItem("userTokenTime") ? true : false,
     };
   }
@@ -137,7 +53,6 @@ class FormLogin extends React.Component {
     });
   };
   
-
   signIn = () => {
     if (this.state.email === !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test) {
       this.setState({
@@ -163,31 +78,24 @@ class FormLogin extends React.Component {
     });
   };
 
+
   onSubmitHandler = async (e) => {
     e.preventDefault();
-    this.props.history.push("/dashboard");
     await axios
-      .get("http://localhost:9000/login", this.state, {
-      })
-      .then((response) => {
-        return response;
-      })
-      // .then(response => {
-      //   if(response.length>0){
-      //     var respuesta=response[0];
-      //     localStorage.getItem('email', respuesta.email, {path: "/dashboard"});
-      //     alert('Bienvenido ${respuesta.firstName}');
-      //     window.location.href="/dashboard";
-      //   }else{
-      //     alert('El usuario o la contraseña no son correctos');
-      //    }
-      // })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+      .post("http://localhost:9000/login", {
+        email: this.state.email,
+        password: this.state.password
+      }).then(res => {
+        localStorage.setItem('cool-jwt', res.data);
+        this.props.history.push('/dashboard')
+      }).catch(() => this.setState({
+  
+        error: true
+      }));
+    }
 
   render() {
+    const { error } = this.state;
     const { id, email, password } = this.state;
     return (
       <Formik>
@@ -249,7 +157,6 @@ class FormLogin extends React.Component {
             Connecter
           </Button>
           <br /><br />
-         {/* {this.onSubmitHandler && <LinearProgress />}  */}
           <Dialog
             open={this.state.open}
             onClose={this.handleClose}

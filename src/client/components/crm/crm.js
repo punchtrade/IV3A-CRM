@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -34,7 +35,8 @@ const theme = createMuiTheme({
 });
 
 
-export default function Crm() {
+function Crm (props) {
+    const {history} = props;
     const classes = useStyles();
     const theme = createMuiTheme();
 
@@ -605,8 +607,23 @@ export default function Crm() {
                     <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
                 </Grid>
             </Grid>
-            <a href="/dashboard"><input type="submit" value='Panel'></input></a>
+            <br/>
+            <Button
+        variant="contained"
+        position="left"
+        color="danger"
+        fullWidth
+        disableFocusRipple
+        onClick={() => {
+          props.history.push("/dashboard")
+        }}
+      // openCloseCrmModal(this.props.history.push('/crm'))}
+      >
+        Panel
+        </Button>
 
         </div>
     )
 }
+
+export default withRouter(Crm);

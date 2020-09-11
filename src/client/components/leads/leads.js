@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
 import { Modal, TextField, FilledInput, Button, InputLabel } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { withRouter } from 'react-router-dom';
 
 
 
@@ -41,7 +42,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Leads() {
+function Leads(props) {
+  const { history } = props;
   const styles = useStyles();
   const [data, setData] = useState([]);
   const [insertModal, setInsertModal] = useState(false);
@@ -123,7 +125,7 @@ function Leads() {
       })
   }
 
-    // const postRequest = async () => {
+  // const postRequest = async () => {
   //   await axios.post("http://localhost:9000/newClient")
   //     .then(response => {
   //       setData(data.concat(response.data));
@@ -165,7 +167,7 @@ function Leads() {
   }, [])
 
 
-    // const insertBody = (
+  // const insertBody = (
   //   <div className={styles.modal}>
   //     <h3>Inserér Client</h3>
   //     <TextField className={styles.inputMaterial} label="Artista" name="artista" onChange={handleChange} />
@@ -373,7 +375,7 @@ function Leads() {
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
-        Voiture choisie dans le catalogue IV3A 
+        Voiture choisie dans le catalogue IV3A
         (Immatriculation de la voiture)
       </InputLabel>
       <FilledInput
@@ -514,24 +516,24 @@ function Leads() {
       />
       <br /><br />
       <InputLabel
-            id="demo-simple-select-outlined-label"
-          >
-            Entrez un commentaire ici
+        id="demo-simple-select-outlined-label"
+      >
+        Entrez un commentaire ici
             </InputLabel>
-          <TextField
-            aria-label="empty textarea"
-            variant="outlined"
-            multiline
-            rows={10}
-            rowsMax={10}
-            margin="normal"
-            className={styles.inputMaterial}
-            name="comment"
-            value={selectedClient &&
-              selectedClient.comment}
-            onChange={handleChange}
-            placeholder="Entrez un commentaire ici"
-          />
+      <TextField
+        aria-label="empty textarea"
+        variant="outlined"
+        multiline
+        rows={10}
+        rowsMax={10}
+        margin="normal"
+        className={styles.inputMaterial}
+        name="comment"
+        value={selectedClient &&
+          selectedClient.comment}
+        onChange={handleChange}
+        placeholder="Entrez un commentaire ici"
+      />
       <div align="right">
         <Button
           variant="contained"
@@ -630,9 +632,22 @@ function Leads() {
         onClose={openCloseDeleteModal}>
         {deleteBody}
       </Modal>
-      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
+      <br />
+      <Button
+        variant="contained"
+        position="left"
+        color="danger"
+        fullWidth
+        disableFocusRipple
+        onClick={() => {
+          props.history.push("/dashboard")
+        }}
+      // openCloseCrmModal(this.props.history.push('/crm'))}
+      >
+        Panel
+        </Button>
     </div>
   )
 }
 
-export default Leads;
+export default withRouter(Leads);

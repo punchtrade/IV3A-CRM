@@ -14,6 +14,7 @@ const styles = makeStyles((theme) => ({
 }));
 
 
+
 class FormRegister extends React.Component {
   constructor(props) {
     super(props);
@@ -26,7 +27,6 @@ class FormRegister extends React.Component {
       errors: {},
     };
   }
-
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };

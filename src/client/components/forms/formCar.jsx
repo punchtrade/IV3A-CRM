@@ -531,27 +531,31 @@ class FormCar extends Component {
                 value={dateManufacture}
                 onChange={this.changeHandler}
               /> */}
-              <button
-                className="btn btn-primary-green"
-                type="submit"
-                value="submit"
+              <Button
+                variant="contained"
+                size="large"
+                color="default"
+                disabledElevation
                 onClick={this.onSubmitHandler.bind(this)}
               >
                 Envoyer
-          </button>
-              <button
-                className="btn btn-primary-green left"
-                type="submit"
-                value="submit"
+          </Button>
+          <br/>
+              <Button
+                variant="contained"
+                position="left"
+                color="danger"
+                fullWidth
+                disableFocusRipple
                 onClick={() => {
-                  this.props.history.replace("/dashboard");
+                  this.props.history.push("/dashboard");
                 }}
               >
                 Panel
-          </button>
+          </Button>
+          <br/>
             </ValidatorForm>
           </div>
-
         </div>
       </div>
     );

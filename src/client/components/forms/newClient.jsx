@@ -522,55 +522,29 @@ class NewClient extends React.Component {
             errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <br />
-          <button
-            className="btn btn-primary-green"
-            type="submit"
-            value="submit"
-            onClick={this.onSubmitHandler.bind(this)}
-          >
-            Envoyer
-          </button>
-          <button
-            className="btn btn-primary-green left"
-            type="submit"
-            value="submit"
-            onClick={() => {
-              this.props.history.replace("/dashboard");
-            }}
-          >
-            Panel
-          </button>
+          <Button
+                variant="contained"
+                size="large"
+                color="default"
+                disabledElevation
+                onClick={this.onSubmitHandler.bind(this)}
+              >
+                Envoyer
+          </Button>
+          <br/>
+              <Button
+                variant="contained"
+                position="left"
+                color="danger"
+                fullWidth
+                disableFocusRipple
+                onClick={() => {
+                  this.props.history.push("/dashboard");
+                }}
+              >
+                Panel
+          </Button>
         </ValidatorForm>
-        {/* <button
-          className="btn btn-primary-green right"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/preorder");
-          }}
-        >
-          Commande
-        </button> */}
-        {/* <button
-          className="btn btn-primary-green left"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/upload");
-          }}
-        >
-          Documentation
-        </button> */}
-        {/* <button
-          className="btn btn-primary-green left"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/formCar");
-          }}
-        >
-          Fiche Véhicule
-        </button> */}
 
       </div>
 

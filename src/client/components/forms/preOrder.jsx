@@ -510,24 +510,29 @@ class PreOrder extends Component {
             </div>
           </div>
         </div>
-        <button
-          className="btn btn-primary-green"
-          type="submit"
-          value="submit"
-          onClick={this.onSubmitHandler.bind(this)}
-        >
-          Envoyer
-        </button>
-        <button
-          className="btn btn-primary-green left"
-          type="submit"
-          value="submit"
-          onClick={() => {
-            this.props.history.replace("/dashboard");
-          }}
-        >
-          Panel
-          </button>
+        <Button
+                variant="contained"
+                size="large"
+                color="default"
+                disabledElevation
+                onClick={this.onSubmitHandler.bind(this)}
+              >
+                Envoyer
+          </Button>
+          <br/>
+              <Button
+                variant="contained"
+                position="left"
+                color="danger"
+                fullWidth
+                disableFocusRipple
+                onClick={() => {
+                  this.props.history.push("/dashboard");
+                }}
+              >
+                Panel
+          </Button>
+          <br/>
       </div >
     );
   }

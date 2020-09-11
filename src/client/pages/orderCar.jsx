@@ -1,5 +1,5 @@
 import React from "react";
-import Leads from '../components/leads/leads';
+import FormCar from '../components/forms/formCar';
 import  Paper  from '@material-ui/core/Paper';
 import  CardHeader  from '@material-ui/core/CardHeader';
 import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
@@ -12,20 +12,20 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function LeadsPage() {
+export default function FormCarPage() {
 
   const classes = useStyles();
 
   return (
     <>
-      {/* <CardHeader
-        // title={firstName}
-        subtitle="Entrez le profil"
-        icon={<PeopleOutlineTwoTone fontSize="large" />}
-      /> */}
-      {/* <Paper className={classes.pageContent} elevation={6}> */}
-      <Leads />
-      {/* </Paper> */}
+      <CardHeader
+        title="Commande ferme de Véhicule"
+        // subtitle="Entrez le profil"
+        // icon={<PeopleOutlineTwoTone fontSize="large" />}
+      />
+      <Paper className={classes.pageContent} elevation={6}>
+      <FormCar />
+      </Paper>
     </>
   );
 };

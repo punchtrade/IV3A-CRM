@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
-import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
+import { Modal, TextField, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-
-
+import Button from '@material-ui/core/Button';
+import { withRouter } from 'react-router-dom';
 
 const columns = [
   { title: "ID", field: "_id" },
@@ -40,10 +40,34 @@ const useStyles = makeStyles((theme) => ({
   },
   inputMaterial: {
     width: '100%'
+  },
+  margin: {
+    margin: theme.spacing(1),
+  },
+  root: {
+    color: "red",
+    border: "none"
   }
 }));
 
-function Search() {
+// const ColorButton = withStyles((theme) => ({
+//   root: {
+//     color: theme.palette.getContrastText(purple[500]),
+//     backgroundColor: purple[500],
+//     '&:hover': {
+//       backgroundColor: purple[700],
+//     },
+//   },
+// }))(Button);
+
+
+
+// const theme = createMuiTheme({
+ 
+// });
+
+function Search(props) {
+  const { history } = props;
   const styles = useStyles();
   const [data, setData] = useState([]);
   const [insertModal, setInsertModal] = useState(false);
@@ -453,24 +477,24 @@ function Search() {
         value={selectedClient && selectedClient.fuel}
       // onChange={handleChange}
       />
-                <InputLabel
-            id="demo-simple-select-outlined-label"
-          >
-            Entrez un commentaire ici
+      <InputLabel
+        id="demo-simple-select-outlined-label"
+      >
+        Entrez un commentaire ici
             </InputLabel>
-          <TextField
-            aria-label="empty textarea"
-            variant="outlined"
-            multiline
-            rows={10}
-            rowsMax={10}
-            margin="normal"
-            className={styles.inputMaterial}
-            name="comment"
-            value={selectedClient && selectedClient.comment}
-            placeholder="Entrez un commentaire ici"
-          />
-          <br />
+      <TextField
+        aria-label="empty textarea"
+        variant="outlined"
+        multiline
+        rows={10}
+        rowsMax={10}
+        margin="normal"
+        className={styles.inputMaterial}
+        name="comment"
+        value={selectedClient && selectedClient.comment}
+        placeholder="Entrez un commentaire ici"
+      />
+      <br />
       <div align="right">
         {/* <Button
           variant="contained"
@@ -483,15 +507,57 @@ function Search() {
         </Button> */}
         <br />
         <Button
+        className={useStyles.root}
           variant="contained"
-          size="small"
-          color="primary"
+          size="large"
+          color="default"
+          disabledElevation
           onClick={() =>
             openCloseReadModal()}
         >
           Fermer
         </Button>
         <br />
+        <Button
+          variant="contained"
+          size="large"
+          color="default"
+          disabledElevation
+          onClick={() => {
+            props.history.push("/crm")
+          }}
+        // openCloseCrmModal(this.props.history.push('/crm'))}
+        >
+          CRM
+        </Button>
+        <br />
+        <Button
+          variant="contained"
+          size="large"
+          position="left"
+          color="default"
+          disabledElevation
+          onClick={() => {
+            props.history.push("/invoice")
+          }}
+        // openCloseCrmModal(this.props.history.push('/crm'))}
+        >
+          Facture
+        </Button>
+        <br />
+        <Button
+          variant="contained"
+          size="large"
+          position="left"
+          color="default"
+          disabledElevation
+          onClick={() => {
+            props.history.push("/contract")
+          }}
+        // openCloseCrmModal(this.props.history.push('/crm'))}
+        >
+          Contrat de Services
+        </Button>
       </div>
     </div>
   )
@@ -822,7 +888,7 @@ function Search() {
   const uploadBody = (
     <div className={styles.modal}>
       <b></b>
-      <input type="file" width="50" name="avatar" onChange={handleChange}/>
+      <input type="file" width="50" name="avatar" onChange={handleChange} />
       <b>
       </b>
       <br />
@@ -916,11 +982,24 @@ function Search() {
         onClose={openCloseDeleteModal}>
         {deleteBody}
       </Modal>
-      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
+      <br/>
+      <Button
+        variant="contained"
+        position="left"
+        color="danger"
+        fullWidth
+        disableFocusRipple
+        onClick={() => {
+          props.history.push("/dashboard")
+        }}
+      // openCloseCrmModal(this.props.history.push('/crm'))}
+      >
+        Panel
+        </Button>
     </div>
   )
 }
 
-export default Search;
+export default withRouter(Search);
 
 

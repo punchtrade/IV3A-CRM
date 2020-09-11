@@ -24,9 +24,9 @@ export default function SearchPage() {
         subtitle="Entrez le profil"
         icon={<PeopleOutlineTwoTone fontSize="large" />}
       /> */}
-      <Paper className={classes.pageContent} elevation={6}>
+      {/* <Paper className={classes.pageContent} elevation={6}> */}
       <Search />
-      </Paper>
+      {/* </Paper> */}
     </>
   );
 };
