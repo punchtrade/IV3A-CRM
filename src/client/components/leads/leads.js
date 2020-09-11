@@ -536,25 +536,27 @@ function Leads(props) {
       />
       <div align="right">
         <Button
-          variant="contained"
-          size="small"
-          color="link"
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
           onClick={() =>
             insertRequest()}
         >
           Enregistrer
           </Button>
-        <br />
+        <br /> <br />
         <Button
-          variant="contained"
-          size="small"
-          color="link"
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
           onClick={() =>
             openCloseInsertModal()}
         >
           Annuler
           </Button>
-        <br />
+        <br /><br />
       </div>
     </div>
   )
@@ -565,24 +567,27 @@ function Leads(props) {
       </b>? </p>
       <div align="right">
         <Button
-          variant="contained"
-          size="small"
-          color="link"
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
           disableRipple onClick={() =>
             deleteRequest()}
         >
           Oui
           </Button>
-        <br />
+        <br /><br/>
         <Button
           variant="contained"
-          size="small"
-          color="secondary"
+          size="large"
+          color="default"
+          disabledElevation
           onClick={() =>
             openCloseDeleteModal()}
         >
           Non
           </Button>
+          <br /><br/>
       </div>
     </div>
   )
@@ -644,8 +649,9 @@ function Leads(props) {
         }}
       // openCloseCrmModal(this.props.history.push('/crm'))}
       >
-        Panel
+        Tableau de bord
         </Button>
+        <br /> <br />
     </div>
   )
 }

@@ -523,7 +523,7 @@ class NewClient extends React.Component {
           />
           <br />
           <Button
-                variant="contained"
+                variant="outlined"
                 size="large"
                 color="default"
                 disabledElevation
@@ -531,18 +531,17 @@ class NewClient extends React.Component {
               >
                 Envoyer
           </Button>
-          <br/>
+          <br/> <br/>
               <Button
-                variant="contained"
-                position="left"
-                color="danger"
-                fullWidth
-                disableFocusRipple
+                 variant="contained"
+                 color="danger"
+                 fullWidth
+                 disableFocusRipple
                 onClick={() => {
                   this.props.history.push("/dashboard");
                 }}
               >
-                Panel
+                Tableau de bord
           </Button>
         </ValidatorForm>
 

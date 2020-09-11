@@ -510,8 +510,9 @@ class PreOrder extends Component {
             </div>
           </div>
         </div>
+        <br/>
         <Button
-                variant="contained"
+                variant="outlained"
                 size="large"
                 color="default"
                 disabledElevation
@@ -519,18 +520,17 @@ class PreOrder extends Component {
               >
                 Envoyer
           </Button>
-          <br/>
+          <br/> <br/>
               <Button
-                variant="contained"
-                position="left"
-                color="danger"
-                fullWidth
-                disableFocusRipple
+                 variant="contained"
+                 color="danger"
+                 fullWidth
+                 disableFocusRipple
                 onClick={() => {
                   this.props.history.push("/dashboard");
                 }}
               >
-                Panel
+                Tableau de bord
           </Button>
           <br/>
       </div >

@@ -551,7 +551,7 @@ class FormCar extends Component {
                   this.props.history.push("/dashboard");
                 }}
               >
-                Panel
+                Tableau de bord
           </Button>
           <br/>
             </ValidatorForm>

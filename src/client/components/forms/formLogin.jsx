@@ -104,7 +104,7 @@ class FormLogin extends React.Component {
           className={styles.root} validate autoComplete="on"
           onSubmit={this.onSubmitHandler.bind(this)}
           action="http://localhost:9000/login"
-          value="submit"
+          // value="submit"
           method="post"
 
         >
@@ -146,10 +146,14 @@ class FormLogin extends React.Component {
             errorMessages={["Ce champ est requis"]}
             required
           />
+           <br />
           <Button
-            className="btn btn-primary-green"
+            variant="outlined"
+            size="large"
+            color="default"
+            disabledElevation
             type="submit"
-            value="Submit"
+            // value="Submit"
             onClick={() => {
               this.signIn();
             }}

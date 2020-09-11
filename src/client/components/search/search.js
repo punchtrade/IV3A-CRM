@@ -46,7 +46,15 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     color: "red",
-    border: "none"
+    border: "none",
+    alignContent: "left",
+    display: "flex"
+  },
+  button: {
+    color: "red",
+    border: "none",
+    alignContent: "left",
+    display: "flex"
   }
 }));
 
@@ -63,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 // const theme = createMuiTheme({
- 
+
 // });
 
 function Search(props) {
@@ -495,8 +503,8 @@ function Search(props) {
         placeholder="Entrez un commentaire ici"
       />
       <br />
-      <div align="right">
-        {/* <Button
+      {/* <div align="right"> */}
+      {/* <Button
           variant="contained"
           size="small"
           color="primary"
@@ -505,10 +513,10 @@ function Search(props) {
         >
           Status
         </Button> */}
-        <br />
+      <br />
+      <div align="center">
         <Button
-        className={useStyles.root}
-          variant="contained"
+          variant="outlined"
           size="large"
           color="default"
           disabledElevation
@@ -517,9 +525,11 @@ function Search(props) {
         >
           Fermer
         </Button>
-        <br />
+      </div>
+      <br /><br />
+      <div align="left">
         <Button
-          variant="contained"
+          variant="outlined"
           size="large"
           color="default"
           disabledElevation
@@ -530,9 +540,9 @@ function Search(props) {
         >
           CRM
         </Button>
-        <br />
+        <br /><br />
         <Button
-          variant="contained"
+          variant="outlined"
           size="large"
           position="left"
           color="default"
@@ -544,11 +554,24 @@ function Search(props) {
         >
           Facture
         </Button>
-        <br />
+      </div>
+      <div align="right">
         <Button
-          variant="contained"
+          variant="outlined"
           size="large"
-          position="left"
+          color="default"
+          disabledElevation
+          onClick={() => {
+            props.history.push("/preOrder")
+          }}
+        // openCloseCrmModal(this.props.history.push('/crm'))}
+        >
+          Commande
+        </Button>
+        <br /><br />
+        <Button
+          variant="outlined"
+          size="large"
           color="default"
           disabledElevation
           onClick={() => {
@@ -558,6 +581,7 @@ function Search(props) {
         >
           Contrat de Services
         </Button>
+        <br /><br />
       </div>
     </div>
   )
@@ -828,21 +852,11 @@ function Search(props) {
         onChange={handleChange}
       />
       <br /> <br />
-      <div align="right">
+      <div align="center">
         <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={() =>
-            putRequest()}
-        >
-          Modifier
-          </Button>
-        <br />
-        <Button
-          variant="contained"
-          size="small"
-          color="primary"
+          variant="outlined"
+          size="large"
+          color="default"
           onClick={() =>
             openCloseEditModal()}
         >
@@ -850,6 +864,19 @@ function Search(props) {
           </Button>
         <br />
       </div>
+      <div align="right">
+        <Button
+          variant="outlined"
+          size="large"
+          color="default"
+          onClick={() =>
+            putRequest()}
+        >
+          Modifier
+          </Button>
+      </div>
+      <br />
+
     </div>
   )
   const deleteBody = (
@@ -863,19 +890,21 @@ function Search(props) {
         </p>
       <div align="right">
         <Button
-          variant="contained"
-          size="small"
-          color="secondary"
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
           Ripple onClick={() =>
             deleteRequest()}
         >
           Oui
           </Button>
-        <br />
+        <br /><br />
         <Button
-          variant="contained"
-          size="small"
-          color="secondary"
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
           onClick={() =>
             openCloseDeleteModal()}
         >
@@ -894,24 +923,28 @@ function Search(props) {
       <br />
       <Button
         value="submit"
-        variant="contained"
-        size="small"
-        color="secondary"
+        variant="outlined"
+        size="large"
+        color="default"
+        disabledElevation
         onClick={() =>
           uploadRequest()}
       >
         Ajouter une image
     </Button>
       <br />
-      <Button
-        variant="contained"
-        size="small"
-        color="secondary"
-        onClick={() =>
-          openCloseUploadModal()}
-      >
-        Fermer
+      <div align="center">
+        <Button
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
+          onClick={() =>
+            openCloseUploadModal()}
+        >
+          Fermer
           </Button>
+      </div>
     </div>
   )
   return (
@@ -982,10 +1015,9 @@ function Search(props) {
         onClose={openCloseDeleteModal}>
         {deleteBody}
       </Modal>
-      <br/>
+      <br />
       <Button
         variant="contained"
-        position="left"
         color="danger"
         fullWidth
         disableFocusRipple
@@ -994,8 +1026,9 @@ function Search(props) {
         }}
       // openCloseCrmModal(this.props.history.push('/crm'))}
       >
-        Panel
+        Tableau de bord
         </Button>
+        <br /> <br />
     </div>
   )
 }

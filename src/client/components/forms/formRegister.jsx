@@ -137,9 +137,16 @@ class FormRegister extends React.Component {
               onChange={this.changeHandler}
               autoComplete=""
             />
-            <button className="btn btn-primary-green" type="submit" onClick={this.onSubmitHandler.bind(this)}>
+            <br/><br/>
+            <Button 
+             variant="outlined"
+             size="large"
+             color="default"
+             disabledElevation
+            type="submit" 
+            onClick={this.onSubmitHandler.bind(this)}>
               Envoyer
-          </button>
+          </Button>
           </form>
         </div>
       </div>
