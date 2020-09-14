@@ -1,8 +1,5 @@
 import React from "react";
 import Leads from '../components/leads/leads';
-import  Paper  from '@material-ui/core/Paper';
-import  CardHeader  from '@material-ui/core/CardHeader';
-import  PeopleOutlineTwoTone  from '@material-ui/icons/PeopleOutlineTwoTone';
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
@@ -18,14 +15,7 @@ export default function LeadsPage() {
 
   return (
     <>
-      {/* <CardHeader
-        // title={firstName}
-        subtitle="Entrez le profil"
-        icon={<PeopleOutlineTwoTone fontSize="large" />}
-      /> */}
-      {/* <Paper className={classes.pageContent} elevation={6}> */}
       <Leads />
-      {/* </Paper> */}
     </>
   );
 };

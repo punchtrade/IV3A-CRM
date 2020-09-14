@@ -6,7 +6,6 @@ import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
-import { withRouter } from 'react-router-dom';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,12 +29,11 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-const theme = createMuiTheme({
-
-});
-
-
 function Crm (props) {
+    const current = new Date();
+    const date = new Date();
+    const date1 = `${date.getDate()+1}/${date.getMonth()+1}/${date.getFullYear()}`;
+    const date2 = `${current.getDate()+2}/${current.getMonth()+1}/${current.getFullYear()}`;
     const {history} = props;
     const classes = useStyles();
     const theme = createMuiTheme();
@@ -61,14 +59,15 @@ function Crm (props) {
                     </InputLabel>
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
-                <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                <Grid item xs={4}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date" placeholder={date}/>
                 </Grid>
-                <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                <Grid item xs={2}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date1" placeholder={date1} />
+                    
                 </Grid>
-                <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                <Grid item xs={2}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" placeholder={date2}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
@@ -84,13 +83,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date" placeholder={date}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date1" placeholder={date1}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" placeholder={date2}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
@@ -106,13 +105,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT</Button>
@@ -128,13 +127,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT</Button>
@@ -150,13 +149,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT</Button>
@@ -172,13 +171,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
@@ -194,13 +193,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
@@ -216,13 +215,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
@@ -238,13 +237,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -257,13 +256,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT  </Button>
@@ -279,13 +278,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT  </Button>
@@ -301,13 +300,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT  </Button>
@@ -323,13 +322,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -342,13 +341,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT  </Button>
@@ -364,13 +363,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -383,13 +382,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -402,13 +401,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -421,13 +420,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT  </Button>
@@ -443,13 +442,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -462,13 +461,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT  </Button>
@@ -484,13 +483,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -503,13 +502,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -522,13 +521,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -541,13 +540,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -560,13 +559,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -579,13 +578,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <Grid item xs={7}>
@@ -598,32 +597,18 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
             <br/>
-            <Button
-        variant="contained"
-        position="left"
-        color="danger"
-        fullWidth
-        disableFocusRipple
-        onClick={() => {
-          props.history.push("/dashboard")
-        }}
-      // openCloseCrmModal(this.props.history.push('/crm'))}
-      >
-        Panel
-        </Button>
-
         </div>
     )
 }
 
-export default withRouter(Crm);
+export default Crm;

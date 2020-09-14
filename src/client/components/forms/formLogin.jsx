@@ -1,6 +1,6 @@
 import React, { useState, useEffect, Component } from "react";
 import axios from "axios";
-import "react-toastify/dist/ReactToastify.css";
+// import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router-dom";
 import { Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';

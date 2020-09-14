@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
-import { withRouter } from "react-router-dom";
+import Button from '@material-ui/core/Button';
+
  
 class Upload extends Component {
   constructor() {
@@ -57,28 +57,25 @@ class Upload extends Component {
          <br></br>
          <br></br>
          <br></br>
-         <input type="file" width="50" name="avatar" onChange={this.fileChangedHandler} />
+         <input type="file" width="50" name="files" onChange={this.fileChangedHandler} />
          <br></br>
-         <button type="submit" className="btn btn-primary-green" onClick={this.submit} > Envoyer </button>
+         <Button 
+         variant="outlined"
+         size="large"
+         color="default"
+         disabledElevation
+         type="submit" 
+         className="btn btn-primary-green" 
+         onClick={this.submit} > Envoyer </Button>
          <br></br>
          <br></br>
          <br></br>
          { $imagePreview }
          <div>
-          <button
-            className="btn btn-primary-green left"
-            type="submit"
-            value="submit"
-            onClick={() => {
-              this.props.history.replace("/dashboard");
-            }}
-          >
-            Panel
-              </button>
         </div>
       </div>
     );
   }
 }
-export default withRouter(Upload);
+export default Upload;
 

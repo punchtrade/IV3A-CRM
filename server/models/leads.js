@@ -46,15 +46,15 @@ const leadsSchema = new mongoose.Schema({
   },
   bankAccount: {
     type: String,
-    required: true,
+    required: false,
   },
   bankAccount2: {
     type: String,
-    required: true,
+    required: false,
   },
   bankAccount3: {
     type: String,
-    required: true,
+    required: false,
   },
   nameOfBank: {
     type: String,
@@ -92,14 +92,14 @@ const leadsSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  image: {
-    path: {
-      type: String,
-      trim: true,
-      data: Buffer,
-      contentType: String,
-    },
-  },
+  // image: {
+  //   path: {
+  //     type: String,
+  //     trim: true,
+  //     data: Buffer,
+  //     contentType: String,
+  //   },
+  // },
   date: {
     type: Date,
     default: Date.now,

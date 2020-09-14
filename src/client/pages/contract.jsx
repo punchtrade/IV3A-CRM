@@ -1,6 +1,8 @@
 import React from "react";
+import { withRouter } from 'react-router-dom';
 import Contract from '../components/contract/contract';
 import  Paper  from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -12,8 +14,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function ContractPage() {
+ function ContractPage(props) {
 
+const {history} = props;
   const classes = useStyles();
 
   return (
@@ -21,7 +24,19 @@ export default function ContractPage() {
       <Paper className={classes.pageContent} elevation={6}>
       <Contract/>
       </Paper>
-      <a href="/dashboard"><input type="submit" value='Panel'></input></a>
-    </>
+      <Button
+        variant="contained"
+        position="left"
+        color="danger"
+        fullWidth
+        disableFocusRipple
+        onClick={() => {
+          props.history.push("/dashboard")
+        }}
+      >
+        Tableau de bord
+        </Button>
+        <br/> <br/>    </>
   );
 };
+export default withRouter(ContractPage);

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
 import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -512,7 +511,7 @@ class PreOrder extends Component {
         </div>
         <br/>
         <Button
-                variant="outlained"
+                variant="outlined"
                 size="large"
                 color="default"
                 disabledElevation
@@ -520,22 +519,9 @@ class PreOrder extends Component {
               >
                 Envoyer
           </Button>
-          <br/> <br/>
-              <Button
-                 variant="contained"
-                 color="danger"
-                 fullWidth
-                 disableFocusRipple
-                onClick={() => {
-                  this.props.history.push("/dashboard");
-                }}
-              >
-                Tableau de bord
-          </Button>
-          <br/>
       </div >
     );
   }
 }
 
-export default withRouter(PreOrder);
+export default PreOrder;

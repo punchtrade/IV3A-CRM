@@ -6,6 +6,7 @@ import { Modal, TextField, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
+import Upload from '../uploadImages/upload';
 
 const columns = [
   { title: "ID", field: "_id" },
@@ -58,27 +59,10 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-// const ColorButton = withStyles((theme) => ({
-//   root: {
-//     color: theme.palette.getContrastText(purple[500]),
-//     backgroundColor: purple[500],
-//     '&:hover': {
-//       backgroundColor: purple[700],
-//     },
-//   },
-// }))(Button);
-
-
-
-// const theme = createMuiTheme({
-
-// });
-
 function Search(props) {
   const { history } = props;
   const styles = useStyles();
   const [data, setData] = useState([]);
-  const [insertModal, setInsertModal] = useState(false);
   const [readModal, setReadModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -136,7 +120,7 @@ function Search(props) {
       .then(response => {
         var newData = data;
         newData.map(client => {
-          if (client.id === selectedClient.id) {
+          if (client._id === selectedClient._id) {
             client.card = selectedClient.card;
             client.firstName = selectedClient.firstName;
             client.lastName = selectedClient.lastName;
@@ -153,7 +137,6 @@ function Search(props) {
             client.brand = selectedClient.brand;
             client.model = selectedClient.model;
             client.fuel = selectedClient.fuel;
-            client.image = selectedClient.image;
           }
         });
         setData(newData);
@@ -162,6 +145,7 @@ function Search(props) {
         console.log(error);
       })
   }
+
 
   const deleteRequest = async () => {
     await axios.delete("http://localhost:9000/search")
@@ -901,7 +885,7 @@ function Search(props) {
           </Button>
         <br /><br />
         <Button
-          variant="outlined"
+          variant="contained"
           size="large"
           color="default"
           disabledElevation
@@ -917,21 +901,10 @@ function Search(props) {
   const uploadBody = (
     <div className={styles.modal}>
       <b></b>
-      <input type="file" width="50" name="avatar" onChange={handleChange} />
+      <Upload/>
       <b>
       </b>
       <br />
-      <Button
-        value="submit"
-        variant="outlined"
-        size="large"
-        color="default"
-        disabledElevation
-        onClick={() =>
-          uploadRequest()}
-      >
-        Ajouter une image
-    </Button>
       <br />
       <div align="center">
         <Button
@@ -990,8 +963,8 @@ function Search(props) {
           }
         }}
         style={{
-          color: 'white',
-          backgroundColor: '#036435'
+          color: 'grey',
+          // backgroundColor: '#036435'
         }}
       />
       <Modal
@@ -1024,7 +997,6 @@ function Search(props) {
         onClick={() => {
           props.history.push("/dashboard")
         }}
-      // openCloseCrmModal(this.props.history.push('/crm'))}
       >
         Tableau de bord
         </Button>

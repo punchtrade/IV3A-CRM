@@ -76,7 +76,7 @@ router.post("/register", async (req, res, next) => {
 
 
 //login
-router.post("/login", async (req, res, next) => { 
+router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
   console.log(email, password);
   const user = await User.findOne({ email: req.body.email });
@@ -102,7 +102,7 @@ router.post("/login", async (req, res, next) => {
 
 //dashboard
 router.get("/dashboard", verifyToken, (req, res) => {
-  res.status(200).json({ message: "dashboard"});
+  res.status(200).json({ message: "dashboard" });
 });
 
 //created Client
@@ -232,56 +232,46 @@ router.post("/car", (req, res, next) => {
 router.get('/search', (req, res) => {
   console.info('obtener datos clientes');
   Clients.find()
-  .populate('Clients', 'clientsSchema')
-  .exec((err, clients) => {
-    if(err) {
-      console.error(err.message);
-      return res.status(500).json({error: err.message});
-    }
-    return res.status(200).json(clients);
+    .populate('Clients', 'clientsSchema')
+    .exec((err, clients) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: err.message });
+      }
+      return res.status(200).json(clients);
+    });
+});
+
+router.put('/search', function (req, res, next) {
+  var updateContent = {
+    card: req.body.card,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    telephone: req.body.telephone,
+    email: req.body.email,
+    address: req.body.address,
+    city: req.body.city,
+    postalCode: req.body.postalCode,
+    nameOfBank: req.body.nameOfBank,
+    iban: req.body.iban,
+    swiftCode: req.body.swiftCode,
+    carCatalogue: req.body.carCatalogue,
+    price1: req.body.price1,
+    brand: req.body.brand,
+    model: req.body.model,
+    fuel: req.body.fuel,
+  }
+  Clients.updateOne({ _id: req.body._id }, updateContent, function (err, clientsUpdate) {
+    if (clientsUpdate.nModified == 0 || err)
+      res.json({ status: 1, message: "don't modificated client" + err });
+    else
+      res.json({ status: 0, message: "modificated client", data: clientsUpdate });
   });
 });
-router.put('/search',(req,res,next) =>{
-  const newclient = {_id:req.params._id };
-Clients.updateOne(newclient,
-  {firstName: req.body.firstName,email: req.body.email})
-.then(document => 
-  {if(!document){return res.status(404).end();}return res.status(200)
-  .json(document);}).catch(err => next(err));})
-
-// router.put("/search", (req, res) => {
-//   Clients.updateOne({ id: req.params.id, "Clients.id": req.params.id }).exec(function(err,result){
-// if(err)throw err;
-// if(result){
-// result.body="new value";
-// result.save()
-// console.log("new value")
-// }
-// else{console.log("not found")}
-// })
-// });
-
-// router.put('/search', (req, res, next) => {
-//   Clients.updateOne(req.params.id, req.body, function (err, result) {
-//    if (err) return next(err);
-//    res.status(200).json(result);
-//    console.log(req.body);
-//   });
-//  });
-
-//   router.put('/search', function(req, res, next) {
-//   Clients.updateOne(req.body, {
-//    $unset: {id: req.params.id}
-//   }).then(function() {
-//    res.send({'success': true});
-//   }, function() {
-//    res.send({'success': false});
-//   });
-//  });
 
 router.delete('/search', (req, res, next) => {
   Clients.findOneAndDelete(req.params.id, req.body, function (err, post) {
-    if(err) return next(err);
+    if (err) return next(err);
     res.json(post);
   });
 });
@@ -290,25 +280,25 @@ router.delete('/search', (req, res, next) => {
 router.get('/leads', (req, res) => {
   console.info('obtener datos clientes');
   Leads.find()
-  .populate('Leads', 'leadsSchema')
-  .exec((err, leads) => {
-    if(err) {
-      console.error(err.message);
-      return res.status(500).json({error: err.message});
-    }
-    return res.status(200).json(leads);
-  });
+    .populate('Leads', 'leadsSchema')
+    .exec((err, leads) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: err.message });
+      }
+      return res.status(200).json(leads);
+    });
 });
 router.post('/newClient', (req, res, next) => {
   Leads.updateOne(req.params.id, req.body, function (err, result) {
-   if (err) return next(err);
-   res.status(200).json(result);
-   console.log(req.body);
+    if (err) return next(err);
+    res.status(200).json(result);
+    console.log(req.body);
   });
- });
- router.delete('/leads', (req, res, next) => {
+});
+router.delete('/leads', (req, res, next) => {
   Leads.findOneAndDelete(req.params.id, req.body, function (err, post) {
-    if(err) return next(err);
+    if (err) return next(err);
     res.json(post);
   });
 });
@@ -362,11 +352,11 @@ router.get("/upload", (req, res, next) => {
 //invoice
 router.post('/create-pdf', (req, res) => {
   pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
+    if (err) {
+      res.send(Promise.reject());
+    }
 
-      res.send(Promise.resolve());
+    res.send(Promise.resolve());
   });
 });
 
@@ -377,11 +367,11 @@ router.get('/fetch-pdf', (req, res) => {
 //contract
 router.post('/create-pdf2', (req, res) => {
   pdf.create(pdfTemplate(req.body), {}).toFile('result.pdf2', (err) => {
-      if(err) {
-          res.send(Promise.reject());
-      }
+    if (err) {
+      res.send(Promise.reject());
+    }
 
-      res.send(Promise.resolve());
+    res.send(Promise.resolve());
   });
 });
 

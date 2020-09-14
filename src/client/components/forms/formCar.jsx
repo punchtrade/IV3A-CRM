@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
 import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -531,8 +530,9 @@ class FormCar extends Component {
                 value={dateManufacture}
                 onChange={this.changeHandler}
               /> */}
+              <br/>
               <Button
-                variant="contained"
+                variant="outlined"
                 size="large"
                 color="default"
                 disabledElevation
@@ -540,20 +540,6 @@ class FormCar extends Component {
               >
                 Envoyer
           </Button>
-          <br/>
-              <Button
-                variant="contained"
-                position="left"
-                color="danger"
-                fullWidth
-                disableFocusRipple
-                onClick={() => {
-                  this.props.history.push("/dashboard");
-                }}
-              >
-                Tableau de bord
-          </Button>
-          <br/>
             </ValidatorForm>
           </div>
         </div>
@@ -561,4 +547,4 @@ class FormCar extends Component {
     );
   }
 }
-export default withRouter(FormCar);
+export default FormCar;

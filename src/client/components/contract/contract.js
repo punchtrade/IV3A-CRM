@@ -365,7 +365,12 @@ export default class Contract extends Component {
                         direction="row"
                         justify="flex-end"
                         alignItems="flex-end">
-                        <Button onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
+                        <Button 
+                        variant="outlined"
+                        size="large"
+                        color="default"
+                        disabledElevation
+                        onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
                     </Grid>
                 </Grid>
 

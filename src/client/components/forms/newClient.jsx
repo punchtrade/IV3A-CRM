@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-import { withRouter } from "react-router-dom";
 // import NavbarDashboard from '../header/navbarDashboard';
 import { TextField, FilledInput, Button, InputLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -531,18 +530,6 @@ class NewClient extends React.Component {
               >
                 Envoyer
           </Button>
-          <br/> <br/>
-              <Button
-                 variant="contained"
-                 color="danger"
-                 fullWidth
-                 disableFocusRipple
-                onClick={() => {
-                  this.props.history.push("/dashboard");
-                }}
-              >
-                Tableau de bord
-          </Button>
         </ValidatorForm>
 
       </div>
@@ -551,4 +538,4 @@ class NewClient extends React.Component {
   }
 }
 
-export default withRouter(NewClient);
+export default NewClient;
