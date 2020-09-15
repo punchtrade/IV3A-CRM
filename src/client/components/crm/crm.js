@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField'
 import Grid from '@material-ui/core/Grid';
 import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
+import axios from 'axios';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -29,26 +30,51 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Crm (props) {
-    const current = new Date();
-    const date = new Date();
-    const date1 = `${date.getDate()+1}/${date.getMonth()+1}/${date.getFullYear()}`;
-    const date2 = `${current.getDate()+2}/${current.getMonth()+1}/${current.getFullYear()}`;
-    const {history} = props;
+function Crm(props) {
     const classes = useStyles();
     const theme = createMuiTheme();
+    const select = new Date();
+    console.log(select);
+    const date1 = `${select.getDate() + 1}/${select.getMonth() + 1}/${select.getFullYear()}`;
+    console.log(date1);
+    const date2 = `${select.getDate() + 2}/${select.getMonth() + 1}/${select.getFullYear()}`;
+    console.log(date2);
+    const [selectedDate, setDateSelected] = useState({
+        startDate: "",
+        endDate: "",
+    })
+
+const hadleDate = () => {
+setDateSelected(!selectedDate);
+}
+
+    const onChange = date => {
+        this.props.onChange({ date: date });
+    };
+
+    const estimatedDate = date => {
+        alert(date);
+    }
+
+    const uploadDate = async () => {
+        await axios
+          .post("http://localhost:9000/dates", {
+            headers: { "Content-Type": "application/json" },
+          })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+
 
     return (
         <div className={classes.root}>
 
             <br /><br />
             <h6>Fiche Suivi Client A ce Jour</h6>
-            {/* <InputLabel
-                htmlFor="filled-adornment-amount"
-                className={classes.InputLabel}
-            >
-                Date de Confirmation de l'Action:
-                    </InputLabel> */}
             <br />
             <Grid item xs={7}>
                 <InputLabel
@@ -59,17 +85,20 @@ function Crm (props) {
                     </InputLabel>
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
-                <Grid item xs={4}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date" placeholder={date}/>
-                </Grid>
-                <Grid item xs={2}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date1" placeholder={date1} />
-                    
-                </Grid>
-                <Grid item xs={2}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" placeholder={date2}/>
-                </Grid>
                 <Grid item xs={3}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" selected={select} onChange={hadleDate} />
+                </Grid>
+                <Grid item xs={2}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date1" onClick={() => estimatedDate(date1)} value={date1} />
+
+                </Grid>
+                <Grid item xs={2}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" onClick={() => estimatedDate(date2)} value={date2} />
+                </Grid>
+                <Grid item xs={2}>
+                <Button className={classes.Button} multiline variant="contained" onClick={() => uploadDate()} disableElevation>Saved</Button>
+                </Grid>
+                <Grid item xs={2}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
                 </Grid>
             </Grid>
@@ -83,15 +112,18 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date" placeholder={date}/>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" selected={select} onChange={hadleDate}/>
                 </Grid>
-                <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date1" placeholder={date1}/>
+                <Grid item xs={2}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date1" onClick={() => estimatedDate(date1)} value={date1}/>
                 </Grid>
-                <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" placeholder={date2}/>
+                <Grid item xs={2}>
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" onClick={() => estimatedDate(date2)} value={date2}/>
                 </Grid>
-                <Grid item xs={3}>
+                <Grid item xs={2}>
+                <Button className={classes.Button} multiline variant="contained" onClick={() => uploadDate()} disableElevation>Saved</Button>
+                </Grid>
+                <Grid item xs={2}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>IV3A</Button>
                 </Grid>
             </Grid>
@@ -105,13 +137,13 @@ function Crm (props) {
             </Grid>
             <Grid container spacing={3} className={theme.palette}>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date1" selected={select} onChange={hadleDate}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date2" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date2" onClick={() => estimatedDate(date1)} value={date1}/>
                 </Grid>
                 <Grid item xs={3}>
-                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
+                    <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" name="date3" onClick={() => estimatedDate(date2)} value={date2}/>
                 </Grid>
                 <Grid item xs={3}>
                     <Button className={classes.Button} multiline variant="contained" disableElevation>PT</Button>
@@ -606,7 +638,7 @@ function Crm (props) {
                     <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date3" />
                 </Grid>
             </Grid>
-            <br/>
+            <br />
         </div>
     )
 }

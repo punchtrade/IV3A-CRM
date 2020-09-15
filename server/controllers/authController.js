@@ -379,6 +379,11 @@ router.get('/fetch-pdf2', (req, res) => {
   res.sendFile(`${__dirname}/result.pdf2`)
 })
 
+//dates CRM
+
+
+
+
 //logout
 router.get("/logout", (req, res) => {
   res.status(200).send({ auth: false, token: null });
