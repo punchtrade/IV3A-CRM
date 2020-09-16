@@ -9,11 +9,18 @@ import "mdbreact/dist/scss/_custom-styles.scss";
 import "mdbreact/dist/scss/_custom-variables.scss";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { Provider } from 'react-redux';
+import {createStore} from 'redux';
+import reducer from './reducers';
+
+const store = createStore(reducer);
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
+    <Provider store={store}>
       <App />
+      </Provider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

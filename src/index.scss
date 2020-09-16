@@ -98,3 +98,11 @@ a {
     text-decoration:none;
   }
 
+  .list-item {
+    display: inline-block;
+  }
+
+.delete-button {
+  float: right;
+  padding-left: 1px;
+}
