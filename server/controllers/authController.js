@@ -14,6 +14,8 @@ const clients = require("../models/clients");
 const Leads = require("../models/leads");
 const pdfTemplate = require('../documents');
 const pdf = require('html-pdf');
+const nodemailer = require('nodemailer');
+const { info } = require("console");
 
 //const uploads
 const storage = multer.diskStorage({
@@ -382,6 +384,38 @@ router.get('/fetch-pdf2', (req, res) => {
 //dates CRM
 
 
+//send EMAIL
+
+router.post("/send-email", (req, res) => {
+  const transporter = nodemailer.createTransport({
+    host: "smtp.ethereal.email",
+    port: 587,
+    secure: false,
+    auth: {
+      user: "jake.lebsack@ethereal.email",
+      pass: "U9yV4QgGdawNkJMbtS",
+    },
+  });
+
+  const mailOptions = {
+    from: "Remitente",
+    to: "cb@punchpalm.com",
+    subject: "Enviado desde nodemailer",
+    text: "Nous vous accompagnons dans vos démarches d'achat et d'importation de votre véhicule depuis l'Europe",
+    html: "<b>email1.html</b>",
+  };
+
+  console.log("Message sent: %s", info.messageId)
+
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else {
+      console.log("Email enviado");
+      res.status(200).json(req.body);
+    }
+  });
+});
 
 
 //logout

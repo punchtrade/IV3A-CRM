@@ -11,6 +11,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions';
 import moment from 'moment';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -46,7 +47,9 @@ class Crm extends Component {
             select: '',
             text: '',
             dueDate: '',
-            date: ''
+            date: '',
+            message: '',
+            sent: false,
         };
     }
 
@@ -56,6 +59,31 @@ class Crm extends Component {
 
     deleteReminder(id) {
         this.props.deleteReminder(id);
+    }
+
+    handleMessage = (e) => {
+        this.setState({
+            message: e.target.value
+        })
+    }
+
+    sendEmail = (e) => {
+        e.preventDefault();
+
+        const data = {
+            message: this.state.message
+        }
+
+        axios.post('/send-email',data)
+        .then(res=>{
+          this.setState({
+            sent:true,
+          },this.resetForm())
+        })
+        .catch(()=>{
+          console.log('message  send');
+          
+        })
     }
 
     renderReminders() {
@@ -89,7 +117,6 @@ class Crm extends Component {
                     }
                 </ul>
             </div>
-
         )
     }
 
@@ -168,7 +195,9 @@ class Crm extends Component {
                     {this.renderReminders()}
                     <Grid item xs={12}>
                         <br />
-                        <Button className={useStyles.Button} multiline variant="contained">IV3A</Button>
+                        <div onClick={this.sendEmail} className={this.state.sent?'msg msgAppear':'msg'}>
+                        <Button className={useStyles.Button} multiline variant="contained" type="submit">IV3A</Button>
+                        </div>
                     </Grid>
                 </Grid>                                  
                 <br />

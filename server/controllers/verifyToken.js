@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("../configs/default");
+const { getMaxListeners } = require("../models/car");
 
 async function verifyToken(req, res, next) {
   const bearerHeader = req.headers["authorization"];
