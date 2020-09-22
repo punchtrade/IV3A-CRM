@@ -13,6 +13,8 @@ const path = require("path");
 const db = require("mongodb");
 const fileUpload = require("express-fileupload");
 const pdf = require('html-pdf');
+const flash = require('connect-flash');
+
 
 // load config file
 nconf
@@ -52,6 +54,12 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(require("./controllers/authController"));
 app.use(require("../api/app"));
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(flash());
 
 // routes
 app.use(function (req, res, next) {

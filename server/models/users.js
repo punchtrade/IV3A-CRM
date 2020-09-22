@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const {Schema} = mongoose;
 
-const userSchema = new mongoose.Schema({
+const userSchema = new Schema({
   id: mongoose.Schema.Types.ObjectId,
   firstName: {
     type: String,
@@ -36,7 +37,18 @@ const userSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  cars: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Car',
+    autopopulate: true
+  }],
+  clients: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Clients',
+    autopopulate: true
+  }]
 });
+
 
 userSchema.methods.encryptPassword = async function (password) {
   const salt = await bcrypt.genSalt(10);
@@ -46,5 +58,7 @@ userSchema.methods.encryptPassword = async function (password) {
 userSchema.methods.validatePassword = function (password) {
   return bcrypt.compare(password, this.password);
 };
+
+userSchema.plugin(require('mongoose-autopopulate'));
 
 module.exports = mongoose.model("User", userSchema);

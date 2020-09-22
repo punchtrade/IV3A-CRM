@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
+const {Schema} = mongoose;
 
-const clientsSchema = new mongoose.Schema({
+const clientsSchema = new Schema({
   id: mongoose.Schema.Types.ObjectId,
   id: {
     type: String,
@@ -23,7 +24,7 @@ const clientsSchema = new mongoose.Schema({
     required: true,
   },
   telephone: {
-    type: String,
+    type: Number,
     required: true,
   },
   email: {
@@ -104,6 +105,18 @@ const clientsSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  cars: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Car',
+    autopopulate: true
+  }],
+  users: [{
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+    autopopulate: true
+  }]
 });
+
+clientsSchema.plugin(require('mongoose-autopopulate'));
 
 module.exports = mongoose.model("Clients", clientsSchema);

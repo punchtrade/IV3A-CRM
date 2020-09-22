@@ -10,12 +10,12 @@ const User = require("../models/users");
 const Clients = require("../models/clients");
 const Uploads = require("../models/uploads");
 const Car = require("../models/car");
-const clients = require("../models/clients");
 const Leads = require("../models/leads");
 const pdfTemplate = require('../documents');
 const pdf = require('html-pdf');
 const nodemailer = require('nodemailer');
 const { info } = require("console");
+const users = require("../models/users");
 
 //const uploads
 const storage = multer.diskStorage({
@@ -75,8 +75,6 @@ router.post("/register", async (req, res, next) => {
   }
 });
 
-
-
 //login
 router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
@@ -100,7 +98,49 @@ router.post("/login", async (req, res, next) => {
   res.status(200).json({ auth: true, token });
 });
 
+router.put('/assignCar/:_id',  async (req, res) => {
+  const { assignCar } = req.params;
+  const { _id } = req.params;
+  const { cars } = req.body;
+  const carUpdated = await Car.findByIdAndUpdate(
+    _id,
+    {
+      $push: { cars: cars },
+    },
+    { useFindAndModify: false }
+  );
+  res.send(`${carUpdated} updated`);
 
+});
+
+router.put('/assignClient/:_id',  async (req, res) => {
+  const { assignClient } = req.params;
+  const { _id } = req.params;
+  const { clients } = req.body;
+  const clientUpdated = await Clients.findByIdAndUpdate(
+    _id,
+    {
+      $push: { clients: clients },
+    },
+    { useFindAndModify: false }
+  );
+  res.send(`${clientUpdated} updated`);
+
+});
+
+router.get('/getUsersClients', async (req, res) => {
+  const clients = await User.find().populate('clients').exec((err,  clients) => {
+  res.status(clients);
+  });
+  res.json(clients);
+});
+
+router.get('/getUsersCars', async (req, res) => {
+  const cars = await User.find().populate('cars').exec((err,  cars) => {
+  res.status(cars);
+  });
+  res.json(cars);
+});
 
 //dashboard
 router.get("/dashboard", verifyToken, (req, res) => {
@@ -108,7 +148,7 @@ router.get("/dashboard", verifyToken, (req, res) => {
 });
 
 //created Client
-router.post("/newClient", (req, res, next) => {
+router.post("/newClient", async (req, res, next) => {
   console.log(req.body);
   Clients.find({ email: req.body.email })
     .exec()
@@ -170,7 +210,7 @@ router.post("/newClient", (req, res, next) => {
 });
 
 //created car
-router.post("/car", (req, res, next) => {
+router.post("/car", async (req, res, next) => {
   console.log(req.body);
   Car.find({ brand: req.body.brand })
     .exec()
@@ -191,19 +231,6 @@ router.post("/car", (req, res, next) => {
           model: req.body.model,
           fuel: req.body.fuel,
           serialNumber: req.body.serialNumber,
-          // description: req.body.description,
-          // type: req.body.type,
-          // typeSeries: req.body.typeSeries,
-          // body: req.body.body,
-          // power: req.body.power,
-          // places: req.body.places,
-          // grossWeight: req.body.grossWeight,
-          // mma: req.body.mma,
-          // payload: req.body.payload,
-          // tara: req.body.tara,
-          // previousNumber: req.body.previousNumber,
-          // firstRegistration: req.body.firstRegistration,
-          // dateManufacture: req.body.dateManufacture,
           date: req.body.date,
         });
         car
@@ -392,8 +419,8 @@ router.post("/send-email", (req, res) => {
     port: 587,
     secure: false,
     auth: {
-      user: "jake.lebsack@ethereal.email",
-      pass: "U9yV4QgGdawNkJMbtS",
+      user: "turner.jacobs@ethereal.email",
+      pass: "MvxhvwXjYkAqnrEwyb",
     },
   });
 
@@ -402,7 +429,7 @@ router.post("/send-email", (req, res) => {
     to: "cb@punchpalm.com",
     subject: "Enviado desde nodemailer",
     text: "Nous vous accompagnons dans vos démarches d'achat et d'importation de votre véhicule depuis l'Europe",
-    html: "<b>email1.html</b>",
+    templates: "mail-1",
   };
 
   console.log("Message sent: %s", info.messageId)
@@ -416,7 +443,6 @@ router.post("/send-email", (req, res) => {
     }
   });
 });
-
 
 //logout
 router.get("/logout", (req, res) => {
