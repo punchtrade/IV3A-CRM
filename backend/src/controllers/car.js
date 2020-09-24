@@ -3,10 +3,10 @@ const router = Router();
 const mongoose = require("mongoose");
 const config = require("../../configs/index");
 const {
-    mongo: { carModel },
-  } = require('../../database/index');
+  mongo: { carModel },
+} = require('../../database/index');
 
-  //created car
+//created car
 router.post("/car", async (req, res, next) => {
   console.log(req.body);
   carModel.find({ brand: req.body.brand })
@@ -54,61 +54,34 @@ router.post("/car", async (req, res, next) => {
     });
 });
 
-module.exports = router;
-  
-//   module.exports = {
-//     getAll: async (req, res) => {
-//       const _id = await carModel.find();
-//       res.json(_id);
-//     },
-//     createOne: async (req, res) => {
-//       const { _id } = req.body;
-//       const newCar = new carModel({ name });
-//       await newCar.save();
-//       res.send(`${_id} saved`);
-//     },
-//     updateOne: async (req, res) => {
-//       const { _id } = req.params;
-//       const { client } = req.body;
-//       await carModel.findByIdAndUpdate(
-//         _id,
-//         {
-//           $set: { client },
-//         },
-//         { useFindAndModify: false }
-//       );
-//       res.send(`${client} updated`);
-//     },
-//     deleteOne: async (req, res) => {
-//       const { _id } = req.params;
-//       const removed = await carModel.findByIdAndDelete(_id);
-//       console.log(removed);
-//       res.send(`${removed._id} deleted from database`);
-//     },
-//     assignClient: async (req, res) => {
-//       const { _id } = req.params;
-//       const { client } = req.body;
-//       const carUpdated = await carModel.findByIdAndUpdate(
-//         _id,
-//         {
-//           $push: { clients: client },
-//         },
-//         { useFindAndModify: false }
-//       );
-//       res.send(`${carUpdated._id} updated`);
-//     },
-//     removeClient: async (req, res) => {
-//       const { _id } = req.params;
-//       const { clients } = req.body;
-//       const carUpdated = await carModel.findByIdAndUpdate(
-//         _id,
-//         {
-//           $pull: { clients: client },
-//         },
-//         { useFindAndModify: false }
-//       );
-//       res.send(`${carUpdated._id} updated`);
-//     },
-//   };
+router.get('/car', async (req, res) => {
+  console.info('obtener datos coche');
+  await carModel.find()
+    .populate('Cars', 'carSchema')
+    .exec((err, car) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: err.message });
+      }
+      return res.status(200).json(car);
+    });
+});
 
-  
+router.put('/car/:_id', async (req, res) => {
+  const { carSchema } = req.params;
+  const { _id } = req.params;
+  const { car } = req.body;
+  const carUpdated = await carModel.findByIdAndUpdate(
+    _id,
+    {
+      $push: { cars: car },
+    },
+    { useFindAndModify: false }
+  );
+  res.send(`${carUpdated} updated`);
+
+});
+
+module.exports = router;
+
+
