@@ -73,7 +73,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-require("./database");
+require("../backend/database/index");
 
 //Settings
 app.set("port", process.env.PORT || 9000);

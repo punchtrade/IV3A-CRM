@@ -1,5 +1,5 @@
 module.exports = {
-  // port: 9000,
+  port: 9000,
   secret: "mysecretkey",
   port: process.env.PORT,
   mongoURI: process.env.MONGO_URI,
