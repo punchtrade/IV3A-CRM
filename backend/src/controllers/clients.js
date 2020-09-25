@@ -72,7 +72,7 @@ router.post("/clients", async (req, res, next) => {
 router.get('/search', (req, res) => {
     console.info('obtener datos clientes');
     clientsModel.find()
-      .populate('Clients', 'clientsSchema')
+      // .populate('Clients', 'clientsSchema')
       .exec((err, clients) => {
         if (err) {
           console.error(err.message);
@@ -81,5 +81,20 @@ router.get('/search', (req, res) => {
         return res.status(200).json(clients);
       });
   });
+
+//put client
+router.put('/clients/car/:_id', async (req, res) => {
+  const { cars } = req.params;
+  const { _id } = req.body;
+  const carUpdated = await clientsModel.findByIdAndUpdate(
+    _id,
+    { 
+      $push: { cars: _id},
+    },
+    { useFindAndModify: false }
+  );
+  res.send(`${carUpdated._id} updated`);
+
+});
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt');
-const { saltRouds } = require('../config');
+const { saltRouds } = require('../configs/index');
 
 const getSalt = async () => {
   return await bcrypt.genSaltSync(+saltRouds);

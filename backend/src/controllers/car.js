@@ -20,6 +20,7 @@ router.post("/car", async (req, res, next) => {
         const car = new carModel({
           _id: new mongoose.Types.ObjectId(),
           // id: req.body.id,
+          card: req.body.card,
           carCatalogue: req.body.carCatalogue,
           price1: req.body.price1,
           carOrder: req.body.carOrder,
@@ -54,6 +55,7 @@ router.post("/car", async (req, res, next) => {
     });
 });
 
+//get car
 router.get('/car', async (req, res) => {
   console.info('obtener datos coche');
   await carModel.find()
@@ -67,19 +69,62 @@ router.get('/car', async (req, res) => {
     });
 });
 
-router.put('/car/:_id', async (req, res) => {
-  const { carSchema } = req.params;
-  const { _id } = req.params;
-  const { car } = req.body;
-  const carUpdated = await carModel.findByIdAndUpdate(
+//put user
+router.put('/car/user/:_id', async (req, res) => {
+  const { users } = req.params;
+  const { _id } = req.body;
+  const userUpdated = await carModel.findByIdAndUpdate(
     _id,
-    {
-      $push: { cars: car },
+    { 
+      $push: { users: _id},
     },
     { useFindAndModify: false }
   );
-  res.send(`${carUpdated} updated`);
+  res.send(`${userUpdated._id} updated`);
 
+});
+
+//get user
+router.get('/car/user/:_id', async (req, res) => {
+  console.info('obtener datos user');
+  await carModel.find()
+    // .populate('Cars', 'carSchema')
+    .exec((err, car) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: err.message });
+      }
+      return res.status(200).json(car);
+    });
+});
+
+//put client
+router.put('/car/client/:_id', async (req, res) => {
+  const { clients } = req.params;
+  const { _id } = req.body;
+  const clientUpdated = await carModel.findByIdAndUpdate(
+    _id,
+    { 
+      $push: { clients: _id },
+    },
+    { useFindAndModify: false }
+  );
+  res.send(`${clientUpdated._id} updated`);
+
+});
+
+//get client
+router.get('/car/client/:_id', async (req, res) => {
+  console.info('obtener datos client');
+  await carModel.find()
+    // .populate('Cars', 'carSchema')
+    .exec((err, car) => {
+      if (err) {
+        console.error(err.message);
+        return res.status(500).json({ error: err.message });
+      }
+      return res.status(200).json(car);
+    });
 });
 
 module.exports = router;

@@ -16,6 +16,7 @@ class FormCar extends Component {
   constructor() {
     super();
     this.state = {
+      card: "",
       brandId: "",
       modelId: "",
       fuelId: "",
@@ -31,13 +32,29 @@ class FormCar extends Component {
     };
   }
 
-  componentDidMount() {
+  componentDidUpdate =() => {
     ValidatorForm.addValidationRule("isValidName", (string) => /[a-zA-Z \u00E0-\u00FC]{1,20}/g.test(string));
   }
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
+
+  componentDidMount = () => {
+    this.getClient();
+  };
+
+  getClient = () => {
+    axios.get("http://localhost:9000/car/client/:_id")
+    .then((response) => {
+      const data = response.data;
+      this.setState({card: data});
+      console.log('Data has been recived');
+    })
+    .catch(() => {
+      alert('Error retrievering data!!!');
+    });
+  }
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
