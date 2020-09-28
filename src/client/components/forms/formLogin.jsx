@@ -54,12 +54,15 @@ class FormLogin extends React.Component {
   };
   
   signIn = () => {
-    if (this.state.email === !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test) {
+    if 
+    (this.state.email === !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test) 
+    {
       this.setState({
         open: true,
         message: "Vous vous êtes connecté avec succès!"
       });
-    } else {
+    } 
+    else {
       this.setState({
         open: true,
         message: "Identifiant ou mot de passe incorrect!"

@@ -117,7 +117,7 @@ router.put('/car/client/:_id', async (req, res) => {
 router.get('/car/client/:_id', async (req, res) => {
   console.info('obtener datos client');
   await carModel.find()
-    // .populate('Cars', 'carSchema')
+    .populate('Cars', 'carSchema')
     .exec((err, car) => {
       if (err) {
         console.error(err.message);

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
-import { Modal, TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
+import { TextField, Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles((theme) => ({
@@ -16,7 +16,7 @@ class PreOrder extends Component {
   constructor() {
     super();
     this.state = {
-      id: "",
+      _id: "",
       card: "",
       treatment: "",
       firstName: "",
@@ -25,11 +25,8 @@ class PreOrder extends Component {
       email: "",
       address: "",
       city: "",
-      state: "",
       postalCode: "",
       nameOfBank: "",
-      numberOfBank: "",
-      accountName: "",
       iban: "",
       swiftCode: "",
       registrationCar: "",
@@ -51,14 +48,39 @@ class PreOrder extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  handleChange = e => {
+    const { name, value } = e.target; 
+  }
+
   handleSubmit = (e) => {
     console.log(this.state);
     e.preventDefault();
   };
+
+ 
+
+  getClient = () => {
+    axios.get("http://localhost:9000/clients")
+    .then(response => {
+      this.setState({data: response.data});
+    })
+  };
+
+  componentDidMount = () => {
+    this.getClient();
+  };
+  //     console.log(data);
+  //     console.log('Data has been recived');
+  //   })
+  //   .catch(() => {
+  //     alert('Error retrievering data!!!');
+  //   });
+  // }
+
   onSubmitHandler = async (e) => {
     e.preventDefault();
     await axios
-      .get("http://localhost:9000/preOrder", this.state, {
+      .post("http://localhost:9000/preOrder", this.state, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -71,7 +93,7 @@ class PreOrder extends Component {
   render() {
     const {
       date,
-      id,
+      _id,
       card,
       treatment,
       firstName,
@@ -80,11 +102,8 @@ class PreOrder extends Component {
       email,
       address,
       city,
-      state,
       postalCode,
       nameOfBank,
-      numberOfBank,
-      accountName,
       iban,
       swiftCode,
       registrationCar,
@@ -180,7 +199,7 @@ class PreOrder extends Component {
               className={styles.inputMaterial}
               name="id"
               placeholder="ID"
-              value={id}
+              value={_id}
               onChange={this.changeHandler}
             />
             <InputLabel
@@ -525,3 +544,4 @@ class PreOrder extends Component {
 }
 
 export default PreOrder;
+

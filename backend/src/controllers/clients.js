@@ -82,6 +82,19 @@ router.get('/search', (req, res) => {
       });
   });
 
+  router.get('/clients', async (req, res) => {
+    console.info('obtener datos cliente');
+    await clientsModel.findOne()
+      .populate('Clients', 'clientsSchema')
+      .exec((err, client) => {
+        if (err) {
+          console.error(err.message);
+          return res.status(500).json({ error: err.message });
+        }
+        return res.status(200).json(client);
+      });
+  });
+
 //put client
 router.put('/clients/car/:_id', async (req, res) => {
   const { cars } = req.params;

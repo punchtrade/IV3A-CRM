@@ -16,6 +16,8 @@ class FormCar extends Component {
   constructor() {
     super();
     this.state = {
+      firstName: "",
+      lastName: "",
       card: "",
       brandId: "",
       modelId: "",
@@ -32,14 +34,13 @@ class FormCar extends Component {
     };
   }
 
-  componentDidUpdate =() => {
+  componentDidMount =() => {
     ValidatorForm.addValidationRule("isValidName", (string) => /[a-zA-Z \u00E0-\u00FC]{1,20}/g.test(string));
   }
 
   changeHandler = (e) => {
     this.setState({ [e.target.name]: e.target.value });
   };
-
   componentDidMount = () => {
     this.getClient();
   };
@@ -70,7 +71,8 @@ class FormCar extends Component {
   };
   render() {
     const {
-      id,
+      firstName,
+      lastName,
       card,
       brandId,
       modelId,
@@ -100,16 +102,33 @@ class FormCar extends Component {
               <InputLabel
                 htmlFor="filled-adornment-amount"
               >
-                Client
+                Nom
               </InputLabel>
               <FilledInput
                 variant="filled"
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="id"
-                placeholder="Client"
-                value={id}
+                name="flastName"
+                placeholder="Nom"
+                value={lastName}
+                onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
+              />
+                            <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Prénom
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="firstName"
+                placeholder="Prénom"
+                value={firstName}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}

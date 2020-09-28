@@ -76,7 +76,7 @@ class NewClient extends React.Component {
 
   componentDidMount() {
     ValidatorForm.addValidationRule("isValidName", (string) => /[a-zA-Z \u00E0-\u00FC]{1,20}/g.test(string));
-  }
+  };
 
   handleChange = (event) => {
     this.setState({
@@ -256,7 +256,7 @@ class NewClient extends React.Component {
             placeholder="Téléphone"
             value={telephone}
             onChange={this.changeHandler}
-            validators={["required", "isValidName"]}
+            validators={["required", "isValidNumber"]}
             errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <InputLabel
@@ -324,7 +324,7 @@ class NewClient extends React.Component {
             placeholder="Code Postal"
             value={postalCode}
             onChange={this.changeHandler}
-            validators={["required", "isValidName"]}
+            validators={["required", "isValidNumber"]}
             errorMessages={["Ce champ est requis", "Format invalide"]}
           />
           <div>
