@@ -35,6 +35,7 @@ class PreOrder extends Component {
       fuel: "",
       price: "",
       errors: "",
+      clients: [],
       i_agree: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -49,25 +50,35 @@ class PreOrder extends Component {
   };
 
   handleChange = e => {
-    const { name, value } = e.target; 
+    const { name, value } = e.target;
   }
-
   handleSubmit = (e) => {
     console.log(this.state);
     e.preventDefault();
   };
 
- 
+  componentDidMount = () => {
+    this.getClient();
+  };
 
   getClient = () => {
     axios.get("http://localhost:9000/clients")
-    .then(response => {
-      this.setState({data: response.data});
-    })
-  };
-
-  componentDidMount = () => {
-    this.getClient();
+      .then((response) => {
+        const data = response.data;
+        this.setState({ clients: data });
+        console.log("Data has been received!!");
+      })
+      .catch(() => {
+        alert("Error retrieving data!!");
+      })
+    // axios.get("http://localhost:9000/clients")
+    //   .then(response => {
+    //     this.setState({ data: response.data });
+    //     console.log('Data has been recived');
+    //   })
+    //   .catch(() => {
+    //     alert('Error retrievering data!!!');
+    //   });
   };
   //     console.log(data);
   //     console.log('Data has been recived');
@@ -176,7 +187,7 @@ class PreOrder extends Component {
               Date de confirmation
       </InputLabel>
             <FilledInput
-               variant="outlined"
+              variant="outlined"
               margin="normal"
               placeholder="Date de confirmation"
               className={styles.inputMaterial}
@@ -197,7 +208,7 @@ class PreOrder extends Component {
               margin="normal"
               placeholder="ID"
               className={styles.inputMaterial}
-              name="id"
+              name="_id"
               placeholder="ID"
               value={_id}
               onChange={this.changeHandler}
@@ -247,7 +258,7 @@ class PreOrder extends Component {
               value={lastName}
               onChange={this.changeHandler}
             />
-                        <InputLabel
+            <InputLabel
               htmlFor="filled-adornment-amount"
             >
               Document National d'Identité
@@ -524,19 +535,19 @@ class PreOrder extends Component {
               consommation de l'Electricité et du Gaz.
               <br></br>
               • un scan de votre relevé d'identité bancaire de votre
-              compte en Euros.              
+              compte en Euros.
             </div>
           </div>
         </div>
-        <br/>
+        <br />
         <Button
-                variant="outlined"
-                size="large"
-                color="default"
-                disabledElevation
-                onClick={this.onSubmitHandler.bind(this)}
-              >
-                Envoyer
+          variant="outlined"
+          size="large"
+          color="default"
+          disabledElevation
+          onClick={this.onSubmitHandler.bind(this)}
+        >
+          Envoyer
           </Button>
       </div >
     );

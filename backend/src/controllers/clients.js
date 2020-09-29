@@ -72,7 +72,7 @@ router.post("/clients", async (req, res, next) => {
 router.get('/search', (req, res) => {
     console.info('obtener datos clientes');
     clientsModel.find()
-      // .populate('Clients', 'clientsSchema')
+      .populate('Clients', 'clientsSchema')
       .exec((err, clients) => {
         if (err) {
           console.error(err.message);

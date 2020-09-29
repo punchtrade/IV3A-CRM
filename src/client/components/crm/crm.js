@@ -183,15 +183,15 @@ class Crm extends Component {
                         <br />
                         <Button className={useStyles.Button} multiline variant="contained" onClick={() => this.addReminder()}>Ajouter</Button>
                     </Grid>
-                    {/* <Grid item xs={5}>  */}
-                    {/* <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} /> */}
+                    <Grid item xs={5}> 
+                    <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
                     {/* <div
                     className="btn btn-danger"
                     onClick={() => this.props.clearReminders()}
                     >
                         Clear Reminders
                     </div> */}
-                    {/* </Grid>  */}
+                    </Grid> 
                     {this.renderReminders()}
                     <Grid item xs={12}>
                         <br />
