@@ -9,9 +9,10 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { addReminder, deleteReminder, clearReminders } from '../actions';
+import { addReminder, deleteReminder, clearReminders, deleteSelect } from '../actions';
 import moment from 'moment';
 import axios from 'axios';
+import { select } from '@syncfusion/ej2-react-schedule';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -40,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme();
 
+// const delet =  $(document).on('change', '.sel', function() {
+//     $(this).siblings().find('option[value="'+$(this).val()+'"]').remove()
+// });
+
 class Crm extends Component {
     constructor(props) {
         super(props);
@@ -61,6 +66,11 @@ class Crm extends Component {
         this.props.deleteReminder(id);
     }
 
+    deleteSelect(id) {
+        this.props.deleteSelect(id);
+        console.log(this.props.deleteSelect);
+    }
+
     handleMessage = (e) => {
         this.setState({
             message: e.target.value
@@ -74,16 +84,16 @@ class Crm extends Component {
             message: this.state.message
         }
 
-        axios.post('/send-email',data)
-        .then(res=>{
-          this.setState({
-            sent:true,
-          },this.resetForm())
-        })
-        .catch(()=>{
-          console.log('message  send');
-          
-        })
+        axios.post('/send-email', data)
+            .then(res => {
+                this.setState({
+                    sent: true,
+                }, this.resetForm())
+            })
+            .catch(() => {
+                console.log('message  send');
+
+            })
     }
 
     renderReminders() {
@@ -108,8 +118,8 @@ class Crm extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <div type="date" onChange={event => this.setState({ date: event.target.value })}><em>{moment(new Date()).format('Do MMMM YYYY, h:mm:ss a')}</em></div>
-                                        <div type="date" onChange={event => this.setState({ dueDate: event.target.value })}><em>{moment(new Date()).add(3, 'days').format('Do MMMM YYYY, h:mm:ss a')}</em></div>
+                                        <div type="date" onChange={event => this.setState({ date: event.target.value })}><em>{moment(new Date(reminder.date)).format('Do MMMM YYYY, h:mm:ss a')}</em></div>
+                                        <div type="date" onChange={event => this.setState({ dueDate: event.target.value })}><em>{moment(new Date(reminder.dueDate)).add(3, 'days').format('Do MMMM YYYY, h:mm:ss a')}</em></div>
                                     </div>
                                 </Card>
                             )
@@ -138,6 +148,7 @@ class Crm extends Component {
                         // onChange={handleChange}
                         label="Pour sélectionner"
                         onChange={event => this.setState({ select: event.target.value })}
+                        onClick={() => this.deleteSelect(select.id)}
                     >
                         <MenuItem value="">
                             <em>None</em>
@@ -181,25 +192,25 @@ class Crm extends Component {
                     </Grid>
                     <Grid item xs={3}>
                         <br />
-                        <Button className={useStyles.Button} multiline variant="contained" onClick={() => this.addReminder()}>Ajouter</Button>
+                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
                     </Grid>
-                    <Grid item xs={5}> 
-                    <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
-                    {/* <div
+                    <Grid item xs={5}>
+                        <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
+                        {/* <div
                     className="btn btn-danger"
                     onClick={() => this.props.clearReminders()}
                     >
                         Clear Reminders
                     </div> */}
-                    </Grid> 
+                    </Grid>
                     {this.renderReminders()}
                     <Grid item xs={12}>
                         <br />
-                        <div onClick={this.sendEmail} className={this.state.sent?'msg msgAppear':'msg'}>
-                        <Button className={useStyles.Button} multiline variant="contained" type="submit">IV3A</Button>
+                        <div onClick={this.sendEmail} className={this.state.sent ? 'msg msgAppear' : 'msg'}>
+                            <Button className={useStyles.Button} multiline variant="contained" type="submit">IV3A</Button>
                         </div>
                     </Grid>
-                </Grid>                                  
+                </Grid>
                 <br />
             </div>
         )
@@ -209,9 +220,10 @@ class Crm extends Component {
 function mapStateToProps(state) {
     console.log('state', state);
     return {
-        reminders: state
+        reminders: state,
+        selects: state
     }
 }
 
-export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders})(Crm);
+export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders, deleteSelect })(Crm);
 
