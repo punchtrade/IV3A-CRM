@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions';
 import moment from 'moment';
 import axios from 'axios';
-import Moment from 'react-moment';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,7 +45,7 @@ const theme = createMuiTheme();
 //     $(this).siblings().find('option[value="'+$(this).val()+'"]').remove()
 // });
 
-class Crm extends Component {
+class Crm2 extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -94,9 +93,6 @@ class Crm extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
-    const calendarStrings = {
-        nextDay: '[Tomorrow at] LT',
-    }
         return (
             <div className="col-9">
                 <ul className="list-group col-sm-12">
@@ -117,9 +113,8 @@ class Crm extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <Moment  calendar={calendarStrings}>{reminder.date}</Moment>
-                                        <br></br>
-                                        <Moment add={{days: 2}}>{reminder.dueDate}</Moment>
+                                        <div type="date" onChange={event => this.setState({ date: event.target.value })}><em>{moment(new Date(reminder.date)).format('Do MMMM YYYY, h:mm:ss a')}</em></div>
+                                        <div type="date" onChange={event => this.setState({ dueDate: event.target.value })}><em>{moment(new Date(reminder.dueDate)).add(3, 'days').format('Do MMMM YYYY, h:mm:ss a')}</em></div>
                                     </div>
                                 </Card>
                             )
@@ -152,7 +147,7 @@ class Crm extends Component {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        <MenuItem value={1}>1.Commande (avec sélection véhicule) enregistrée par IV3A</MenuItem>
+                        <MenuItem value={2}>2.Vérification par IV3A de précommande et Fiche Client</MenuItem>
                     </Select>
                 </Grid>
                 <Grid container spacing={1} >
@@ -196,5 +191,5 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(Crm);
+export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(Crm2);
 

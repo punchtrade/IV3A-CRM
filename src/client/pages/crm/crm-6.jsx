@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from 'react-router-dom';
-import Crm from '../components/crm/crm';
+import Crm6 from '../../components/crm/crm-6';
 import  Paper  from '@material-ui/core/Paper';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -12,7 +12,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
- function CrmPage(props) {
+ function Crm6Page(props) {
 
   const {history} = props;
   const classes = useStyles();
@@ -20,8 +20,21 @@ const useStyles = makeStyles(theme => ({
   return (
     <>
       <Paper className={classes.pageContent} elevation={6}>
-      <Crm />
+      <Crm6 />
       </Paper>
+      <Button       
+       variant="contained"
+        position="left"
+        color="danger"
+        fullWidth
+        disableFocusRipple
+        onClick={() => {
+          props.history.push("/crm-7")
+        }}>
+          Suivant
+      </Button>
+      <br></br>
+      <br></br>
       <Button
         variant="contained"
         position="left"
@@ -38,4 +51,4 @@ const useStyles = makeStyles(theme => ({
     </>
   );
 };
-export default withRouter(CrmPage);
+export default withRouter(Crm6Page);

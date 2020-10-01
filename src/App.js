@@ -9,7 +9,12 @@ import PreOrderPage from "./client/pages/preOrder";
 // import formCar from "./client/components/forms/formCar";
 import Leads from './client/pages/leads';
 import Search from './client/pages/search';
-import CrmPage from './client/pages/crm';
+import CrmPage from './client/pages/crm/crm';
+import Crm2Page from './client/pages/crm/crm-2';
+import Crm3Page from './client/pages/crm/crm-3';
+import Crm4Page from './client/pages/crm/crm-4';
+import Crm5Page from './client/pages/crm/crm-5';
+import Crm6Page from './client/pages/crm/crm-6';
 import InvoicePage from './client/pages/invoice';
 import ContractPage from './client/pages/contract';
 import Login from './client/pages/login';
@@ -55,6 +60,11 @@ class App extends React.Component {
             <Route exact path="/leads" component={Leads} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/crm" component={CrmPage} />
+            <Route exact path="/crm-2" component={Crm2Page} />
+            <Route exact path="/crm-3" component={Crm3Page} />
+            <Route exact path="/crm-4" component={Crm4Page} />
+            <Route exact path="/crm-5" component={Crm5Page} />
+            <Route exact path="/crm-6" component={Crm6Page} />
             <Route exact path="/invoice" component={InvoicePage} />
             <Route exact path="/contract" component={ContractPage} />
             <Route exact path="/formCar" component={FormCarPage} />
