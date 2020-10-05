@@ -1,59 +1,143 @@
 import * as React from 'react';
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles, fade } from '@material-ui/core/styles';
-import { ViewState, EditingState, IntegratedEditing, GroupingState, IntegratedGrouping, } from '@devexpress/dx-react-scheduler';
+import { ViewState, EditingState, IntegratedEditing, GroupingState, IntegratedGrouping } from '@devexpress/dx-react-scheduler';
 import {
-    WeekView,
-    Toolbar,
-    ViewSwitcher,
-    MonthView,
     Scheduler,
-    DateNavigator,
-    TodayButton,
-    DayView,
-    Resources,
     Appointments,
-    AppointmentTooltip,
     AppointmentForm,
-    ConfirmationDialog,
-    DragDropProvider,
+    AppointmentTooltip,
+    WeekView,
+    DayView,
+    MonthView,
+    Resources,
     EditRecurrenceMenu,
     AllDayPanel,
+    ConfirmationDialog,
+    DragDropProvider,
+    Toolbar,
+    DateNavigator,
+    TodayButton,
+    ViewSwitcher,
     GroupingPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import LowPriority from '@material-ui/icons/LowPriority';
-import PriorityHigh from '@material-ui/icons/PriorityHigh';
-import { appointments, resourcesData, appointmentsMonth } from '../scheduler/appointments';
-import recurrenceAppointments from '../scheduler/recurrence-appointments';
-import { owners } from '../scheduler/tasks';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import IconButton from '@material-ui/core/IconButton';
+import MoreIcon from '@material-ui/icons/MoreVert';
+import Grid from '@material-ui/core/Grid';
+import Room from '@material-ui/icons/Room';
+import classNames from 'clsx';
+import { withStyles } from '@material-ui/core/styles';
+import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
+// import { owners } from '../scheduler/tasks';
 import {
-    teal, indigo,green,orange
+    teal, indigo,green, deepOrange, lightBlue,pink, purple, amber
 } from '@material-ui/core/colors';
 
-
-const styles = theme => ({
-    button: {
-        color: theme.palette.background.default,
-        padding: 0,
+const style = ({ palette }) => ({
+    icon: {
+        color: palette.action.active,
     },
+    textCenter: {
+        textAlign: 'center',
+    },
+    firstRoom: {
+        background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/Lobby-4.jpg)',
+    },
+    secondRoom: {
+        background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-4.jpg)',
+    },
+    thirdRoom: {
+        background: 'url(https://js.devexpress.com/Demos/DXHotels/Content/Pictures/MeetingRoom-0.jpg)',
+    },
+    header: {
+        height: '260px',
+        backgroundSize: 'cover',
+    },
+    commandButton: {
+        backgroundColor: 'rgba(255,255,255,0.65)',
+    },
+});
+const styles = theme => ({
     container: {
         display: 'flex',
         marginBottom: theme.spacing(2),
         justifyContent: 'flex-end',
     },
     text: {
-        paddingTop: theme.spacing(1),
-        overflow: 'hidden',
-        textOverflow: 'ellipsis',
-        whiteSpace: 'nowrap',
+        ...theme.typography.h6,
+        marginRight: theme.spacing(2),
     },
-    
 });
-const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
+
+const owners = [{
+    text: 'Hervé',
+    id: 1,
+    color: indigo,
+}, {
+    text: 'Mariano',
+    id: 2,
+    color: teal,
+},
+{
+    text: 'Fátima',
+    id: 3,
+    color: green,
+},
+
+];
+
+const locations = [
+    { text: 'IV3A', id: 1 },
+    { text: 'PT', id: 2 },
+];
+
+const getClassByLocation = (classes, location) => {
+    if (location === 'IV3A') return classes.firstRoom;
+    if (location === 'PT') return classes.secondRoom;
+    return classes.thirdRoom;
+};
+
+const Header = withStyles(style, { name: 'Header' })(({
+    children, appointmentData, classes, ...restProps
+}) => (
+        <AppointmentTooltip.Header
+            {...restProps}
+            className={classNames(getClassByLocation(classes, appointmentData.location), classes.header)}
+            appointmentData={appointmentData}
+        >
+            <IconButton
+                /* eslint-disable-next-line no-alert */
+                onClick={() => alert(JSON.stringify(appointmentData))}
+                className={classes.commandButton}
+            >
+                <MoreIcon />
+            </IconButton>
+        </AppointmentTooltip.Header>
+    ));
+
+const Content = withStyles(styles, { name: 'Content' })(({
+    children, appointmentData, classes, ...restProps
+}) => (
+        <AppointmentTooltip.Content {...restProps} appointmentData={appointmentData}>
+            <Grid container alignItems="center">
+                <Grid item xs={2} className={classes.textCenter}>
+                    <Room className={classes.icon} />
+                </Grid>
+                <Grid item xs={10}>
+                    <span>{appointmentData.location}</span>
+                </Grid>
+            </Grid>
+        </AppointmentTooltip.Content>
+    ));
+
+const CommandButton = withStyles(style, { name: 'CommandButton' })(({
+    classes, ...restProps
+}) => (
+        <AppointmentTooltip.CommandButton {...restProps} className={classes.commandButton} />
+    ));
+
+const ResourceSwitcher = withStyles(styles,{ name: 'ResourceSwitcher' })(
     ({
         mainResourceName, onChange, classes, resources,
     }) => (
@@ -74,44 +158,8 @@ const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
             </div>
         ),
 );
-const priorityData = [
-    { text: 'Low Priority', id: 1, color: green },
-    { text: 'High Priority', id: 2, color: orange },
-  ];
-  
-  const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
-  const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
-const messages = {
-    moreInformationLabel: '',
-};
-const TextEditor = (props) => {
-    // eslint-disable-next-line react/destructuring-assignment
-    if (props.type === 'multilineTextEditor') {
-        return null;
-    } return <AppointmentForm.TextEditor {...props} />;
-};
-const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
-    const onCustomFieldChange = (nextValue) => {
-        onFieldChange({ customField: nextValue });
-    };
-    return (
-        <AppointmentForm.BasicLayout
-            appointmentData={appointmentData}
-            onFieldChange={onFieldChange}
-            {...restProps}
-        >
-            <AppointmentForm.Label
-                text="Custom Field"
-                type="title"
-            />
-            <AppointmentForm.TextEditor
-                value={appointmentData.customField}
-                onValueChange={onCustomFieldChange}
-                placeholder="Custom field"
-            />
-        </AppointmentForm.BasicLayout>
-    );
-};
+
+
 const dragDisableIds = new Set([3, 8, 10, 12]);
 
 const allowDrag = ({ id }) => !dragDisableIds.has(id);
@@ -121,97 +169,71 @@ const appointmentComponent = (props) => {
     } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
 };
 
-const locations = [
-    { text: 'Room 1', id: 1 },
-    { text: 'Room 2', id: 2 },
-];
-
-const SHIFT_KEY = 16;
-
 export default class Demo extends React.PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            data: appointments, recurrenceAppointments, appointmentsMonth, resourcesData,
-            currentViewName: 'work-week',
-            currentDate: '2018-06-27',
-            mainResourceName: 'members',
-            isShiftPressed: false,
-            resources: [{
-                fieldName: 'members',
-                title: 'Members',
-                instances: owners,
-                allowMultiple: true,
-            }, {
-                fieldName: 'roomId',
-                title: 'Location',
-                instances: locations,
-            }],
+            data: appointments, recurrenceAppointments, resourcesData, owners,
+            currentDate: '2020-10-05',
+            resources: [
+                {
+                    fieldName: 'roomId',
+                    title: 'Room',
+                    instances: resourcesData,
+                },
+                {
+                    fieldName: 'members',
+                    title: 'Members',
+                    instances: owners,
+                    allowMultiple: true,
+                },
+            ],
             grouping: [{
                 resourceName: 'roomId',
             }, {
                 resourceName: 'members',
             }],
+
+            addedAppointment: {},
+            appointmentChanges: {},
+            editingAppointment: undefined,
         };
+
+        this.commitChanges = this.commitChanges.bind(this);
+        this.onCommitChanges = this.commitChanges.bind(this);
         this.changeMainResource = this.changeMainResource.bind(this);
-
-
-        this.currentViewNameChange = (currentViewName) => {
-            this.setState({ currentViewName });
-            this.commitChanges = this.commitChanges.bind(this);
-            this.onKeyDown = this.onKeyDown.bind(this);
-            this.onKeyUp = this.onKeyUp.bind(this);
-
-        };
-
+        this.changeAddedAppointment = this.changeAddedAppointment.bind(this);
+        this.changeAppointmentChanges = this.changeAppointmentChanges.bind(this);
+        this.changeEditingAppointment = this.changeEditingAppointment.bind(this);
+        this.currentDateChange = (currentDate) => { this.setState({ currentDate }); };
     }
+
     changeMainResource(mainResourceName) {
         this.setState({ mainResourceName });
-
-    }
-    componentDidMount() {
-        window.addEventListener('keydown', this.onKeyDown);
-        window.addEventListener('keyup', this.onKeyUp);
     }
 
-    componentWillUnmount() {
-        window.removeEventListener('keydown');
-        window.removeEventListener('keyup');
+    changeAddedAppointment(addedAppointment) {
+        this.setState({ addedAppointment });
     }
 
-    onKeyDown(event) {
-        if (event.keyCode === SHIFT_KEY) {
-            this.setState({ isShiftPressed: true });
-        }
+    changeAppointmentChanges(appointmentChanges) {
+        this.setState({ appointmentChanges });
     }
 
-    onKeyUp(event) {
-        if (event.keyCode === SHIFT_KEY) {
-            this.setState({ isShiftPressed: false });
-        }
+    changeEditingAppointment(editingAppointment) {
+        this.setState({ editingAppointment });
     }
+
     commitChanges({ added, changed, deleted }) {
         this.setState((state) => {
             let { data } = state;
-            const { isShiftPressed } = this.state;
             if (added) {
                 const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
                 data = [...data, { id: startingAddedId, ...added }];
             }
             if (changed) {
-                if (isShiftPressed) {
-                    const changedAppointment = data.find(appointment => changed[appointment.id]);
-                    const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-                    data = [
-                        ...data,
-                        { ...changedAppointment, id: startingAddedId, ...changed[changedAppointment.id] },
-                    ];
-                } else {
-                    data = data.map(appointment => (
-                        changed[appointment.id]
-                            ? { ...appointment, ...changed[appointment.id] }
-                            : appointment));
-                }
+                data = data.map(appointment => (
+                    changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
             }
             if (deleted !== undefined) {
                 data = data.filter(appointment => appointment.id !== deleted);
@@ -221,74 +243,84 @@ export default class Demo extends React.PureComponent {
     }
 
     render() {
-        const { data, currentViewName, currentDate, mainResourceName, resources } = this.state;
+        const {
+            currentDate, data, addedAppointment, appointmentChanges, editingAppointment, resources, mainResourceName, grouping, onChange, classes,
+        } = this.state;
 
         return (
             <React.Fragment>
+                <ResourceSwitcher
+                    resources={resources}
+                    mainResourceName={mainResourceName}
+                    onChange={this.changeMainResource}
+                />
                 <Paper>
-                    <ResourceSwitcher
-                        resources={resources}
-                        mainResourceName={mainResourceName}
-                        onChange={this.changeMainResource}
-                    />
                     <Scheduler
                         data={data}
-                        height={660}
+                        height={800}
                     >
                         <ViewState
-                            currentViewName={currentViewName}
                             currentDate={currentDate}
-                            onCurrentViewNameChange={this.currentViewNameChange}
+                            onCurrentDateChange={this.currentDateChange}
+                            defaultCurrentDate={currentDate}
                         />
                         <EditingState
                             onCommitChanges={this.commitChanges}
+
+                            addedAppointment={addedAppointment}
+                            onAddedAppointmentChange={this.changeAddedAppointment}
+
+                            appointmentChanges={appointmentChanges}
+                            onAppointmentChangesChange={this.changeAppointmentChanges}
+
+                            editingAppointment={editingAppointment}
+                            onEditingAppointmentChange={this.changeEditingAppointment}
+                        />
+                        <GroupingState
+                            grouping={grouping}
                         />
                         <IntegratedEditing />
                         <DayView
                             startDayHour={9}
-                            endDayHour={19}
+                            endDayHour={20}
                             intervalCount={2}
                         />
-                        <EditRecurrenceMenu />
                         <WeekView
-                            name="work-week"
-                            displayName="Work Week"
-                            excludedDays={[0, 6]}
                             startDayHour={9}
-                            endDayHour={19}
+                            endDayHour={20}
                         />
                         <MonthView />
-                        <DayView
-                            startDayHour={8}
-                            endDayHour={13}
-                        />
+                        <AllDayPanel />
+                        <EditRecurrenceMenu />
                         <ConfirmationDialog
                         />
+
                         <Toolbar />
                         <DateNavigator />
                         <TodayButton />
                         <ViewSwitcher />
                         <Appointments
-                            basicLayoutComponent={BasicLayout}
-                            textEditorComponent={TextEditor}
-                            messages={messages}
                             appointmentComponent={appointmentComponent}
                         />
-                        <AllDayPanel />
+                        <AppointmentTooltip
+                            headerComponent={Header}
+                            contentComponent={Content}
+                            commandButtonComponent={CommandButton}
+                            showOpenButton
+                            showDeleteButton
+                        />
                         <DragDropProvider
                             allowDrag={allowDrag}
                         />
-                        <AppointmentTooltip
-                            showCloseButton
-                            showOpenButton
-                            showDeleteButton />
+                        <AppointmentForm />
+                       
                         <Resources
                             data={resources}
-                            mainResourceName="members"
+                            mainResourceName={mainResourceName}
                         />
-                        <AppointmentForm
-                        />
-                        <DragDropProvider />
+                        <IntegratedGrouping />
+                        <IntegratedEditing />
+                        <GroupingPanel />
                     </Scheduler>
                 </Paper>
             </React.Fragment>
