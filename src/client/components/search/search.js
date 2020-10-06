@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "bootstrap/dist/css/bootstrap.min.css";
 import MaterialTable from 'material-table';
-import { Modal, TextField, InputLabel, FilledInput } from '@material-ui/core';
+import { Modal, TextField, InputLabel, FilledInput, Grid, Select, MenuItem, Card } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { withRouter } from 'react-router-dom';
 import Upload from '../uploadImages/upload';
+import Crm from '../crm/crm';
+import moment from 'moment';
+import Moment from 'react-moment';
 
 const columns = [
   { title: "ID", field: "_id" },
@@ -59,6 +62,20 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+const addReminder = () => {
+  this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select);
+}
+
+const deleteReminder = (id) => {
+  this.props.deleteReminder(id);
+}
+
+const handleMessage = (e) => {
+  this.setState({
+    message: e.target.value
+  })
+}
+
 function Search(props) {
   const { history } = props;
   const styles = useStyles();
@@ -67,6 +84,8 @@ function Search(props) {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
+  const [crmModal, setCrmModal] = useState(false);
+  const [reminderModal, setReminderModal] = useState(false);
   const [selectedClient, setClientSelected] = useState({
     _id: "",
     card: "",
@@ -87,6 +106,11 @@ function Search(props) {
     model: "",
     fuel: "",
     comment: "",
+    select: "",
+    text: "",
+    dueDate: "",
+    date: "",
+    message: "",
   })
 
   const handleChange = e => {
@@ -170,6 +194,26 @@ function Search(props) {
       });
   }
 
+  const crmRequest = async () => {
+    await axios.post("http://localhost:9000/crm")
+      .then(response => {
+        var newData = data;
+        newData.map(client => {
+          if (client._id === selectedClient._id) {
+            client.select = selectedClient.select;
+            client.text = selectedClient.text;
+            client.dueDate = selectedClient.dueDate;
+            client.date = selectedClient.date;
+            client.message = selectedClient.message;
+          }
+        });
+        setData(newData);
+        openCloseCrmModal();
+      }).catch(error => {
+        console.log(error);
+      })
+  }
+
   const clientSelected = (client, caso) => {
     setClientSelected(client);
     (caso === "Edit") ? openCloseEditModal()
@@ -181,6 +225,12 @@ function Search(props) {
     setClientSelected(client);
     (caso === "isFreeAction") ? openCloseReadModal()
       : openCloseUploadModal()
+  }
+
+  const crmSelected = (client, caso) => {
+    setClientSelected(client);
+    (caso === "edit") ? openCloseCrmModal()
+      : openCloseCrmModal()
   }
 
   const openCloseReadModal = () => {
@@ -197,6 +247,14 @@ function Search(props) {
 
   const openCloseUploadModal = () => {
     setUploadModal(!uploadModal);
+  }
+
+  const openCloseCrmModal = () => {
+    setCrmModal(!crmModal);
+  }
+
+  const openCloseReminderModal = () => {
+    setReminderModal(!reminderModal);
   }
 
   useEffect(() => {
@@ -216,7 +274,6 @@ function Search(props) {
         placeholder="ID"
         className={styles.inputMaterial}
         name="_id"
-        // onChange={handleChange}
         value={selectedClient && selectedClient._id}
       />
       <br />
@@ -230,7 +287,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Traitement"
         name="treatment"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.treatment}
       />
       <br />
@@ -244,7 +300,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Nom"
         name="firstName"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.firstName}
       />
       <br />
@@ -258,7 +313,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Prénom"
         name="lastName"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.lastName}
       />
       <br />
@@ -272,7 +326,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Document National d'Identité"
         name="card"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.card}
       />
       <br />
@@ -286,7 +339,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Téléphone"
         name="telephone"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.telephone}
       />
       <br />
@@ -300,7 +352,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Courrier Électronique"
         name="email"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.email}
       />
       <br />
@@ -314,7 +365,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Adresse compléte"
         name="address"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.address}
       />
       <br />
@@ -328,7 +378,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Ville/Wilaya"
         name="city"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.city}
       />
       <br />
@@ -342,7 +391,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Code Postal"
         name="postalCode"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.postalCode}
       />
       <br /><br />
@@ -357,7 +405,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="Nom de la Banque"
         name="nameOfBank"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.nameOfBank}
       />
       <br />
@@ -371,7 +418,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder="IBAN de votre compte"
         name="iban"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.iban}
       />
       <br />
@@ -385,7 +431,6 @@ function Search(props) {
         className={styles.inputMaterial}
         placeholder=" Swift BIC Code"
         name="swiftCode"
-        // onChange={handleChange}
         value={selectedClient && selectedClient.swiftCode}
       />
       <br />
@@ -407,7 +452,6 @@ function Search(props) {
         name="carCatalogue"
         placeholder="Immatriculation de la voiture"
         value={selectedClient && selectedClient.carCatalogue}
-      // onChange={handleChange}
       />
       <InputLabel
         htmlFor="filled-adornment-amount"
@@ -422,7 +466,6 @@ function Search(props) {
         name="price1"
         placeholder="Voiture choisie dans le catalogue IV3A"
         value={selectedClient && selectedClient.price1}
-      // onChange={handleChange}
       />
       <InputLabel
         htmlFor="filled-adornment-amount"
@@ -437,7 +480,6 @@ function Search(props) {
         name="brand"
         placeholder="Marque"
         value={selectedClient && selectedClient.brand}
-      // onChange={handleChange}
       />
       <InputLabel
         htmlFor="filled-adornment-amount"
@@ -452,7 +494,6 @@ function Search(props) {
         name="model"
         placeholder="Modèle"
         value={selectedClient && selectedClient.model}
-      // onChange={handleChange}
       />
       <InputLabel
         htmlFor="filled-adornment-amount"
@@ -467,7 +508,6 @@ function Search(props) {
         name="fuel"
         placeholder="Combustible"
         value={selectedClient && selectedClient.fuel}
-      // onChange={handleChange}
       />
       <InputLabel
         id="demo-simple-select-outlined-label"
@@ -487,16 +527,6 @@ function Search(props) {
         placeholder="Entrez un commentaire ici"
       />
       <br />
-      {/* <div align="right"> */}
-      {/* <Button
-          variant="contained"
-          size="small"
-          color="primary"
-          onClick={() =>
-            readRequest()}
-        >
-          Status
-        </Button> */}
       <br />
       <div align="center">
         <Button
@@ -512,18 +542,6 @@ function Search(props) {
       </div>
       <br /><br />
       <div align="left">
-        <Button
-          variant="outlined"
-          size="large"
-          color="default"
-          disabledElevation
-          onClick={() => {
-            props.history.push("/crm")
-          }}
-        // openCloseCrmModal(this.props.history.push('/crm'))}
-        >
-          CRM
-        </Button>
         <br /><br />
         <Button
           variant="outlined"
@@ -582,7 +600,6 @@ function Search(props) {
         placeholder="ID"
         className={styles.inputMaterial}
         name="_id"
-        // onChange={handleChange}
         value={selectedClient && selectedClient._id}
       />
       <br />
@@ -901,7 +918,7 @@ function Search(props) {
   const uploadBody = (
     <div className={styles.modal}>
       <b></b>
-      <Upload/>
+      <Upload />
       <b>
       </b>
       <br />
@@ -920,6 +937,103 @@ function Search(props) {
       </div>
     </div>
   )
+
+  const crmBody = (
+    <div className={styles.modal}>
+      <br /><br />
+      <h6>Fiche Suivi Client A ce Jour</h6>
+      <br />
+      <Grid item xs={9}>
+
+        <InputLabel id="demo-simple-select-outlined-label">Pour sélectionner</InputLabel>
+        <Select
+          variant="outlined" fullWidth margin="normal"
+          labelId="demo-simple-select-outlined-label"
+          id="demo-simple-select-outlined"
+          value={selectedClient && selectedClient.select && addReminder}
+          onChange={handleChange}
+          label="Pour sélectionner"
+        // onChange={this.renderReminders}
+        >
+          <MenuItem value="">
+            <em>None</em>
+          </MenuItem>
+          <MenuItem value={1}>1.Commande (avec sélection véhicule) enregistrée par IV3A</MenuItem>
+          <MenuItem value={2}>2.Vérification par IV3A de précommande et Fiche Client</MenuItem>
+          <MenuItem value={3}>3.Signalement par IV3A à PT d’une nouvelle pré-commande</MenuItem>
+          <MenuItem value={4}>4.Vérifier de disposition et réservation par PT du véhicule à RRG</MenuItem>
+          <MenuItem value={5}>5.Proposition par PT de véhicule équivalent</MenuItem>
+        </Select>
+      </Grid>
+      <Grid container spacing={1} >
+        <Grid item xs={5}>
+          <TextField
+            variant="outlined"
+            fullWidth
+            margin="normal"
+            className={useStyles.TextField}
+            type="text"
+            value={selectedClient && selectedClient.text && addReminder}
+            onChange={handleChange} />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField variant="outlined" value={selectedClient && selectedClient.dueDate && addReminder} fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" onChange={handleChange} />
+        </Grid>
+        <Grid item xs={3}>
+          <br />
+          <Button className={useStyles.Button} multiline variant="contained" onChange={handleChange && addReminder} onClick={() => {
+            return crmRequest() && openCloseReminderModal();
+          }}>Ajouter</Button>
+        </Grid>
+        <Grid item xs={5}>
+          <TextField variant="outlined" fullWidth margin="normal" type="date" />
+          {/* <div
+        className="btn btn-danger"
+        onClick={() => props.clearReminders()}
+        >
+            Clear Reminders
+        </div>  */}
+          {/* </Grid> 
+        <Grid item xs={12}>
+          <br />
+          {/* <div onClick={this.sendEmail} className={this.state.sent ? 'msg msgAppear' : 'msg'}>
+              <Button className={useStyles.Button} multiline variant="contained" type="submit">IV3A</Button>
+            </div> */}
+        </Grid>
+      </Grid>
+      <br />
+    </div>
+  )
+
+  const renderBody = (
+    <div className={styles.modal}>
+      <div className="col-9">
+        <ul className="list-group col-sm-12">
+
+          <Card className="list-group-item">
+            <div>
+              <div className="list-item" onChange={event => this.setState({ select: event.target.value })}></div>
+            </div>
+            <div className="list-item" onChange={event => this.setState({ text: event.target.value })}></div>
+            <div>
+              <div className="list-item" onChange={event => this.setState({ date: event.target.value })}></div>
+            </div>
+            <div>
+              <div className="list-item delete-button"
+                onClick={() => this.deleteReminder()}
+              >
+                &#x2715;
+              </div>
+              <Moment ></Moment>
+              <br></br>
+              <Moment add={{ days: 2 }} onChange={event => this.setState({ dueDate: event.target.value })}></Moment>
+            </div>
+          </Card>
+        </ul>
+      </div>
+    </div>
+  )
+
   return (
     <div className="Search">
       <br /><br />
@@ -928,6 +1042,13 @@ function Search(props) {
         data={data}
         title="Clients"
         actions={[
+          {
+            icon: 'analytics',
+            tooltip: 'CRM',
+            onClick: (event, rowData) =>
+              crmSelected(rowData, "Submit")
+          },
+
           {
             icon: 'contacts',
             tooltip: 'Situation',
@@ -964,7 +1085,6 @@ function Search(props) {
         }}
         style={{
           color: 'grey',
-          // backgroundColor: '#036435'
         }}
       />
       <Modal
@@ -989,6 +1109,17 @@ function Search(props) {
         {deleteBody}
       </Modal>
       <br />
+      <Modal
+        open={crmModal}
+        onClose={openCloseCrmModal}>
+        {crmBody}
+      </Modal>
+      <br />
+      <Modal
+        open={reminderModal}
+        onClose={openCloseReminderModal}>
+        {renderBody}
+      </Modal>
       <Button
         variant="contained"
         color="danger"
@@ -1000,7 +1131,7 @@ function Search(props) {
       >
         Tableau de bord
         </Button>
-        <br /> <br />
+      <br /> <br />
     </div>
   )
 }
