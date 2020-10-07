@@ -130,7 +130,7 @@ class Crm3 extends Component {
         return (
             <div className={useStyles.root}>
                 <br /><br />
-                <h6>Fiche Suivi Client A ce Jour</h6>
+                <h6>3.Signalement par IV3A à PT d’une nouvelle pré-commande</h6>
                 <br />
                 <Grid item xs={9}>
 
@@ -178,17 +178,13 @@ class Crm3 extends Component {
                     </Select>
                 </Grid>
                 <Grid container spacing={1} >
-                    <Grid item xs={5}>
+                    <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
                     </Grid>
                     <Grid item xs={4}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" onChange={event => this.setState({ date: event.target.value })} />
                     </Grid>
-                    <Grid item xs={3}>
-                        <br />
-                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
-                    </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={4}>
                         <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
                         {/* <div
                     className="btn btn-danger"
@@ -196,6 +192,10 @@ class Crm3 extends Component {
                     >
                         Clear Reminders
                     </div> */}
+                    </Grid>
+                    <Grid item xs={3}>
+                        <br />
+                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
                     </Grid>
                     {this.renderReminders()}
                     <Grid item xs={12}>

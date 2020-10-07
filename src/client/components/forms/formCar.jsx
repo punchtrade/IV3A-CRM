@@ -88,8 +88,8 @@ class FormCar extends Component {
     } = this.state;
     return (
       <div className={styles.inputMaterial}>
-        <br /><br />
-        <h5 className="">Fiche Véhicule</h5>
+        {/* <br /><br />
+        <h5 className="">Fiche Véhicule</h5> */}
         <div className="container">
           <div
           >

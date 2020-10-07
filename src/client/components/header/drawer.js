@@ -104,11 +104,6 @@ const DrawerNav = props => {
       onClick: () => history.push("/search")
     },
     {
-      text: "Nouveau Client",
-      icon: <AddCircle />,
-      onClick: () => history.push("/newClient")
-    },
-    {
       text: "Prospects",
       icon: <Assignment />,
       onClick: () => history.push("/leads")
@@ -116,7 +111,12 @@ const DrawerNav = props => {
     {
         text: "Véhicule",
         icon: <DriveEta />,
-        onClick: () => history.push("/formCar")
+        onClick: () => history.push("/cars")
+      },
+      {
+        text: "Nouveau Client",
+        icon: <AddCircle />,
+        onClick: () => history.push("/newClient")
       },
       {
         text: "Messages",

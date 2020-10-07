@@ -9,8 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { addReminder, deleteReminder, clearReminders } from '../actions';
-import moment from 'moment';
+import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
 
@@ -72,6 +71,26 @@ class Crm extends Component {
             message: e.target.value
         })
     }
+
+//  crmRequest = async () => {
+//         await axios.post("http://localhost:9000/crm")
+//           .then(response => {
+//             var newData = data;
+//             newData.map(client => {
+//               if (client._id === selectedClient._id) {
+//                 client.select = selectedClient.select;
+//                 client.text = selectedClient.text;
+//                 client.dueDate = selectedClient.dueDate;
+//                 client.date = selectedClient.date;
+//                 client.message = selectedClient.message;
+//               }
+//             });
+//             setData(newData);
+//             openCloseCrmModal();
+//           }).catch(error => {
+//             console.log(error);
+//           })
+//       }
 
     sendEmail = (e) => {
         e.preventDefault();
@@ -135,7 +154,7 @@ class Crm extends Component {
         return (
             <div className={useStyles.root}>
                 <br /><br />
-                <h6>Fiche Suivi Client A ce Jour</h6>
+                <h6>1.Commande (avec sélection véhicule) enregistrée par IV3A</h6>
                 <br />
                 <Grid item xs={9}>
 
@@ -156,17 +175,13 @@ class Crm extends Component {
                     </Select>
                 </Grid>
                 <Grid container spacing={1} >
-                    <Grid item xs={5}>
+                    <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
                     </Grid>
                     <Grid item xs={4}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" onChange={event => this.setState({ date: event.target.value })} />
                     </Grid>
-                    <Grid item xs={3}>
-                        <br />
-                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
-                    </Grid>
-                    <Grid item xs={5}>
+                    <Grid item xs={4}>
                         <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
                         {/* <div
                     className="btn btn-danger"
@@ -174,6 +189,10 @@ class Crm extends Component {
                     >
                         Clear Reminders
                     </div> */}
+                    </Grid>
+                    <Grid item xs={3}>
+                        <br />
+                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
                     </Grid>
                     {this.renderReminders()}
                     <Grid item xs={12}>
