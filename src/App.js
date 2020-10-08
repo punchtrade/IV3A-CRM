@@ -8,7 +8,7 @@ import UploadPage from "./client/pages/uploadPage";
 import PreOrderPage from "./client/pages/preOrder";
 // import formCar from "./client/components/forms/formCar";
 import Leads from './client/pages/leads';
-import Cars from './client/pages/cars';
+import CarsPage from './client/pages/cars';
 import Search from './client/pages/search';
 import CrmPage from './client/pages/crm/crm';
 import Crm2Page from './client/pages/crm/crm-2';
@@ -59,7 +59,7 @@ class App extends React.Component {
             <Route exact path="/preorder" component={PreOrderPage} />
             {/* <Route exact path="/formCar" component={formCar} /> */}
             <Route exact path="/leads" component={Leads} />
-            <Route exact path="/cars" component={Cars} />
+            <Route exact path="/cars" component={CarsPage} />
             <Route exact path="/search" component={Search} />
             <Route exact path="/crm" component={CrmPage} />
             <Route exact path="/crm-2" component={Crm2Page} />

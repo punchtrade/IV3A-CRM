@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function LeadsPage() {
+export default function CarsPage() {
 
   const classes = useStyles();
 

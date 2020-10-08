@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
+import {DayPilot} from 'daypilot-pro-react';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -122,7 +123,7 @@ class Crm extends Component {
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="list-group-item">
+                                <Card key={reminder.id} className="list-group-item" draggable>
                                     <div>
                                         <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
