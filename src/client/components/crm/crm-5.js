@@ -10,8 +10,11 @@ import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions';
-import moment from 'moment';
+import Moment from 'react-moment';
 import axios from 'axios';
+import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
+import { extend, createElement } from '@syncfusion/ej2-base';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,12 +57,14 @@ class Crm5 extends Component {
             dueDate: '',
             date: '',
             message: '',
+            dataSource: '',
             sent: false,
         };
+        this.data = extend([], resourcesData, null, true);
     }
 
     addReminder() {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select);
+        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
     }
 
     deleteReminder(id) {
@@ -93,6 +98,9 @@ class Crm5 extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
+        const calendarStrings = {
+            nextDay: '[Tomorrow at] LT',
+        }
         return (
             <div className="col-9">
                 <ul className="list-group col-sm-12">
@@ -102,6 +110,9 @@ class Crm5 extends Component {
                                 <Card key={reminder.id} className="list-group-item">
                                     <div>
                                         <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                    </div>
+                                    <div>
+                                        <Moment calendar={calendarStrings}className="list-item">{reminder.selectedDate}</Moment>
                                     </div>
                                     {/* <div className="list-item">{reminder.select}</div> */}
                                     <div>
@@ -113,8 +124,9 @@ class Crm5 extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <div type="date" onChange={event => this.setState({ date: event.target.value })}><em>{moment(new Date(reminder.date)).format('Do MMMM YYYY, h:mm:ss a')}</em></div>
-                                        <div type="date" onChange={event => this.setState({ dueDate: event.target.value })}><em>{moment(new Date(reminder.dueDate)).add(3, 'days').format('Do MMMM YYYY, h:mm:ss a')}</em></div>
+                                    <Moment minDate={new Date(2020, 9, 21)} calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <br></br>
+                                        <Moment type="text"  maxDate={new Date(2020, 9, 23)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -177,6 +189,29 @@ class Crm5 extends Component {
 
                     </Select>
                 </Grid>
+                <br />
+                <ScheduleComponent
+                    width='100%'
+                    height='550px'
+                    currentView='Month'
+                    type="date"
+                    name="date"
+                    className={useStyles.TextField}
+                    onChange={event => this.setState({ dataSource: event.target.value })}
+                    selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                    minDate={new Date(2020, 9, 21)}
+                    maxDate={new Date(2020, 9, 23)}
+                    eventSettings={{ dataSource: this.data }}
+                    >
+                    <ViewsDirective>
+                        <ViewDirective option='Day' />
+                        <ViewDirective option='Week' />
+                        <ViewDirective option='WorkWeek' />
+                        <ViewDirective option='Month' />
+                        <ViewDirective option='Agenda' />
+                    </ViewsDirective>
+                    <Inject services={[Day, Week, WorkWeek, Agenda, Month]} />
+                </ScheduleComponent>
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />

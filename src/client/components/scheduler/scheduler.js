@@ -332,10 +332,10 @@
 // }
 import  React,{Component} from 'react';
 import Crm from '../crm/crm';
-import { ScheduleComponent, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective, Inject, TimelineViews, Resize, DragAndDrop, TimelineMonth } from '@syncfusion/ej2-react-schedule';
+import { ScheduleComponent, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective, Inject, TimelineViews, Resize, DragAndDrop, TimelineMonth, Agenda, Day, WorkWeek,Month, CellClickEventArgs, ActionEventArgs } from '@syncfusion/ej2-react-schedule';
 import './external-drag-drop.css';
 import { extend, closest, remove, addClass } from '@syncfusion/ej2-base';
-// import { SampleBase } from '../common/sample-base';
+import { SampleBase } from '../scheduler/sample-base';
 import { TreeViewComponent } from '@syncfusion/ej2-react-navigations';
 import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
 
@@ -343,17 +343,17 @@ import { appointments, recurrenceAppointments, resourcesData } from '../schedule
 /**
  * schedule resources group-editing sample
  */
-export default class Scheduler  extends Component{
+export default class Scheduler  extends SampleBase{
     constructor() {
         super(...arguments);
         this.isTreeItemDropped = false;
         this.draggedItemId = '';
         this.allowDragAndDrops = true;
         this.fields = { appointments: appointments.waitingList, id: 'Id', text: 'Name' };
-        this.data = extend([], appointments.resourcesData, null, true);
+        this.data = extend([], resourcesData.resourcesData, null, true);
         this.departmentData = [
             { Text: 'PT', Id: 1, Color: '#bbdc00' },
-            { Text: 'IV3A', Id: 2, Color: '#9e5fff' }
+            { Text: 'IV3A', Id: 2, Color: '#ffa500' }
         ];
         this.consultantData = [
             { Text: 'Hervé', Id: 1, GroupId: 1, Color: '#000080', Designation: 'Comercial' },
@@ -442,6 +442,7 @@ export default class Scheduler  extends Component{
             }
         }
     }
+    
     render() {
         return (<div className='schedule-control-section'>
         <div className='col-lg-12 control-section'>
@@ -450,7 +451,7 @@ export default class Scheduler  extends Component{
               <div className="title-container">
                 <h1 className="title-text">Employer's Appointments</h1>
               </div>
-              <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='schedule-drag-drop' width='100%' height='650px' selectedDate={new Date(2020, 7, 1)} currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} eventSettings={{
+              <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='schedule-drag-drop' width='100%' height='650px' selectedDate={new Date(2020, 9, 1)} currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} eventSettings={{
             dataSource: this.data,
             fields: {
                 subject: { title: 'Client Name', name: 'Name' },
@@ -468,8 +469,12 @@ export default class Scheduler  extends Component{
                 <ViewsDirective>
                   <ViewDirective option='TimelineDay'/>
                   <ViewDirective option='TimelineMonth'/>
+                  <ViewDirective option='Month'/>
+                  {/* <ViewDirective option='Week'/> */}
+                  <ViewDirective option='WorkWeek'/>
+                  <ViewDirective option='Agenda'/>
                 </ViewsDirective>
-                <Inject services={[TimelineViews, TimelineMonth, Resize, DragAndDrop]}/>
+                <Inject services={[TimelineViews, TimelineMonth, Resize, DragAndDrop, Agenda, Day,Month, WorkWeek]}/>
               </ScheduleComponent>
             </div>
             <div className="treeview-container">
@@ -477,8 +482,13 @@ export default class Scheduler  extends Component{
                 <h1 className="title-text">Waiting List</h1>
                 {/* <Crm /> */}
               </div>
-              <TreeViewComponent ref={tree => this.treeObj = tree} cssClass='treeview-external-drag' nodeTemplate={this.treeTemplate.bind(this)} fields={this.fields} nodeDragStop={this.onTreeDragStop.bind(this)} nodeDragging={this.onItemDrag.bind(this)} allowDragAndDrop={this.allowDragAndDrops}/>
-            {/* <Crm /> */}
+              <TreeViewComponent ref={tree => this.treeObj = tree} 
+              cssClass='treeview-external-drag' 
+              nodeTemplate={this.treeTemplate.bind(this)} 
+              fields={this.fields} 
+              nodeDragStop={this.onTreeDragStop.bind(this)} 
+              nodeDragging={this.onItemDrag.bind(this)} 
+              allowDragAndDrop={this.allowDragAndDrops}/>
             </div>
           </div>
         </div>

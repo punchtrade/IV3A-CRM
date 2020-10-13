@@ -12,7 +12,10 @@ import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
-import {DayPilot} from 'daypilot-pro-react';
+import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective, Resize, DragAndDrop } from '@syncfusion/ej2-react-schedule';
+import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
+import { extend, createElement } from '@syncfusion/ej2-base';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,10 +45,6 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme();
 
-// const delet =  $(document).on('change', '.sel', function() {
-//     $(this).siblings().find('option[value="'+$(this).val()+'"]').remove()
-// });
-
 class Crm extends Component {
     constructor(props) {
         super(props);
@@ -55,12 +54,14 @@ class Crm extends Component {
             dueDate: '',
             date: '',
             message: '',
+            dataSource: '',
             sent: false,
         };
+        this.data = extend([], resourcesData, null, true);
     }
 
     addReminder() {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select);
+        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
     }
 
     deleteReminder(id) {
@@ -72,26 +73,6 @@ class Crm extends Component {
             message: e.target.value
         })
     }
-
-//  crmRequest = async () => {
-//         await axios.post("http://localhost:9000/crm")
-//           .then(response => {
-//             var newData = data;
-//             newData.map(client => {
-//               if (client._id === selectedClient._id) {
-//                 client.select = selectedClient.select;
-//                 client.text = selectedClient.text;
-//                 client.dueDate = selectedClient.dueDate;
-//                 client.date = selectedClient.date;
-//                 client.message = selectedClient.message;
-//               }
-//             });
-//             setData(newData);
-//             openCloseCrmModal();
-//           }).catch(error => {
-//             console.log(error);
-//           })
-//       }
 
     sendEmail = (e) => {
         e.preventDefault();
@@ -114,9 +95,9 @@ class Crm extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
-    const calendarStrings = {
-        nextDay: '[Tomorrow at] LT',
-    }
+        const calendarStrings = {
+            nextDay: '[Tomorrow at] LT',
+        }
         return (
             <div className="col-9">
                 <ul className="list-group col-sm-12">
@@ -127,7 +108,9 @@ class Crm extends Component {
                                     <div>
                                         <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
-                                    {/* <div className="list-item">{reminder.select}</div> */}
+                                    <div>
+                                        <Moment calendar={calendarStrings}className="list-item">{reminder.selectedDate}</Moment>
+                                    </div>
                                     <div>
                                         <div className="list-item">{reminder.text}</div>
                                     </div>
@@ -137,9 +120,9 @@ class Crm extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <Moment  calendar={calendarStrings}>{reminder.date}</Moment>
+                                        <Moment minDate={new Date(2020, 9, 13)} calendar={calendarStrings}>{reminder.minDate}</Moment>
                                         <br></br>
-                                        <Moment add={{days: 2}}>{reminder.dueDate}</Moment>
+                                        <Moment type="text"  maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -158,7 +141,6 @@ class Crm extends Component {
                 <h6>1.Commande (avec sélection véhicule) enregistrée par IV3A</h6>
                 <br />
                 <Grid item xs={9}>
-
                     <InputLabel id="demo-simple-select-outlined-label">Pour sélectionner</InputLabel>
                     <Select
                         variant="outlined" fullWidth margin="normal"
@@ -175,21 +157,32 @@ class Crm extends Component {
                         <MenuItem value={1}>1.Commande (avec sélection véhicule) enregistrée par IV3A</MenuItem>
                     </Select>
                 </Grid>
+                <br />
+                <ScheduleComponent
+                    width='100%'
+                    height='550px'
+                    currentView='Month'
+                    type="date"
+                    name="date"
+                    className={useStyles.TextField}
+                    onChange={event => this.setState({ dataSource: event.target.value })}
+                    selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                    minDate={new Date(2020, 9, 13)}
+                    maxDate={new Date(2020, 9, 15)}
+                    eventSettings={{ dataSource: this.data }}
+                    >
+                    <ViewsDirective>
+                        <ViewDirective option='Day' />
+                        <ViewDirective option='Week' />
+                        <ViewDirective option='WorkWeek' />
+                        <ViewDirective option='Month' />
+                        <ViewDirective option='Agenda' />
+                    </ViewsDirective>
+                    <Inject services={[Day, Week, WorkWeek, Agenda, Month, Resize, DragAndDrop]} />
+                </ScheduleComponent>
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" onChange={event => this.setState({ date: event.target.value })} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
-                        {/* <div
-                    className="btn btn-danger"
-                    onClick={() => this.props.clearReminders()}
-                    >
-                        Clear Reminders
-                    </div> */}
                     </Grid>
                     <Grid item xs={3}>
                         <br />

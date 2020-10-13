@@ -9,9 +9,13 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { addReminder, deleteReminder, clearReminders } from '../actions';
-import moment from 'moment';
+import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
+import Moment from 'react-moment';
+import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
+import { extend, createElement } from '@syncfusion/ej2-base';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,12 +58,14 @@ class Crm4 extends Component {
             dueDate: '',
             date: '',
             message: '',
+            dataSource: '',
             sent: false,
         };
+        this.data = extend([], resourcesData, null, true);
     }
 
     addReminder() {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select);
+        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
     }
 
     deleteReminder(id) {
@@ -71,6 +77,26 @@ class Crm4 extends Component {
             message: e.target.value
         })
     }
+
+    //  crmRequest = async () => {
+    //         await axios.post("http://localhost:9000/crm")
+    //           .then(response => {
+    //             var newData = data;
+    //             newData.map(client => {
+    //               if (client._id === selectedClient._id) {
+    //                 client.select = selectedClient.select;
+    //                 client.text = selectedClient.text;
+    //                 client.dueDate = selectedClient.dueDate;
+    //                 client.date = selectedClient.date;
+    //                 client.message = selectedClient.message;
+    //               }
+    //             });
+    //             setData(newData);
+    //             openCloseCrmModal();
+    //           }).catch(error => {
+    //             console.log(error);
+    //           })
+    //       }
 
     sendEmail = (e) => {
         e.preventDefault();
@@ -93,28 +119,36 @@ class Crm4 extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
+        const calendarStrings = {
+            nextDay: '[Tomorrow at] LT',
+        }
         return (
             <div className="col-9">
                 <ul className="list-group col-sm-12">
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="list-group-item">
+                                <Card key={reminder.id} className="list-group-item" draggable>
                                     <div>
                                         <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                    </div>
+                                    <div>
+                                        <Moment calendar={calendarStrings}className="list-item">{reminder.selectedDate}</Moment>
                                     </div>
                                     {/* <div className="list-item">{reminder.select}</div> */}
                                     <div>
                                         <div className="list-item">{reminder.text}</div>
                                     </div>
+
                                     <div>
                                         <div className="list-item delete-button"
                                             onClick={() => this.deleteReminder(reminder.id)}
                                         >
                                             &#x2715;
                                     </div>
-                                        <div type="date" onChange={event => this.setState({ date: event.target.value })}><em>{moment(new Date(reminder.date)).format('Do MMMM YYYY, h:mm:ss a')}</em></div>
-                                        <div type="date" onChange={event => this.setState({ dueDate: event.target.value })}><em>{moment(new Date(reminder.dueDate)).add(3, 'days').format('Do MMMM YYYY, h:mm:ss a')}</em></div>
+                                        <Moment minDate={new Date(2020, 9, 19)} calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <br></br>
+                                        <Moment type="text"  maxDate={new Date(2020, 9, 21)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -133,7 +167,6 @@ class Crm4 extends Component {
                 <h6>4.Vérifier de disposition et réservation par PT du véhicule à RRG</h6>
                 <br />
                 <Grid item xs={9}>
-
                     <InputLabel id="demo-simple-select-outlined-label">Pour sélectionner</InputLabel>
                     <Select
                         variant="outlined" fullWidth margin="normal"
@@ -147,51 +180,35 @@ class Crm4 extends Component {
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        {/* <MenuItem value={1}>1.Pré-commande (avec sélection véhicule) enregistrée par IV3A</MenuItem> */}
-                        {/* <MenuItem value={2}>2.Vérification par IV3A de précommande et Fiche Client</MenuItem> */}
-                        {/* <MenuItem value={3}>3.Signalement par IV3A à PT d’une nouvelle pré-commande</MenuItem> */}
-                        <MenuItem value={4}>4.Vérifier de disposition et réservation par PT du véhicule à RRG</MenuItem>
-                        {/* <MenuItem value={5}>5.Proposition par PT de véhicule équivalent</MenuItem>
-                        <MenuItem value={6}>6.Confirmation de disponibilité/ génération proforma PT à IV3A</MenuItem>
-                        <MenuItem value={7}>7.Envoi au Client contrat/facture services & proforma par IV3A</MenuItem>
-                        <MenuItem value={8}>8.Réception contrat et proforma signés par le Client par IV3A</MenuItem>
-                        <MenuItem value={9}>9.Paiement du Client du contrat de services reçu par IV3A</MenuItem>
-                        <MenuItem value={10}>10.Réception par IV3A de copie d'ordre de vir. achat véhicule</MenuItem>
-                        <MenuItem value={11}>11.Confirmation par PT d'achat du vehicule à RRG</MenuItem>
-                        <MenuItem value={12}>12.Réception du virement d'achat du véhicule du Client par PT</MenuItem>
-                        <MenuItem value={13}>13.Ordre de virement d'achat du véhicule de PT à RRG</MenuItem>
-                        <MenuItem value={14}>14.Réception doc. originale du véhicule de RRG par IMP</MenuItem>
-                        <MenuItem value={15}>15.Ordre de préparation de transport de PT à ZS</MenuItem>
-                        <MenuItem value={16}>16.Documentation complète du véhicule reçue par ZS de IMP</MenuItem>
-                        <MenuItem value={17}>17.Livraison par RRG du Véhicule à PT (ZS)</MenuItem>
-                        <MenuItem value={18}>18.Indication à PT par ZS d'une prevision de date de transport</MenuItem>
-                        <MenuItem value={19}>19.Instruction de PT à ZS de libérer le transport</MenuItem>
-                        <MenuItem value={20}>20.Envoi par ZS des documents d’exportation à PT</MenuItem>
-                        <MenuItem value={21}>21.Envoi DHL par PT (IMP) à IV3A de doc. véhicule définitive +clé</MenuItem>
-                        <MenuItem value={22}>22.Préparation par IV3A du Dossier (TVA, Douane, Imm.)</MenuItem>
-                        <MenuItem value={23}>23.Information de ZS a IV3A de disponibilité véhicule au port</MenuItem>
-                        <MenuItem value={24}>24.Paiement taxes (TVA, Douane) par le Client (Accomp. IV3A)</MenuItem>
-                        <MenuItem value={25}>25.Immatriculation Algérienne par le Client (Accomp.IV3A)</MenuItem>
-                        <MenuItem value={26}>26.Remise par IV3A du dossier complet du véhicule au Client</MenuItem>
-                        <MenuItem value={27}>27.Livraison par IV3A du véhicule au Client</MenuItem> */} 
-
-                    </Select>
+                        <MenuItem value={4}>4.Vérifier de disposition et réservation par PT du véhicule à RRG</MenuItem> 
+                        </Select>
                 </Grid>
+                <br />
+                <ScheduleComponent
+                    width='100%'
+                    height='550px'
+                    currentView='Month'
+                    type="date"
+                    name="date"
+                    className={useStyles.TextField}
+                    onChange={event => this.setState({ dataSource: event.target.value })}
+                    selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                    minDate={new Date(2020, 9, 19)}
+                    maxDate={new Date(2020, 9, 21)}
+                    eventSettings={{ dataSource: this.data }}
+                    >
+                    <ViewsDirective>
+                        <ViewDirective option='Day' />
+                        <ViewDirective option='Week' />
+                        <ViewDirective option='WorkWeek' />
+                        <ViewDirective option='Month' />
+                        <ViewDirective option='Agenda' />
+                    </ViewsDirective>
+                    <Inject services={[Day, Week, WorkWeek, Agenda, Month]} />
+                </ScheduleComponent>
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="date" name="date" onChange={event => this.setState({ date: event.target.value })} />
-                    </Grid>
-                    <Grid item xs={4}>
-                        <TextField variant="outlined" fullWidth margin="normal" type="date" name="date" onChange={event => this.setState({ dueDate: event.target.value })} />
-                        {/* <div
-                    className="btn btn-danger"
-                    onClick={() => this.props.clearReminders()}
-                    >
-                        Clear Reminders
-                    </div> */}
                     </Grid>
                     <Grid item xs={3}>
                         <br />

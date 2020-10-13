@@ -10,8 +10,11 @@ import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions';
-import moment from 'moment';
+import Moment from 'react-moment';
 import axios from 'axios';
+import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
+import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
+import { extend, createElement } from '@syncfusion/ej2-base';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -54,12 +57,14 @@ class Crm6 extends Component {
             dueDate: '',
             date: '',
             message: '',
+            dataSource: '',
             sent: false,
         };
+        this.data = extend([], resourcesData, null, true);
     }
 
     addReminder() {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select);
+        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
     }
 
     deleteReminder(id) {
@@ -93,6 +98,9 @@ class Crm6 extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
+        const calendarStrings = {
+            nextDay: '[Tomorrow at] LT',
+        }
         return (
             <div className="col-9">
                 <ul className="list-group col-sm-12">
@@ -102,6 +110,9 @@ class Crm6 extends Component {
                                 <Card key={reminder.id} className="list-group-item">
                                     <div>
                                         <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                    </div>
+                                    <div>
+                                        <Moment calendar={calendarStrings}className="list-item">{reminder.selectedDate}</Moment>
                                     </div>
                                     {/* <div className="list-item">{reminder.select}</div> */}
                                     <div>
@@ -113,8 +124,9 @@ class Crm6 extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <div type="date" onChange={event => this.setState({ date: event.target.value })}><em>{moment(new Date(reminder.date)).format('Do MMMM YYYY, h:mm:ss a')}</em></div>
-                                        <div type="date" onChange={event => this.setState({ dueDate: event.target.value })}><em>{moment(new Date(reminder.dueDate)).add(3, 'days').format('Do MMMM YYYY, h:mm:ss a')}</em></div>
+                                    <Moment minDate={new Date(2020, 9, 23)} calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <br></br>
+                                        <Moment type="text"  maxDate={new Date(2020, 9, 25)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -152,7 +164,7 @@ class Crm6 extends Component {
                         {/* <MenuItem value={3}>3.Signalement par IV3A à PT d’une nouvelle pré-commande</MenuItem> */}
                         {/* <MenuItem value={4}>4.Vérifier de disposition et réservation par PT du véhicule à RRG</MenuItem> */}
                         {/* <MenuItem value={5}>5.Proposition par PT de véhicule équivalent</MenuItem> */}
-                        <MenuItem value={6}>6.Confirmation de disponibilité/ génération proforma PT à IV3A</MenuItem>
+                         <MenuItem value={6}>6.Confirmation de disponibilité/ génération proforma PT à IV3A</MenuItem>
                         {/* <MenuItem value={7}>7.Envoi au Client contrat/facture services & proforma par IV3A</MenuItem>
                         <MenuItem value={8}>8.Réception contrat et proforma signés par le Client par IV3A</MenuItem>
                         <MenuItem value={9}>9.Paiement du Client du contrat de services reçu par IV3A</MenuItem>
@@ -173,10 +185,33 @@ class Crm6 extends Component {
                         <MenuItem value={24}>24.Paiement taxes (TVA, Douane) par le Client (Accomp. IV3A)</MenuItem>
                         <MenuItem value={25}>25.Immatriculation Algérienne par le Client (Accomp.IV3A)</MenuItem>
                         <MenuItem value={26}>26.Remise par IV3A du dossier complet du véhicule au Client</MenuItem>
-                        <MenuItem value={27}>27.Livraison par IV3A du véhicule au Client</MenuItem>  */}
+                        <MenuItem value={27}>27.Livraison par IV3A du véhicule au Client</MenuItem>  */} 
 
                     </Select>
                 </Grid>
+                <br />
+                <ScheduleComponent
+                    width='100%'
+                    height='550px'
+                    currentView='Month'
+                    type="date"
+                    name="date"
+                    className={useStyles.TextField}
+                    onChange={event => this.setState({ dataSource: event.target.value })}
+                    selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                    minDate={new Date(2020, 9, 23)}
+                    maxDate={new Date(2020, 9, 25)}
+                    eventSettings={{ dataSource: this.data }}
+                    >
+                    <ViewsDirective>
+                        <ViewDirective option='Day' />
+                        <ViewDirective option='Week' />
+                        <ViewDirective option='WorkWeek' />
+                        <ViewDirective option='Month' />
+                        <ViewDirective option='Agenda' />
+                    </ViewsDirective>
+                    <Inject services={[Day, Week, WorkWeek, Agenda, Month]} />
+                </ScheduleComponent>
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
@@ -193,7 +228,7 @@ class Crm6 extends Component {
                         Clear Reminders
                     </div> */}
                     </Grid>
-                    <Grid item xs={4}>
+                    <Grid item xs={3}>
                         <br />
                         <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
                     </Grid>
