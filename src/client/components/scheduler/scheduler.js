@@ -315,7 +315,7 @@
 //                             allowDrag={allowDrag}
 //                         />
 //                         <AppointmentForm />
-                       
+
 //                         <Resources
 //                             data={resources}
 //                             mainResourceName={mainResourceName}
@@ -330,21 +330,40 @@
 //         );
 //     }
 // }
-import  React,{Component} from 'react';
-import Crm from '../crm/crm';
-import { ScheduleComponent, ResourcesDirective, ResourceDirective, ViewsDirective, ViewDirective, Inject, TimelineViews, Resize, DragAndDrop, TimelineMonth, Agenda, Day, WorkWeek,Month, CellClickEventArgs, ActionEventArgs } from '@syncfusion/ej2-react-schedule';
+import React from 'react';
+import {
+    ScheduleComponent,
+    ResourcesDirective,
+    ResourceDirective,
+    ViewsDirective,
+    ViewDirective,
+    Inject,
+    TimelineViews,
+    Resize,
+    DragAndDrop,
+    TimelineMonth,
+    Agenda,
+    Day,
+    WorkWeek,
+    Month, CellClickEventArgs, ActionEventArgs
+} from '@syncfusion/ej2-react-schedule';
 import './external-drag-drop.css';
 import { extend, closest, remove, addClass } from '@syncfusion/ej2-base';
 import { SampleBase } from '../scheduler/sample-base';
 import { TreeViewComponent } from '@syncfusion/ej2-react-navigations';
 import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
+import { addReminder, deleteReminder, clearReminders } from '../actions/index';
+import { connect } from 'react-redux';
+import Card from '@material-ui/core/Card';
+import Moment from 'react-moment';
+import Draggable  from 'react-draggable';
 
 // import * as dataSource from './datasource.json';
 /**
  * schedule resources group-editing sample
  */
-export default class Scheduler  extends SampleBase{
-    constructor() {
+class Scheduler extends SampleBase {
+    constructor(props) {
         super(...arguments);
         this.isTreeItemDropped = false;
         this.draggedItemId = '';
@@ -362,6 +381,51 @@ export default class Scheduler  extends SampleBase{
             { Text: 'Fátima', Id: 4, GroupId: 2, Color: '#9e5fff', Designation: 'Sales' },
         ];
     }
+
+
+    deleteReminder(id) {
+        this.props.deleteReminder(id);
+    }
+    renderReminders() {
+        const { reminders } = this.props;
+        const calendarStrings = {
+            nextDay: '[Tomorrow at] LT',
+        }
+        return (
+            <div className="col-12">
+                <ul className="list-group col-sm-12">
+                    {
+                        reminders.map(reminder => {
+                            return (
+                                <Card key={reminder.id} className="list-group-item" draggable >
+                                    <div>
+                                        <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                    </div>
+                                    <div>
+                                        <Moment calendar={calendarStrings} className="list-item">{reminder.selectedDate}</Moment>
+                                    </div>
+                                    <div>
+                                        <div className="list-item">{reminder.text}</div>
+                                    </div>
+                                    <div>
+                                        <div className="list-item delete-button"
+                                            onClick={() => this.deleteReminder(reminder.id)}
+                                        >
+                                            &#x2715;
+                                    </div>
+                                        <Moment minDate={new Date(2020, 9, 13)} calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <br></br>
+                                        <Moment type="text" maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
+                                    </div>
+                                </Card>
+                            )
+                        })
+                    }
+                </ul>
+            </div>
+        )
+
+    }
     getConsultantName(value) {
         return value.resourceData[value.resource.textField];
     }
@@ -374,11 +438,11 @@ export default class Scheduler  extends SampleBase{
     }
     resourceHeaderTemplate(props) {
         return (<div className="template-wrap"><div className="specialist-category"><div className={"specialist-image " + this.getConsultantImage(props)}></div><div className="specialist-name">
-      {this.getConsultantName(props)}</div><div className="specialist-designation">{this.getConsultantDesignation(props)}</div></div></div>);
+            {this.getConsultantName(props)}</div><div className="specialist-designation">{this.getConsultantDesignation(props)}</div></div></div>);
     }
     treeTemplate(props) {
         return (<div id="waiting"><div id="waitdetails"><div id="waitlist">{props.Name}</div>
-      <div id="waitcategory">{props.DepartmentName} - {props.Description}</div></div></div>);
+            <div id="waitcategory">{props.DepartmentName} - {props.Description}</div></div></div>);
     }
     onItemDrag(event) {
         if (this.scheduleObj.isAdaptive) {
@@ -442,56 +506,66 @@ export default class Scheduler  extends SampleBase{
             }
         }
     }
-    
+
     render() {
         return (<div className='schedule-control-section'>
-        <div className='col-lg-12 control-section'>
-          <div className='control-wrapper drag-sample-wrapper'>
-            <div className="schedule-container">
-              <div className="title-container">
-                <h1 className="title-text">Employer's Appointments</h1>
-              </div>
-              <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='schedule-drag-drop' width='100%' height='650px' selectedDate={new Date(2020, 9, 1)} currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} eventSettings={{
-            dataSource: this.data,
-            fields: {
-                subject: { title: 'Client Name', name: 'Name' },
-                startTime: { title: "From", name: "StartTime" },
-                endTime: { title: "To", name: "EndTime" },
-                description: { title: 'Reason', name: 'Description' }
-            }
-        }} group={{ enableCompactView: false, resources: ['Departments', 'Consultants'] }} actionBegin={this.onActionBegin.bind(this)} drag={this.onItemDrag.bind(this)}>
-                <ResourcesDirective>
-                  <ResourceDirective field='DepartmentID' title='Department' name='Departments' allowMultiple={false} dataSource={this.departmentData} textField='Text' idField='Id' colorField='Color'>
-                  </ResourceDirective>
-                  <ResourceDirective field='ConsultantID' title='Consultant' name='Consultants' allowMultiple={false} dataSource={this.consultantData} textField='Text' idField='Id' groupIDField="GroupId" colorField='Color'>
-                  </ResourceDirective>
-                </ResourcesDirective>
-                <ViewsDirective>
-                  <ViewDirective option='TimelineDay'/>
-                  <ViewDirective option='TimelineMonth'/>
-                  <ViewDirective option='Month'/>
-                  {/* <ViewDirective option='Week'/> */}
-                  <ViewDirective option='WorkWeek'/>
-                  <ViewDirective option='Agenda'/>
-                </ViewsDirective>
-                <Inject services={[TimelineViews, TimelineMonth, Resize, DragAndDrop, Agenda, Day,Month, WorkWeek]}/>
-              </ScheduleComponent>
+            <div className='col-lg-12 control-section'>
+                <div className='control-wrapper drag-sample-wrapper'>
+                    <div className="schedule-container">
+                        <div className="title-container">
+                            <h1 className="title-text">Employer's Appointments</h1>
+                        </div>
+                        <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='schedule-drag-drop' width='100%' height='650px' selectedDate={new Date(2020, 9, 1)} currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} eventSettings={{
+                            dataSource: this.data,
+                            fields: {
+                                subject: { title: 'Client Name', name: 'Name' },
+                                startTime: { title: "From", name: "StartTime" },
+                                endTime: { title: "To", name: "EndTime" },
+                                description: { title: 'Reason', name: 'Description' }
+                            }
+                        }} group={{ enableCompactView: false, resources: ['Departments', 'Consultants'] }} actionBegin={this.onActionBegin.bind(this)} drag={this.onItemDrag.bind(this)}>
+                            <ResourcesDirective>
+                                <ResourceDirective field='DepartmentID' title='Department' name='Departments' allowMultiple={false} dataSource={this.departmentData} textField='Text' idField='Id' colorField='Color'>
+                                </ResourceDirective>
+                                <ResourceDirective field='ConsultantID' title='Consultant' name='Consultants' allowMultiple={false} dataSource={this.consultantData} textField='Text' idField='Id' groupIDField="GroupId" colorField='Color'>
+                                </ResourceDirective>
+                            </ResourcesDirective>
+                            <ViewsDirective>
+                                <ViewDirective option='TimelineDay' />
+                                <ViewDirective option='TimelineMonth' />
+                                <ViewDirective option='Month' />
+                                {/* <ViewDirective option='Week'/> */}
+                                <ViewDirective option='WorkWeek' />
+                                <ViewDirective option='Agenda' />
+                            </ViewsDirective>
+                            <Inject services={[TimelineViews, TimelineMonth, Resize, DragAndDrop, Agenda, Day, Month, WorkWeek]} />
+                        </ScheduleComponent>
+                    </div>
+                    <div className="treeview-container">
+                        <div className="title-container">
+                            <h1 className="title-text">Waiting List</h1>
+                        </div>
+                        <TreeViewComponent ref={tree => this.treeObj = tree}
+                            cssClass='treeview-external-drag'
+                            nodeTemplate={this.treeTemplate.bind(this)}
+                            fields={this.fields}
+                            nodeDragStop={this.onTreeDragStop.bind(this)}
+                            nodeDragging={this.onItemDrag.bind(this)}
+                            allowDragAndDrop={this.allowDragAndDrops}>{this.renderReminders()}</TreeViewComponent>
+                    </div>
+                </div>
             </div>
-            <div className="treeview-container">
-              <div className="title-container">
-                <h1 className="title-text">Waiting List</h1>
-                {/* <Crm /> */}
-              </div>
-              <TreeViewComponent ref={tree => this.treeObj = tree} 
-              cssClass='treeview-external-drag' 
-              nodeTemplate={this.treeTemplate.bind(this)} 
-              fields={this.fields} 
-              nodeDragStop={this.onTreeDragStop.bind(this)} 
-              nodeDragging={this.onItemDrag.bind(this)} 
-              allowDragAndDrop={this.allowDragAndDrops}/>
-            </div>
-          </div>
-        </div>
-      </div>);
+        </div>);
     }
 }
+
+function mapStateToProps(state) {
+    console.log('state', state);
+    return {
+        reminders: state,
+    }
+}
+
+
+
+export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(Scheduler)

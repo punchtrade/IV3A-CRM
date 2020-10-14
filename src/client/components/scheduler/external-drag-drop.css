@@ -2,6 +2,7 @@
  .drag-sample-wrapper {
     display: -ms-flexbox;
     display: flex;
+    width:  128%;
 
 }
 
@@ -14,13 +15,13 @@
     padding-bottom: 10px;
 }
 
-.treeview-external-drag #waiting {
+/* .treeview-external-drag #waiting {
     height: 100%;
     padding: 0;
-}
+} */
 
-.treeview-external-drag #waitid {
-    float: left;
+/* .treeview-external-drag #waitid {
+    float: right;
     width: 13%;
     text-align: center;
     line-height: 30px;
@@ -30,12 +31,12 @@
     overflow: hidden;
     margin: 9px 0;
     padding: 0 2px 0 0;
-}
+} */
 
 .treeview-external-drag #waitdetails {
     width: 95%;
-    float: left;
-    height: 100%;
+    float: right;
+    height: 90%;
     padding: 0;
 }
 
@@ -47,7 +48,7 @@
 }
  /* custom code end*/
 .treeview-external-drag #waitlist {
-    width: 100%;
+    width: 0%;
     height: 50%;
     font-weight: bold;
     font-family: "Segoe UI";
@@ -195,7 +196,7 @@
     background-image: url('https://ej2.syncfusion.com/react/demos/src/schedule/images/margaret.png');
 }
 
-@media (max-width: 550px) {
+@media (max-width: 150px) {
     .drag-sample-wrapper {
         display: block;
     }
@@ -213,3 +214,4 @@
         position: relative !important;
     }
 }
+

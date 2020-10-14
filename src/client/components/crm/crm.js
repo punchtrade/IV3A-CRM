@@ -60,7 +60,7 @@ class Crm extends Component {
         this.data = extend([], resourcesData, null, true);
     }
 
-    addReminder() {
+    addReminder(id) {
         this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
     }
 
@@ -146,8 +146,6 @@ class Crm extends Component {
                         variant="outlined" fullWidth margin="normal"
                         labelId="demo-simple-select-outlined-label"
                         id="demo-simple-select-outlined"
-                        // value={age}
-                        // onChange={handleChange}
                         label="Pour sélectionner"
                         onChange={event => this.setState({ select: event.target.value })}
                     >
