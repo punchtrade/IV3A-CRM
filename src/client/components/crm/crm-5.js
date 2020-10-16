@@ -190,7 +190,7 @@ class Crm5 extends Component {
                     </Select>
                 </Grid>
                 <br />
-                <ScheduleComponent
+                {/* <ScheduleComponent
                     width='100%'
                     height='550px'
                     currentView='Month'
@@ -211,7 +211,7 @@ class Crm5 extends Component {
                         <ViewDirective option='Agenda' />
                     </ViewsDirective>
                     <Inject services={[Day, Week, WorkWeek, Agenda, Month]} />
-                </ScheduleComponent>
+                </ScheduleComponent> */}
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />

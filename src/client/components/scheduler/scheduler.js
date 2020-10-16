@@ -397,7 +397,7 @@ class Scheduler extends SampleBase {
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="list-group-item" draggable >
+                                <Card key={reminder.id} className="card_id" draggable >
                                     <div>
                                         <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>

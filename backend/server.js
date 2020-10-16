@@ -62,6 +62,7 @@ app.use(require("./src/controllers/leads"));
 app.use(require("./src/controllers/uploads"));
 app.use(require("./src/controllers/mails"));
 app.use(require("./src/controllers/pre-order"));
+app.use(require("./src/controllers/crm"));
 app.use(require("../api/app"));
 app.use(session({
   secret: 'secret',

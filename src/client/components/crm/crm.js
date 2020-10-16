@@ -60,6 +60,19 @@ class Crm extends Component {
         this.data = extend([], resourcesData, null, true);
     }
 
+    onSubmitHandler = async (e) => {
+        e.preventDefault();
+        await axios.post("http://localhost:9000/crm", this.state, {
+          headers: { "Content-Type": "application/json" },
+        })
+          .then((response) => {
+            console.log(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
     addReminder(id) {
         this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
     }
@@ -104,15 +117,15 @@ class Crm extends Component {
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="list-group-item" draggable>
+                                <Card key={reminder.id} className="card_id" draggable>
                                     <div>
-                                        <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                        <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
                                     <div>
-                                        <Moment calendar={calendarStrings}className="list-item">{reminder.selectedDate}</Moment>
+                                        <Moment calendar={calendarStrings}  className="list-item">{reminder.selectedDate}</Moment>
                                     </div>
                                     <div>
-                                        <div className="list-item">{reminder.text}</div>
+                                        <div className="list-item" name="Description">{reminder.text}</div>
                                     </div>
                                     <div>
                                         <div className="list-item delete-button"
@@ -120,9 +133,9 @@ class Crm extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <Moment minDate={new Date(2020, 9, 13)} calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <Moment minDate={new Date(2020, 9, 13)} name="StartTime" calendar={calendarStrings}>{reminder.minDate}</Moment>
                                         <br></br>
-                                        <Moment type="text"  maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
+                                        <Moment type="text"  name="EndTime" maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -141,11 +154,11 @@ class Crm extends Component {
                 <h6>1.Commande (avec sélection véhicule) enregistrée par IV3A</h6>
                 <br />
                 <Grid item xs={9}>
-                    <InputLabel id="demo-simple-select-outlined-label">Pour sélectionner</InputLabel>
+                    <InputLabel id="select">Pour sélectionner</InputLabel>
                     <Select
                         variant="outlined" fullWidth margin="normal"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
+                        labelId="select"
+                        Id={1}
                         label="Pour sélectionner"
                         onChange={event => this.setState({ select: event.target.value })}
                     >
@@ -156,7 +169,7 @@ class Crm extends Component {
                     </Select>
                 </Grid>
                 <br />
-                <ScheduleComponent
+                {/* <ScheduleComponent
                     width='100%'
                     height='550px'
                     currentView='Month'
@@ -177,7 +190,7 @@ class Crm extends Component {
                         <ViewDirective option='Agenda' />
                     </ViewsDirective>
                     <Inject services={[Day, Week, WorkWeek, Agenda, Month, Resize, DragAndDrop]} />
-                </ScheduleComponent>
+                </ScheduleComponent> */}
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
                         <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
@@ -190,7 +203,7 @@ class Crm extends Component {
                     <Grid item xs={12}>
                         <br />
                         <div onClick={this.sendEmail} className={this.state.sent ? 'msg msgAppear' : 'msg'}>
-                            <Button className={useStyles.Button} multiline variant="contained" type="submit">IV3A</Button>
+                            <Button className={useStyles.Button} multiline variant="contained" type="submit" onClick={this.onSubmitHandler.bind(this)}>IV3A</Button>
                         </div>
                     </Grid>
                 </Grid>
