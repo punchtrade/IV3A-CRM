@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
@@ -63,15 +63,17 @@ class Crm extends Component {
     onSubmitHandler = async (e) => {
         e.preventDefault();
         await axios.post("http://localhost:9000/crm", this.state, {
-          headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json" },
         })
-          .then((response) => {
-            console.log(response);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      };
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+
+
 
     addReminder(id) {
         this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
@@ -122,7 +124,7 @@ class Crm extends Component {
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
                                     <div>
-                                        <Moment calendar={calendarStrings}  className="list-item">{reminder.selectedDate}</Moment>
+                                        <Moment calendar={calendarStrings} className="list-item">{reminder.selectedDate}</Moment>
                                     </div>
                                     <div>
                                         <div className="list-item" name="Description">{reminder.text}</div>
@@ -133,9 +135,9 @@ class Crm extends Component {
                                         >
                                             &#x2715;
                                     </div>
-                                        <Moment minDate={new Date(2020, 9, 13)} name="StartTime" calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <Moment minDate={new Date(2020, 9, 13)}  name="StartTime" calendar={calendarStrings}>{reminder.minDate}</Moment>
                                         <br></br>
-                                        <Moment type="text"  name="EndTime" maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
+                                        <Moment type="text" name="EndTime"  maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -169,41 +171,56 @@ class Crm extends Component {
                     </Select>
                 </Grid>
                 <br />
-                {/* <ScheduleComponent
-                    width='100%'
-                    height='550px'
-                    currentView='Month'
-                    type="date"
-                    name="date"
-                    className={useStyles.TextField}
-                    onChange={event => this.setState({ dataSource: event.target.value })}
-                    selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
-                    minDate={new Date(2020, 9, 13)}
-                    maxDate={new Date(2020, 9, 15)}
-                    eventSettings={{ dataSource: this.data }}
-                    >
-                    <ViewsDirective>
-                        <ViewDirective option='Day' />
-                        <ViewDirective option='Week' />
-                        <ViewDirective option='WorkWeek' />
-                        <ViewDirective option='Month' />
-                        <ViewDirective option='Agenda' />
-                    </ViewsDirective>
-                    <Inject services={[Day, Week, WorkWeek, Agenda, Month, Resize, DragAndDrop]} />
-                </ScheduleComponent> */}
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
-                        <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
+                        <TextField
+                            variant="outlined"
+                            fullWidth margin="normal"
+                            className={useStyles.TextField}
+                            type="text"
+                            onChange={event => this.setState({ text: event.target.value })} />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={9}>
+                        <TextField
+                            variant="outlined"
+                            fullWidth margin="normal"
+                            className={useStyles.TextField}
+                            type="date"
+                            name="date"
+                            selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                            maxDate={new Date(2020, 9, 15)}
+                            onChange={event => this.setState({ date: event.target.value })} />
+                    </Grid>
+                    <Grid item xs={9}>
+                        <TextField
+                            variant="outlined"
+                            fullWidth margin="normal"
+                            className={useStyles.TextField}
+                            type="date"
+                            name="date"
+                            selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                            minDate={new Date(2020, 9, 13)}
+                            onChange={event => this.setState({ dueDate: event.target.value })} /> 
+                    </Grid>
+                    <Grid item xs={2}>
                         <br />
-                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
+                        <Button
+                            className={useStyles.Button}
+                            multiline variant="contained"
+                            onChange={event => this.setState({ select: event.target.value })}
+                            onClick={this.onSubmitHandler.bind(this)}
+                            onClick={() => this.addReminder()}>Ajouter</Button>
+                        <br />  <br />
+                        <Button
+                            className={useStyles.Button}
+                            multiline variant="contained"
+                            onClick={this.onSubmitHandler.bind(this)}>Send</Button>
                     </Grid>
                     {this.renderReminders()}
                     <Grid item xs={12}>
                         <br />
                         <div onClick={this.sendEmail} className={this.state.sent ? 'msg msgAppear' : 'msg'}>
-                            <Button className={useStyles.Button} multiline variant="contained" type="submit" onClick={this.onSubmitHandler.bind(this)}>IV3A</Button>
+                            <Button className={useStyles.Button} multiline variant="contained" type="submit">IV3A</Button>
                         </div>
                     </Grid>
                 </Grid>

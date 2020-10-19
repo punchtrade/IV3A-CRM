@@ -15,6 +15,14 @@ import Moment from 'react-moment';
 import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
 import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
 import { extend, createElement } from '@syncfusion/ej2-base';
+// import {
+//     DatePicker,
+//     TimePicker,
+//     DateTimePicker,
+//     MuiPickersUtilsProvider,
+//   } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns'; // choose your lib
+import Picker from '../datePicker/datePicker';
 
 
 
@@ -214,6 +222,38 @@ class Crm2 extends Component {
                         <br />
                         <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
                     </Grid>
+                                        {/* <Grid item xs={9}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                            variant="outlined"
+                            fullWidth margin="normal"
+                            className={useStyles.TextField}
+                            value={selectedDate}
+                            type="date"
+                            name="date"
+                            selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                            minDate={new Date(2020, 9, 19)}
+                            onChange={event => this.setState({ date: event.target.value })}
+                            onChange={date => handleDateChange(date)}
+                            />
+                        </MuiPickersUtilsProvider>
+                    </Grid>
+                    <Grid item xs={9}>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                        <DatePicker
+                            variant="outlined"
+                            fullWidth margin="normal"
+                            className={useStyles.TextField}
+                            type="date"
+                            name="date"
+                            value={selectedDate}
+                            selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
+                             maxDate={new Date(2020, 9, 21)}
+                            onChange={event => this.setState({ dueDate: event.target.value })}
+                            onChange={date => handleDateChange(date)}
+                            />
+                        </MuiPickersUtilsProvider>                      
+                    </Grid> */}
                     {this.renderReminders()}
                     <Grid item xs={12}>
                         <br />

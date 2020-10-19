@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
     id: mongoose.Schema.Types.ObjectId,
-    id: {
-        type: String,
-        required: true,
-      },
+    // id: {
+    //     type: String,
+    //     required: true,
+    //   },
     date: {
       type: Date,
       default: Date.now,
