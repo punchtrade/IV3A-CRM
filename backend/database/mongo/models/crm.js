@@ -14,7 +14,7 @@ const schema = new Schema({
     },
     dueDate: {
         type: Date,
-        required: true,
+        required: false,
     },
     select: {
         type: String,

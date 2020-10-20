@@ -345,7 +345,7 @@ import {
     Agenda,
     Day,
     WorkWeek,
-    Month, CellClickEventArgs, ActionEventArgs
+    Month, 
 } from '@syncfusion/ej2-react-schedule';
 import './external-drag-drop.css';
 import { extend, closest, remove, addClass } from '@syncfusion/ej2-base';
@@ -356,12 +356,7 @@ import { addReminder, deleteReminder, clearReminders } from '../actions/index';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import Moment from 'react-moment';
-import Draggable  from 'react-draggable';
 
-// import * as dataSource from './datasource.json';
-/**
- * schedule resources group-editing sample
- */
 class Scheduler extends SampleBase {
     constructor(props) {
         super(...arguments);
@@ -380,44 +375,52 @@ class Scheduler extends SampleBase {
             { Text: 'Dominique', Id: 3, GroupId: 1, Color: '#008000', Designation: 'CEO' },
             { Text: 'Fátima', Id: 4, GroupId: 2, Color: '#9e5fff', Designation: 'Sales' },
         ];
+
+        this.minDate = new Date('10/15/2020');
+        this.maxDate = new Date('10/17/2020');
     }
 
 
     deleteReminder(id) {
         this.props.deleteReminder(id);
     }
+
+    minDate =() => {
+        this.setState({
+            date: this.minDate(new Date('10/15/2020'))
+        })
+    }
+    maxDate =() => {
+        this.setState({
+           dueDate: this.maxDate(new Date('10/17/2020'))
+        })
+    }
     renderReminders() {
         const { reminders } = this.props;
-        const calendarStrings = {
-            nextDay: '[Tomorrow at] LT',
-        }
         return (
             <div className="col-12">
                 <ul className="list-group col-sm-12">
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="card_id" draggable >
-                                    <div>
-                                        <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
-                                    </div>
-                                    <div>
-                                        <Moment calendar={calendarStrings} className="list-item">{reminder.selectedDate}</Moment>
-                                    </div>
-                                    <div>
-                                        <div className="list-item">{reminder.text}</div>
-                                    </div>
-                                    <div>
-                                        <div className="list-item delete-button"
-                                            onClick={() => this.deleteReminder(reminder.id)}
-                                        >
-                                            &#x2715;
-                                    </div>
-                                        <Moment minDate={new Date(2020, 9, 13)} calendar={calendarStrings}>{reminder.minDate}</Moment>
-                                        <br></br>
-                                        <Moment type="text" maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
-                                    </div>
-                                </Card>
+                                <Card key={reminder.id} className="card_id" draggable="true">
+                                <div>
+                                    <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                </div>
+                                <div>
+                                    <div className="list-item" name="Description">{reminder.text}</div>
+                                </div>
+                                <div>
+                                    <div className="list-item delete-button"
+                                        onClick={() => this.deleteReminder(reminder.id)}
+                                    >
+                                        &#10006;
+                                </div>
+                                    <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
+                                    <br></br>
+                                    <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
+                                </div>
+                            </Card>
                             )
                         })
                     }
@@ -513,7 +516,7 @@ class Scheduler extends SampleBase {
                 <div className='control-wrapper drag-sample-wrapper'>
                     <div className="schedule-container">
                         <div className="title-container">
-                            <h1 className="title-text">Employer's Appointments</h1>
+                            <h1 className="title-text">Nominations de l'employeur</h1>
                         </div>
                         <ScheduleComponent ref={schedule => this.scheduleObj = schedule} cssClass='schedule-drag-drop' width='100%' height='650px' selectedDate={new Date(2020, 9, 1)} currentView='TimelineDay' resourceHeaderTemplate={this.resourceHeaderTemplate.bind(this)} eventSettings={{
                             dataSource: this.data,
@@ -534,7 +537,6 @@ class Scheduler extends SampleBase {
                                 <ViewDirective option='TimelineDay' />
                                 <ViewDirective option='TimelineMonth' />
                                 <ViewDirective option='Month' />
-                                {/* <ViewDirective option='Week'/> */}
                                 <ViewDirective option='WorkWeek' />
                                 <ViewDirective option='Agenda' />
                             </ViewsDirective>
@@ -543,7 +545,7 @@ class Scheduler extends SampleBase {
                     </div>
                     <div className="treeview-container">
                         <div className="title-container">
-                            <h1 className="title-text">Waiting List</h1>
+                            <h1 className="title-text">Liste d'attente</h1>
                         </div>
                         <TreeViewComponent ref={tree => this.treeObj = tree}
                             cssClass='treeview-external-drag'
@@ -565,7 +567,5 @@ function mapStateToProps(state) {
         reminders: state,
     }
 }
-
-
 
 export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(Scheduler)

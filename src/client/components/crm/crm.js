@@ -12,11 +12,7 @@ import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
-import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective, Resize, DragAndDrop } from '@syncfusion/ej2-react-schedule';
-import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
-import { extend, createElement } from '@syncfusion/ej2-base';
-
-
+import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -45,19 +41,23 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme();
 
+
+
 class Crm extends Component {
     constructor(props) {
         super(props);
         this.state = {
             select: '',
             text: '',
-            dueDate: '',
-            date: '',
+            date: this.minDate,
+            dueDate: this.maxDate,
             message: '',
-            dataSource: '',
             sent: false,
         };
-        this.data = extend([], resourcesData, null, true);
+        // this.data = extend([], resourcesData, null, true);
+        this.minDate = new Date('10/15/2020');
+        this.maxDate = new Date('10/17/2020');
+       
     }
 
     onSubmitHandler = async (e) => {
@@ -73,10 +73,19 @@ class Crm extends Component {
             });
     };
 
-
+    minDate =() => {
+        this.setState({
+            date: this.minDate(new Date('10/15/2020').moment().format("Do dddd MMMM gggg"))
+        })
+    }
+    maxDate =() => {
+        this.setState({
+           dueDate: this.maxDate(new Date('10/17/2020'))
+        })
+    }
 
     addReminder(id) {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
+        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state._id);
     }
 
     deleteReminder(id) {
@@ -110,11 +119,8 @@ class Crm extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
-        const calendarStrings = {
-            nextDay: '[Tomorrow at] LT',
-        }
         return (
-            <div className="col-9">
+            <div className="col-6">
                 <ul className="list-group col-sm-12">
                     {
                         reminders.map(reminder => {
@@ -124,20 +130,17 @@ class Crm extends Component {
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
                                     <div>
-                                        <Moment calendar={calendarStrings} className="list-item">{reminder.selectedDate}</Moment>
-                                    </div>
-                                    <div>
                                         <div className="list-item" name="Description">{reminder.text}</div>
                                     </div>
                                     <div>
                                         <div className="list-item delete-button"
                                             onClick={() => this.deleteReminder(reminder.id)}
                                         >
-                                            &#x2715;
+                                            &#10006;
                                     </div>
-                                        <Moment minDate={new Date(2020, 9, 13)}  name="StartTime" calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
                                         <br></br>
-                                        <Moment type="text" name="EndTime"  maxDate={new Date(2020, 9, 15)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
+                                        <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -181,29 +184,18 @@ class Crm extends Component {
                             onChange={event => this.setState({ text: event.target.value })} />
                     </Grid>
                     <Grid item xs={9}>
-                        <TextField
-                            variant="outlined"
-                            fullWidth margin="normal"
-                            className={useStyles.TextField}
-                            type="date"
-                            name="date"
-                            selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
-                            maxDate={new Date(2020, 9, 15)}
-                            onChange={event => this.setState({ date: event.target.value })} />
-                    </Grid>
-                    <Grid item xs={9}>
-                        <TextField
-                            variant="outlined"
-                            fullWidth margin="normal"
-                            className={useStyles.TextField}
-                            type="date"
-                            name="date"
-                            selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
-                            minDate={new Date(2020, 9, 13)}
-                            onChange={event => this.setState({ dueDate: event.target.value })} /> 
+                        <div className='control-pane'>
+                            <div className='control-section'>
+                                <div className='daterangepicker-control-section'>
+                                    <DateRangePickerComponent min={this.minDate} max={this.maxDate}
+                                    onChange={this.setState(this.props.date) && this.setState(this.props.dueDate)} 
+                                    ></DateRangePickerComponent>
+                                </div>
+                            </div>
+                        </div>
                     </Grid>
                     <Grid item xs={2}>
-                        <br />
+                        <br /> <br />
                         <Button
                             className={useStyles.Button}
                             multiline variant="contained"
@@ -214,7 +206,7 @@ class Crm extends Component {
                         <Button
                             className={useStyles.Button}
                             multiline variant="contained"
-                            onClick={this.onSubmitHandler.bind(this)}>Send</Button>
+                            onClick={this.onSubmitHandler.bind(this)}>Envoyer</Button>
                     </Grid>
                     {this.renderReminders()}
                     <Grid item xs={12}>

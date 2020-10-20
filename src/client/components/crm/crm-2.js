@@ -22,7 +22,7 @@ import { extend, createElement } from '@syncfusion/ej2-base';
 //     MuiPickersUtilsProvider,
 //   } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns'; // choose your lib
-import Picker from '../datePicker/datePicker';
+// import Picker from '../datePicker/datePicker';
 
 
 
