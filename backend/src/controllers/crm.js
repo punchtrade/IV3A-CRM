@@ -54,11 +54,11 @@ router.post("/crm", (req, res, next) => {
     crmModel({id: req.body.id});
     const dates = new crmModel({
       _id: new mongoose.Types.ObjectId(),
-      id: req.body.id,
+      clientId: req.body.clientId,
       date: req.body.date,
       dueDate: req.body.dueDate,
       select: req.body.select,
-      text: req.body.text,
+      description: req.body.description,
     });
     dates
       .save()
@@ -67,11 +67,11 @@ router.post("/crm", (req, res, next) => {
         res.status(201).json({
           message: "Upload successfully",
           createdDates: {
-            id: result.id,
+            clientId: result.id,
             date: result.date,
             dueDate: result.dueDate,
             select: result.select,
-            text: result.text,
+            description: result.description,
             _id: result._id,
             request: {
               type: "POST",
@@ -85,6 +85,19 @@ router.post("/crm", (req, res, next) => {
     //       error: err,
     //     });
     //   });
+  });
+
+  router.get('/crm', (req, res) => {
+    console.info('obtener datos clientes');
+    crmModel.find()
+      .populate('Crm', 'crmSchema')
+      .exec((err, crm) => {
+        if (err) {
+          console.error(err.message);
+          return res.status(500).json({ error: err.message });
+        }
+        return res.status(200).json(crm);
+      });
   });
 
 // router.post('/crm', async (req, res) => {

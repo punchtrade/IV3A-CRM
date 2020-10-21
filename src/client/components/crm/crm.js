@@ -45,10 +45,11 @@ const theme = createMuiTheme();
 
 class Crm extends Component {
     constructor(props) {
-        super(props);
+        super(...arguments);
         this.state = {
+            clientId: '',
             select: '',
-            text: '',
+            description: '',
             date: this.minDate,
             dueDate: this.maxDate,
             message: '',
@@ -72,6 +73,10 @@ class Crm extends Component {
                 console.log(error);
             });
     };
+    treeTemplate(props) {
+        return (<div id="waiting"><div id="waitdetails"><div id="waitlist">{props.clientId}</div>
+            <div id="waitcategory">{props.description} - {props.date} - {props.select}</div></div></div>);
+    }
 
     minDate =() => {
         this.setState({
@@ -85,7 +90,7 @@ class Crm extends Component {
     }
 
     addReminder(id) {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state._id);
+        this.props.addReminder(this.state.description, this.state.dueDate, this.state.date, this.state.select, this.state.clientId);
     }
 
     deleteReminder(id) {
@@ -125,12 +130,13 @@ class Crm extends Component {
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="card_id" draggable>
+                                <Card key={reminder.id} id="waitdetails" className="card_id" draggable>
+                                    <div className="list-item" name="_id">{reminder.clientId}</div>
                                     <div>
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
                                     <div>
-                                        <div className="list-item" name="Description">{reminder.text}</div>
+                                        <div className="list-item" name="Description">{reminder.description}</div>
                                     </div>
                                     <div>
                                         <div className="list-item delete-button"
@@ -158,6 +164,7 @@ class Crm extends Component {
                 <br /><br />
                 <h6>1.Commande (avec sélection véhicule) enregistrée par IV3A</h6>
                 <br />
+                <TextField  name="clientId" type="number" onChange={event => this.setState({ clientId: event.target.value })}>ID</TextField>
                 <Grid item xs={9}>
                     <InputLabel id="select">Pour sélectionner</InputLabel>
                     <Select
@@ -181,7 +188,7 @@ class Crm extends Component {
                             fullWidth margin="normal"
                             className={useStyles.TextField}
                             type="text"
-                            onChange={event => this.setState({ text: event.target.value })} />
+                            onChange={event => this.setState({ description: event.target.value })} />
                     </Grid>
                     <Grid item xs={9}>
                         <div className='control-pane'>
@@ -206,6 +213,7 @@ class Crm extends Component {
                         <Button
                             className={useStyles.Button}
                             multiline variant="contained"
+                            onChange={this.treeTemplate}
                             onClick={this.onSubmitHandler.bind(this)}>Envoyer</Button>
                     </Grid>
                     {this.renderReminders()}

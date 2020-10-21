@@ -2,14 +2,15 @@ import { ADD_REMINDER, DELETE_REMINDER, CLEAR_REMINDERS } from '../client/compon
 import { bake_cookie, read_cookie } from 'sfcookies';
 
 const reminder = (action) => {
-    let { text, dueDate, date, select, dataSource } = action;
+    let { description, dueDate, date, select, clientId, members} = action;
     return {
         id: Math.random(),
         select,
-        text,
+        description,
         dueDate,
         date,
-        dataSource,
+        clientId,
+        members
 
     }
 }

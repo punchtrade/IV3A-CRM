@@ -3,24 +3,24 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
     id: mongoose.Schema.Types.ObjectId,
-    // id: {
-    //     type: String,
-    //     required: true,
-    //   },
+    clientId: {
+        type: String,
+        required: true,
+      },
     date: {
       type: Date,
       default: Date.now,
       required: true,
     },
     dueDate: {
-        type: Date,
+        type: String,
         required: false,
     },
     select: {
         type: String,
         required: true,
     },
-    text: {
+    description: {
         type: String,
         required: true,
     },
