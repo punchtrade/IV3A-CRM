@@ -377,7 +377,7 @@ class Scheduler extends SampleBase {
             { Text: 'Fátima', Id: 4, GroupId: 2, Color: '#9e5fff', Designation: 'Sales' },
         ];
         this.state = [
-            {clientId: '', title: '', roomId: '', members: '', 
+            {name: '', title: '', roomId: '', members: '', 
             startTime: this.minDate, endTime: this.maxDate, subject: '', 
             description: '', departmentData: '', consultantData: '' },
 
@@ -422,7 +422,7 @@ class Scheduler extends SampleBase {
                         reminders.map(reminder => {
                             return (
                                 <Card key={reminder.id} id="waitdetails" className="card_id" draggable="true">
-                                      <div className="list-item" name="_id">{reminder.clientId}</div>
+                                      <div className="list-item" name="_id">{reminder.name}</div>
                                     <div>
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
@@ -467,7 +467,7 @@ class Scheduler extends SampleBase {
             {this.getConsultantName(props)}</div><div className="specialist-designation">{this.getConsultantDesignation(props)}</div></div></div>);
     }
     treeTemplate(props) {
-        return (<div id="waiting">{this.renderReminders()} <div id="waitdetails"><div id="waitlist">{props.ClientId}</div>
+        return (<div id="waiting"><div id="waitdetails"><div id="waitlist">{props.ClientId}</div>
             <div id="waitcategory">{props.description} - {props.EndTime} - {props.select}</div></div></div>);
     }
     onItemDrag(event) {
@@ -613,10 +613,10 @@ class Scheduler extends SampleBase {
                             dragStart={(this.onDragStart.bind(this))}
                             nodeDragStop={this.onTreeDragStop.bind(this)}
                             nodeDragging={this.onItemDrag.bind(this)}
-                            eventSettings={{ dataSource: this.state }}
+                            eventSettings={ this.readRequest()}
                             dataSource={ this.readRequest()}
                             allowDragAndDrop={this.allowDragAndDrops}>
-                            {/* {this.renderReminders()} */}
+                            {this.renderReminders()}
                         </TreeViewComponent>
                     </div>
                 </div>

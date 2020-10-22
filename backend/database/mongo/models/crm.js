@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 
 const schema = new Schema({
     id: mongoose.Schema.Types.ObjectId,
-    clientId: {
+    name: {
         type: String,
         required: true,
       },
