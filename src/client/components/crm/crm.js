@@ -13,8 +13,8 @@ import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
-import { extend, createElement } from '@syncfusion/ej2-base';
+import { resourcesData } from '../scheduler/appointments';
+import { extend } from '@syncfusion/ej2-base';
 
 const useStyles = makeStyles((theme) => ({
     root: {

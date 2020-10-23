@@ -42,5 +42,4 @@ const reminders = (state = [], action) => {
     }
 }
 
-
 export default reminders;
