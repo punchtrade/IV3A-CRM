@@ -29,11 +29,17 @@ class PreOrder extends Component {
       nameOfBank: "",
       iban: "",
       swiftCode: "",
-      registrationCar: "",
+      carCatalogue: "",
+      carOrder: "",
+      price2: "",
+      brandId: "",
+      modelId: "",
+      fuelId: "",
+      serialNumber: "",
       brand: "",
       model: "",
       fuel: "",
-      price: "",
+      price1: "",
       errors: "",
       clients: [],
       i_agree: false,
@@ -58,14 +64,34 @@ class PreOrder extends Component {
   };
 
   componentDidMount = () => {
-    this.getClient();
+    this.getClient() && this.getCarClient();
   };
+ 
 
   getClient = () => {
     axios.get("http://localhost:9000/clients")
       .then((response) => {
         const data = response.data;
-        this.setState({ clients: data });
+        this.setState({
+           _id: data._id,
+          card: data.card,
+          treatment: data.treatment,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          telephone: data.telephone,
+          email: data.email,
+          address: data.address,
+          city: data.city,
+          postalCode: data.postalCode,
+          nameOfBank: data.nameOfBank,
+          iban: data.iban,
+          swiftCode: data.swiftCode,
+          carCatalogue: data.carCatalogue,
+          brand: data.brand,
+          model: data.model,
+          fuel: data.fuel,
+          price1: data.price1,
+          });
         console.log("Data has been received!!");
       })
       .catch(() => {
@@ -87,6 +113,24 @@ class PreOrder extends Component {
   //     alert('Error retrievering data!!!');
   //   });
   // }
+
+  getCarClient = () => {
+    axios.get("http://localhost:9000/carClient")
+    .then((response) => {
+      const data = response.data;
+      this.setState({
+        carOrder: data.carOrder,
+        brandId: data.brandId,
+        fuelId: data.fuelId,
+        modelId: data.modelId,
+        price2: data.price2,
+        });
+      console.log("Data has been received!!");
+    })
+    .catch(() => {
+      alert("Error retrieving data!!");
+    })
+  }
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -117,11 +161,16 @@ class PreOrder extends Component {
       nameOfBank,
       iban,
       swiftCode,
-      registrationCar,
+      carCatalogue,
       brand,
       model,
       fuel,
-      price,
+      price1,
+      carOrder,
+      brandId,
+      modelId,
+      fuelId,
+      price2,
     } = this.state;
     return (
       <div className={styles.inputMaterial}>
@@ -420,9 +469,9 @@ class PreOrder extends Component {
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="registrationCar"
+                name="carCatalogue"
                 placeholder=" Immatriculation"
-                value={registrationCar}
+                value={carCatalogue}
                 onChange={this.changeHandler}
               />
               <div align="left">
@@ -450,9 +499,9 @@ class PreOrder extends Component {
                   fullWidth
                   margin="normal"
                   className={styles.inputMaterial}
-                  name="price"
+                  name="price1"
                   placeholder="Voiture choisie dans le catalogue IV3A"
-                  value={price}
+                  value={price1}
                   onChange={this.changeHandler}
                 />
               </div>

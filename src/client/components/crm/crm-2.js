@@ -169,6 +169,16 @@ class Crm2 extends Component {
                 <br />
                 <TextField name="client" type="text" onChange={event => this.setState({ name: event.target.value })}>ID</TextField>
                 <Grid item xs={9}>
+                    <InputLabel id="name">Prénom et nom du client</InputLabel>
+                    <TextField
+                        name="client"
+                        type="text"
+                        variant="outlined"
+                        fullWidth margin="normal"
+                        className={useStyles.TextField}
+                        placeholder="Prénom et nom du client"
+                        onChange={event => this.setState({ name: event.target.value })}>
+                    </TextField>
                     <InputLabel id="select">Pour sélectionner</InputLabel>
                     <Select
                         variant="outlined" fullWidth margin="normal"

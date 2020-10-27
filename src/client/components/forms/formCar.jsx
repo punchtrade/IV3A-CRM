@@ -46,10 +46,19 @@ class FormCar extends Component {
   };
 
   getClient = () => {
-    axios.get("http://localhost:9000/car/client/:_id")
+    axios.get("http://localhost:9000/clients")
     .then((response) => {
       const data = response.data;
-      this.setState({card: data});
+      this.setState({
+        card: data.card, 
+        firstName: data.firstName, 
+        lastName: data.lastName, 
+        brand: data.brand,
+        model: data.model,
+        fuel: data.fuel,
+        carCatalogue: data.carCatalogue,
+        price1: data.price1,
+      });
       console.log('Data has been recived');
     })
     .catch(() => {
@@ -59,7 +68,7 @@ class FormCar extends Component {
 
   onSubmitHandler = async (e) => {
     e.preventDefault();
-    await axios.post("http://localhost:9000/car", this.state, {
+    await axios.post("http://localhost:9000/carClient", this.state, {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {
@@ -95,28 +104,11 @@ class FormCar extends Component {
           >
             <ValidatorForm
               onSubmit={this.onSubmitHandler.bind(this)}
-              action='http://localhost:9000/car'
+              action='http://localhost:9000/carClient'
               value="submit"
               method="post"
             >
               <InputLabel
-                htmlFor="filled-adornment-amount"
-              >
-                Nom
-              </InputLabel>
-              <FilledInput
-                variant="filled"
-                fullWidth
-                margin="normal"
-                className={styles.inputMaterial}
-                name="flastName"
-                placeholder="Nom"
-                value={lastName}
-                onChange={this.changeHandler}
-                validators={["required", "isValidName"]}
-                errorMessages={["Ce champ est requis", "Format invalide"]}
-              />
-                            <InputLabel
                 htmlFor="filled-adornment-amount"
               >
                 Prénom
@@ -126,8 +118,25 @@ class FormCar extends Component {
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="firstName"
+                name="lastName"
                 placeholder="Prénom"
+                value={lastName}
+                onChange={this.changeHandler}
+                validators={["required", "isValidName"]}
+                errorMessages={["Ce champ est requis", "Format invalide"]}
+              />
+                            <InputLabel
+                htmlFor="filled-adornment-amount"
+              >
+                Nom
+              </InputLabel>
+              <FilledInput
+                variant="filled"
+                fullWidth
+                margin="normal"
+                className={styles.inputMaterial}
+                name="firstName"
+                placeholder="Nom"
                 value={firstName}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
@@ -162,7 +171,7 @@ class FormCar extends Component {
                 className={styles.inputMaterial}
                 name="brandId"
                 placeholder="Marque"
-                value={brandId}
+                value={brand}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}
@@ -179,7 +188,7 @@ class FormCar extends Component {
                 className={styles.inputMaterial}
                 name="modelId"
                 placeholder="Modèle"
-                value={modelId}
+                value={model}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}
@@ -194,9 +203,9 @@ class FormCar extends Component {
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="fuelId"
+                name="fuel"
                 placeholder="Combustible"
-                value={fuelId}
+                value={fuel}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}
@@ -247,9 +256,9 @@ class FormCar extends Component {
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="brand"
+                name="brandId"
                 placeholder="Marque"
-                value={brand}
+                value={brandId}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}
@@ -264,9 +273,9 @@ class FormCar extends Component {
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="model"
+                name="modelId"
                 placeholder="Modèle"
-                value={model}
+                value={modelId}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}
@@ -334,9 +343,9 @@ class FormCar extends Component {
                 fullWidth
                 margin="normal"
                 className={styles.inputMaterial}
-                name="fuel"
+                name="fuelId"
                 placeholder="Combustible"
-                value={fuel}
+                value={fuelId}
                 onChange={this.changeHandler}
                 validators={["required", "isValidName"]}
                 errorMessages={["Ce champ est requis", "Format invalide"]}

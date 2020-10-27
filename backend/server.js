@@ -55,6 +55,7 @@ app.use(bodyParser.json());
 app.use(express.json());
 app.use(require("./src/controllers/authController"));
 app.use(require("./src/controllers/car"));
+app.use(require("./src/controllers/carClient"));
 app.use(require("./src/controllers/users"));
 app.use(require("./src/controllers/clients"));
 app.use(require("./src/controllers/search"));
