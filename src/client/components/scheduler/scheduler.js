@@ -50,8 +50,8 @@ class Scheduler extends SampleBase {
             description: '', departmentData: '', consultantData: '' },
         ];
         this.dataSource = { readRequest: this.state, editingFollowingEvents: true };
-        this.minDate = new Date('10/15/2020');
-        this.maxDate = new Date('10/17/2020');
+        this.minDate = new Date();
+        this.maxDate = new Date('10/29/2020');
     }
     readRequest = async () => {
     await axios.get("http://localhost:9000/crm", this.state, {
@@ -69,12 +69,12 @@ class Scheduler extends SampleBase {
     }
     minDate = () => {
         this.setState({
-            date: this.minDate(new Date('10/15/2020'))
+            date: this.minDate(new Date().moment().format("Do dddd MMMM gggg"))
         })
     }
     maxDate = () => {
         this.setState({
-            dueDate: this.maxDate(new Date('10/17/2020'))
+            dueDate: this.maxDate(new Date().moment().format("Do dddd MMMM gggg"))
         })
     }
     renderReminders() {

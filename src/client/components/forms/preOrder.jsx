@@ -64,15 +64,19 @@ class PreOrder extends Component {
   };
 
   componentDidMount = () => {
-    this.getClient() && this.getCarClient();
+    this.getClient();
   };
  
 
   getClient = () => {
-    axios.get("http://localhost:9000/clients")
-      .then((response) => {
+    axios.all([
+      axios.get("http://localhost:9000/clients"),
+      axios.get("http://localhost:9000/carClient")
+    ])    
+      .then(axios.spread((response) => {
         const data = response.data;
         this.setState({
+          date: data.date,
            _id: data._id,
           card: data.card,
           treatment: data.treatment,
@@ -91,47 +95,19 @@ class PreOrder extends Component {
           model: data.model,
           fuel: data.fuel,
           price1: data.price1,
+          carOrder: data.carOrder,
+          brandId: data.brandId,
+          fuelId: data.fuelId,
+          modelId: data.modelId,
+          price2: data.price2,
           });
+          
         console.log("Data has been received!!");
-      })
+      }))
       .catch(() => {
         alert("Error retrieving data!!");
       })
-    // axios.get("http://localhost:9000/clients")
-    //   .then(response => {
-    //     this.setState({ data: response.data });
-    //     console.log('Data has been recived');
-    //   })
-    //   .catch(() => {
-    //     alert('Error retrievering data!!!');
-    //   });
-  };
-  //     console.log(data);
-  //     console.log('Data has been recived');
-  //   })
-  //   .catch(() => {
-  //     alert('Error retrievering data!!!');
-  //   });
-  // }
-
-  getCarClient = () => {
-    axios.get("http://localhost:9000/carClient")
-    .then((response) => {
-      const data = response.data;
-      this.setState({
-        carOrder: data.carOrder,
-        brandId: data.brandId,
-        fuelId: data.fuelId,
-        modelId: data.modelId,
-        price2: data.price2,
-        });
-      console.log("Data has been received!!");
-    })
-    .catch(() => {
-      alert("Error retrieving data!!");
-    })
   }
-
   onSubmitHandler = async (e) => {
     e.preventDefault();
     await axios
@@ -206,13 +182,6 @@ class PreOrder extends Component {
             (15%), TVA (19%), immatriculation et coût de nos services
             d'accompagnement en Algérie.
             <br></br>
-            {/* Si le véhicule choisi est toujours disponible, IV3A vous confirmera
-            alors votre commande.
-            <br></br>
-            Au cas où le véhicule choisi aurait déjà été vendu (la demande est
-            importante et nous actualisons notre catalogue chaques 24 heures),
-            IV3A lancera alors la recherche d'un véhicule similaire à celui que
-            vous souhaitez acquérir, et vous fera une offre dans les 24 heures. */}
           </div>
         </div>
         <div className="container-form">
