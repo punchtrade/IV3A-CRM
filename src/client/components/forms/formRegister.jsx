@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { withRouter } from "react-router-dom";
-import { Button, InputLabel, FilledInput } from '@material-ui/core';
+import { Button, InputLabel, FilledInput, InputAdornment, TextField } from '@material-ui/core';
+import { AccountCircle, LockRounded, Person, SupervisorAccount } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 
 const styles = makeStyles((theme) => ({
@@ -59,32 +60,46 @@ class FormRegister extends React.Component {
             <InputLabel
               htmlFor="filled-adornment-amount"
             >
-              Nom
-              </InputLabel>
-            <FilledInput
-              variant="filled"
-              fullWidth
-              margin="normal"
-              className={styles.inputMaterial}
-              name="firstName"
-              placeholder="Nom"
-              value={firstName}
-              onChange={this.changeHandler}
-              autoComplete=""
-            />
-            <InputLabel
-              htmlFor="filled-adornment-amount"
-            >
               Prénom
               </InputLabel>
-            <FilledInput
+            <TextField
               variant="filled"
               fullWidth
               margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Person/>
+                  </InputAdornment>
+                )
+              }}
               className={styles.inputMaterial}
               name="lastName"
               placeholder="Prénom"
               value={lastName}
+              onChange={this.changeHandler}
+              autoComplete=""
+            />
+                        <InputLabel
+              htmlFor="filled-adornment-amount"
+            >
+              Nom
+              </InputLabel>
+            <TextField
+              variant="filled"
+              fullWidth
+              margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SupervisorAccount/>
+                  </InputAdornment>
+                )
+              }}
+              className={styles.inputMaterial}
+              name="firstName"
+              placeholder="Nom"
+              value={firstName}
               onChange={this.changeHandler}
               autoComplete=""
             />
@@ -109,10 +124,17 @@ class FormRegister extends React.Component {
             >
               Courrier électronique
               </InputLabel>
-            <FilledInput
+            <TextField
               variant="filled"
               fullWidth
               margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <AccountCircle/>
+                  </InputAdornment>
+                )
+              }}
               className={styles.inputMaterial}
               name="email"
               placeholder="Courrier électronique"
@@ -125,10 +147,17 @@ class FormRegister extends React.Component {
             >
               Mot de passe
               </InputLabel>
-            <FilledInput
+            <TextField
               variant="filled"
               fullWidth
               margin="normal"
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <LockRounded/>
+                  </InputAdornment>
+                )
+              }}
               className={styles.inputMaterial}
               name="password"
               type="password"
@@ -137,7 +166,7 @@ class FormRegister extends React.Component {
               onChange={this.changeHandler}
               autoComplete=""
             />
-            <br/><br/>
+            <br/><br/><br/>
             <Button 
              variant="outlined"
              size="large"
@@ -147,6 +176,7 @@ class FormRegister extends React.Component {
             onClick={this.onSubmitHandler.bind(this)}>
               Envoyer
           </Button>
+          <br/><br/>
           </form>
         </div>
       </div>

@@ -1,15 +1,16 @@
-import React, { useState, useEffect, Component } from "react";
+import React from "react";
 import axios from "axios";
 // import "react-toastify/dist/ReactToastify.css";
 import { withRouter } from "react-router-dom";
-import { Button, InputLabel, FilledInput } from '@material-ui/core';
+import { Button, InputLabel, InputAdornment, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
+import { ValidatorForm } from "react-material-ui-form-validator";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import { AccountCircle, LockRounded } from '@material-ui/icons';
 import {  Formik } from 'formik';
 
 const styles = makeStyles((theme) => ({
@@ -107,7 +108,6 @@ class FormLogin extends React.Component {
           className={styles.root} validate autoComplete="on"
           onSubmit={this.onSubmitHandler.bind(this)}
           action="http://localhost:9000/login"
-          // value="submit"
           method="post"
 
         >
@@ -116,10 +116,17 @@ class FormLogin extends React.Component {
           >
             Courrier électronique
               </InputLabel>
-          <FilledInput
+          <TextField
             variant="filled"
             fullWidth
             margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <AccountCircle/>
+                </InputAdornment>
+              )
+            }}
             className={styles.inputMaterial}
             name="email"
             type="email"
@@ -135,10 +142,17 @@ class FormLogin extends React.Component {
           >
             Mot de passe
               </InputLabel>
-          <TextValidator
+          <TextField
             variant="filled"
             fullWidth
             margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <LockRounded/>
+                </InputAdornment>
+              )
+            }}
             className={styles.inputMaterial}
             type="password"
             name="password"
@@ -156,7 +170,6 @@ class FormLogin extends React.Component {
             color="default"
             disabledElevation
             type="submit"
-            // value="Submit"
             onClick={() => {
               this.signIn();
             }}

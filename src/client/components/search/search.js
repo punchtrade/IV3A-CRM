@@ -136,7 +136,7 @@ function Search(props) {
   }
 
   const putRequest = async () => {
-    await axios.put("http://localhost:9000/search")
+    await axios.put("http://localhost:9000/clients")
       .then(response => {
         var newData = data;
         newData.map(client => {

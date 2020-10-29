@@ -53,9 +53,9 @@ router.post("/login", async (req, res, next) => {
     }
     // console.log(validPassword);
   
-    // const token = jwt.sign({ id: user._id }, config.secret, {
-    //   expiresIn: 86400, //24 hours
-    // });
+    const token = jwt.sign({ id: user._id }, config.secret, {
+      // expiresIn: 86400, //24 hours
+    });
   
     res.status(200).json({ auth: true, token });
   });

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import Card from '@material-ui/core/Card';
 import Select from '@material-ui/core/Select';
@@ -12,9 +12,9 @@ import { connect } from 'react-redux';
 import { addReminder, deleteReminder, clearReminders } from '../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
-import { ScheduleComponent, Day, Week, WorkWeek, Agenda, Month, Inject, ViewsDirective, ViewDirective } from '@syncfusion/ej2-react-schedule';
-import { appointments, recurrenceAppointments, resourcesData } from '../scheduler/appointments';
-import { extend, createElement } from '@syncfusion/ej2-base';
+import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
+import { resourcesData } from '../scheduler/appointments';
+import { extend } from '@syncfusion/ej2-base';
 
 
 
@@ -45,27 +45,52 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme();
 
-// const delet =  $(document).on('change', '.sel', function() {
-//     $(this).siblings().find('option[value="'+$(this).val()+'"]').remove()
-// });
-
 class Crm4 extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            name: '',
             select: '',
-            text: '',
-            dueDate: '',
-            date: '',
+            description: '',
+            date: this.minDate,
+            dueDate: this.maxDate,
             message: '',
-            dataSource: '',
             sent: false,
         };
         this.data = extend([], resourcesData, null, true);
+        this.minDate = new Date();
+        this.maxDate = new Date('11/09/2020');
+    }
+    onSubmitHandler = async (e) => {
+        e.preventDefault();
+        await axios.post("http://localhost:9000/crm", this.state, {
+            headers: { "Content-Type": "application/json" },
+        })
+            .then((response) => {
+                console.log(response);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    treeTemplate(props) {
+        return (<div id="waiting"><div id="waitdetails"><div id="waitlist">{props.name}</div>
+            <div id="waitcategory">{props.description} - {props.date} - {props.select}</div></div></div>);
     }
 
-    addReminder() {
-        this.props.addReminder(this.state.text, this.state.dueDate, this.state.date, this.state.select, this.state.dataSource);
+    minDate = () => {
+        this.setState({
+            date: this.minDate(new Date().moment().format("Do dddd MMMM gggg"))
+        })
+    }
+    maxDate = () => {
+        this.setState({
+            dueDate: this.maxDate(new Date().moment().format("Do dddd MMMM gggg"))
+        })
+    }
+
+    addReminder(id) {
+        this.props.addReminder(this.state.description, this.state.dueDate, this.state.date, this.state.select, this.state.name);
     }
 
     deleteReminder(id) {
@@ -78,25 +103,6 @@ class Crm4 extends Component {
         })
     }
 
-    //  crmRequest = async () => {
-    //         await axios.post("http://localhost:9000/crm")
-    //           .then(response => {
-    //             var newData = data;
-    //             newData.map(client => {
-    //               if (client._id === selectedClient._id) {
-    //                 client.select = selectedClient.select;
-    //                 client.text = selectedClient.text;
-    //                 client.dueDate = selectedClient.dueDate;
-    //                 client.date = selectedClient.date;
-    //                 client.message = selectedClient.message;
-    //               }
-    //             });
-    //             setData(newData);
-    //             openCloseCrmModal();
-    //           }).catch(error => {
-    //             console.log(error);
-    //           })
-    //       }
 
     sendEmail = (e) => {
         e.preventDefault();
@@ -119,36 +125,29 @@ class Crm4 extends Component {
 
     renderReminders() {
         const { reminders } = this.props;
-        const calendarStrings = {
-            nextDay: '[Tomorrow at] LT',
-        }
         return (
-            <div className="col-9">
+            <div className="col-6">
                 <ul className="list-group col-sm-12">
                     {
                         reminders.map(reminder => {
                             return (
-                                <Card key={reminder.id} className="list-group-item" draggable>
+                                <Card key={reminder.id} id="waitdetails" className="card_id" draggable>
+                                    <div className="list-item" name="_id">{reminder.name}</div>
                                     <div>
-                                        <div className="list-item" onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+                                        <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
                                     <div>
-                                        <Moment calendar={calendarStrings}className="list-item">{reminder.selectedDate}</Moment>
+                                        <div className="list-item" name="Description">{reminder.description}</div>
                                     </div>
-                                    {/* <div className="list-item">{reminder.select}</div> */}
-                                    <div>
-                                        <div className="list-item">{reminder.text}</div>
-                                    </div>
-
                                     <div>
                                         <div className="list-item delete-button"
                                             onClick={() => this.deleteReminder(reminder.id)}
                                         >
-                                            &#x2715;
+                                            &#10006;
                                     </div>
-                                        <Moment minDate={new Date(2020, 9, 19)} calendar={calendarStrings}>{reminder.minDate}</Moment>
+                                        <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
                                         <br></br>
-                                        <Moment type="text"  maxDate={new Date(2020, 9, 21)} add={{ days: 2 }}>{reminder.maxDate}</Moment>
+                                        <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
                                     </div>
                                 </Card>
                             )
@@ -167,52 +166,74 @@ class Crm4 extends Component {
                 <h6>4.Vérifier de disposition et réservation par PT du véhicule à RRG</h6>
                 <br />
                 <Grid item xs={9}>
-                    <InputLabel id="demo-simple-select-outlined-label">Pour sélectionner</InputLabel>
+                    <InputLabel id="name">Prénom et nom du client</InputLabel>
+                    <TextField
+                        name="client"
+                        type="text"
+                        variant="outlined"
+                        fullWidth margin="normal"
+                        className={useStyles.TextField}
+                        placeholder="Prénom et nom du client"
+                        onChange={event => this.setState({ name: event.target.value })}>
+                    </TextField>
+                </Grid>
+                <Grid item xs={9}>
+                    <InputLabel id="select">Pour sélectionner</InputLabel>
                     <Select
                         variant="outlined" fullWidth margin="normal"
-                        labelId="demo-simple-select-outlined-label"
-                        id="demo-simple-select-outlined"
-                        // value={age}
-                        // onChange={handleChange}
+                        labelId="select"
+                        Id={4}
                         label="Pour sélectionner"
                         onChange={event => this.setState({ select: event.target.value })}
                     >
                         <MenuItem value="">
                             <em>None</em>
                         </MenuItem>
-                        <MenuItem value={4}>4.Vérifier de disposition et réservation par PT du véhicule à RRG</MenuItem> 
-                        </Select>
+                        <MenuItem value={4}>4.Vérifier de disposition et réservation par PT du véhicule à RRG</MenuItem>
+                    </Select>
                 </Grid>
                 <br />
-                {/* <ScheduleComponent
-                    width='100%'
-                    height='550px'
-                    currentView='Month'
-                    type="date"
-                    name="date"
-                    className={useStyles.TextField}
-                    onChange={event => this.setState({ dataSource: event.target.value })}
-                    selectedDate={new Date(2020, 1, 31, 9, 30, 0)}
-                    minDate={new Date(2020, 9, 19)}
-                    maxDate={new Date(2020, 9, 21)}
-                    eventSettings={{ dataSource: this.data }}
-                    >
-                    <ViewsDirective>
-                        <ViewDirective option='Day' />
-                        <ViewDirective option='Week' />
-                        <ViewDirective option='WorkWeek' />
-                        <ViewDirective option='Month' />
-                        <ViewDirective option='Agenda' />
-                    </ViewsDirective>
-                    <Inject services={[Day, Week, WorkWeek, Agenda, Month]} />
-                </ScheduleComponent> */}
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
-                        <TextField variant="outlined" fullWidth margin="normal" className={useStyles.TextField} type="text" onChange={event => this.setState({ text: event.target.value })} />
+                        <InputLabel id="description">Commentaires</InputLabel>
+                        <TextField
+                            variant="outlined"
+                            fullWidth margin="normal"
+                            className={useStyles.TextField}
+                            placeholder="Commentaires"
+                            type="text"
+                            onChange={event => this.setState({ description: event.target.value })} />
                     </Grid>
-                    <Grid item xs={3}>
-                        <br />
-                        <Button className={useStyles.Button} multiline variant="contained" onChange={event => this.setState({ select: event.target.value })} onClick={() => this.addReminder()}>Ajouter</Button>
+                    <Grid item xs={9}>
+                        <InputLabel id="name">Rendez-vous</InputLabel>
+                        <div className='control-pane'>
+                            <div className='control-section'>
+                                <div className='daterangepicker-control-section'>
+                                    <DateRangePickerComponent min={this.minDate} max={this.maxDate} strictMode={true}
+                                        onChange={this.setState(this.props.date) && this.setState(this.props.dueDate)}
+                                    ></DateRangePickerComponent>
+                                </div>
+                            </div>
+                        </div>
+                    </Grid>
+                    <Grid item xs={2}>
+                        <br /> <br />
+                        <Button
+                            className={useStyles.Button}
+                            multiline variant="contained"
+                            onChange={event => this.setState({ select: event.target.value })}
+                            onClick={this.onSubmitHandler.bind(this)}
+                            onClick={() => this.addReminder()}>
+                            Ajouter
+                            </Button>
+                        <br />  <br />
+                        <Button
+                            className={useStyles.Button}
+                            multiline variant="contained"
+                            onChange={this.treeTemplate}
+                            onClick={this.onSubmitHandler.bind(this)}>
+                            Envoyer
+                            </Button>
                     </Grid>
                     {this.renderReminders()}
                     <Grid item xs={12}>

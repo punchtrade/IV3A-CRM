@@ -22,9 +22,9 @@ router.get('/search', (req, res) => {
 
 //modificated client
 
-router.put('/search', function (req, res, next) {
+router.put('/clients', function (req, res, next) {
     const updateContent = {
-        _id: new mongoose.Types.ObjectId(),
+        // _id: new mongoose.Types.ObjectId(),
         card: req.body.card,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -42,8 +42,8 @@ router.put('/search', function (req, res, next) {
         model: req.body.model,
         fuel: req.body.fuel,
     }
-    clientsModel.updateOne({ _id: req.body._id }, updateContent, function (err, clientsUpdate) {
-        if (clientsUpdate.nModified == 0 || err)
+    clientsModel.updateOne({ card: req.body.card }, updateContent, function (err, clientsUpdate) {
+        if ( updateContent.nMatched == 1 || err, updateContent.nUpserted == 0 || err, updateContent.nModified == 0 || err)
             res.json({ status: 1, message: "don't modificated client" + err });
         else
             res.json({ status: 0, message: "modificated client", data: clientsUpdate });

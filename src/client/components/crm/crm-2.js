@@ -61,7 +61,7 @@ class Crm2 extends Component {
         };
         this.data = extend([], resourcesData, null, true);
         this.minDate = new Date();
-        this.maxDate = new Date('10/29/2020');
+        this.maxDate = new Date('11/03/2020');
     }
 
     onSubmitHandler = async (e) => {
@@ -167,7 +167,6 @@ class Crm2 extends Component {
                 <br /><br />
                 <h6>2.Vérification par IV3A de précommande et Fiche Client</h6>
                 <br />
-                <TextField name="client" type="text" onChange={event => this.setState({ name: event.target.value })}>ID</TextField>
                 <Grid item xs={9}>
                     <InputLabel id="name">Prénom et nom du client</InputLabel>
                     <TextField
