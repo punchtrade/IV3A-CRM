@@ -6,5 +6,6 @@ const preOrderModel = require('./models/preOrder');
 const uploadsModel = require('./models/uploads');
 const usersModel = require('./models/users');
 const crmModel = require('./models/crm');
+const schedulerModel = require('./models/scheduler');
 
-module.exports = { carModel, clientsModel, carClientsModel, leadsModel, preOrderModel, uploadsModel, usersModel, crmModel};
+module.exports = { carModel, clientsModel,schedulerModel, carClientsModel, leadsModel, preOrderModel, uploadsModel, usersModel, crmModel};

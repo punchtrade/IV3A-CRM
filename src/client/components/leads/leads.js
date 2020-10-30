@@ -116,7 +116,7 @@ function Leads(props) {
   }
 
   const insertRequest = async () => {
-    await axios.post("http://localhost:9000/clients")
+    await axios.put("http://localhost:9000/clients")
       .then(response => {
         setData(data.concat(response.data));
         openCloseInsertModal();

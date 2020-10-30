@@ -84,7 +84,7 @@ router.get('/search', (req, res) => {
 
   router.get('/clients', async (req, res) => {
     console.info('obtener datos cliente');
-    await clientsModel.findOne()
+    await clientsModel.find()
       .populate('Clients', 'clientsSchema')
       .exec((err, client) => {
         if (err) {
@@ -96,18 +96,18 @@ router.get('/search', (req, res) => {
   });
 
 //put client
-router.put('/clients/car/:_id', async (req, res) => {
-  const { cars } = req.params;
-  const { _id } = req.body;
-  const carUpdated = await clientsModel.findByIdAndUpdate(
-    _id,
-    { 
-      $push: { cars: _id},
-    },
-    { useFindAndModify: false }
-  );
-  res.send(`${carUpdated._id} updated`);
+// router.put('/clients', async (req, res) => {
+//   const { cars } = req.params;
+//   const { _id } = req.body;
+//   const carUpdated = await clientsModel.findByIdAndUpdate(
+//     _id,
+//     { 
+//       $push: { cars: _id},
+//     },
+//     { useFindAndModify: false }
+//   );
+//   res.send(`${carUpdated._id} updated`);
 
-});
+// });
 
 module.exports = router;
