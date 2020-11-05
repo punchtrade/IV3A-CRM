@@ -5,21 +5,18 @@ const {
     mongo: { preOrderModel , clientsModel },
   } = require('../../database/index');
 
-
-  router.get('/clients', (req, res) => {
+  router.get('/preOrder/clients', (req, res) => {
     console.info('obtener datos');
-    clientsModel.find()
+    clientsModel.findOne()
         .populate('Clients', 'clientsSchema')
-        .exec((err, clients) => {
+        .exec((err, client) => {
             if (err) {
                 console.error(err.message);
                 return res.status(500).json({ error: err.message });
             }
-            return res.status(200).json(clients);
+            return res.status(200).json(client);
         });
 });
-
-
 
 router.post("/preOrder", async (req, res, next) => {
     console.log(req.body);

@@ -46,7 +46,7 @@ class FormCar extends Component {
   };
 
   getClient = () => {
-    axios.get("http://localhost:9000/clients")
+    axios.get("http://localhost:9000/car")
     .then((response) => {
       const data = response.data;
       this.setState({

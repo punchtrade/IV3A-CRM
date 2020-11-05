@@ -58,7 +58,7 @@ router.post("/car", async (req, res, next) => {
 //get car
 router.get('/car', async (req, res) => {
   console.info('obtener datos coche');
-  await carModel.find()
+  await carModel.findOne()
     .populate('Cars', 'carSchema')
     .exec((err, car) => {
       if (err) {

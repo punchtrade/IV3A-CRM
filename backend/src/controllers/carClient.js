@@ -55,9 +55,9 @@ router.post("/carClient", async (req, res, next) => {
 });
 
 //get car
-router.get('/carClient', async (req, res) => {
+router.get('/preOrder/carClient', async (req, res) => {
   console.info('obtener datos coche');
-  await carClientsModel.find()
+  await carClientsModel.findOne()
     .populate('CarClient', 'carClientSchema')
     .exec((err, carClient) => {
       if (err) {
