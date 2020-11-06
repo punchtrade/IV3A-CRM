@@ -30,6 +30,17 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { withRouter } from "react-router-dom";
+import MenuItem from '@material-ui/core/MenuItem';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Badge from '@material-ui/core/Badge';
+
+
+
+
+
+
 
 
 const drawerWidth = 240;
@@ -92,10 +103,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DrawerNav = props => {
+  const [open, setOpen] = React.useState(false);
+  console.log(props);
   const { history } = props;
   const classes = useStyles();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const isMobile = useMediaQuery(theme.breakpoints.down('xs'));
+  console.log(isMobile);
+  const isMenuOpen = Boolean(anchorEl);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const itemsList = [
     {
@@ -134,6 +152,23 @@ const DrawerNav = props => {
         onClick: () => history.push("/logout")
       },
   ];
+  const handleProfileMenuOpen = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+
+  const handleMenuClick = pageURL => {
+    history.push(pageURL);
+    setAnchorEl(null);
+
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -142,6 +177,52 @@ const DrawerNav = props => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const menuId = 'primary-search-account-menu';
+
+  const mobileMenuId = 'primary-search-account-menu-mobile';
+
+  var usuario=localStorage.getItem('usuario');
+ 
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem>
+        <IconButton aria-label="show 4 new mails" color="inherit">
+          <Badge badgeContent={4} color="secondary">
+            <MailIcon />
+          </Badge>
+        </IconButton>
+        <p>Messages</p>
+      </MenuItem>
+      <MenuItem>
+        <IconButton aria-label="show 11 new notifications" color="inherit">
+          <Badge badgeContent={11} color="secondary">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profil</p>
+      </MenuItem>
+    </Menu>
+  );
+
 
   return (
     <div className={classes.root}>
@@ -166,6 +247,17 @@ const DrawerNav = props => {
           <Typography variant="h6" noWrap>
           Tableau de bord
           </Typography>
+          <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              {usuario}
+              <AccountCircle />
+            </IconButton>
         </Toolbar>
       </AppBar>
       <Drawer

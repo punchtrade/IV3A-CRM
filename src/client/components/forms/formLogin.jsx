@@ -13,6 +13,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import { AccountCircle, LockRounded } from '@material-ui/icons';
 import {  Formik } from 'formik';
 
+
 const styles = makeStyles((theme) => ({
   iconos: {
     cursor: 'pointer',
@@ -30,9 +31,11 @@ const styles = makeStyles((theme) => ({
 
 
 class FormLogin extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
+      user: "",
       email: "",
       password: "",
       token: "" ,
@@ -42,7 +45,7 @@ class FormLogin extends React.Component {
       redirect: localStorage.getItem("userTokenTime") ? true : false,
     };
   }
-
+  
   setEmail = event => {
     this.setState({
       email: event.target.value
@@ -88,9 +91,11 @@ class FormLogin extends React.Component {
     await axios
       .post("http://localhost:9000/login", {
         email: this.state.email,
-        password: this.state.password
+        password: this.state.password,
+        redirect: localStorage.setItem('usuario',this.state.email),
+
       }).then(res => {
-        localStorage.setItem('cool-jwt', res.data);
+        localStorage.setItem('users', res.data);
         this.props.history.push('/dashboard')
       }).catch(() => this.setState({
   

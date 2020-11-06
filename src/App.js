@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import Header from "./client/components/header/header";
 import Home from "../src/client/pages/home";
 import Dashboard from "./client/pages/dashboard";
@@ -21,6 +21,7 @@ import ContractPage from './client/pages/contract';
 import Login from './client/pages/login';
 import Register from './client/pages/register';
 import FormCarPage from './client/pages/orderCar';
+
 
 
 
@@ -48,7 +49,7 @@ class App extends React.Component {
       <Router>
         <div className="App">
           <Header />
-          <Route exact path="/home" component={Home} />
+          {/* <Route exact path="/home" component={Home} /> */}
           <p>{this.state.apiResponse}</p>
           <div className="container">
             <Route exact path="/login" component={Login} />
@@ -70,7 +71,6 @@ class App extends React.Component {
             <Route exact path="/invoice" component={InvoicePage} />
             <Route exact path="/contract" component={ContractPage} />
             <Route exact path="/formCar" component={FormCarPage} />
-
           </div>
         </div>
       </Router>

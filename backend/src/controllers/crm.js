@@ -59,6 +59,7 @@ router.post("/crm", (req, res, next) => {
       dueDate: req.body.dueDate,
       select: req.body.select,
       description: req.body.description,
+      users: req.body.userId,
     });
     dates
       .save()
@@ -67,11 +68,12 @@ router.post("/crm", (req, res, next) => {
         res.status(201).json({
           message: "Upload successfully",
           createdDates: {
-            name: result.name,
+           name: result.name,
             date: result.date,
             dueDate: result.dueDate,
             select: result.select,
             description: result.description,
+            users: result.userId,
             _id: result._id,
             request: {
               type: "POST",

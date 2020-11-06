@@ -69,6 +69,8 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+var usuario = localStorage.getItem('usuario');
+
 function Search(props) {
   const { history } = props;
   const styles = useStyles();
@@ -893,7 +895,7 @@ function Search(props) {
   )
   const crmBody = (
     <div className={styles.modal}>
-      <h3>Fiche Suivi Client A ce Jour</h3>
+      <h3>Fiche Suivi Client A ce Jour: {usuario}</h3>
       <Crm />
       <Crm2/>
       <Crm3 />

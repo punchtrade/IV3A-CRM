@@ -61,7 +61,7 @@ class Crm2 extends Component {
         };
         this.data = extend([], resourcesData, null, true);
         this.minDate = new Date();
-        this.maxDate = new Date('11/03/2020');
+        this.maxDate = new Date('11/15/2020');
     }
 
     onSubmitHandler = async (e) => {

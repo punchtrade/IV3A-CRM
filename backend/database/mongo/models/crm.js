@@ -25,9 +25,8 @@ const schema = new Schema({
         required: true,
     },
     users: [{
-      type: Schema.Types.ObjectId,
-      ref: 'User',
-      autopopulate: true
+      type: String,
+      required:true,
     }],
     clients: [{ 
       type: Schema.Types.ObjectId,

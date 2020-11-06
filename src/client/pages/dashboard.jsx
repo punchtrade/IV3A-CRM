@@ -1,8 +1,9 @@
 import React from "react";
 import DrawerNav from '../components/header/drawer';
 import Scheduler from '../components/scheduler/scheduler';
-import  Paper  from '@material-ui/core/Paper';
+import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Authcomponent from "../components/Authcomponent";
 
 const useStyles = makeStyles(theme => ({
   dashboardContainer: {
@@ -17,10 +18,9 @@ export default function Dashboard() {
 
   return (
     <>
-      {/* <Paper className={classes.dashboardContainer} elevation={6}> */}
       <DrawerNav />
       <Scheduler />
-      {/* </Paper> */}
+      <Authcomponent />
     </>
   );
 };

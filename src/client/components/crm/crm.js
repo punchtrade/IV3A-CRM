@@ -16,6 +16,9 @@ import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { resourcesData } from '../scheduler/appointments';
 import { extend } from '@syncfusion/ej2-base';
 
+
+var user = localStorage.getItem('usuario');
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -131,6 +134,7 @@ class Crm extends Component {
                             return (
                                 <Card key={reminder.id} id="waitdetails" className="card_id" draggable>
                                     <div className="list-item" name="_id">{reminder.name}</div>
+                                    <input type="hidden" id="userId" name="user" value={user}></input>
                                     <div>
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
@@ -160,26 +164,30 @@ class Crm extends Component {
         console.log(this.state.select);
         return (
             <div className={useStyles.root}>
+
                 <br /><br />
                 <h6>1.Commande (avec sélection véhicule) enregistrée par IV3A</h6>
                 <br />
                 <Grid item xs={9}>
-                <InputLabel id="name">Prénom et nom du client</InputLabel>
-                <TextField
-                    name="client"
-                    type="text"
-                    variant="outlined"
-                    fullWidth margin="normal"
-                    className={useStyles.TextField}
-                    placeholder="Prénom et nom du client"
-                    onChange={event => this.setState({ name: event.target.value })}>
-                  </TextField>
+                    <InputLabel id="name">Prénom et nom du client</InputLabel>
+                    <TextField
+                        name="name"
+                        type="text"
+                        variant="outlined"
+                        fullWidth margin="normal"
+                        className={useStyles.TextField}
+                        placeholder="Prénom et nom du client"
+                        onChange={event => this.setState({ name: event.target.value })}>
+                    </TextField>
+
+                   
                   </Grid>
                 <Grid item xs={9}>
                     <InputLabel id="select">Pour sélectionner</InputLabel>
                     <Select
                         variant="outlined" fullWidth margin="normal"
                         labelId="select"
+                        name="select"
                         Id={1}
                         label="Pour sélectionner"
                         onChange={event => this.setState({ select: event.target.value })}
@@ -193,8 +201,10 @@ class Crm extends Component {
                 <br />
                 <Grid container spacing={1} >
                     <Grid item xs={9}>
-                    <InputLabel id="description">Commentaires</InputLabel>
+                        <InputLabel id="description">Commentaires</InputLabel>
+
                         <TextField
+
                             variant="outlined"
                             fullWidth margin="normal"
                             className={useStyles.TextField}
@@ -203,7 +213,7 @@ class Crm extends Component {
                             onChange={event => this.setState({ description: event.target.value })} />
                     </Grid>
                     <Grid item xs={9}>
-                    <InputLabel id="name">Rendez-vous</InputLabel>
+                        <InputLabel id="date" >Rendez-vous</InputLabel>
                         <div className='control-pane'>
                             <div className='control-section'>
                                 <div className='daterangepicker-control-section'>
