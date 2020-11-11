@@ -20,6 +20,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+var usuario = localStorage.getItem('usuario');
 
 export default class Contract extends Component {
     state = {
@@ -48,7 +49,7 @@ export default class Contract extends Component {
                     <Grid item xs={3}>
                         <Typography className={useStyles.title} color="textSecondary" variant="h6" component="h2" gutterBottom>
                             <br></br>
-                            CONTRAT DE SERVICES
+                            CONTRAT DE SERVICES: {usuario}
                             <br></br>
                         </Typography>
                     </Grid>

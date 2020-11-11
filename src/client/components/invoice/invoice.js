@@ -20,6 +20,8 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
+var usuario = localStorage.getItem('usuario');
+
 export default class Invoice extends Component {
     state = {
         date: '',
@@ -65,7 +67,7 @@ export default class Invoice extends Component {
                     <Grid item xs={3}>
                         <Typography className={useStyles.title} color="textSecondary" variant="h6" component="h2" gutterBottom>
                             <br></br>
-                            FACTURE
+                            FACTURE: {usuario}
                             <br></br>
                         </Typography>
                     </Grid>

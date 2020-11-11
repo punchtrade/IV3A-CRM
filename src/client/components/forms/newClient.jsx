@@ -6,7 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
 
-
+var usuario = localStorage.getItem('usuario');
 
 const styles = makeStyles((theme) => ({
 
@@ -150,7 +150,7 @@ class NewClient extends React.Component {
         </div>
         <br />
         <h6>
-          Données Client <br />
+          Données Client: {usuario} <br />
         </h6>
         <ValidatorForm
           className={styles.root} validate autoComplete="on"

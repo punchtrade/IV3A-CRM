@@ -24,11 +24,11 @@ class AuthComponent extends Component {
       return;
     }
 
-    axios.get('/auth/getUser', { headers: { Authorization: getJwt() } }).then(res => {
-      this.setState({
-        user: res.data
-      })
-    });
+    // axios.get('/login', { headers: { Authorization: getJwt() } }).then(res => {
+    //   this.setState({
+    //     user: res.data
+    //   })
+    // });
   }
 
   render() {
@@ -36,7 +36,7 @@ class AuthComponent extends Component {
     if (user === undefined) {
       return (
         <div>
-          Loading...
+          {/* Loading... */}
         </div>
       );
     }

@@ -17,7 +17,7 @@ import { resourcesData } from '../scheduler/appointments';
 import { extend } from '@syncfusion/ej2-base';
 
 
-var user = localStorage.getItem('usuario');
+var usuario = localStorage.getItem('usuario');
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -50,6 +50,8 @@ class Crm extends Component {
     constructor(props) {
         super(...arguments);
         this.state = {
+            user: localStorage.getItem('usuario'),
+            _id: "",
             name: '',
             select: '',
             description: '',
@@ -57,6 +59,7 @@ class Crm extends Component {
             dueDate: this.maxDate,
             message: '',
             sent: false,
+            reminders: [],
         };
         this.data = extend([], resourcesData, null, true);
         this.minDate = new Date();
@@ -125,16 +128,18 @@ class Crm extends Component {
     }
 
     renderReminders() {
-        const { reminders } = this.props;
+        const { reminders, user, _id } = this.props;
         return (
             <div className="col-6">
                 <ul className="list-group col-sm-12">
+
                     {
                         reminders.map(reminder => {
                             return (
+
                                 <Card key={reminder.id} id="waitdetails" className="card_id" draggable>
                                     <div className="list-item" name="_id">{reminder.name}</div>
-                                    <input type="hidden" id="userId" name="user" value={user}></input>
+                                    <input type="hidden" id={_id} name="user" value={usuario}></input>
                                     <div>
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
@@ -151,6 +156,7 @@ class Crm extends Component {
                                         <br></br>
                                         <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
                                     </div>
+                                    {usuario}
                                 </Card>
                             )
                         })
@@ -164,7 +170,6 @@ class Crm extends Component {
         console.log(this.state.select);
         return (
             <div className={useStyles.root}>
-
                 <br /><br />
                 <h6>1.Commande (avec sélection véhicule) enregistrée par IV3A</h6>
                 <br />
@@ -180,8 +185,8 @@ class Crm extends Component {
                         onChange={event => this.setState({ name: event.target.value })}>
                     </TextField>
 
-                   
-                  </Grid>
+
+                </Grid>
                 <Grid item xs={9}>
                     <InputLabel id="select">Pour sélectionner</InputLabel>
                     <Select

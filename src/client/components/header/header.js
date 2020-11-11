@@ -19,6 +19,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { useTheme } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
+import useUser from '../../hooks/useUser';
+
 
 const useStyles = makeStyles((theme) => ({
   grow: {
@@ -78,6 +80,8 @@ const Header = props => {
   console.log(isMobile);
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+  const {isLogged, login} = useUser()
 
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);

@@ -3,7 +3,9 @@ import DrawerNav from '../components/header/drawer';
 import Scheduler from '../components/scheduler/scheduler';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import Authcomponent from "../components/Authcomponent";
+import AuthComponent from "../components/Authcomponent";
+
+
 
 const useStyles = makeStyles(theme => ({
   dashboardContainer: {
@@ -20,7 +22,6 @@ export default function Dashboard() {
     <>
       <DrawerNav />
       <Scheduler />
-      <Authcomponent />
     </>
   );
 };

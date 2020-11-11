@@ -26,6 +26,8 @@ import Card from '@material-ui/core/Card';
 import Moment from 'react-moment';
 import axios from 'axios';
 
+var usuario = localStorage.getItem('usuario');
+
 class Scheduler extends SampleBase {
     constructor(props) {
         super(...arguments);
@@ -51,7 +53,7 @@ class Scheduler extends SampleBase {
         ];
         this.dataSource = { readRequest: this.state, editingFollowingEvents: true };
         this.minDate = new Date();
-        this.maxDate = new Date('10/29/2020');
+        this.maxDate = new Date();
     }
     readRequest = async () => {
     await axios.get("http://localhost:9000/crm", this.state, {
@@ -78,7 +80,7 @@ class Scheduler extends SampleBase {
         })
     }
     renderReminders() {
-        const { reminders } = this.props;
+        const { reminders, user, id } = this.props;
         return (
             <div className="col-12">
                 <ul className="list-group col-sm-12">
@@ -87,6 +89,7 @@ class Scheduler extends SampleBase {
                             return (
                                 <Card key={reminder.id} id="waitdetails" className="card_id" draggable="true">
                                       <div className="list-item" name="_id">{reminder.name}</div>
+                                      <input type="hidden" id={id} name="user" value={usuario}></input>
                                     <div>
                                         <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
                                     </div>
@@ -103,6 +106,7 @@ class Scheduler extends SampleBase {
                                         <br></br>
                                         <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
                                     </div>
+                                    {usuario}
                                 </Card>
                             )
                         })
@@ -277,7 +281,7 @@ class Scheduler extends SampleBase {
                             eventSettings={ this.readRequest()}
                             dataSource={ this.readRequest()}
                             allowDragAndDrop={this.allowDragAndDrops}>
-                            {this.renderReminders()}
+                            {this.renderReminders({usuario})}
                         </TreeViewComponent>
                     </div>
                 </div>

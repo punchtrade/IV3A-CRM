@@ -6,7 +6,7 @@ import { Modal, TextField, FilledInput, Button, InputLabel } from '@material-ui/
 import { makeStyles } from '@material-ui/core/styles';
 import { withRouter } from 'react-router-dom';
 
-
+var usuario = localStorage.getItem('usuario');
 
 const columns = [
     { title: "ID", field: "_id" },
@@ -93,7 +93,7 @@ function Cars(props) {
 
   const insertBody = (
 <div className={styles.modal}>
-    <h3>Vue Véhicule</h3>
+  <h3>Vue Véhicule: {usuario}</h3>
 
 </div>
   )

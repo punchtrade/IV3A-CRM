@@ -1,6 +1,8 @@
 import React from "react";
-import { Route, BrowserRouter as Router } from "react-router-dom";
+import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
 import Header from "./client/components/header/header";
+import { getJwt } from '../src/client/helpers/index';
+import axios from 'axios';
 import Home from "../src/client/pages/home";
 import Dashboard from "./client/pages/dashboard";
 import NewClient from "./client/pages/newClient";
@@ -21,14 +23,20 @@ import ContractPage from './client/pages/contract';
 import Login from './client/pages/login';
 import Register from './client/pages/register';
 import FormCarPage from './client/pages/orderCar';
+import {UserContextProvider} from '../src/client/context/UserContext';
 
 
+var usuario = localStorage.getItem('usuario');
 
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: "" };
+    this.state = {
+      apiResponse: "",
+      user: undefined, 
+      redirect: sessionStorage.getItem('usuario') ? true : false, 
+    };
   }
 
   callAPI() {
@@ -42,10 +50,12 @@ class App extends React.Component {
   }
 
   render() {
-    // if (this.state.redirectToReferrer || sessionStorage.getItem('token')) {
-    //     return (<Redirect to={'/login'} />)
-    //   }
+
+    if (this.state.redirectToReferrer || sessionStorage.getItem('usuario')) {
+      return (<Redirect to={'usuario'} />)
+    }
     return (
+      <UserContextProvider>
       <Router>
         <div className="App">
           <Header />
@@ -74,6 +84,7 @@ class App extends React.Component {
           </div>
         </div>
       </Router>
+      </UserContextProvider>
     );
   }
 }

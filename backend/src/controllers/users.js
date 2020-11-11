@@ -39,26 +39,27 @@ router.post("/register", async (req, res, next) => {
 
   //login
 router.post("/login", async (req, res, next) => {
-    const { email, password } = req.body;
-    console.log(email, password);
-    const user = await usersModel.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(404).send("The email doesn't exists");
-    }
-    console.log(user);
-  
-    const validPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!validPassword) {
-      return res.status(401).json({ auth: false, token: null });
-    }
-    // console.log(validPassword);
-  
-    const token = jwt.sign({ id: user._id }, config.secret, {
-      // expiresIn: 86400, //24 hours
-    });
-  
-    res.status(200).json({ auth: true, token });
+  const { email, password } = req.body;
+  console.log(email, password);
+  const user = await usersModel.findOne({ email: req.body.email });
+  if (!user) {
+    return res.status(404).send("The email doesn't exists");
+  }
+  console.log(user);
+
+  const validPassword = await bcrypt.compare(req.body.password, user.password);
+  if (!validPassword) {
+    return res.status(401).json({ auth: false, token: null });
+  }
+  // console.log(validPassword);
+
+  const token = jwt.sign({ id: user._id }, config.secret, {
+    // expiresIn: 86400, //24 hours
   });
+
+  res.status(200).json({ auth: true, token });
+});
+
 
   //logout
 router.get("/logout", (req, res) => {

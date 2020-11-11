@@ -4,6 +4,8 @@ import { Button, InputLabel, FilledInput } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
 
+var usuario = localStorage.getItem('usuario');
+
 const styles = makeStyles((theme) => ({
   iconos: {
     cursor: 'pointer',
@@ -99,6 +101,7 @@ class FormCar extends Component {
       <div className={styles.inputMaterial}>
         {/* <br /><br />
         <h5 className="">Fiche Véhicule</h5> */}
+        {usuario}
         <div className="container">
           <div
           >

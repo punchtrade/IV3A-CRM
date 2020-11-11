@@ -3,6 +3,8 @@ import axios from 'axios';
 import { TextField, Button, InputLabel, FilledInput, Modal } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+var usuario = localStorage.getItem('usuario');
+
 const styles = makeStyles((theme) => ({
   iconos: {
     cursor: 'pointer',
@@ -107,6 +109,7 @@ function PreOrder(props) {
     <div className={styles.inputMaterial}>
       <br /><br />
       {/* <h5>Commande ferme de Véhicule</h5> */}
+      {usuario}
       <br /><br />
       <div className="container">
         <div className="text-info" type="text">

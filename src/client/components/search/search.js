@@ -264,7 +264,7 @@ function Search(props) {
 
   const readBody = (
     <div className={styles.modal}>
-      <h3>Information personnel du client</h3>
+      <h3>Information personnel du client:{usuario}</h3>
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
@@ -545,7 +545,7 @@ function Search(props) {
   )
   const editBody = (
     <div className={styles.modal}>
-      <h3>Modifier le Client</h3>
+      <h3>Modifier le Client: {usuario}</h3>
       <InputLabel
         htmlFor="filled-adornment-amount"
       >
@@ -730,7 +730,7 @@ function Search(props) {
       <br />
       <br />
       <h6>
-        Modifier les informations sur le véhicule <br></br>
+        Modifier les informations sur le véhicule: {usuario} <br></br>
       </h6>
       <InputLabel
         htmlFor="filled-adornment-amount"
@@ -839,7 +839,7 @@ function Search(props) {
   const deleteBody = (
     <div className={styles.modal}>
       <p>
-        Êtes-vous sûr de vouloir supprimer le client
+        Êtes-vous sûr de vouloir supprimer le client: {usuario}
         <b>
           {selectedClient && selectedClient.id}
         </b>
@@ -873,7 +873,7 @@ function Search(props) {
 
   const uploadBody = (
     <div className={styles.modal}>
-            <h3>Télécharger</h3>
+            <h3>Télécharger: {usuario}</h3>
       <Upload />
       <b>
       </b>
