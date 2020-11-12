@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const {Schema} = mongoose;
 
-const carClientsSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema({
     id: mongoose.Schema.Types.ObjectId,
     carOrder: {
         type: String,
@@ -43,7 +43,7 @@ const carClientsSchema = new mongoose.Schema({
       },
     ],
 });
-carClientsSchema.plugin(require('mongoose-autopopulate'));
+orderSchema.plugin(require('mongoose-autopopulate'));
 
-const model = mongoose.model("CarClient", carClientsSchema);
+const model = mongoose.model("Order", orderSchema);
 module.exports = model;

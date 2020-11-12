@@ -97,6 +97,7 @@
         "sass": "^1.26.8",
         "scss": "^0.2.4",
         "sfcookies": "^1.0.2",
+        "shortid": "^2.2.16",
         "styled-components": "^5.2.0",
         "update": "^0.7.4",
         "wouter": "^2.5.3"

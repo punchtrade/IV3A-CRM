@@ -40,5 +40,5 @@ const schema = new Schema({
 
 schema.plugin(require('mongoose-autopopulate'));
 
-const model = mongoose.model("Crm", schema);
+const model = mongoose.model("Reminder", schema);
 module.exports = model;

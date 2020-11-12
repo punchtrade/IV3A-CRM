@@ -1,11 +1,21 @@
+const usersModel = require('./models/users');
 const carModel = require('./models/car');
 const clientsModel = require('./models/clients');
-const carClientsModel = require('./models/car-client');
+const orderModel = require('./models/order');
 const leadsModel = require('./models/leads');
 const preOrderModel = require('./models/preOrder');
 const uploadsModel = require('./models/uploads');
-const usersModel = require('./models/users');
-const crmModel = require('./models/crm');
+const reminderModel = require('./models/reminder');
 const schedulerModel = require('./models/scheduler');
 
-module.exports = { carModel, clientsModel,schedulerModel, carClientsModel, leadsModel, preOrderModel, uploadsModel, usersModel, crmModel};
+module.exports = {
+    usersModel,
+    carModel,
+    clientsModel,
+    orderModel,
+    leadsModel,
+    preOrderModel,
+    uploadsModel,
+    reminderModel,
+    schedulerModel,
+};

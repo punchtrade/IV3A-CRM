@@ -15,6 +15,7 @@ const fileUpload = require("express-fileupload");
 const pdf = require('html-pdf');
 const flash = require('connect-flash');
 const verifyToken = require('./src/middlewares/validateAuth');
+const routes = require('./src/routes/index');
 
 // load config file
 nconf
@@ -40,30 +41,33 @@ redisSessionStore.on("connect", () => {
 });
 
 // //middlewares
-// app.use(verifyToken);
+app.use(verifyToken);
 app.use("/uploads", express.static("uploads"));
 app.use(express.static("public"));
 app.use(fileUpload());
 app.use(express.static(path.resolve(__dirname + "/public/")));
 app.use(cors({
-  origin:"http://localhost:3000",
+  origin: "http://localhost:3000",
   credentials: true
 }));
 app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true}));
 app.use(bodyParser.json());
 app.use(express.json());
-app.use(require("./src/controllers/authController"));
-app.use(require("./src/controllers/car"));
-app.use(require("./src/controllers/carClient"));
-app.use(require("./src/controllers/users"));
-app.use(require("./src/controllers/clients"));
-app.use(require("./src/controllers/search"));
-app.use(require("./src/controllers/leads"));
-app.use(require("./src/controllers/uploads"));
-app.use(require("./src/controllers/mails"));
-app.use(require("./src/controllers/pre-order"));
-app.use(require("./src/controllers/crm"));
+
+//Rutas de la app
+app.use(require('./src/routes/index'));
+// app.use(require("./src/controllers/authController"));
+// app.use(require("./src/controllers/car"));
+// app.use(require("./src/controllers/carClient"));
+// app.use(require("./src/controllers/users"));
+// app.use(require("./src/controllers/clients"));
+// app.use(require("./src/controllers/search"));
+// app.use(require("./src/controllers/leads"));
+// app.use(require("./src/controllers/uploads"));
+// app.use(require("./src/controllers/mails"));
+// app.use(require("./src/controllers/pre-order"));
+// app.use(require("./src/controllers/crm"));
 app.use(require("../api/app"));
 app.use(session({
   secret: 'secret',
