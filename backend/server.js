@@ -41,7 +41,7 @@ redisSessionStore.on("connect", () => {
 });
 
 // //middlewares
-app.use(verifyToken);
+// app.use(verifyToken);
 app.use("/uploads", express.static("uploads"));
 app.use(express.static("public"));
 app.use(fileUpload());
@@ -56,18 +56,17 @@ app.use(bodyParser.json());
 app.use(express.json());
 
 //Rutas de la app
-app.use(require('./src/routes/index'));
-// app.use(require("./src/controllers/authController"));
-// app.use(require("./src/controllers/car"));
-// app.use(require("./src/controllers/carClient"));
-// app.use(require("./src/controllers/users"));
-// app.use(require("./src/controllers/clients"));
-// app.use(require("./src/controllers/search"));
-// app.use(require("./src/controllers/leads"));
-// app.use(require("./src/controllers/uploads"));
-// app.use(require("./src/controllers/mails"));
-// app.use(require("./src/controllers/pre-order"));
-// app.use(require("./src/controllers/crm"));
+app.use(require("./src/controllers/authController"));
+app.use(require("./src/controllers/car"));
+app.use(require("./src/controllers/carClient"));
+app.use(require("./src/controllers/users"));
+app.use(require("./src/controllers/clients"));
+app.use(require("./src/controllers/search"));
+app.use(require("./src/controllers/leads"));
+app.use(require("./src/controllers/uploads"));
+app.use(require("./src/controllers/mails"));
+app.use(require("./src/controllers/pre-order"));
+app.use(require("./src/controllers/reminder"));
 app.use(require("../api/app"));
 app.use(session({
   secret: 'secret',

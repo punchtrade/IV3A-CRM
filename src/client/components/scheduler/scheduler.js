@@ -56,7 +56,7 @@ class Scheduler extends SampleBase {
         this.maxDate = new Date();
     }
     readRequest = async () => {
-    await axios.get("http://localhost:9000/crm", this.state, {
+    await axios.get("http://localhost:9000/reminder", this.state, {
       headers: { "Content-Type": "application/json" },
     })
       .then((response) => {

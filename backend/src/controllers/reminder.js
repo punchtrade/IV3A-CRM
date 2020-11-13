@@ -3,7 +3,7 @@ const router = Router();
 const mongoose = require("mongoose");
 const config = require("../../configs/index");
 const {
-    mongo: { crmModel },
+    mongo: { reminderModel },
 } = require('../../database/index');
 
 
@@ -49,10 +49,10 @@ const {
 //             });
 //         });
 // });
-router.post("/crm", (req, res, next) => {
+router.post("/reminder", (req, res, next) => {
     console.log(req.file);
-    crmModel({id: req.body.id});
-    const dates = new crmModel({
+    reminderModel({id: req.body.id});
+    const dates = new reminderModel({
       _id: new mongoose.Types.ObjectId(),
       name: req.body.name,
       date: req.body.date,
@@ -77,7 +77,7 @@ router.post("/crm", (req, res, next) => {
             _id: result._id,
             request: {
               type: "POST",
-              url: "http://localhost:9000/crm" + result._id,
+              url: "http://localhost:9000/reminder" + result._id,
             },
           },
         });
@@ -89,10 +89,10 @@ router.post("/crm", (req, res, next) => {
     //   });
   });
 
-  router.get('/crm', (req, res) => {
+  router.get('/reminder', (req, res) => {
     console.info('obtener datos Crm');
-    crmModel.find()
-      .populate('Crm', 'crmSchema')
+    reminderModel.find()
+      .populate('Reminder', 'reminderSchema')
       .exec((err, crm) => {
         if (err) {
           console.error(err.message);

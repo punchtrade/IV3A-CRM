@@ -140,7 +140,7 @@ function Search(props) {
   const putRequest = async () => {
     await axios.put("http://localhost:9000/clients")
       .then(response => {
-        var newData = data;
+        const newData = data;
         newData.map(client => {
           if (client._id === selectedClient._id) {
             client.card = selectedClient.card;

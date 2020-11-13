@@ -22,9 +22,9 @@ router.get('/search', (req, res) => {
 
 //modificated client
 
-router.put('/clients', function (req, res, next) {
-    const updateContent = {
-        // _id: new mongoose.Types.ObjectId(),
+router.put('/clients', async function (req, res, next) {
+    const newData = {
+        id: new mongoose.Types.ObjectId(),
         card: req.body.card,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -42,12 +42,21 @@ router.put('/clients', function (req, res, next) {
         model: req.body.model,
         fuel: req.body.fuel,
     }
-    clientsModel.updateOne({ card: req.body.card }, updateContent, function (err, clientsUpdate) {
-        if ( updateContent.nMatched == 1 || err, updateContent.nUpserted == 0 || err, updateContent.nModified == 0 || err)
+    clientsModel.replaceOne({ firstName: req.body.firstName }, newData, function (err, client) {
+        if ( newData.nMatched == 1 || err, newData.nUpserted == 0 || err, newData.nModified == 0 || err)
             res.json({ status: 1, message: "don't modificated client" + err });
         else
-            res.json({ status: 0, message: "modificated client", data: clientsUpdate });
+            res.json({ status: 0, message: "modificated client", data: client });
     });
+    // try {
+    //     const client = await clientsModel.replaceOne({ id : req.params._id, card: req.params.card,}, req.body, {
+    //         new : true
+    //     });
+    //     res.json(client);
+    // } catch (error) {
+    //     res.send(error);
+    //     next();
+    // }
 });
 
 router.delete('/search', (req, res, next) => {

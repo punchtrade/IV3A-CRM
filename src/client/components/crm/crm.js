@@ -63,12 +63,12 @@ class Crm extends Component {
         };
         this.data = extend([], resourcesData, null, true);
         this.minDate = new Date();
-        this.maxDate = new Date('11/12/2020');
+        this.maxDate = new Date('11/25/2020');
     }
 
     onSubmitHandler = async (e) => {
         e.preventDefault();
-        await axios.post("http://localhost:9000/crm", this.state, {
+        await axios.post("http://localhost:9000/reminder", this.state, {
             headers: { "Content-Type": "application/json" },
         })
             .then((response) => {

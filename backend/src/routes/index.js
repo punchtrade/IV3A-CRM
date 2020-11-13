@@ -121,10 +121,10 @@ module.exports = function () {
 
 
     /*** USUARIOS */
-    router.post('/register',
+    router.post('/register', 
         auth,
         usersController.registerUser
-    );
+     );
 
     router.post('/login',
         usersController.authenticateUser
