@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { addReminder, deleteReminder, clearReminders } from '../actions'
+import { addReminder, deleteReminder, clearReminders } from '../../actions'
 import axios from 'axios';
 import Moment from 'react-moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';

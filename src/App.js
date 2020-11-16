@@ -1,14 +1,11 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Redirect } from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
+
 import Header from "./client/components/header/header";
-import { getJwt } from '../src/client/helpers/index';
-import axios from 'axios';
-import Home from "../src/client/pages/home";
 import Dashboard from "./client/pages/dashboard";
 import NewClient from "./client/pages/newClient";
 import UploadPage from "./client/pages/uploadPage";
 import PreOrderPage from "./client/pages/preOrder";
-// import formCar from "./client/components/forms/formCar";
 import Leads from './client/pages/leads';
 import CarsPage from './client/pages/cars';
 import Search from './client/pages/search';
@@ -23,10 +20,34 @@ import ContractPage from './client/pages/contract';
 import Login from './client/pages/login';
 import Register from './client/pages/register';
 import FormCarPage from './client/pages/orderCar';
-import {UserContextProvider} from '../src/client/context/UserContext';
+import PrivateRoute from './client/components/private-route/PrivateRoute';
+
+import jwt_decode from "jwt-decode";
+import setAuthToken from "./utils/setAuthToken";
+import { setCurrentUser, logoutUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
+
+import { Provider } from "react-redux";
+import store from "/Users/carmenbuendia/DevProjects/IV3A/src/client/store.js";
 
 
 var usuario = localStorage.getItem('usuario');
+
+// Check for token to keep user logged in
+if (localStorage.jwtToken) {
+  // Set auth token header auth
+  const token = localStorage.jwtToken;
+  setAuthToken(token);
+  // Decode token and get user info and exp
+  const decoded = jwt_decode(token);
+  // Set user and isAuthenticated
+  store.dispatch(setCurrentUser(decoded));// Check for expired token
+  const currentTime = Date.now() / 1000; // to get in milliseconds
+  if (decoded.exp < currentTime) {
+    // Logout user
+    store.dispatch(logoutUser());    // Redirect to login
+    window.location.href = "./login";
+  }
+}
 
 
 class App extends React.Component {
@@ -51,11 +72,11 @@ class App extends React.Component {
 
   render() {
 
-    if (this.state.redirectToReferrer || sessionStorage.getItem('usuario')) {
-      return (<Redirect to={'usuario'} />)
-    }
+    // if (this.state.redirectToReferrer || sessionStorage.getItem('usuario')) {
+    //   return (<Redirect to={'usuario'} />)
+    // }
     return (
-      <UserContextProvider>
+      <Provider store={store}>
       <Router>
         <div className="App">
           <Header />
@@ -64,11 +85,13 @@ class App extends React.Component {
           <div className="container">
             <Route exact path="/login" component={Login} />
             <Route exact path="/register" component={Register} />
-            <Route exact path="/dashboard" component={Dashboard} />
+            <Switch>
+            <PrivateRoute exact path="/dashboard" component={Dashboard} />
+            </Switch>
             <Route exact path="/newclient" component={NewClient} />
             <Route exact path="/upload" component={UploadPage} />
             <Route exact path="/preorder" component={PreOrderPage} />
-            {/* <Route exact path="/formCar" component={formCar} /> */}
+
             <Route exact path="/leads" component={Leads} />
             <Route exact path="/cars" component={CarsPage} />
             <Route exact path="/search" component={Search} />
@@ -84,7 +107,7 @@ class App extends React.Component {
           </div>
         </div>
       </Router>
-      </UserContextProvider>
+      </Provider>
     );
   }
 }

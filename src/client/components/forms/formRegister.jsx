@@ -1,9 +1,12 @@
 import React from "react";
-import axios from "axios";
 import { withRouter } from "react-router-dom";
 import { Button, InputLabel, FilledInput, InputAdornment, TextField } from '@material-ui/core';
 import { AccountCircle, LockRounded, Person, SupervisorAccount } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { registerUser } from "../../actions/authActions";
+import classnames from "classnames";
 
 const styles = makeStyles((theme) => ({
   iconos: {
@@ -13,8 +16,6 @@ const styles = makeStyles((theme) => ({
     width: '100%'
   }
 }));
-
-
 
 class FormRegister extends React.Component {
   constructor(props) {
@@ -28,32 +29,39 @@ class FormRegister extends React.Component {
       errors: {},
     };
   }
-  changeHandler = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.errors) {
+      this.setState({
+        errors: nextProps.errors
+      });
+    }
+  }
+
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
   };
 
-  onSubmitHandler = (e) => {
+  onSubmit = e => {
     e.preventDefault();
-    this.props.history.push("/login");
-    console.log(this.state);
-    axios
-      .post("http://localhost:9000/register", this.state, {
-        headers: { "Content-Type": "application/json" },
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+
+    const newUser = {
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      idCard: this.state.idCard,
+      email: this.state.email,
+      password: this.state.password,
+    };
+    this.props.registerUser(newUser, this.props.history);
   };
+
   render() {
-    const { firstName, lastName, idCard, email, password } = this.state;
+    const { errors } = this.state;
     return (
       <div className={styles.inputMaterial}>
         <div className="container-form">
-          <form
-            onSubmit={this.onSubmitHandler.bind(this)}
+          <form noValidate
+            onSubmit={this.onSubmit}
             action="http://localhost:9000/register"
             method="post"
           >
@@ -69,18 +77,21 @@ class FormRegister extends React.Component {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <Person/>
+                    <Person />
                   </InputAdornment>
                 )
               }}
               className={styles.inputMaterial}
               name="lastName"
               placeholder="Prénom"
-              value={lastName}
-              onChange={this.changeHandler}
+              value={this.state.lastName}
+              onChange={this.onChange}
+              error={errors.lastName}
+              id="lastName"
               autoComplete=""
+              type="text"
             />
-                        <InputLabel
+            <InputLabel
               htmlFor="filled-adornment-amount"
             >
               Nom
@@ -92,16 +103,19 @@ class FormRegister extends React.Component {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SupervisorAccount/>
+                    <SupervisorAccount />
                   </InputAdornment>
                 )
               }}
               className={styles.inputMaterial}
               name="firstName"
               placeholder="Nom"
-              value={firstName}
-              onChange={this.changeHandler}
+              value={this.state.firstName}
+              onChange={this.onChange}
+              error={errors.firstName}
+              id="firstName"
               autoComplete=""
+              type="text"
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -115,9 +129,12 @@ class FormRegister extends React.Component {
               className={styles.inputMaterial}
               name="idCard"
               placeholder="Carte d'identité"
-              value={idCard}
-              onChange={this.changeHandler}
+              value={this.state.idCard}
+              onChange={this.onChange}
+              error={errors.idCard}
+              id="idCard"
               autoComplete=""
+              type="text"
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -131,16 +148,19 @@ class FormRegister extends React.Component {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <AccountCircle/>
+                    <AccountCircle />
                   </InputAdornment>
                 )
               }}
               className={styles.inputMaterial}
               name="email"
               placeholder="Courrier électronique"
-              value={email}
-              onChange={this.changeHandler}
+              value={this.state.email}
+              onChange={this.onChange}
+              errors={errors.email}
+              id="email"
               autoComplete=""
+              type="email"
             />
             <InputLabel
               htmlFor="filled-adornment-amount"
@@ -154,7 +174,7 @@ class FormRegister extends React.Component {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <LockRounded/>
+                    <LockRounded />
                   </InputAdornment>
                 )
               }}
@@ -162,21 +182,24 @@ class FormRegister extends React.Component {
               name="password"
               type="password"
               placeholder="Mot de passe"
-              value={password}
-              onChange={this.changeHandler}
+              value={this.state.password}
+              onChange={this.onChange}
+              errors={errors.password}
+              id="password"
               autoComplete=""
+              type="password"
             />
-            <br/><br/><br/>
-            <Button 
-             variant="outlined"
-             size="large"
-             color="default"
-             disabledElevation
-            type="submit" 
-            onClick={this.onSubmitHandler.bind(this)}>
+            <br /><br /><br />
+            <Button
+              variant="outlined"
+              size="large"
+              color="default"
+              disabledElevation
+              type="submit"
+              onClick={this.onSubmit}>
               Envoyer
           </Button>
-          <br/><br/>
+            <br /><br />
           </form>
         </div>
       </div>
@@ -184,4 +207,17 @@ class FormRegister extends React.Component {
   }
 }
 
-export default withRouter(FormRegister);
+FormRegister.propTypes = {
+  registerUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { registerUser }
+)(withRouter(FormRegister));

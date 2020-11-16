@@ -1,11 +1,10 @@
-import React from "react";
+import React, { Component } from "react";
 import DrawerNav from '../components/header/drawer';
 import Scheduler from '../components/scheduler/scheduler';
-import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
-import AuthComponent from "../components/Authcomponent";
-
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
 
 const useStyles = makeStyles(theme => ({
   dashboardContainer: {
@@ -14,14 +13,37 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Dashboard() {
+class Dashboard extends Component {
+  onLoginClick = e => {
+    e.preventDefault();
+    this.props.loginUser();
+  };
 
-  const classes = useStyles();
-
-  return (
-    <>
-      <DrawerNav />
-      <Scheduler />
-    </>
-  );
+  render() {
+    const { user } = this.props.auth;
+    return (
+      <>
+      <h4>
+        <b>Allô!,</b>{user.email}
+      {/* <b>Allô!,</b> {user.email.split(" ")[0]} */}
+      </h4>
+        <DrawerNav />
+        <Scheduler />
+      </>
+    );
+  }
 };
+
+Dashboard.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(Dashboard);

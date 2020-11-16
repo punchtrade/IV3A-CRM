@@ -36,13 +36,6 @@ import Menu from '@material-ui/core/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Badge from '@material-ui/core/Badge';
 
-
-
-
-
-
-
-
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({

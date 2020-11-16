@@ -1,19 +1,14 @@
 import React from "react";
-import axios from "axios";
-// import "react-toastify/dist/ReactToastify.css";
-import { withRouter } from "react-router-dom";
+import { withRouter} from "react-router-dom";
 import { Button, InputLabel, InputAdornment, TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm } from "react-material-ui-form-validator";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
 import { AccountCircle, LockRounded } from '@material-ui/icons';
 import { Formik } from 'formik';
-import { getJwt } from '../../helpers/index';
-import AuthComponent from '../Authcomponent';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "../../actions/authActions";
+import classnames from "classnames";
 
 
 
@@ -35,109 +30,53 @@ const styles = makeStyles((theme) => ({
 var usuario = localStorage.getItem('usuario');
 
 class FormLogin extends React.Component {
-
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       id: "",
-      user: sessionStorage.getItem('usuario'),
       email: "",
       password: "",
-      token: sessionStorage.getItem('usuario'),
-      message: "",
-      open: false,
-      accessToken: "",
-      redirect: localStorage.getItem("userTokenTime") ? true : false,
+      errors: {}
     };
   }
 
-  setEmail = event => {
-    this.setState({
-      email: event.target.value
-    });
-  };
-  setPassword = event => {
-    this.setState({
-      password: event.target.value
-    });
-  };
-
-  signIn = () => {
-    if
-      (this.state.email === !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.auth.isAuthenticated) {
+      this.props.history.push("/dashboard"); // push user to dashboard when they login
+    } if (nextProps.errors) {
       this.setState({
-        open: true,
-        message: "Vous vous êtes connecté avec succès!"
+        errors: nextProps.errors
       });
     }
-    else {
-      this.setState({
-        open: true,
-        message: "Identifiant ou mot de passe incorrect!"
-      });
-    } if (this.state.email === sessionStorage.getItem("userTokenTime")) {
-      this.setState({
-        open: true,
-        messege: "El usuario no existe!!"
-      })
-    }
-  };
-
-  handleClose = () => {
-    this.setState({
-      open: false
-    });
-  };
-
-  componentDidMount() {
-    this.getUser();
   }
 
-  getUser() {
-    const jwt = getJwt();
-    if (!jwt) {
-      this.setState({
-        user: null
-      });
-      return;
-    }
-
-    // axios.get('/login', { headers: { Authorization: getJwt() } }).then(res => {
-    //   this.setState({
-    //     user: res.data
-    //   })
-    // });
-  }
-
-
-
-  onSubmitHandler = async (e) => {
+  onChange = e => {
+    this.setState({ [e.target.id]: e.target.value });
+  };
+  onSubmit = e => {
     e.preventDefault();
-    await axios
-      .post("http://localhost:9000/login", {
-        email: this.state.email,
-        password: this.state.password,
-        redirect: localStorage.setItem('usuario', this.state.email),
-
-      }).then(res => {
-        localStorage.setItem('users', res.data);
-        this.props.history.push('/dashboard')
-      }).catch(() => this.setState({
-
-        error: true
-      }));
-  }
-
+    const userData = {
+      email: this.state.email,
+      password: this.state.password
+    };
+    this.props.loginUser(userData);
+    console.log(userData);
+    // since we handle the redirect within our component, we don't need to pass in this.props.history as a parameter
+  };
+  
   render() {
-    const { error } = this.state;
-    const { id, email, password, user } = this.state;
+    const { errors } = this.state;
+    const { id } = this.state;
     return (
       <Formik>
         <div>
-        <input type="hidden" id={id} name="user" value={usuario}></input>
+          <input type="hidden"
+            id={id} 
+            name="user"
+            value={usuario}></input>
           <ValidatorForm
             className={styles.root} validate autoComplete="on"
-            onSubmit={this.onSubmitHandler.bind(this)}
+            onSubmit={this.onSubmit}
             action="http://localhost:9000/login"
             method="post"
 
@@ -160,10 +99,12 @@ class FormLogin extends React.Component {
               }}
               className={styles.inputMaterial}
               name="email"
-              type="email"
               placeholder="Courrier électronique"
-              value={email}
-              onChange={this.setEmail}
+              value={this.state.email}
+              onChange={this.onChange}
+              error={errors.email}
+              id="email"
+              type="email"
               validators={["required"]}
               errorMessages={["Ce champ est requis"]}
               required
@@ -185,11 +126,13 @@ class FormLogin extends React.Component {
                 )
               }}
               className={styles.inputMaterial}
-              type="password"
               name="password"
               placeholder="Mot de passe"
-              value={password}
-              onChange={this.setPassword}
+              value={this.state.password}
+              onChange={this.onChange}
+              error={errors.password}
+              id="password"
+              type="password"
               validators={["required"]}
               errorMessages={["Ce champ est requis"]}
               required
@@ -201,31 +144,11 @@ class FormLogin extends React.Component {
               color="default"
               disabledElevation
               type="submit"
-              onClick={() => {
-                this.signIn({usuario});
-              }}
+              onClick={this.onSubmit}
             >
               Connecter
           </Button>
             <br /><br />
-            <Dialog
-              open={this.state.open}
-              onClose={this.handleClose}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-            >
-              <DialogTitle id="alert-dialog-title">S'inscrire</DialogTitle>
-              <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                  {this.state.message}
-                </DialogContentText>
-              </DialogContent>
-              <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
-                  D'accord
-              </Button>
-              </DialogActions>
-            </Dialog>
           </ValidatorForm>
         </div>
       </Formik>
@@ -233,4 +156,18 @@ class FormLogin extends React.Component {
   }
 }
 
-export default withRouter(FormLogin);
+FormLogin.propTypes = {
+  loginUser: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
+  errors: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  errors: state.errors
+});
+
+export default connect(
+  mapStateToProps,
+  { loginUser }
+)(withRouter(FormLogin));

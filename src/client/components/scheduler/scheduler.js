@@ -20,7 +20,7 @@ import { extend, closest, remove, addClass } from '@syncfusion/ej2-base';
 import { SampleBase } from '../scheduler/sample-base';
 import { TreeViewComponent } from '@syncfusion/ej2-react-navigations';
 import { appointments, resourcesData } from '../scheduler/appointments';
-import { addReminder, deleteReminder, clearReminders } from '../actions/index';
+import { addReminder, deleteReminder, clearReminders } from '../../actions/index';
 import { connect } from 'react-redux';
 import Card from '@material-ui/core/Card';
 import Moment from 'react-moment';
@@ -79,42 +79,42 @@ class Scheduler extends SampleBase {
             dueDate: this.maxDate(new Date().moment().format("Do dddd MMMM gggg"))
         })
     }
-    renderReminders() {
-        const { reminders, user, id } = this.props;
-        return (
-            <div className="col-12">
-                <ul className="list-group col-sm-12">
-                    {
-                        reminders.map(reminder => {
-                            return (
-                                <Card key={reminder.id} id="waitdetails" className="card_id" draggable="true">
-                                      <div className="list-item" name="_id">{reminder.name}</div>
-                                      <input type="hidden" id={id} name="user" value={usuario}></input>
-                                    <div>
-                                        <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
-                                    </div>
-                                    <div>
-                                        <div className="list-item" name="Description">{reminder.description}</div>
-                                    </div>
-                                    <div>
-                                        <div className="list-item delete-button"
-                                            onClick={() => this.deleteReminder(reminder.id)}
-                                        >
-                                            &#10006;
-                                </div>
-                                        <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
-                                        <br></br>
-                                        <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
-                                    </div>
-                                    {usuario}
-                                </Card>
-                            )
-                        })
-                    }
-                </ul>
-            </div>
-        )
-    }
+    // renderReminders() {
+    //     const { reminders, user, id } = this.props;
+    //     return (
+    //         <div className="col-12">
+    //             <ul className="list-group col-sm-12">
+    //                 {
+    //                     reminders.map(reminder => {
+    //                         return (
+    //                             <Card key={reminder.id} id="waitdetails" className="card_id" draggable="true">
+    //                                   <div className="list-item" name="_id">{reminder.name}</div>
+    //                                   <input type="hidden" id={id} name="user" value={usuario}></input>
+    //                                 <div>
+    //                                     <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
+    //                                 </div>
+    //                                 <div>
+    //                                     <div className="list-item" name="Description">{reminder.description}</div>
+    //                                 </div>
+    //                                 <div>
+    //                                     <div className="list-item delete-button"
+    //                                         onClick={() => this.deleteReminder(reminder.id)}
+    //                                     >
+    //                                         &#10006;
+    //                             </div>
+    //                                     <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
+    //                                     <br></br>
+    //                                     <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
+    //                                 </div>
+    //                                 {usuario}
+    //                             </Card>
+    //                         )
+    //                     })
+    //                 }
+    //             </ul>
+    //         </div>
+    //     )
+    // }
     onDragStart(args) {
         args.navigation = { enable: true, timeDelay: 4000 };
     }
@@ -281,7 +281,7 @@ class Scheduler extends SampleBase {
                             eventSettings={ this.readRequest()}
                             dataSource={ this.readRequest()}
                             allowDragAndDrop={this.allowDragAndDrops}>
-                            {this.renderReminders({usuario})}
+                            {/* {this.renderReminders({usuario})} */}
                         </TreeViewComponent>
                     </div>
                 </div>
