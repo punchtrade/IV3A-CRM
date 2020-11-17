@@ -11,12 +11,13 @@ import Invoice from '../invoice/invoice';
 import Contract from '../contract/contract';
 import PreOrder from '../forms/preOrder';
 import FormCar from '../forms/formCar';
-import Crm from '../crm/crm';
-import Crm2 from '../crm/crm-2';
-import Crm3 from '../crm/crm-3';
-import Crm4 from '../crm/crm-4';
-import Crm5 from '../crm/crm-5';
-import Crm6 from '../crm/crm-6';
+// import Crm from '../crm/crm';
+// import Crm2 from '../crm/crm-2';
+// import Crm3 from '../crm/crm-3';
+// import Crm4 from '../crm/crm-4';
+// import Crm5 from '../crm/crm-5';
+// import Crm6 from '../crm/crm-6';
+
 
 const columns = [
   { title: "ID", field: "_id" },
@@ -79,7 +80,7 @@ function Search(props) {
   const [editModal, setEditModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [uploadModal, setUploadModal] = useState(false);
-  const [crmModal, setCrmModal] = useState(false);
+  // const [crmModal, setCrmModal] = useState(false);
   const [invoiceModal, setInvoiceModal] = useState(false);
   const [preOrderModal, setPreOrderModal] = useState(false);
   const [formCarModal, setFormCarModal] = useState(false);
@@ -192,11 +193,11 @@ function Search(props) {
       : openCloseUploadModal()
   }
 
-  const crmSelected = (client, caso) => {
-    setClientSelected(client);
-    (caso === "Edit") ? openCloseCrmModal()
-      : openCloseCrmModal()
-  }
+  // const crmSelected = (client, caso) => {
+  //   setClientSelected(client);
+  //   (caso === "Edit") ? openCloseCrmModal()
+  //     : openCloseCrmModal()
+  // }
 
   const preOrderSelected = (client, caso) => {
     setClientSelected(client);
@@ -238,9 +239,9 @@ function Search(props) {
     setUploadModal(!uploadModal);
   }
 
-  const openCloseCrmModal = () => {
-    setCrmModal(!crmModal);
-  }
+  // const openCloseCrmModal = () => {
+  //   setCrmModal(!crmModal);
+  // }
 
   const openClosePreOrderModal = () => {
     setPreOrderModal(!preOrderModal);
@@ -893,18 +894,18 @@ function Search(props) {
       </div>
     </div>
   )
-  const crmBody = (
-    <div className={styles.modal}>
-      <h3>Fiche Suivi Client A ce Jour: {usuario}</h3>
-      <Crm />
-      <Crm2/>
-      <Crm3 />
-      <Crm4 />
-      <Crm5 />
-      <Crm6 />
-      <br />
-    </div>
-  )
+  // const crmBody = (
+  //   <div className={styles.modal}>
+  //     <h3>Fiche Suivi Client A ce Jour</h3>
+  //     <Crm/>
+  //     <Crm2/>
+  //     <Crm3 />
+  //     <Crm4 />
+  //     <Crm5 />
+  //     <Crm6 />
+  //     <br />
+  //   </div>
+  // )
   const invoiceBody = (
     <div className={styles.modal}>
       <h3>Facture</h3>
@@ -944,12 +945,12 @@ function Search(props) {
         data={data}
         title="Clients"
         actions={[
-          {
-            icon: 'analytics',
-            tooltip: 'CRM',
-            onClick: (event, rowData) =>
-              crmSelected(rowData, "Submit")
-          },
+          // {
+          //   icon: 'analytics',
+          //   tooltip: 'CRM',
+          //   onClick: (event, rowData) =>
+          //     crmSelected(rowData, "Submit")
+          // },
 
           {
             icon: 'contacts',
@@ -1035,11 +1036,11 @@ function Search(props) {
         {deleteBody}
       </Modal>
       <br />
-      <Modal
+      {/* <Modal
         open={crmModal}
         onClose={openCloseCrmModal}>
         {crmBody}
-      </Modal>
+      </Modal> */}
       <br />
       <Modal
         open={invoiceModal}

@@ -20,10 +20,7 @@ import { extend, closest, remove, addClass } from '@syncfusion/ej2-base';
 import { SampleBase } from '../scheduler/sample-base';
 import { TreeViewComponent } from '@syncfusion/ej2-react-navigations';
 import { appointments, resourcesData } from '../scheduler/appointments';
-import { addReminder, deleteReminder, clearReminders } from '../../actions/index';
 import { connect } from 'react-redux';
-import Card from '@material-ui/core/Card';
-import Moment from 'react-moment';
 import axios from 'axios';
 
 var usuario = localStorage.getItem('usuario');
@@ -46,75 +43,16 @@ class Scheduler extends SampleBase {
             { Text: 'Dominique', Id: 3, GroupId: 1, Color: '#008000', Designation: 'CEO' },
             { Text: 'Fátima', Id: 4, GroupId: 2, Color: '#9e5fff', Designation: 'Sales' },
         ];
-        this.state = [
-            {name: '', title: '', roomId: '', members: '', 
-            startTime: this.minDate, endTime: this.maxDate, subject: '', 
-            description: '', departmentData: '', consultantData: '' },
+        this.reminderData = [
+            { Id: 1, Text: 'Commande par IV3A', StartTime: '3 jours', EndTime: '',IsAllDay: '', Description: 'Avec sélection véhicule', DepartmentID: 'PT',Designation: 'Comercial' },
+            { Id: 2, Text: 'Vérification par IV3A', StartTime: '3 jours', EndTime: '',IsAllDay: '', Description: 'Commande/Fiche Client', DepartmentID: 'IV3A',Designation: '' },
+            { Id: 3, Text: 'Signalement par IV3A', StartTime: '3 jours', EndTime: '',IsAllDay: '', Description: 'Nouvelle Commande', DepartmentID: 'IV3A',Designation: '' },
+            { Id: 4, Text: 'Vérifier de disposition', StartTime: '3 jours', EndTime: '',IsAllDay: '', Description: 'Réservation á RRG', DepartmentID: 'PT',Designation: '' },
+            { Id: 5, Text: 'Proposition ', StartTime: '3 jours', EndTime: '',IsAllDay: '', Description: 'Véhicule équivalent', DepartmentID: 'PT',Designation: '' },
+            { Id: 6, Text: 'Confirmation disponib.', StartTime: '3 jours', EndTime: '',IsAllDay: '', Description: 'Génération proforma ', DepartmentID: 'PT',Designation: '' },        
         ];
         this.dataSource = { readRequest: this.state, editingFollowingEvents: true };
-        this.minDate = new Date();
-        this.maxDate = new Date();
     }
-    readRequest = async () => {
-    await axios.get("http://localhost:9000/reminder", this.state, {
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    }
-    deleteReminder(id) {
-        this.props.deleteReminder(id);
-    }
-    minDate = () => {
-        this.setState({
-            date: this.minDate(new Date().moment().format("Do dddd MMMM gggg"))
-        })
-    }
-    maxDate = () => {
-        this.setState({
-            dueDate: this.maxDate(new Date().moment().format("Do dddd MMMM gggg"))
-        })
-    }
-    // renderReminders() {
-    //     const { reminders, user, id } = this.props;
-    //     return (
-    //         <div className="col-12">
-    //             <ul className="list-group col-sm-12">
-    //                 {
-    //                     reminders.map(reminder => {
-    //                         return (
-    //                             <Card key={reminder.id} id="waitdetails" className="card_id" draggable="true">
-    //                                   <div className="list-item" name="_id">{reminder.name}</div>
-    //                                   <input type="hidden" id={id} name="user" value={usuario}></input>
-    //                                 <div>
-    //                                     <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminder.select}</div>
-    //                                 </div>
-    //                                 <div>
-    //                                     <div className="list-item" name="Description">{reminder.description}</div>
-    //                                 </div>
-    //                                 <div>
-    //                                     <div className="list-item delete-button"
-    //                                         onClick={() => this.deleteReminder(reminder.id)}
-    //                                     >
-    //                                         &#10006;
-    //                             </div>
-    //                                     <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
-    //                                     <br></br>
-    //                                     <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
-    //                                 </div>
-    //                                 {usuario}
-    //                             </Card>
-    //                         )
-    //                     })
-    //                 }
-    //             </ul>
-    //         </div>
-    //     )
-    // }
     onDragStart(args) {
         args.navigation = { enable: true, timeDelay: 4000 };
     }
@@ -134,8 +72,8 @@ class Scheduler extends SampleBase {
             {this.getConsultantName(props)}</div><div className="specialist-designation">{this.getConsultantDesignation(props)}</div></div></div>);
     }
     treeTemplate(props) {
-        return (<div id="waiting"><div id="waitdetails"><div id="waitlist">{props.ClientId}</div>
-            <div id="waitcategory">{props.description} - {props.EndTime} - {props.select}</div></div></div>);
+    return (<div id="waiting">{props.Id}<div id="waitdetails">{props.Text} - {props.StartTime}<div id="waitlist"></div>
+            <div id="waiting">{props.DepartmentID} - {props.Description}</div></div></div>);
     }
     onItemDrag(event) {
         if (this.scheduleObj.isAdaptive) {
@@ -160,7 +98,7 @@ class Scheduler extends SampleBase {
     onActionBegin(event) {
         if (event.requestType === 'eventCreate' && this.isTreeItemDropped) {
             let treeViewdata = this.treeObj.fields.dataSource;
-            const filteredPeople = treeViewdata.filter((reminder) => reminder.id !== parseInt(this.draggedItemId, 10));
+            const filteredPeople = treeViewdata.filter((item) => item.id !== parseInt(this.draggedItemId, 10));
             this.treeObj.fields.dataSource = filteredPeople;
             let elements = document.querySelectorAll('.e-drag-item.treeview-external-drag');
             for (let i = 0; i < elements.length; i++) {
@@ -180,15 +118,15 @@ class Scheduler extends SampleBase {
             if (scheduleElement) {
                 let treeviewData = this.treeObj.fields.dataSource;
                 if (event.target.classList.contains('e-work-cells')) {
-                    const filteredData = treeviewData.filter((reminder) => reminder.id === parseInt(event.draggedNodeData.id, 10));
+                    const filteredData = treeviewData.filter((item) => item.id === parseInt(event.draggedNodeData.id, 10));
                     let cellData = this.scheduleObj.getCellDetails(event.target);
                     let resourceDetails = this.scheduleObj.getResourcesByIndex(cellData.groupIndex);
                     let eventData = {
-                        ClientId: cellData.clientId,
+                        Text: filteredData.text,
                         StartTime: cellData.startTime,
                         EndTime: cellData.endTime,
                         IsAllDay: cellData.isAllDay,
-                        Description: cellData.Description,
+                        Description: filteredData.Description,                       
                         DepartmentID: resourceDetails.resourceData.GroupId,
                         ConsultantID: resourceDetails.resourceData.Id
                     };
@@ -268,20 +206,23 @@ class Scheduler extends SampleBase {
                             cssClass='treeview-external-drag'
                             nodeTemplate={this.treeTemplate.bind(this)}
                             fields={{
-                                dataSource: this.state,
+                                dataSource: this.reminderData,
                                 fields: {
-                                    ClientId: { title: 'Client Name', name: 'Client Name' },
-                                    title: { title: 'Title', name: 'Title' },
-                                    roomId: { title: 'Room', name: 'Room' },
+                                    Text: this.reminderData.text,
+                                    StartTime: this.reminderData.startTime,
+                                    EndTime: this.reminderData.endTime,
+                                    IsAllDay: this.reminderData.isAllDay,
+                                    Description: this.reminderData.Description,
+                                    DepartmentID: this.reminderData.GroupId,
+                                    ConsultantID: this.reminderData.Id
                                 }
                             }}
                             dragStart={(this.onDragStart.bind(this))}
                             nodeDragStop={this.onTreeDragStop.bind(this)}
                             nodeDragging={this.onItemDrag.bind(this)}
-                            eventSettings={ this.readRequest()}
-                            dataSource={ this.readRequest()}
+                            eventSettings={this.reminderData}
+                            dataSource={this.reminderData}
                             allowDragAndDrop={this.allowDragAndDrops}>
-                            {/* {this.renderReminders({usuario})} */}
                         </TreeViewComponent>
                     </div>
                 </div>
@@ -297,4 +238,4 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps, { addReminder, deleteReminder, clearReminders })(Scheduler)
+export default connect(mapStateToProps)(Scheduler)

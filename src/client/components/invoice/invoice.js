@@ -8,6 +8,9 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
 
 const useStyles = makeStyles(theme => ({
     TextField: {
@@ -22,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 var usuario = localStorage.getItem('usuario');
 
-export default class Invoice extends Component {
+class Invoice extends Component {
     state = {
         date: '',
         receiptId: '',
@@ -48,6 +51,11 @@ export default class Invoice extends Component {
 
     }
 
+    onLoginClick = e => {
+        e.preventDefault();
+        this.props.loginUser();
+    };
+
     handleChange = ({ target: { value, name } }) => this.setState({ [name]: value })
 
     createAndDownloadPdf = () => {
@@ -61,8 +69,13 @@ export default class Invoice extends Component {
     }
 
     render() {
+        const { user } = this.props.auth;
         return (
             <div className="Invoice">
+                <h4>
+                    <b>Allô!,</b>{user.email}
+                    {/* <b>Allô!,</b> {user.email.split(" ")[0]} */}
+                </h4>
                 <Grid container spacing={1}>
                     <Grid item xs={3}>
                         <Typography className={useStyles.title} color="textSecondary" variant="h6" component="h2" gutterBottom>
@@ -222,7 +235,7 @@ export default class Invoice extends Component {
                     </Grid>
                     <Grid>
                         <Typography className={useStyles.title} variant="body2" component="p" color="textSecondary">
-                        Par Transfert Bancaire á:
+                            Par Transfert Bancaire á:
                                         <br></br>
                                         Intitulé du compte:
                                         <br></br>
@@ -232,8 +245,8 @@ export default class Invoice extends Component {
                                         <br></br>
                                         IBAN:ES87-0049-6190-0427-1617-1691
                                         <br></br>
-                                        <br></br>
-                                        <br></br>
+                            <br></br>
+                            <br></br>
                                         Conditions de Paiement: 100% à reception de la facture.
                                         <br></br>
                                         (1) Facture Export non soumise à IVA/TVA en Espagne.
@@ -244,15 +257,29 @@ export default class Invoice extends Component {
                         direction="row"
                         justify="flex-end"
                         alignItems="flex-end">
-                        <Button 
-                         variant="outlined"
-                         size="large"
-                         color="default"
-                         disabledElevation
-                        onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
+                        <Button
+                            variant="outlined"
+                            size="large"
+                            color="default"
+                            disabledElevation
+                            onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
                     </Grid>
                 </Grid>
             </div>
         );
     }
 }
+
+Invoice.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = state => ({
+    auth: state.auth
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { loginUser }
+  )(Invoice);

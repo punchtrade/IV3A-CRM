@@ -6,7 +6,9 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
-
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
 
 const useStyles = makeStyles(theme => ({
     TextField: {
@@ -20,9 +22,7 @@ const useStyles = makeStyles(theme => ({
     },
 }))
 
-var usuario = localStorage.getItem('usuario');
-
-export default class Contract extends Component {
+class Contract extends Component {
     state = {
         firstName: '',
         lastName: '',
@@ -30,6 +30,10 @@ export default class Contract extends Component {
         model: '',
         date: '',
     }
+    onLoginClick = e => {
+        e.preventDefault();
+        this.props.loginUser();
+    };
 
     handleChange = ({ target: { value, name } }) => this.setState({ [name]: value })
 
@@ -43,13 +47,18 @@ export default class Contract extends Component {
             })
     }
     render() {
+        const { user } = this.props.auth;
         return (
             <div className="Contract">
+                <h4>
+                    <b>Allô!,</b>{user.email}
+                    {/* <b>Allô!,</b> {user.email.split(" ")[0]} */}
+                </h4>
                 <Grid container spacing={1}>
                     <Grid item xs={3}>
                         <Typography className={useStyles.title} color="textSecondary" variant="h6" component="h2" gutterBottom>
                             <br></br>
-                            CONTRAT DE SERVICES: {usuario}
+                            CONTRAT DE SERVICES
                             <br></br>
                         </Typography>
                     </Grid>
@@ -366,12 +375,12 @@ export default class Contract extends Component {
                         direction="row"
                         justify="flex-end"
                         alignItems="flex-end">
-                        <Button 
-                        variant="outlined"
-                        size="large"
-                        color="default"
-                        disabledElevation
-                        onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
+                        <Button
+                            variant="outlined"
+                            size="large"
+                            color="default"
+                            disabledElevation
+                            onClick={this.createAndDownloadPdf}>Télécharger PDF</Button>
                     </Grid>
                 </Grid>
 
@@ -379,3 +388,17 @@ export default class Contract extends Component {
         );
     }
 }
+
+Contract.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = state => ({
+    auth: state.auth
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { loginUser }
+  )(Contract);

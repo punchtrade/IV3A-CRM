@@ -1,6 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import Leads from '../components/leads/leads';
 import { makeStyles } from '@material-ui/core/styles';
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { loginUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
@@ -9,13 +12,35 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function LeadsPage() {
+class LeadsPage extends Component {
+  onLoginClick = e => {
+    e.preventDefault();
+    this.props.loginUser();
+  };
 
-  const classes = useStyles();
-
-  return (
-    <>
-      <Leads />
-    </>
-  );
-};
+  render() {
+    const { user } = this.props.auth;
+    return (
+      <>
+        <h4>
+        <b>Allô!,</b>{user.email}
+      {/* <b>Allô!,</b> {user.email.split(" ")[0]} */}
+      </h4>
+        <Leads />
+      </>
+    );
+  };
+  }
+  LeadsPage.propTypes = {
+    loginUser: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired
+  };
+  
+  const mapStateToProps = state => ({
+    auth: state.auth
+  });
+  
+  export default connect(
+    mapStateToProps,
+    { loginUser }
+  )(LeadsPage);

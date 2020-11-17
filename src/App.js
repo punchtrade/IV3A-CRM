@@ -9,25 +9,20 @@ import PreOrderPage from "./client/pages/preOrder";
 import Leads from './client/pages/leads';
 import CarsPage from './client/pages/cars';
 import Search from './client/pages/search';
-import CrmPage from './client/pages/crm/crm';
-import Crm2Page from './client/pages/crm/crm-2';
-import Crm3Page from './client/pages/crm/crm-3';
-import Crm4Page from './client/pages/crm/crm-4';
-import Crm5Page from './client/pages/crm/crm-5';
-import Crm6Page from './client/pages/crm/crm-6';
 import InvoicePage from './client/pages/invoice';
 import ContractPage from './client/pages/contract';
 import Login from './client/pages/login';
 import Register from './client/pages/register';
 import FormCarPage from './client/pages/orderCar';
 import PrivateRoute from './client/components/private-route/PrivateRoute';
-
+import Crm from './client/components/crm/crm';
 import jwt_decode from "jwt-decode";
 import setAuthToken from "./utils/setAuthToken";
-import { setCurrentUser, logoutUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
+import { setCurrentUser, logoutUser } from "./client/actions/authActions";
+import {UserContextProvider} from '../src/client/context/UserContext';
 
 import { Provider } from "react-redux";
-import store from "/Users/carmenbuendia/DevProjects/IV3A/src/client/store.js";
+import store from "./client/store";
 
 
 var usuario = localStorage.getItem('usuario');
@@ -76,7 +71,8 @@ class App extends React.Component {
     //   return (<Redirect to={'usuario'} />)
     // }
     return (
-      <Provider store={store}>
+      <UserContextProvider>
+     <Provider store={store}>
       <Router>
         <div className="App">
           <Header />
@@ -95,12 +91,8 @@ class App extends React.Component {
             <Route exact path="/leads" component={Leads} />
             <Route exact path="/cars" component={CarsPage} />
             <Route exact path="/search" component={Search} />
-            <Route exact path="/crm" component={CrmPage} />
-            <Route exact path="/crm-2" component={Crm2Page} />
-            <Route exact path="/crm-3" component={Crm3Page} />
-            <Route exact path="/crm-4" component={Crm4Page} />
-            <Route exact path="/crm-5" component={Crm5Page} />
-            <Route exact path="/crm-6" component={Crm6Page} />
+
+            <Route exact path="/crm" component={Crm} />
             <Route exact path="/invoice" component={InvoicePage} />
             <Route exact path="/contract" component={ContractPage} />
             <Route exact path="/formCar" component={FormCarPage} />
@@ -108,6 +100,8 @@ class App extends React.Component {
         </div>
       </Router>
       </Provider>
+      </UserContextProvider>
+ 
     );
   }
 }

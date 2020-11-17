@@ -1,6 +1,5 @@
 import React from "react";
 import axios from "axios";
-// import NavbarDashboard from '../header/navbarDashboard';
 import { TextField, FilledInput, Button, InputLabel, RadioGroup, FormControlLabel, Radio } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -530,6 +529,7 @@ class NewClient extends React.Component {
               >
                 Envoyer
           </Button>
+          <br /><br />
         </ValidatorForm>
 
       </div>
