@@ -105,6 +105,10 @@ const clientsSchema = new Schema({
     type: Date,
     default: Date.now,
   },
+  idCardU: {
+    type: String,
+    required: true,
+  },
   cars: [{
     type: Schema.Types.ObjectId,
     ref: 'Car',

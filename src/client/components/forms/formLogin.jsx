@@ -5,6 +5,11 @@ import { makeStyles } from '@material-ui/core/styles';
 import { ValidatorForm } from "react-material-ui-form-validator";
 import { AccountCircle, LockRounded } from '@material-ui/icons';
 import { Formik } from 'formik';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { loginUser } from "../../actions/authActions";
@@ -39,7 +44,43 @@ class FormLogin extends React.Component {
       errors: {}
     };
   }
+  setEmail = event => {
+    this.setState({
+      email: event.target.value
+    });
+  };
+  setPassword = event => {
+    this.setState({
+      password: event.target.value
+    });
+  };
+  signIn = () => {
+    if 
+    (this.state.email === !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test) 
+    {
+      this.setState({
+        open: true,
+        message: "Vous vous êtes connecté avec succès!"
+      });
+    } 
+    else {
+      this.setState({
+        open: true,
+        message: "Identifiant ou mot de passe incorrect!"
+      });
+    }  if  (this.state.email === localStorage.getItem("userTokenTime")) {
+      this.setState({
+        open: true,
+        messege: "El usuario no existe!!"
+      })
+    }
+  };
 
+  handleClose = () => {
+    this.setState({
+      open: false
+    });
+  };
   componentWillReceiveProps(nextProps) {
     if (nextProps.auth.isAuthenticated) {
       this.props.history.push("/dashboard"); // push user to dashboard when they login
@@ -144,12 +185,32 @@ class FormLogin extends React.Component {
               color="default"
               disabledElevation
               type="submit"
-              onClick={this.onSubmit}
+              onClick={() => {
+                this.signIn();
+              }}
             >
               Connecter
           </Button>
             <br /><br />
           </ValidatorForm>
+          <Dialog
+            open={this.state.open}
+            onClose={this.handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+          >
+            <DialogTitle id="alert-dialog-title">S'inscrire</DialogTitle>
+            <DialogContent>
+              <DialogContentText id="alert-dialog-description">
+                {this.state.message}
+              </DialogContentText>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                D'accord
+              </Button>
+            </DialogActions>
+          </Dialog>
         </div>
       </Formik>
     );

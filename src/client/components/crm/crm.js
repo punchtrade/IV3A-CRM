@@ -9,7 +9,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Button from '@material-ui/core/Button';
 import { createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
-import { addReminder, deleteReminder, clearReminders } from '../../actions'
+import { addReminder, deleteReminder, clearReminders } from '../../actions/index';
 import axios from 'axios';
 import Moment from 'react-moment';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
@@ -127,45 +127,45 @@ class Crm extends Component {
             })
     }
 
-    // renderReminders() {
-    //     const { reminders, user, _id } = this.props;
-    //     return (
-    //         <div className="col-6">
-    //             <ul className="list-group col-sm-12">
+    renderReminders() {
+        const { reminders, user, _id } = this.props;
+        return (
+            <div className="col-6">
+                <ul className="list-group col-sm-12">
 
-    //                  {
-    //                     reminders.map(reminder => {
-    //                         return ( 
+                     {
+                        reminders.map(reminder => {
+                            return ( 
 
-    //                             <Card key={reminders.id} id="waitdetails" className="card_id" draggable>
-    //                                 <div className="list-item" name="_id">{reminders.name}</div>
-    //                                 {/* <input type="hidden" id={_id} name="user" value={usuario}></input> */}
-    //                                 <div>
-    //                                     <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminders.select}</div>
-    //                                 </div>
-    //                                 <div>
-    //                                     <div className="list-item" name="Description">{reminders.description}</div>
-    //                                 </div>
-    //                                 <div>
-    //                                     <div className="list-item delete-button"
-    //                                         onClick={() => this.deleteReminder(reminders.id)}
-    //                                     >
-    //                                         &#10006;
-    //                                 </div>
-    //                                     <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
-    //                                     <br></br>
-    //                                     <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
-    //                                 </div>
-    //                                 {/* {usuario} */}
-    //                             </Card>
-    //                         )
-    //                     }
-    //                     )
-    //                 }
-    //             </ul>
-    //         </div>
-    //     )
-    // }
+                                <Card key={reminders.id} id="waitdetails" className="card_id" draggable>
+                                    <div className="list-item" name="_id">{reminders.name}</div>
+                                    {/* <input type="hidden" id={_id} name="user" value={usuario}></input> */}
+                                    <div>
+                                        <div className="list-item" name='Name' onChange={event => this.setState({ select: event.target.value })}>{reminders.select}</div>
+                                    </div>
+                                    <div>
+                                        <div className="list-item" name="Description">{reminders.description}</div>
+                                    </div>
+                                    <div>
+                                        <div className="list-item delete-button"
+                                            onClick={() => this.deleteReminder(reminders.id)}
+                                        >
+                                            &#10006;
+                                    </div>
+                                        <Moment format="Do MMMM YYYY" type="text" name="date">{this.minDate}</Moment>
+                                        <br></br>
+                                        <Moment format="Do MMMM YYYY" type="text" name="dueDate">{this.maxDate}</Moment>
+                                    </div>
+                                    {/* {usuario} */}
+                                </Card>
+                            )
+                        }
+                        )
+                    }
+                </ul>
+            </div>
+        )
+    }
 
     render() {
         console.log(this.state.select);
@@ -249,7 +249,7 @@ class Crm extends Component {
                             Envoyer
                             </Button>
                     </Grid>
-                    {/* {this.renderReminders()} */}
+                    {this.renderReminders()}
                     <Grid item xs={12}>
                         <br />
                         <div

@@ -23,11 +23,19 @@ import { appointments, resourcesData } from '../scheduler/appointments';
 import { connect } from 'react-redux';
 import axios from 'axios';
 
-var usuario = localStorage.getItem('usuario');
-
 class Scheduler extends SampleBase {
     constructor(props) {
         super(...arguments);
+        this.state = {
+            Id: '',
+            Text: '',
+            StartTime: '',
+            EndTime: '',
+            IsAllDay: '',
+            Description: '',
+            DepartmentID: '',
+            Designation: '',
+        }
         this.isTreeItemDropped = false;
         this.draggedItemId = '';
         this.allowDragAndDrops = true;
@@ -208,13 +216,13 @@ class Scheduler extends SampleBase {
                             fields={{
                                 dataSource: this.reminderData,
                                 fields: {
-                                    Text: this.reminderData.text,
-                                    StartTime: this.reminderData.startTime,
-                                    EndTime: this.reminderData.endTime,
-                                    IsAllDay: this.reminderData.isAllDay,
-                                    Description: this.reminderData.Description,
-                                    DepartmentID: this.reminderData.GroupId,
-                                    ConsultantID: this.reminderData.Id
+                                    Text: this.state.text,
+                                    StartTime: this.state.startTime,
+                                    EndTime: this.state.endTime,
+                                    IsAllDay: this.state.isAllDay,
+                                    Description: this.state.Description,
+                                    DepartmentID: this.state.GroupId,
+                                    ConsultantID: this.state.Id
                                 }
                             }}
                             dragStart={(this.onDragStart.bind(this))}

@@ -1,15 +1,21 @@
 const { Router } = require("express");
 const router = Router();
 const mongoose = require("mongoose");
+const ObjectID = require('mongodb').ObjectID;
 const {
-    mongo: { clientsModel },
+    mongo: { clientsModel, usersModel },
 } = require('../../database/index');
 
 
 //search client
+
 router.get('/search', (req, res) => {
     console.info('obtener datos clientes');
-    clientsModel.find()
+    const idCard=usersModel.find({"email":"carmen@mail.com"},{"idCard":1});
+    const idCardU=idCard.idCard;
+    //const idCardU="123456A"
+    console.log(idCardU);
+    clientsModel.find({ "idCardU": idCardU })
         .populate('Clients', 'clientsSchema')
         .exec((err, clients) => {
             if (err) {
@@ -43,7 +49,7 @@ router.put('/clients', async function (req, res, next) {
         fuel: req.body.fuel,
     }
     clientsModel.replaceOne({ firstName: req.body.firstName }, newData, function (err, client) {
-        if ( newData.nMatched == 1 || err, newData.nUpserted == 0 || err, newData.nModified == 0 || err)
+        if (newData.nMatched == 1 || err, newData.nUpserted == 0 || err, newData.nModified == 0 || err)
             res.json({ status: 1, message: "don't modificated client" + err });
         else
             res.json({ status: 0, message: "modificated client", data: client });

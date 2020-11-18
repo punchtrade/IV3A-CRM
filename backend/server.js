@@ -18,6 +18,11 @@ const verifyToken = require('./src/middlewares/validateAuth');
 const routes = require('./src/routes/index');
 const passport = require("passport");
 
+const PeerServer = require('peer').PeerServer;
+const cookieParser = require('cookie-parser');
+const mongoose = require('mongoose');
+const MongoStore = require('connect-mongo')(session);
+
 // load config file
 nconf
   .argv()
@@ -43,6 +48,13 @@ redisSessionStore.on("connect", () => {
 
 // //middlewares
 // app.use(verifyToken);
+app.use(cookieParser());
+app.use(session({
+  secret: 'supersecretstring12345!',
+  saveUninitialized: true,
+  resave: true,
+  // store: new MongoStore({ mongooseConnection: db })
+}))
 app.use("/uploads", express.static("uploads"));
 app.use(express.static("public"));
 app.use(fileUpload());
@@ -52,7 +64,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(morgan("dev"));
-app.use(bodyParser.urlencoded({ extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(passport.initialize());

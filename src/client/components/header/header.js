@@ -69,6 +69,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
+
 const Header = props => {
   console.log(props);
   const { history } = props;
@@ -82,7 +83,6 @@ const Header = props => {
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
   const {isLogged, login} = useUser()
-
   const handleProfileMenuOpen = (event) => {
     setAnchorEl(event.currentTarget);
   };
