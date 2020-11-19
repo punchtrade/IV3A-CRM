@@ -11,11 +11,12 @@ const {
 
 router.get('/search', (req, res) => {
     console.info('obtener datos clientes');
-    const idCard=usersModel.find({"email":"carmen@mail.com"},{"idCard":1});
-    const idCardU=idCard.idCard;
+    const idCard = usersModel.find({email: req.body.email},{idCard:1});
+    // const idCard = usersModel.find({"email": "carmen@mail.com"},{"idCard":1});
+    const idCardU = idCard.idCard;
     //const idCardU="123456A"
     console.log(idCardU);
-    clientsModel.find({ "idCardU": idCardU })
+    clientsModel.find({ "idCardU": idCardU})
         .populate('Clients', 'clientsSchema')
         .exec((err, clients) => {
             if (err) {
