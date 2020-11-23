@@ -1,8 +1,10 @@
+const express = require("express");
+const router = express.Router();
 const {
     mongo: { schedulerModel },
   } = require('../../database/index');
 
-exports.newScheduler = async (req, res, next) => {
+router.post('/scheduler/new/:idUser'), async (req, res, next) => {
     const scheduler = new schedulerModel(req.body);
     try {
         await scheduler.save();
@@ -14,7 +16,7 @@ exports.newScheduler = async (req, res, next) => {
 }
 
 // Muestra todos los scheduler reminders
-exports.viewAllScheduler = async (req, res, next) => {
+router.get('/scheduler'), async (req, res, next) => {
     try {
         const scheduler = await schedulerModel.find({}).populate('user').populate({
             path: 'scheduler.user',
@@ -29,7 +31,7 @@ exports.viewAllScheduler = async (req, res, next) => {
 }
 
 // Muestra un scheduler reminder por su ID
-exports.viewScheduler = async (req, res, next) => {
+router.get('/scheduler/:idScheduler'), async (req, res, next) => {
     const scheduler = await schedulerModel.findById(req.params.idScheduler).populate('client').populate({
         path: 'scheduler.user',
         model: 'scheduler'
@@ -45,7 +47,7 @@ exports.viewScheduler = async (req, res, next) => {
 }
 
 // Actualizar el scheduler reminder via ID
-exports.updateScheduler = async (req, res, next) => {
+router.put('/scheduler/:idScheduler'), async (req, res, next) => {
     try {
         let scheduler = await schedulerModel.findOneAndUpdate({_id : req.params.idScheduler}, req.body, {
             new: true
@@ -64,7 +66,7 @@ exports.updateScheduler = async (req, res, next) => {
 }
 
 // elimina un scheduler reminder por su id
-exports.deleteScheduler = async (req, res, next) => {
+router.delete('/scheduler/:idScheduler'), async (req, res, next) => {
     try {
         await schedulerModel.findOneAndDelete({ _id : req.params.idScheduler});
         res.json({ message : 'El recordatorio  del calendario se ha eliminado' });
@@ -73,3 +75,4 @@ exports.deleteScheduler = async (req, res, next) => {
         next();
     }
 }
+module.exports = router;

@@ -8,6 +8,8 @@ const keys = require("../../configs/keys");// Load input validation
 const {
     mongo: { usersModel },
   } = require('../../database/index');
+
+
 // @route POST api/users/register
 // @desc Register user
 // @access Public
@@ -15,7 +17,7 @@ router.post("/register", (req, res) => {
   function validateRegisterInput(data) {
     let errors = {};
     // Convert empty fields to an empty string so we can use validator functions
-    data.firstNname = !isEmpty(data.firstName) ? data.firstName : "";
+    data.firstName = !isEmpty(data.firstName) ? data.firstName : "";
     data.lastName = !isEmpty(data.lastName) ? data.lastName : "";// Name checks
     data.idCard = !isEmpty(data.idCard) ? data.idCard: "";// Name checks
     data.email = !isEmpty(data.email) ? data.email : "";
@@ -74,7 +76,7 @@ router.post("/register", (req, res) => {
 // @route POST api/users/login
 // @desc Login user and return JWT token
 // @access Public
-router.post("/login", (req, res) => {
+router.post("/login",  (req, res) => {
   function validateLoginInput(data) {
     let errors = {};// Convert empty fields to an empty string so we can use validator functions
     data.email = !isEmpty(data.email) ? data.email : "";

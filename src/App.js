@@ -21,10 +21,13 @@ import setAuthToken from "./utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./client/actions/authActions";
 import {UserContextProvider} from '../src/client/context/UserContext';
 
+import jsonServerProvider from 'ra-data-json-server';
+
 import { Provider } from "react-redux";
 import store from "./client/store";
 
 
+const dataProvider = jsonServerProvider('http://localhost:9000/login');
 var usuario = localStorage.getItem('usuario');
 
 // Check for token to keep user logged in
@@ -43,7 +46,6 @@ if (localStorage.jwtToken) {
     window.location.href = "./login";
   }
 }
-
 
 class App extends React.Component {
   constructor(props) {
@@ -66,17 +68,12 @@ class App extends React.Component {
   }
 
   render() {
-
-    // if (this.state.redirectToReferrer || sessionStorage.getItem('usuario')) {
-    //   return (<Redirect to={'usuario'} />)
-    // }
     return (
-      <UserContextProvider>
+      <UserContextProvider dashboard={Dashboard} dataProvider={dataProvider}>
      <Provider store={store}>
       <Router>
         <div className="App">
           <Header />
-          {/* <Route exact path="/home" component={Home} /> */}
           <p>{this.state.apiResponse}</p>
           <div className="container">
             <Route exact path="/login" component={Login} />

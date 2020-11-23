@@ -6,17 +6,15 @@ const {
     mongo: { clientsModel, usersModel },
 } = require('../../database/index');
 
-
 //search client
-
 router.get('/search', (req, res) => {
     console.info('obtener datos clientes');
-    const idCard = usersModel.find({email: req.body.email},{idCard:1});
+    const idCard = clientsModel.find({email: req.body.email},{idCard:1});
     // const idCard = usersModel.find({"email": "carmen@mail.com"},{"idCard":1});
     const idCardU = idCard.idCard;
     //const idCardU="123456A"
     console.log(idCardU);
-    clientsModel.find({ "idCardU": idCardU})
+    clientsModel.find({ "idCardU": "123456A" })
         .populate('Clients', 'clientsSchema')
         .exec((err, clients) => {
             if (err) {
@@ -28,7 +26,6 @@ router.get('/search', (req, res) => {
 });
 
 //modificated client
-
 router.put('/clients', async function (req, res, next) {
     const newData = {
         id: new mongoose.Types.ObjectId(),
@@ -65,7 +62,6 @@ router.put('/clients', async function (req, res, next) {
     //     next();
     // }
 });
-
 router.delete('/search', (req, res, next) => {
     clientsModel.findOneAndDelete(req.params._id, req.body, function (err, post) {
         if (err) return next(err);
