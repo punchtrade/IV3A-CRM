@@ -5,11 +5,12 @@ const ObjectID = require('mongodb').ObjectID;
 const {
     mongo: { clientsModel, usersModel },
 } = require('../../database/index');
+const { schedulerModel } = require("../../database/mongo");
 
 //search client
 router.get('/search', (req, res) => {
     console.info('obtener datos clientes');
-    const idCard = clientsModel.find({email: req.body.email},{idCard:1});
+    const idCard = clientsModel.find({ email: req.body.email }, { idCard: 1 });
     // const idCard = usersModel.find({"email": "carmen@mail.com"},{"idCard":1});
     const idCardU = idCard.idCard;
     //const idCardU="123456A"
@@ -25,10 +26,12 @@ router.get('/search', (req, res) => {
         });
 });
 
-//modificated client
-router.put('/clients', async function (req, res, next) {
-    const newData = {
-        id: new mongoose.Types.ObjectId(),
+//Update client
+router.put('/clients/modificated',  (req, res) => {
+    clientsModel.findByIdAndUpdate(req.params.id, req.body)
+    const client = new clientsModel({
+        _id: new mongoose.Types.ObjectId(),
+        id: req.body.id,
         card: req.body.card,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
@@ -45,23 +48,14 @@ router.put('/clients', async function (req, res, next) {
         brand: req.body.brand,
         model: req.body.model,
         fuel: req.body.fuel,
-    }
-    clientsModel.replaceOne({ firstName: req.body.firstName }, newData, function (err, client) {
-        if (newData.nMatched == 1 || err, newData.nUpserted == 0 || err, newData.nModified == 0 || err)
-            res.json({ status: 1, message: "don't modificated client" + err });
-        else
-            res.json({ status: 0, message: "modificated client", data: client });
     });
-    // try {
-    //     const client = await clientsModel.replaceOne({ id : req.params._id, card: req.params.card,}, req.body, {
-    //         new : true
-    //     });
-    //     res.json(client);
-    // } catch (error) {
-    //     res.send(error);
-    //     next();
-    // }
+    client.save()
+        .then(client => res.json({ msg: 'Updated successfully' }))
+        .catch(err =>
+            res.status(400).json({ error: 'Unable to update the Database' })
+        );
 });
+
 router.delete('/search', (req, res, next) => {
     clientsModel.findOneAndDelete(req.params._id, req.body, function (err, post) {
         if (err) return next(err);

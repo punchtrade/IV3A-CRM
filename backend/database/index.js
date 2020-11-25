@@ -3,6 +3,7 @@ const { MongoClient } = require('mongodb');
 const mongo = require('./mongo');
 
 mongoose.connect('mongodb://localhost/iv3a', {
+    useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true
