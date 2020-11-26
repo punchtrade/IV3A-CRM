@@ -73,7 +73,7 @@
 //            console.log(error);
 //        })
 //     }
- 
+
 //     onDragStart(args) {
 //         args.navigation = { enable: true, timeDelay: 4000 };
 //     }
@@ -271,14 +271,329 @@
 // }
 
 // export default connect(mapStateToProps)(Scheduler)
+// import * as React from 'react';
+// import Paper from '@material-ui/core/Paper';
+// import IconButton from '@material-ui/core/IconButton';
+// import InfoIcon from '@material-ui/icons/Info';
+// import Select from '@material-ui/core/Select';
+// import MenuItem from '@material-ui/core/MenuItem';
+// import { withStyles, fade } from '@material-ui/core/styles';
+// import { ViewState, EditingState, IntegratedEditing, GroupingState, IntegratedGrouping, } from '@devexpress/dx-react-scheduler';
+// import {
+//     WeekView,
+//     Toolbar,
+//     ViewSwitcher,
+//     MonthView,
+//     Scheduler,
+//     DateNavigator,
+//     TodayButton,
+//     DayView,
+//     Resources,
+//     Appointments,
+//     AppointmentTooltip,
+//     AppointmentForm,
+//     ConfirmationDialog,
+//     DragDropProvider,
+//     EditRecurrenceMenu,
+//     AllDayPanel,
+//     GroupingPanel,
+// } from '@devexpress/dx-react-scheduler-material-ui';
+// import LowPriority from '@material-ui/icons/LowPriority';
+// import PriorityHigh from '@material-ui/icons/PriorityHigh';
+// import { appointments, resourcesData, appointmentsMonth } from '../scheduler/appointments';
+// import recurrenceAppointments from '../scheduler/recurrence-appointments';
+// import { owners } from '../scheduler/tasks';
+// import {
+//     teal, indigo, green, orange, red
+// } from '@material-ui/core/colors';
+// import { connect } from 'react-redux';
+// import moment from 'moment';
+
+
+// const styles = theme => ({
+//     button: {
+//         color: theme.palette.background.default,
+//         padding: 0,
+//     },
+//     container: {
+//         display: 'flex',
+//         marginBottom: theme.spacing(2),
+//         justifyContent: 'flex-end',
+//     },
+//     text: {
+//         paddingTop: theme.spacing(1),
+//         overflow: 'hidden',
+//         textOverflow: 'ellipsis',
+//         whiteSpace: 'nowrap',
+//     },
+
+// });
+// const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
+//     ({
+//         mainResourceName, onChange, classes, resources,
+//     }) => (
+//             <div className={classes.container}>
+//                 <div className={classes.text}>
+//                     Nom de la ressource principale:
+//         </div>
+//                 <Select
+//                     value={mainResourceName}
+//                     onChange={e => onChange(e.target.value)}
+//                 >
+//                     {resources.map(resource => (
+//                         <MenuItem key={resource.fieldName} value={resource.fieldName}>
+//                             {resource.title}
+//                         </MenuItem>
+//                     ))}
+//                 </Select>
+//             </div>
+//         ),
+// );
+// const priorityData = [
+//     { text: 'Low Priority', id: 1, color: green },
+//     { text: 'Medium Priority', id: 2, color: indigo },
+//     { text: 'High Priority', id: 3, color: orange },
+
+// ];
+
+// const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
+// const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
+// const messages = {
+//     moreInformationLabel: '',
+// };
+// const TextEditor = (props) => {
+//     // eslint-disable-next-line react/destructuring-assignment
+//     if (props.type === 'multilineTextEditor') {
+//         return null;
+//     } return <AppointmentForm.TextEditor {...props} />;
+// };
+// const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
+//     const onCustomFieldChange = (nextValue) => {
+//         onFieldChange({ customField: nextValue });
+//     };
+//     return (
+//         <AppointmentForm.BasicLayout
+//             appointmentData={appointmentData}
+//             fullSize
+//             onFieldChange={onFieldChange}
+//             {...restProps}
+//         >
+//             <AppointmentForm.Label
+//                 text="Custom Field"
+//                 type="title"
+//             />
+//             <AppointmentForm.TextEditor
+//                 value={appointmentData.customField}
+//                 onValueChange={onCustomFieldChange}
+//                 placeholder="Custom field"
+//             />
+//         </AppointmentForm.BasicLayout>
+//     );
+// };
+// const dragDisableIds = new Set([3, 8, 10, 12]);
+
+// const allowDrag = ({ id }) => !dragDisableIds.has(id);
+// const appointmentComponent = (props) => {
+//     if (allowDrag(props.data)) {
+//         return <Appointments.Appointment {...props} />;
+//     } return <Appointments.Appointment {...props} style={{ ...props.style, cursor: 'not-allowed' }} />;
+// };
+
+// const locations = [
+//     { text: 'PT', id: 1 , color: teal},
+//     { text: 'IV3A', id: 2 , color: red},
+// ];
+
+// const SHIFT_KEY = 16;
+
+// const date = moment().toDate();
+
+// class Calendar extends React.PureComponent {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             data: appointments, recurrenceAppointments, appointmentsMonth, resourcesData,
+//             currentViewName: 'work-week',
+//             currentDate: date,
+//             mainResourceName: 'members',
+//             isShiftPressed: false,
+//             resources: [{
+//                 fieldName: 'members',
+//                 title: 'Membres',
+//                 instances: owners,
+//                 allowMultiple: true,
+//             }, {
+//                 fieldName: 'roomId',
+//                 title: 'Emplacement',
+//                 instances: locations,
+//             }],
+//             grouping: [{
+//                 resourceName: 'roomId',
+//             }, {
+//                 resourceName: 'members',
+//             }],
+//         };
+//         this.changeMainResource = this.changeMainResource.bind(this);
+
+
+//         this.currentViewNameChange = (currentViewName) => {
+//             this.setState({ currentViewName });
+//             this.commitChanges = this.commitChanges.bind(this);
+//             this.onKeyDown = this.onKeyDown.bind(this);
+//             this.onKeyUp = this.onKeyUp.bind(this);
+
+//         };
+
+//     }
+//     changeMainResource(mainResourceName) {
+//         this.setState({ mainResourceName });
+
+//     }
+//     componentDidMount() {
+//         window.addEventListener('keydown', this.onKeyDown);
+//         window.addEventListener('keyup', this.onKeyUp);
+//     }
+
+//     componentWillUnmount() {
+//         window.removeEventListener('keydown');
+//         window.removeEventListener('keyup');
+//     }
+
+//     onKeyDown(event) {
+//         if (event.keyCode === SHIFT_KEY) {
+//             this.setState({ isShiftPressed: true });
+//         }
+//     }
+
+//     onKeyUp(event) {
+//         if (event.keyCode === SHIFT_KEY) {
+//             this.setState({ isShiftPressed: false });
+//         }
+//     }
+//     commitChanges({ added, changed, deleted }) {
+//         this.setState((state) => {
+//             let { data } = state;
+//             const { isShiftPressed } = this.state;
+//             if (added) {
+//                 const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+//                 data = [...data, { id: startingAddedId, ...added }];
+//             }
+//             if (changed) {
+//                 if (isShiftPressed) {
+//                     const changedAppointment = data.find(appointment => changed[appointment.id]);
+//                     const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
+//                     data = [
+//                         ...data,
+//                         { ...changedAppointment, id: startingAddedId, ...changed[changedAppointment.id] },
+//                     ];
+//                 } else {
+//                     data = data.map(appointment => (
+//                         changed[appointment.id]
+//                             ? { ...appointment, ...changed[appointment.id] }
+//                             : appointment));
+//                 }
+//             }
+//             if (deleted !== undefined) {
+//                 data = data.filter(appointment => appointment.id !== deleted);
+//             }
+//             return { data };
+//         });
+//     }
+
+//     render() {
+//         const { data, currentViewName, currentDate, mainResourceName, resources } = this.state;
+
+//         return (
+//             <React.Fragment>
+//                 <Paper>
+//                     <ResourceSwitcher
+//                         resources={resources}
+//                         mainResourceName={mainResourceName}
+//                         onChange={this.changeMainResource}
+//                     />
+//                     <Scheduler
+//                         data={data}
+//                         height={660}
+//                     >
+//                         <ViewState
+//                             currentViewName={currentViewName}
+//                             currentDate={currentDate}
+//                             onCurrentViewNameChange={this.currentViewNameChange}
+//                         />
+//                         <EditingState
+//                             onCommitChanges={this.commitChanges}
+//                         />
+//                         <IntegratedEditing />
+//                         <DayView
+//                             startDayHour={9}
+//                             endDayHour={19}
+//                             intervalCount={2}
+//                         />
+//                         <EditRecurrenceMenu />
+//                         <WeekView
+//                             name="work-week"
+//                             displayName="Work Week"
+//                             excludedDays={[0, 6]}
+//                             startDayHour={9}
+//                             endDayHour={19}
+//                         />
+//                         <MonthView />
+//                         <DayView
+//                             startDayHour={8}
+//                             endDayHour={13}
+//                         />
+//                         <ConfirmationDialog
+//                         />
+//                         <Toolbar />
+//                         <DateNavigator />
+//                         <TodayButton />
+//                         <ViewSwitcher />
+//                         <Appointments
+//                             basicLayoutComponent={BasicLayout}
+//                             textEditorComponent={TextEditor}
+//                             messages={messages}
+//                             appointmentComponent={appointmentComponent}
+//                         />
+//                         <AllDayPanel />
+//                         <DragDropProvider
+//                             allowDrag={allowDrag}
+//                         />
+//                         <AppointmentTooltip
+//                             showCloseButton
+//                             showOpenButton
+//                             showDeleteButton />
+//                         <Resources
+//                             data={resources}
+//                             mainResourceName="members"
+//                         />
+//                         <AppointmentForm
+//                         />
+//                         <DragDropProvider />
+//                     </Scheduler>
+//                 </Paper>
+//             </React.Fragment>
+//         );
+//     }
+// }
+
+// function mapStateToProps(state) {
+//     console.log('state', state);
+//     return {
+//         reminders: state,
+//     }
+// }
+
+// export default connect(mapStateToProps)(Calendar);
 import * as React from 'react';
-import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles, fade } from '@material-ui/core/styles';
-import { ViewState, EditingState, IntegratedEditing, GroupingState, IntegratedGrouping, } from '@devexpress/dx-react-scheduler';
+// #FOLD_BLOCK
+import {
+    ViewState,
+    GroupingState,
+    IntegratedGrouping,
+    IntegratedEditing,
+    EditingState
+} from '@devexpress/dx-react-scheduler';
+// #FOLD_BLOCK
 import {
     WeekView,
     Toolbar,
@@ -298,18 +613,60 @@ import {
     AllDayPanel,
     GroupingPanel,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import LowPriority from '@material-ui/icons/LowPriority';
+import { connectProps } from '@devexpress/dx-react-core';
+import { withStyles, makeStyles, fade } from '@material-ui/core/styles';
 import PriorityHigh from '@material-ui/icons/PriorityHigh';
-import { appointments, resourcesData, appointmentsMonth } from '../scheduler/appointments';
-import recurrenceAppointments from '../scheduler/recurrence-appointments';
+import LowPriority from '@material-ui/icons/LowPriority';
+import Lens from '@material-ui/icons/Lens';
+import Event from '@material-ui/icons/Event';
+import AccessTime from '@material-ui/icons/AccessTime';
+import Paper from '@material-ui/core/Paper';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Grid from '@material-ui/core/Grid';
+import FormControl from '@material-ui/core/FormControl';
+import classNames from 'clsx';
 import { owners } from '../scheduler/tasks';
 import {
-    teal, indigo,green,orange
+    teal, indigo, green, orange, red
 } from '@material-ui/core/colors';
-import { connect } from 'react-redux';
+import { priorities } from '../scheduler/tasks';
+import { appointments } from '../scheduler/appointments';
+import { data as tasks } from '../scheduler/grouping';
+import moment from 'moment';
 
+const grouping = [{
+    resourceName: 'priorityId',
+}];
 
+const filterTasks = (items, priorityId) => items.filter(task => (
+    !priorityId || task.priorityId === priorityId
+));
+
+const getIconById = (id) => {
+    if (id === 1) {
+        return LowPriority;
+    }
+    if (id === 2) {
+        return Event;
+    }
+    return PriorityHigh;
+};
+
+// #FOLD_BLOCK
 const styles = theme => ({
+    flexibleSpace: {
+        margin: '0 auto 0 0',
+    },
+    prioritySelector: {
+        marginLeft: theme.spacing(2),
+        minWidth: 140,
+        '@media (max-width: 500px)': {
+            minWidth: 0,
+            fontSize: '0.75rem',
+            marginLeft: theme.spacing(0.5),
+        },
+    },
     button: {
         color: theme.palette.background.default,
         padding: 0,
@@ -325,15 +682,122 @@ const styles = theme => ({
         textOverflow: 'ellipsis',
         whiteSpace: 'nowrap',
     },
-
 });
+// #FOLD_BLOCK
+const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
+    bullet: ({ color }) => ({
+        backgroundColor: color ? color[400] : palette.divider,
+        borderRadius: '50%',
+        width: spacing(2),
+        height: spacing(2),
+        marginRight: spacing(2),
+        display: 'inline-block',
+    }),
+    prioritySelectorItem: {
+        display: 'flex',
+        alignItems: 'center',
+    },
+    priorityText: {
+        '@media (max-width: 500px)': {
+            display: 'none',
+        },
+    },
+    priorityShortText: {
+        '@media (min-width: 500px)': {
+            display: 'none',
+        },
+    },
+}));
+// #FOLD_BLOCK
+const useTooltipContentStyles = makeStyles(theme => ({
+    content: {
+        padding: theme.spacing(3, 1),
+        paddingTop: 0,
+        backgroundColor: theme.palette.background.paper,
+        boxSizing: 'border-box',
+        width: '400px',
+    },
+    contentContainer: {
+        paddingBottom: theme.spacing(1.5),
+    },
+    text: {
+        ...theme.typography.body2,
+        display: 'inline-block',
+    },
+    title: {
+        ...theme.typography.h6,
+        color: theme.palette.text.secondary,
+        fontWeight: theme.typography.fontWeightBold,
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'normal',
+    },
+    icon: {
+        verticalAlign: 'middle',
+    },
+    contentItemIcon: {
+        textAlign: 'center',
+    },
+    grayIcon: {
+        color: theme.palette.action.active,
+    },
+    colorfulContent: {
+        color: ({ color }) => color[300],
+    },
+    lens: {
+        width: theme.spacing(4.5),
+        height: theme.spacing(4.5),
+        verticalAlign: 'super',
+    },
+    textCenter: {
+        textAlign: 'center',
+    },
+    dateAndTitle: {
+        lineHeight: 1.1,
+    },
+    titleContainer: {
+        paddingBottom: theme.spacing(2),
+    },
+    container: {
+        paddingBottom: theme.spacing(1.5),
+    },
+}));
+// #FOLD_BLOCK
+const groupingStyles = ({ spacing }) => ({
+    ...priorities.reduce((acc, priority) => ({
+        ...acc,
+        [`cell${priority.text.replace(' ', '')}`]: {
+            backgroundColor: fade(priority.color[400], 0.1),
+            '&:hover': {
+                backgroundColor: fade(priority.color[400], 0.15),
+            },
+            '&:focus': {
+                backgroundColor: fade(priority.color[400], 0.2),
+            },
+        },
+        [`headerCell${priority.text.replace(' ', '')}`]: {
+            backgroundColor: fade(priority.color[400], 0.1),
+            '&:hover': {
+                backgroundColor: fade(priority.color[400], 0.1),
+            },
+            '&:focus': {
+                backgroundColor: fade(priority.color[400], 0.1),
+            },
+        },
+    }), {}),
+    icon: {
+        paddingLeft: spacing(1),
+        verticalAlign: 'middle',
+    },
+});
+
 const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
     ({
         mainResourceName, onChange, classes, resources,
     }) => (
             <div className={classes.container}>
                 <div className={classes.text}>
-                    Main resource name:
+                    Nom de la ressource principale:
         </div>
                 <Select
                     value={mainResourceName}
@@ -350,11 +814,13 @@ const ResourceSwitcher = withStyles(styles, { name: 'ResourceSwitcher' })(
 );
 const priorityData = [
     { text: 'Low Priority', id: 1, color: green },
-    { text: 'High Priority', id: 2, color: orange },
-  ];
+    { text: 'Medium Priority', id: 2, color: indigo },
+    { text: 'High Priority', id: 3, color: orange },
 
-  const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
-  const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
+];
+
+const findColorByGroupId = id => (priorityData.find(item => item.id === id)).color;
+// const getIconById = id => (id === 1 ? LowPriority : PriorityHigh);
 const messages = {
     moreInformationLabel: '',
 };
@@ -371,6 +837,7 @@ const BasicLayout = ({ onFieldChange, appointmentData, ...restProps }) => {
     return (
         <AppointmentForm.BasicLayout
             appointmentData={appointmentData}
+            fullSize
             onFieldChange={onFieldChange}
             {...restProps}
         >
@@ -396,29 +863,261 @@ const appointmentComponent = (props) => {
 };
 
 const locations = [
-    { text: 'Room 1', id: 1 },
-    { text: 'Room 2', id: 2 },
+    { text: 'PT', id: 1, color: teal },
+    { text: 'IV3A', id: 2, color: red },
 ];
 
 const SHIFT_KEY = 16;
 
-class Calendar extends React.PureComponent {
+const date = moment().toDate();
+
+const DayViewTimeTableCell = withStyles(groupingStyles, { name: 'DayViewTimeTableCell' })(({
+    groupingInfo, classes, ...restProps
+}) => {
+    const groupId = groupingInfo[0].id;
+    return (
+        <DayView.TimeTableCell
+            className={classNames({
+                [classes.cellLowPriority]: groupId === 1,
+                [classes.cellMediumPriority]: groupId === 2,
+                [classes.cellHighPriority]: groupId === 3,
+            })}
+            groupingInfo={groupingInfo}
+            {...restProps}
+        />
+    );
+});
+// #FOLD_BLOCK
+const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleCell' })(({
+    groupingInfo, classes, ...restProps
+    // #FOLD_BLOCK
+}) => {
+    const groupId = groupingInfo[0].id;
+    return (
+        <DayView.DayScaleCell
+            className={classNames({
+                [classes.headerCellLowPriority]: groupId === 1,
+                [classes.headerCellMediumPriority]: groupId === 2,
+                [classes.headerCellHighPriority]: groupId === 3,
+            })}
+            groupingInfo={groupingInfo}
+            {...restProps}
+        />
+    );
+});
+// #FOLD_BLOCK
+const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTableCell' })(({
+    groupingInfo, classes, ...restProps
+    // #FOLD_BLOCK
+}) => {
+    const groupId = groupingInfo[0].id;
+    return (
+        <WeekView.TimeTableCell
+            className={classNames({
+                [classes.cellLowPriority]: groupId === 1,
+                [classes.cellMediumPriority]: groupId === 2,
+                [classes.cellHighPriority]: groupId === 3,
+            })}
+            groupingInfo={groupingInfo}
+            {...restProps}
+        />
+    );
+});
+// #FOLD_BLOCK
+const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScaleCell' })(({
+    groupingInfo, classes, ...restProps
+    // #FOLD_BLOCK
+}) => {
+    const groupId = groupingInfo[0].id;
+    return (
+        <WeekView.DayScaleCell
+            className={classNames({
+                [classes.headerCellLowPriority]: groupId === 1,
+                [classes.headerCellMediumPriority]: groupId === 2,
+                [classes.headerCellHighPriority]: groupId === 3,
+            })}
+            groupingInfo={groupingInfo}
+            {...restProps}
+        />
+    );
+});
+// #FOLD_BLOCK
+const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
+    groupingInfo, classes, ...restProps
+    // #FOLD_BLOCK
+}) => {
+    const groupId = groupingInfo[0].id;
+    return (
+        <AllDayPanel.Cell
+            className={classNames({
+                [classes.cellLowPriority]: groupId === 1,
+                [classes.cellMediumPriority]: groupId === 2,
+                [classes.cellHighPriority]: groupId === 3,
+            })}
+            groupingInfo={groupingInfo}
+            {...restProps}
+        />
+    );
+});
+// #FOLD_BLOCK
+const GroupingPanelCell = withStyles(groupingStyles, { name: 'GroupingPanelCell' })(({
+    group, classes, ...restProps
+    // #FOLD_BLOCK
+}) => {
+    const groupId = group.id;
+    const Icon = getIconById(groupId);
+    return (
+        <GroupingPanel.Cell
+            className={classNames({
+                [classes.headerCellLowPriority]: groupId === 1,
+                [classes.headerCellMediumPriority]: groupId === 2,
+                [classes.headerCellHighPriority]: groupId === 3,
+            })}
+            group={group}
+            {...restProps}
+        >
+            <Icon
+                className={classes.icon}
+            />
+        </GroupingPanel.Cell>
+    );
+});
+
+const PrioritySelectorItem = ({
+    color, text: resourceTitle,
+}) => {
+    const text = resourceTitle || 'All Tasks';
+    const shortText = resourceTitle ? text.substring(0, 1) : 'All';
+    const classes = usePrioritySelectorItemStyles({ color });
+
+    return (
+        <div className={classes.prioritySelectorItem}>
+            <span className={classes.bullet} />
+            <span className={classes.priorityText}>{text}</span>
+            <span className={classes.priorityShortText}>{shortText}</span>
+        </div>
+    );
+};
+
+const PrioritySelector = withStyles(styles, { name: 'PrioritySelector' })(({
+    classes, priorityChange, priority,
+}) => {
+    const currentPriority = priority > 0 ? priorities[priority - 1] : {};
+    return (
+        <FormControl className={classes.prioritySelector}>
+            <Select
+                disableUnderline
+                value={priority}
+                onChange={(e) => {
+                    priorityChange(e.target.value);
+                }}
+                renderValue={() => (
+                    <PrioritySelectorItem text={currentPriority.text} color={currentPriority.color} />
+                )}
+            >
+                <MenuItem value={0}>
+                    <PrioritySelectorItem />
+                </MenuItem>
+                {priorities.map(({ id, color, text }) => (
+                    <MenuItem value={id} key={id.toString()}>
+                        <PrioritySelectorItem color={color} text={text} />
+                    </MenuItem>
+                ))}
+            </Select>
+        </FormControl>
+    );
+});
+
+const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(({
+    classes, priority, priorityChange, ...restProps
+}) => (
+        <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
+            <PrioritySelector priority={priority} priorityChange={priorityChange} />
+        </Toolbar.FlexibleSpace>
+    ));
+// #FOLD_BLOCK
+const TooltipContent = ({
+    appointmentData, formatDate, appointmentResources,
+    // #FOLD_BLOCK
+}) => {
+    const resource = appointmentResources[0];
+    const classes = useTooltipContentStyles({ color: resource.color });
+    let icon = <LowPriority className={classes.icon} />;
+    if (appointmentData.priorityId === 2) {
+        icon = <Event className={classes.icon} />;
+    }
+    if (appointmentData.priorityId === 3) {
+        icon = <PriorityHigh className={classes.icon} />;
+    }
+    return (
+        <div className={classes.content}>
+            <Grid container alignItems="flex-start" className={classes.titleContainer}>
+                <Grid item xs={2} className={classNames(classes.textCenter)}>
+                    <Lens className={classNames(classes.lens, classes.colorfulContent)} />
+                </Grid>
+                <Grid item xs={10}>
+                    <div>
+                        <div className={classNames(classes.title, classes.dateAndTitle)}>
+                            {appointmentData.title}
+                        </div>
+                        <div className={classNames(classes.text, classes.dateAndTitle)}>
+                            {formatDate(appointmentData.startDate, { day: 'numeric', weekday: 'long' })}
+                        </div>
+                    </div>
+                </Grid>
+            </Grid>
+            <Grid container alignItems="center" className={classes.contentContainer}>
+                <Grid item xs={2} className={classes.textCenter}>
+                    <AccessTime className={classes.icon} />
+                </Grid>
+                <Grid item xs={10}>
+                    <div className={classes.text}>
+                        {`${formatDate(appointmentData.startDate, { hour: 'numeric', minute: 'numeric' })}
+              - ${formatDate(appointmentData.endDate, { hour: 'numeric', minute: 'numeric' })}`}
+                    </div>
+                </Grid>
+            </Grid>
+            <Grid container alignItems="center" key={`${resource.fieldName}_${resource.id}`}>
+                <Grid
+                    className={classNames(classes.contentItemIcon, classes.icon, classes.colorfulContent)}
+                    item
+                    xs={2}
+                >
+                    {icon}
+                </Grid>
+                <Grid item xs={10}>
+                    <span className={classNames(classes.text, classes.colorfulContent)}>
+                        {resource.text}
+                    </span>
+                </Grid>
+            </Grid>
+        </div>
+    );
+};
+
+export default class Demo extends React.PureComponent {
     constructor(props) {
         super(props);
+
         this.state = {
-            data: appointments, recurrenceAppointments, appointmentsMonth, resourcesData,
-            currentViewName: 'work-week',
-            currentDate: '2018-06-27',
-            mainResourceName: 'members',
-            isShiftPressed: false,
+            currentDate: '2020-11-01',
+            currentViewName: 'Month',
+            data: tasks,
+            data: appointments,
+            currentPriority: 0,
             resources: [{
+                fieldName: 'priorityId',
+                title: 'Priorité',
+                instances: priorities,
+            },
+            {
                 fieldName: 'members',
-                title: 'Members',
+                title: 'Membres',
                 instances: owners,
                 allowMultiple: true,
             }, {
                 fieldName: 'roomId',
-                title: 'Location',
+                title: 'Emplacement',
                 instances: locations,
             }],
             grouping: [{
@@ -427,17 +1126,31 @@ class Calendar extends React.PureComponent {
                 resourceName: 'members',
             }],
         };
+
         this.changeMainResource = this.changeMainResource.bind(this);
-
-
         this.currentViewNameChange = (currentViewName) => {
             this.setState({ currentViewName });
             this.commitChanges = this.commitChanges.bind(this);
-            this.onKeyDown = this.onKeyDown.bind(this);
-            this.onKeyUp = this.onKeyUp.bind(this);
-
         };
+        this.currentDateChange = (currentDate) => {
+            this.setState({ currentDate });
+        };
+        this.priorityChange = (value) => {
+            const { resources } = this.state;
+            const nextResources = [{
+                ...resources[0],
+                instances: value > 0 ? [priorities[value - 1]] : priorities,
+            }];
 
+            this.setState({ currentPriority: value, resources: nextResources });
+        };
+        this.flexibleSpace = connectProps(FlexibleSpace, () => {
+            const { currentPriority } = this.state;
+            return {
+                priority: currentPriority,
+                priorityChange: this.priorityChange,
+            };
+        });
     }
     changeMainResource(mainResourceName) {
         this.setState({ mainResourceName });
@@ -464,6 +1177,10 @@ class Calendar extends React.PureComponent {
             this.setState({ isShiftPressed: false });
         }
     }
+    componentDidUpdate() {
+        this.flexibleSpace.update(); // #IMPORTANT_LINE
+    }
+
     commitChanges({ added, changed, deleted }) {
         this.setState((state) => {
             let { data } = state;
@@ -495,7 +1212,9 @@ class Calendar extends React.PureComponent {
     }
 
     render() {
-        const { data, currentViewName, currentDate, mainResourceName, resources } = this.state;
+        const {
+            data, currentDate, currentViewName, currentPriority, resources, mainResourceName,
+        } = this.state;
 
         return (
             <React.Fragment>
@@ -506,75 +1225,77 @@ class Calendar extends React.PureComponent {
                         onChange={this.changeMainResource}
                     />
                     <Scheduler
-                        data={data}
+                        data={filterTasks(data, currentPriority)}
                         height={660}
                     >
                         <ViewState
-                            currentViewName={currentViewName}
                             currentDate={currentDate}
+                            currentViewName={currentViewName}
                             onCurrentViewNameChange={this.currentViewNameChange}
+                            onCurrentDateChange={this.currentDateChange}
                         />
-                        <EditingState
-                            onCommitChanges={this.commitChanges}
+                        <GroupingState
+                            grouping={grouping}
                         />
-                        <IntegratedEditing />
+                        {/* <IntegratedEditing /> */}
                         <DayView
                             startDayHour={9}
                             endDayHour={19}
+                            timeTableCellComponent={DayViewTimeTableCell}
+                            dayScaleCellComponent={DayViewDayScaleCell}
                             intervalCount={2}
                         />
-                        <EditRecurrenceMenu />
+                        {/* <EditRecurrenceMenu /> */}
                         <WeekView
-                            name="work-week"
-                            displayName="Work Week"
-                            excludedDays={[0, 6]}
                             startDayHour={9}
-                            endDayHour={19}
+                            endDayHour={17}
+                            excludedDays={[0, 6]}
+                            name="Work Week"
+                            timeTableCellComponent={WeekViewTimeTableCell}
+                            dayScaleCellComponent={WeekViewDayScaleCell}
                         />
                         <MonthView />
                         <DayView
-                            startDayHour={8}
-                            endDayHour={13}
+                            startDayHour={9}
+                            endDayHour={19}
                         />
-                        <ConfirmationDialog
-                        />
-                        <Toolbar />
-                        <DateNavigator />
-                        <TodayButton />
-                        <ViewSwitcher />
+                        {/* <ConfirmationDialog
+                    /> */}
                         <Appointments
                             basicLayoutComponent={BasicLayout}
                             textEditorComponent={TextEditor}
                             messages={messages}
                             appointmentComponent={appointmentComponent}
                         />
-                        <AllDayPanel />
-                        <DragDropProvider
-                            allowDrag={allowDrag}
+                        <AllDayPanel
+                            cellComponent={AllDayCell}
                         />
-                        <AppointmentTooltip
-                            showCloseButton
-                            showOpenButton
-                            showDeleteButton />
+                        {/* <DragDropProvider
+                            allowDrag={allowDrag}
+                        /> */}
                         <Resources
                             data={resources}
                             mainResourceName="members"
                         />
-                        <AppointmentForm
+                        <IntegratedGrouping />
+
+                        <GroupingPanel
+                            cellComponent={GroupingPanelCell}
                         />
-                        <DragDropProvider />
+                        <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
+                        <DateNavigator />
+                        <TodayButton />
+                        <ViewSwitcher />
+                        <AppointmentTooltip
+                            contentComponent={TooltipContent}
+                            showOpenButton
+                            showCloseButton
+                        />
+                        <AppointmentForm />
+                        {/* <DragDropProvider /> */}
                     </Scheduler>
                 </Paper>
             </React.Fragment>
         );
     }
-} 
-
-function mapStateToProps(state) {
-    console.log('state', state);
-    return {
-        reminders: state,
-    }
 }
-
-export default connect(mapStateToProps)(Calendar);

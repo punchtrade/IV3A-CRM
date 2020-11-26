@@ -5,10 +5,10 @@ import {
 export const appointments = [
   {
     id: 0,
-    title: 'Watercolor Landscape',
+    title: '1.Commande (avec sélection véhicule) enregistrée par IV3A',
     roomId: 1,
-    members: [1],
-    startDate: new Date(2020, 4, 1, 9, 30),
+    members: [1,2, 3],
+    startDate: new Date(),
     endDate: new Date(2020, 4, 1, 11),
     rRule: 'FREQ=WEEKLY;BYDAY=TU,FR;COUNT=10',
   },  {

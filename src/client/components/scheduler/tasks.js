@@ -218,19 +218,19 @@ export const priorities = [
 
 export const owners = [
   {
-    text: 'Andrew Glover',
+    text: 'Mariano',
     id: 1,
     color: '#7E57C2',
   }, {
-    text: 'Arnie Schwartz',
+    text: 'Hervé',
     id: 2,
     color: '#FF7103',
   }, {
-    text: 'John Heart',
+    text: 'Dominique',
     id: 3,
-    color: '#E91E63',
+    color: '#FFA726',
   }, {
-    text: 'Taylor Riley',
+    text: 'Fátima',
     id: 4,
     color: '#E91E63',
   }, {
