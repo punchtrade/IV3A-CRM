@@ -585,7 +585,7 @@
 
 // export default connect(mapStateToProps)(Calendar);
 import * as React from 'react';
-// #FOLD_BLOCK
+
 import {
     ViewState,
     GroupingState,
@@ -593,7 +593,7 @@ import {
     IntegratedEditing,
     EditingState
 } from '@devexpress/dx-react-scheduler';
-// #FOLD_BLOCK
+
 import {
     WeekView,
     Toolbar,
@@ -631,8 +631,9 @@ import {
     teal, indigo, green, orange, red
 } from '@material-ui/core/colors';
 import { priorities } from '../scheduler/tasks';
-import { appointments } from '../scheduler/appointments';
+import { appointments, resourcesData, appointmentsMonth, recurrenceAppointments, } from '../scheduler/appointments';
 import { data as tasks } from '../scheduler/grouping';
+import { connect } from 'react-redux';
 import moment from 'moment';
 
 const grouping = [{
@@ -653,7 +654,7 @@ const getIconById = (id) => {
     return PriorityHigh;
 };
 
-// #FOLD_BLOCK
+
 const styles = theme => ({
     flexibleSpace: {
         margin: '0 auto 0 0',
@@ -683,7 +684,7 @@ const styles = theme => ({
         whiteSpace: 'nowrap',
     },
 });
-// #FOLD_BLOCK
+
 const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
     bullet: ({ color }) => ({
         backgroundColor: color ? color[400] : palette.divider,
@@ -708,7 +709,7 @@ const usePrioritySelectorItemStyles = makeStyles(({ palette, spacing }) => ({
         },
     },
 }));
-// #FOLD_BLOCK
+
 const useTooltipContentStyles = makeStyles(theme => ({
     content: {
         padding: theme.spacing(3, 1),
@@ -762,7 +763,7 @@ const useTooltipContentStyles = makeStyles(theme => ({
         paddingBottom: theme.spacing(1.5),
     },
 }));
-// #FOLD_BLOCK
+
 const groupingStyles = ({ spacing }) => ({
     ...priorities.reduce((acc, priority) => ({
         ...acc,
@@ -887,10 +888,10 @@ const DayViewTimeTableCell = withStyles(groupingStyles, { name: 'DayViewTimeTabl
         />
     );
 });
-// #FOLD_BLOCK
+
 const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleCell' })(({
     groupingInfo, classes, ...restProps
-    // #FOLD_BLOCK
+
 }) => {
     const groupId = groupingInfo[0].id;
     return (
@@ -905,10 +906,10 @@ const DayViewDayScaleCell = withStyles(groupingStyles, { name: 'DayViewDayScaleC
         />
     );
 });
-// #FOLD_BLOCK
+
 const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTableCell' })(({
     groupingInfo, classes, ...restProps
-    // #FOLD_BLOCK
+
 }) => {
     const groupId = groupingInfo[0].id;
     return (
@@ -923,10 +924,10 @@ const WeekViewTimeTableCell = withStyles(groupingStyles, { name: 'WeekViewTimeTa
         />
     );
 });
-// #FOLD_BLOCK
+
 const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScaleCell' })(({
     groupingInfo, classes, ...restProps
-    // #FOLD_BLOCK
+   
 }) => {
     const groupId = groupingInfo[0].id;
     return (
@@ -941,10 +942,10 @@ const WeekViewDayScaleCell = withStyles(groupingStyles, { name: 'WeekViewDayScal
         />
     );
 });
-// #FOLD_BLOCK
+
 const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
     groupingInfo, classes, ...restProps
-    // #FOLD_BLOCK
+   
 }) => {
     const groupId = groupingInfo[0].id;
     return (
@@ -959,10 +960,10 @@ const AllDayCell = withStyles(groupingStyles, { name: 'AllDayCell' })(({
         />
     );
 });
-// #FOLD_BLOCK
+
 const GroupingPanelCell = withStyles(groupingStyles, { name: 'GroupingPanelCell' })(({
     group, classes, ...restProps
-    // #FOLD_BLOCK
+   
 }) => {
     const groupId = group.id;
     const Icon = getIconById(groupId);
@@ -1035,10 +1036,10 @@ const FlexibleSpace = withStyles(styles, { name: 'FlexibleSpace' })(({
             <PrioritySelector priority={priority} priorityChange={priorityChange} />
         </Toolbar.FlexibleSpace>
     ));
-// #FOLD_BLOCK
+
 const TooltipContent = ({
     appointmentData, formatDate, appointmentResources,
-    // #FOLD_BLOCK
+
 }) => {
     const resource = appointmentResources[0];
     const classes = useTooltipContentStyles({ color: resource.color });
@@ -1095,16 +1096,17 @@ const TooltipContent = ({
     );
 };
 
-export default class Demo extends React.PureComponent {
+class Calendar extends React.PureComponent {
     constructor(props) {
         super(props);
 
         this.state = {
             currentDate: '2020-11-01',
             currentViewName: 'Month',
-            data: tasks,
-            data: appointments,
+            mainResourceName: 'members',
+            data: appointments, tasks, recurrenceAppointments, appointmentsMonth, resourcesData,
             currentPriority: 0,
+            isShiftPressed: false,
             resources: [{
                 fieldName: 'priorityId',
                 title: 'Priorité',
@@ -1128,9 +1130,13 @@ export default class Demo extends React.PureComponent {
         };
 
         this.changeMainResource = this.changeMainResource.bind(this);
+
+
         this.currentViewNameChange = (currentViewName) => {
             this.setState({ currentViewName });
             this.commitChanges = this.commitChanges.bind(this);
+            this.onKeyDown = this.onKeyDown.bind(this);
+            this.onKeyUp = this.onKeyUp.bind(this);
         };
         this.currentDateChange = (currentDate) => {
             this.setState({ currentDate });
@@ -1156,15 +1162,15 @@ export default class Demo extends React.PureComponent {
         this.setState({ mainResourceName });
 
     }
-    componentDidMount() {
-        window.addEventListener('keydown', this.onKeyDown);
-        window.addEventListener('keyup', this.onKeyUp);
-    }
+    // componentDidMount() {
+    //     window.addEventListener('keydown', this.onKeyDown);
+    //     window.addEventListener('keyup', this.onKeyUp);
+    // }
 
-    componentWillUnmount() {
-        window.removeEventListener('keydown');
-        window.removeEventListener('keyup');
-    }
+    // componentWillUnmount() {
+    //     window.removeEventListener('keydown');
+    //     window.removeEventListener('keyup');
+    // }
 
     onKeyDown(event) {
         if (event.keyCode === SHIFT_KEY) {
@@ -1234,10 +1240,15 @@ export default class Demo extends React.PureComponent {
                             onCurrentViewNameChange={this.currentViewNameChange}
                             onCurrentDateChange={this.currentDateChange}
                         />
+                         <EditingState
+                            onCommitChanges={this.commitChanges}
+                        />
+                         <EditRecurrenceMenu />
+                         <IntegratedEditing />
                         <GroupingState
                             grouping={grouping}
                         />
-                        {/* <IntegratedEditing /> */}
+                       
                         <DayView
                             startDayHour={9}
                             endDayHour={19}
@@ -1245,7 +1256,7 @@ export default class Demo extends React.PureComponent {
                             dayScaleCellComponent={DayViewDayScaleCell}
                             intervalCount={2}
                         />
-                        {/* <EditRecurrenceMenu /> */}
+                       
                         <WeekView
                             startDayHour={9}
                             endDayHour={17}
@@ -1259,8 +1270,8 @@ export default class Demo extends React.PureComponent {
                             startDayHour={9}
                             endDayHour={19}
                         />
-                        {/* <ConfirmationDialog
-                    /> */}
+                        <ConfirmationDialog
+                    />
                         <Appointments
                             basicLayoutComponent={BasicLayout}
                             textEditorComponent={TextEditor}
@@ -1270,32 +1281,41 @@ export default class Demo extends React.PureComponent {
                         <AllDayPanel
                             cellComponent={AllDayCell}
                         />
-                        {/* <DragDropProvider
+                        <DragDropProvider
                             allowDrag={allowDrag}
-                        /> */}
+                        />
                         <Resources
                             data={resources}
                             mainResourceName="members"
                         />
                         <IntegratedGrouping />
-
+                        <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
                         <GroupingPanel
                             cellComponent={GroupingPanelCell}
                         />
-                        <Toolbar flexibleSpaceComponent={this.flexibleSpace} />
                         <DateNavigator />
                         <TodayButton />
-                        <ViewSwitcher />
                         <AppointmentTooltip
                             contentComponent={TooltipContent}
                             showOpenButton
                             showCloseButton
                         />
+                        <ViewSwitcher />
                         <AppointmentForm />
-                        {/* <DragDropProvider /> */}
+                        <DragDropProvider />
                     </Scheduler>
                 </Paper>
             </React.Fragment>
         );
     }
 }
+
+
+function mapStateToProps(state) {
+    console.log('state', state);
+    return {
+        reminders: state,
+    }
+}
+
+export default connect(mapStateToProps)(Calendar);
