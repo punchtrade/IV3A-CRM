@@ -1,6 +1,6 @@
 import { createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
-import rootReducer from "/Users/carmenbuendia/DevProjects/IV3A/src/reducers/index2.js";
+import rootReducer from "../reducers/index2";
 
 const initialState = {};
 
