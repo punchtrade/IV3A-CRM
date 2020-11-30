@@ -17,7 +17,7 @@ import FormCarPage from './client/pages/orderCar';
 import PrivateRoute from './client/components/private-route/PrivateRoute';
 import Crm from './client/components/crm/crm';
 import jwt_decode from "jwt-decode";
-import setAuthToken from "./utils/setAuthToken";
+import setAuthToken from "../src/client/utils/setAuthToken";
 import { setCurrentUser, logoutUser } from "./client/actions/authActions";
 import {UserContextProvider} from '../src/client/context/UserContext';
 

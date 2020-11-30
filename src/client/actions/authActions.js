@@ -1,5 +1,5 @@
 import axios from "axios";
-import setAuthToken from "/Users/carmenbuendia/DevProjects/IV3A/src/utils/setAuthToken.js";
+import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
   GET_ERRORS,
