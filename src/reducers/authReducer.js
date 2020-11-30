@@ -1,7 +1,7 @@
 import {
     SET_CURRENT_USER,
     USER_LOADING
-  } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/types.js";
+  } from "../client/actions/types";
   const isEmpty = require("is-empty");
   const initialState = {
     isAuthenticated: false,

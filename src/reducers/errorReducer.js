@@ -1,4 +1,4 @@
-import { GET_ERRORS } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/types.js";
+import { GET_ERRORS } from "../client/actions/types";
 const initialState = {};
 
 export default function(state = initialState, action) {
