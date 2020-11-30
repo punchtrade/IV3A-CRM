@@ -10,7 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import { withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
+import { loginUser } from "../../actions/authActions";
 
 const useStyles = makeStyles(theme => ({
     TextField: {
