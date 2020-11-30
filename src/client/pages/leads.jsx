@@ -3,7 +3,7 @@ import Leads from '../components/leads/leads';
 import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { loginUser } from "/Users/carmenbuendia/DevProjects/IV3A/src/client/actions/authActions.js";
+import { loginUser } from "../actions/authActions";
 
 const useStyles = makeStyles(theme => ({
   pageContent: {
