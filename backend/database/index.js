@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 const mongo = require('./mongo');
 
-mongoose.connect('mongodb://localhost/iv3a', {
+mongoose.connect(process.env.MONGODB_URI, {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -18,7 +18,7 @@ let db;
 
 
 
-MongoClient.connect('mongodb://Carmen:<PASSWORD>@cluster0.5eltr.mongodb.net/<DATABASE>', {
+MongoClient.connect('mongodb://localhost/users', {
     useUnifiedTopology: true
 }, (err, client) => {
     if (err) {

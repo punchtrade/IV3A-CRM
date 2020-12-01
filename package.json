@@ -7,8 +7,9 @@
     "main": "index.js",
     "scripts": {
         "dev": "nodemon ./backend",
-        "start": "node server.js",
-        "build": "react-scripts build",
+        "start": "cross-env NODE_ENV-development node backend7server.js",
+        "postinstall": "npm run build",
+        "build": "cross-env NODE_ENV-production webpack",
         "test": "react-scripts test",
         "eject": "react-scripts eject"
     },
