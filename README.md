@@ -6,6 +6,6 @@
 3. redis-server
 
 - El scheduler hay que acabar de montarlo según las necesidades de la empresa (trabajadores, etc,...).
-- Los appointments están creados pero desconectadosdel datatable en button CRM.
+- Los appointments están creados pero desconectados del datatable en button CRM.
 - Diversos conflictos por arreglar.
 - Database creada con MongoDB.
