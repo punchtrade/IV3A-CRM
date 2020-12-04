@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { MongoClient } = require('mongodb');
 const mongo = require('./mongo');
 
-mongoose.connect(process.env.MONGODB_URI, {
+mongoose.connect('mongodb://localhost/iv3a', {
     useFindAndModify: false,
     useNewUrlParser: true,
     useUnifiedTopology: true,
