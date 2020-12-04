@@ -5,12 +5,6 @@
     "proxy": "http://localhost:9000",
     "description": "",
     "main": "index.js",
-    "scripts": {
-        "start": "react-scripts start",
-        "build": "react-scripts build",
-        "test": "react-scripts test",
-        "eject": "react-scripts eject"
-    },
     "module": "main.js",
     "dependencies": {
         "@devexpress/dx-react-core": "^2.7.2",
@@ -62,10 +56,8 @@
         "express-react-views": "^0.11.0",
         "express-session": "^1.17.1",
         "file-saver": "^2.0.2",
-        "firebase-admin": "^9.4.1",
         "formik": "^2.1.5",
         "formik-material-ui": "^3.0.0-alpha.0",
-        "heroku": "^7.47.3",
         "html-pdf": "^2.2.0",
         "http-proxy-middleware": "^1.0.4",
         "is-empty": "^1.2.0",
@@ -125,6 +117,12 @@
         "validator": "^13.1.17",
         "wouter": "^2.5.3"
     },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject"
+    },
     "eslintConfig": {
         "extends": "react-app"
     },
@@ -148,3 +146,6 @@
         "style-loader": "^1.2.1"
     }
 }
+
+  
+

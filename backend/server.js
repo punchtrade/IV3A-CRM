@@ -98,21 +98,11 @@ app.use(function (req, res, next) {
 
 require("../backend/database/index");
 
-//Serve static assets if in production
-if (process.env.NODE_ENV === 'production') {
-  //set static folder
-  app.use(express.static('client/build'));
-
-  app.get('*', (req,res) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-  });
-}
-
 //Settings
 app.set("port", process.env.PORT || 9000);
 
-app.listen("9000", function () {
-  console.log("Servidor web escuchando en el puerto 9000");
-});
+// app.listen("9000", function () {
+//   console.log("Servidor web escuchando en el puerto 9000");
+// });
 
 module.exports = app;
