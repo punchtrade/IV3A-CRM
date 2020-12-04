@@ -62,7 +62,7 @@ class FormRegister extends React.Component {
         <div className="container-form">
           <form noValidate
             onSubmit={this.onSubmit}
-            action="http://localhost:9000/register"
+            action="http://localhost:5000/register"
             method="post"
           >
             <InputLabel

@@ -38,8 +38,8 @@ class Contract extends Component {
     handleChange = ({ target: { value, name } }) => this.setState({ [name]: value })
 
     createAndDownloadPdf = () => {
-        axios.post('http://localhost:9000/create-pdf2', this.state)
-            .then(() => axios.get('http://localhost:9000/fetch-pdf2', { responseType: 'blob' }))
+        axios.post('http://localhost:5000/create-pdf2', this.state)
+            .then(() => axios.get('http://localhost:5000/fetch-pdf2', { responseType: 'blob' }))
             .then((res) => {
                 const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 

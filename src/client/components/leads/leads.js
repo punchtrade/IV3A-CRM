@@ -107,7 +107,7 @@ function Leads(props) {
   }
 
   const getRequest = async () => {
-    await axios.get("http://localhost:9000/leads")
+    await axios.get("http://localhost:5000/leads")
       .then(response => {
         setData(response.data);
       }).catch(error => {
@@ -116,7 +116,7 @@ function Leads(props) {
   }
 
   const insertRequest = async () => {
-    await axios.put("http://localhost:9000/clients")
+    await axios.put("http://localhost:5000/clients")
       .then(response => {
         setData(data.concat(response.data));
         openCloseInsertModal();
@@ -126,7 +126,7 @@ function Leads(props) {
   }
 
   const deleteRequest = async () => {
-    await axios.delete("http://localhost:9000/leads")
+    await axios.delete("http://localhost:5000/leads")
       .then(response => {
         setData(data.filter(client => client.id !== selectedClient.id));
         openCloseDeleteModal();

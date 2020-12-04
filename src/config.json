@@ -3,7 +3,7 @@
     "redisHost": "localhost",
     "redisPort": 6379,
     "sessionSecret": "some-secret-hash",
-    "port": 9000,
+    "port": 5000,
     "env": "development",
     "baseUrl": "src"
   }

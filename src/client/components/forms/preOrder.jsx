@@ -53,8 +53,8 @@ function PreOrder(props) {
 
   //   getClient = async () => {
   //   await axios.all([
-  //       axios.get("http://localhost:9000/preOrder/clients"),
-  //       axios.get("http://localhost:9000/preOrder/carClient")
+  //       axios.get("http://localhost:5000/preOrder/clients"),
+  //       axios.get("http://localhost:5000/preOrder/carClient")
   //     ])    
   //       .then(axios.spread((response) => {
   //         console.log(response);
@@ -94,7 +94,7 @@ function PreOrder(props) {
   //   }
 
   const getRequest = async () => {
-    await axios.get("http://localhost:9000/preOrder/clients")
+    await axios.get("http://localhost:5000/preOrder/clients")
       .then(response => {
         setData(response.data);
       }).catch(error => {
@@ -146,7 +146,7 @@ function PreOrder(props) {
         <form
           className="client"
           onSubmit={handleChange}
-          action="http://localhost:9000/preOrder"
+          action="http://localhost:5000/preOrder"
           value="submit"
           method="post"
         >

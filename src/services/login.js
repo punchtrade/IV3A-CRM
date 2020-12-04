@@ -1,4 +1,4 @@
-const ENDPOINT = 'http://localhost:9000'
+const ENDPOINT = 'http://localhost:5000'
 
 export default function login ({ email, password}) {
     return fetch (`${ENDPOINT}/login`, {

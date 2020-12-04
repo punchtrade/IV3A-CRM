@@ -27,7 +27,7 @@ import { Provider } from "react-redux";
 import store from "./client/store";
 
 
-const dataProvider = jsonServerProvider('http://localhost:9000/login');
+const dataProvider = jsonServerProvider('http://localhost:5000/login');
 var usuario = localStorage.getItem('usuario');
 
 // Check for token to keep user logged in
@@ -58,7 +58,7 @@ class App extends React.Component {
   }
 
   callAPI() {
-    fetch("http://localhost:9000/testAPI")
+    fetch("http://localhost:5000/testAPI")
       .then((res) => res.text())
       .then((res) => this.setState({ apiResponse: res }));
   }

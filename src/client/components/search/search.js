@@ -119,7 +119,7 @@ function Search(props) {
   }
 
   const getRequest = async () => {
-    await axios.get("http://localhost:9000/search")
+    await axios.get("http://localhost:5000/search")
       .then(response => {
         setData(response.data);
       }).catch(error => {
@@ -128,7 +128,7 @@ function Search(props) {
   }
 
   const readRequest = async () => {
-    await axios.get("http://localhost:9000/search")
+    await axios.get("http://localhost:5000/search")
       .then(response => {
         setData(response.data);
       }).catch(error => {
@@ -137,7 +137,7 @@ function Search(props) {
   }
 
   const putRequest = async () => {
-    await axios.put("http://localhost:9000/clients")
+    await axios.put("http://localhost:5000/clients")
       .then(response => {
         const newData = data;
         newData.map(client => {
@@ -169,7 +169,7 @@ function Search(props) {
 
 
   const deleteRequest = async () => {
-    await axios.delete("http://localhost:9000/search")
+    await axios.delete("http://localhost:5000/search")
       .then(response => {
         setData(data.filter(client => client.id !== selectedClient.id));
         openCloseDeleteModal();

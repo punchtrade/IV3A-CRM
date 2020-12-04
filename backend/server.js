@@ -99,10 +99,10 @@ app.use(function (req, res, next) {
 require("../backend/database/index");
 
 //Settings
-app.set("port", process.env.PORT || 9000);
+app.set("port", process.env.PORT || 5000);
 
-// app.listen("9000", function () {
-//   console.log("Servidor web escuchando en el puerto 9000");
-// });
+app.listen("5000", function () {
+  console.log("Servidor web escuchando en el puerto 5000");
+});
 
 module.exports = app;

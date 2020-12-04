@@ -77,7 +77,7 @@ router.post("/reminder", (req, res, next) => {
             _id: result._id,
             request: {
               type: "POST",
-              url: "http://localhost:9000/reminder" + result._id,
+              url: "http://localhost:5000/reminder" + result._id,
             },
           },
         });

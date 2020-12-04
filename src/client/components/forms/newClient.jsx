@@ -107,7 +107,7 @@ class NewClient extends React.Component {
   onSubmitHandler = async (e) => {
     e.preventDefault();
     await axios
-      .post("http://localhost:9000/clients", this.state, {
+      .post("http://localhost:5000/clients", this.state, {
         headers: { "Content-Type": "application/json" },
       })
       .then((response) => {
@@ -154,7 +154,7 @@ class NewClient extends React.Component {
         <ValidatorForm
           className={styles.root} validate autoComplete="on"
           onSubmit={this.onSubmitHandler.bind(this)}
-          action="http://localhost:9000/newClient"
+          action="http://localhost:5000/newClient"
           value="submit"
           method="post"
         >

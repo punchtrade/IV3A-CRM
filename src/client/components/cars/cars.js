@@ -53,8 +53,8 @@ function Cars(props) {
   })
 
   const getRequest = async () => {
-    await axios.get("http://localhost:9000/leads")
-    // await axios.get("http://localhost:9000/databaseCars")
+    await axios.get("http://localhost:5000/leads")
+    // await axios.get("http://localhost:5000/databaseCars")
       .then(response => {
         setData(response.data);
       }).catch(error => {
@@ -63,7 +63,7 @@ function Cars(props) {
   }
 
   const deleteRequest = async () => {
-    await axios.delete("http://localhost:9000/leads")
+    await axios.delete("http://localhost:5000/leads")
       .then(response => {
         setData(data.filter(client => client.id !== selectedClient.id));
         openCloseDeleteModal();
