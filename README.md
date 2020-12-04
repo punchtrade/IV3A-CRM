@@ -4,3 +4,6 @@
 1. npm start
 2. cd backend -> nodemon server.js
 3. redis-server
+
+- El scheduler hay que acabar de montarlo según las necesidades de la empresa (trabajadores, etc,...).
+- Los appointments están creados pero desconectadosdel datatable en button CRM.
