@@ -9,3 +9,5 @@
 - Los appointments están creados pero desconectados del datatable en button CRM.
 - Diversos conflictos por arreglar.
 - Database creada con MongoDB.
+- Hay que instalar MongoDBen el ordenador que vaya a gestionar la base de datos.
+- Importar luego las colecciones de mongoDB que están en archivos csv.
